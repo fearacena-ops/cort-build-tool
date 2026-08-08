@@ -272,7 +272,8 @@
          ]
         }
        ],
-       "commonRank": 3
+       "commonRank": 3,
+       "attrTags": []
       },
       {
        "name": "Disparo rápido",
@@ -322,7 +323,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 1
+       "commonRank": 1,
+       "attrTags": []
       },
       {
        "name": "Flecha paralizadora",
@@ -378,7 +380,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 2
+       "commonRank": 2,
+       "attrTags": []
       },
       {
        "name": "Ligereza",
@@ -417,7 +420,10 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 2
+       "commonRank": 2,
+       "attrTags": [
+        "+Destreza"
+       ]
       },
       {
        "name": "Meditación",
@@ -468,7 +474,10 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": [
+        "+Concentración"
+       ]
       },
       {
        "name": "Adaptabilidad",
@@ -513,7 +522,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Desgarrar",
@@ -564,7 +574,8 @@
          ]
         }
        ],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Duelista",
@@ -603,7 +614,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Ralentizar",
@@ -658,7 +670,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Tiro de repetición",
@@ -707,7 +720,8 @@
          ]
         }
        ],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       }
      ]
     },
@@ -759,7 +773,8 @@
          ]
         }
        ],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Tiro parabólico",
@@ -811,7 +826,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 3
+       "commonRank": 3,
+       "attrTags": []
       },
       {
        "name": "Maniobrabilidad",
@@ -856,7 +872,10 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": [
+        "+Destreza"
+       ]
       },
       {
        "name": "Ojo de águila",
@@ -901,7 +920,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Tiro al blanco",
@@ -957,7 +977,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Omnipresencia",
@@ -996,7 +1017,10 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 3
+       "commonRank": 3,
+       "attrTags": [
+        "+Concentración"
+       ]
       },
       {
        "name": "Despedazar",
@@ -1046,7 +1070,8 @@
          ]
         }
        ],
-       "commonRank": 3
+       "commonRank": 3,
+       "attrTags": []
       },
       {
        "name": "Especialista",
@@ -1085,7 +1110,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Ofuscar",
@@ -1160,7 +1186,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Lluvia de proyectiles",
@@ -1210,7 +1237,8 @@
          ]
         }
        ],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       }
      ]
     },
@@ -1263,7 +1291,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Ataque sorpresivo",
@@ -1309,7 +1338,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 1
+       "commonRank": 1,
+       "attrTags": []
       },
       {
        "name": "Puño aturdidor",
@@ -1365,7 +1395,8 @@
          ]
         }
        ],
-       "commonRank": 3
+       "commonRank": 3,
+       "attrTags": []
       },
       {
        "name": "Represalia",
@@ -1410,7 +1441,8 @@
          ]
         }
        ],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Toque pegajoso",
@@ -1455,7 +1487,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Pelea sucia",
@@ -1506,7 +1539,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 1
+       "commonRank": 1,
+       "attrTags": []
       },
       {
        "name": "Fineza",
@@ -1557,7 +1591,8 @@
         }
        ],
        "damage": [],
-       "commonRank": null
+       "commonRank": null,
+       "attrTags": []
       },
       {
        "name": "Centinela",
@@ -1606,7 +1641,11 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 3
+       "commonRank": 3,
+       "attrTags": [
+        "+Concentración",
+        "+Destreza"
+       ]
       },
       {
        "name": "Tiro de distración",
@@ -1651,7 +1690,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Flecha con abrojos",
@@ -1697,7 +1737,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       }
      ]
     },
@@ -1744,7 +1785,8 @@
        "buffs": [],
        "debuffs": [],
        "damage": [],
-       "commonRank": 2
+       "commonRank": 2,
+       "attrTags": []
       },
       {
        "name": "Movilidad",
@@ -1789,7 +1831,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Tácticas evasivas",
@@ -1845,7 +1888,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Reflejos felinos",
@@ -1884,7 +1928,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 3
+       "commonRank": 3,
+       "attrTags": []
       },
       {
        "name": "Acrobático",
@@ -1935,7 +1980,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Eludir conjuros",
@@ -1986,7 +2032,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Escapista",
@@ -2031,7 +2078,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 2
+       "commonRank": 2,
+       "attrTags": []
       },
       {
        "name": "Astucia",
@@ -2070,7 +2118,10 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 1
+       "commonRank": 1,
+       "attrTags": [
+        "+Inteligencia"
+       ]
       },
       {
        "name": "Perfil bajo",
@@ -2115,7 +2166,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 2
+       "commonRank": 2,
+       "attrTags": []
       },
       {
        "name": "Hijo del viento",
@@ -2165,7 +2217,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       }
      ]
     },
@@ -2239,7 +2292,8 @@
          ]
         }
        ],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Sentencia a muerte",
@@ -2284,7 +2338,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Vigilancia enemiga",
@@ -2329,7 +2384,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 1
+       "commonRank": 1,
+       "attrTags": []
       },
       {
        "name": "Espíritu salvaje",
@@ -2368,7 +2424,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Camuflaje",
@@ -2429,7 +2486,8 @@
          ]
         }
        ],
-       "commonRank": 3
+       "commonRank": 3,
+       "attrTags": []
       },
       {
        "name": "Ligereza heredada",
@@ -2484,7 +2542,10 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": [
+        "+Destreza"
+       ]
       },
       {
        "name": "Sangre fria",
@@ -2529,7 +2590,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Revelar",
@@ -2574,7 +2636,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 1
+       "commonRank": 1,
+       "attrTags": []
       },
       {
        "name": "Confundir",
@@ -2619,7 +2682,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Entorno acechador",
@@ -2676,7 +2740,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       }
      ]
     },
@@ -2729,7 +2794,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Curar mascota",
@@ -2775,7 +2841,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 3
+       "commonRank": 3,
+       "attrTags": []
       },
       {
        "name": "Defensa salvaje",
@@ -2820,7 +2887,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Vista prominente",
@@ -2870,7 +2938,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Adiestramiento",
@@ -2909,7 +2978,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Revivir mascota",
@@ -2954,7 +3024,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 1
+       "commonRank": 1,
+       "attrTags": []
       },
       {
        "name": "Cólera bestial",
@@ -3004,7 +3075,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Armadura natural",
@@ -3043,7 +3115,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Furia natural",
@@ -3103,7 +3176,8 @@
          ]
         }
        ],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Coraza de la bestia",
@@ -3148,7 +3222,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 2
+       "commonRank": 2,
+       "attrTags": []
       }
      ]
     },
@@ -3188,7 +3263,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Cuerno del viento",
@@ -3221,7 +3297,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Maestría de Guerra",
@@ -3254,7 +3331,10 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": [
+        "+Destreza"
+       ]
       },
       {
        "name": "Head of the Pack",
@@ -3287,7 +3367,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Sangre de Warmaster",
@@ -3320,7 +3401,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       }
      ]
     }
@@ -3348,7 +3430,8 @@
     "boost": 3
    },
    "soloCallout": "Vas solo: se prioriza <b>Dominio natural</b> al mayor rango posible para que tu mascota vaya a la par de tu nivel, y también su kit de sustento — <b>Curar mascota</b>, <b>Revivir mascota</b>, <b>Defensa salvaje</b> y su armadura — para que aguante mientras limpias mobs. El resto se reparte equilibrado entre daño y supervivencia propia, para matar la mayor cantidad posible antes de descansar.",
-   "groupCallout": "Levéas en grupo: se priorizan las habilidades de área para limpiar oleadas de monstruos más rápido. Consejo de la comunidad: si levean en grupo organizado (no solo cerca uno del otro), usar poderes en vez de golpes normales puede anular la XP de tus compañeros en ese kill — para maximizar XP de grupo, considera golpear con ataques normales y reservar los poderes para cuando realmente los necesites."
+   "groupCallout": "Levéas en grupo: se priorizan las habilidades de área para limpiar oleadas de monstruos más rápido. Consejo de la comunidad: si levean en grupo organizado (no solo cerca uno del otro), usar poderes en vez de golpes normales puede anular la XP de tus compañeros en ese kill — para maximizar XP de grupo, considera golpear con ataques normales y reservar los poderes para cuando realmente los necesites.",
+   "primaryAttribute": "Destreza"
   },
   "conjurer": {
    "label": "Conjurador",
@@ -3524,7 +3607,8 @@
          ]
         }
        ],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Plaga de insectos",
@@ -3579,7 +3663,8 @@
          ]
         }
        ],
-       "commonRank": 2
+       "commonRank": 2,
+       "attrTags": []
       },
       {
        "name": "Llamarada",
@@ -3623,7 +3708,8 @@
          ]
         }
        ],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Empuje mental",
@@ -3673,7 +3759,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 3
+       "commonRank": 3,
+       "attrTags": []
       },
       {
        "name": "Hiedra espinosa",
@@ -3728,7 +3815,8 @@
          ]
         }
        ],
-       "commonRank": 2
+       "commonRank": 2,
+       "attrTags": []
       },
       {
        "name": "Dominio de la voluntad",
@@ -3772,7 +3860,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 3
+       "commonRank": 3,
+       "attrTags": []
       },
       {
        "name": "Silenciar",
@@ -3816,7 +3905,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 2
+       "commonRank": 2,
+       "attrTags": []
       },
       {
        "name": "Muro de agujas",
@@ -3860,7 +3950,8 @@
          ]
         }
        ],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Maestro del tiempo",
@@ -3925,7 +4016,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Masa devoradora de Sultar",
@@ -4011,7 +4103,8 @@
          ]
         }
        ],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       }
      ]
     },
@@ -4063,7 +4156,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Ignición de maná",
@@ -4107,7 +4201,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Unión sinérgica",
@@ -4151,7 +4246,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 2
+       "commonRank": 2,
+       "attrTags": []
       },
       {
        "name": "Sangre de dragón",
@@ -4189,7 +4285,10 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": [
+        "+Inteligencia"
+       ]
       },
       {
        "name": "Préstamo de energía",
@@ -4228,7 +4327,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Sacrificio ambicioso",
@@ -4277,7 +4377,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Devoción arcana",
@@ -4321,7 +4422,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Laguna de maná",
@@ -4359,7 +4461,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Comunión de mana",
@@ -4403,7 +4506,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Pilón de mana",
@@ -4453,7 +4557,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       }
      ]
     },
@@ -4529,7 +4634,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Aceleración arcana",
@@ -4573,7 +4679,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Proyección arcana",
@@ -4618,7 +4725,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Magia de combate",
@@ -4656,7 +4764,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Campo estático",
@@ -4711,7 +4820,8 @@
          ]
         }
        ],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Magnificación de hielo",
@@ -4780,7 +4890,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Cúpula de protección",
@@ -4830,7 +4941,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Control metabólico",
@@ -4879,7 +4991,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Magnificación de electricidad",
@@ -4948,7 +5061,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Furia de Evendim",
@@ -4992,7 +5106,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       }
      ]
     },
@@ -5053,7 +5168,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Destreza felina",
@@ -5097,7 +5213,10 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": [
+        "+Destreza"
+       ]
       },
       {
        "name": "Ceguera",
@@ -5157,7 +5276,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Bendición",
@@ -5217,7 +5337,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Fuerza de oso",
@@ -5261,7 +5382,10 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": [
+        "+Fuerza"
+       ]
       },
       {
        "name": "Bendecir arma",
@@ -5306,7 +5430,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Disipar magia",
@@ -5350,7 +5475,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Astucia de zorro",
@@ -5394,7 +5520,10 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": [
+        "+Inteligencia"
+       ]
       },
       {
        "name": "Torpeza",
@@ -5448,7 +5577,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Disipar magia en masa",
@@ -5492,7 +5622,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       }
      ]
     },
@@ -5553,7 +5684,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Curarse",
@@ -5598,7 +5730,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Revivir",
@@ -5666,7 +5799,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 3
+       "commonRank": 3,
+       "attrTags": []
       },
       {
        "name": "Regenerar aliado",
@@ -5710,7 +5844,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Regenerarse",
@@ -5754,7 +5889,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 2
+       "commonRank": 2,
+       "attrTags": []
       },
       {
        "name": "Intervención divina",
@@ -5799,7 +5935,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Salvador",
@@ -5843,7 +5980,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Regeneración mayor",
@@ -5897,7 +6035,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Curación mayor",
@@ -5941,7 +6080,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Revivir en masa",
@@ -6003,7 +6143,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 3
+       "commonRank": 3,
+       "attrTags": []
       }
      ]
     },
@@ -6055,7 +6196,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": null
+       "commonRank": null,
+       "attrTags": []
       },
       {
        "name": "Lazo extraplanar",
@@ -6093,7 +6235,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "invocar demonio",
@@ -6144,7 +6287,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Lazo material",
@@ -6182,7 +6326,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Invocar zombis",
@@ -6227,7 +6372,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Furia demoníaca",
@@ -6276,7 +6422,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Invocar golem",
@@ -6321,7 +6468,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Armadura mágica",
@@ -6359,7 +6507,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Bebedor de sangre",
@@ -6403,7 +6552,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Invocar lich",
@@ -6464,7 +6614,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       }
      ]
     },
@@ -6515,7 +6666,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 3
+       "commonRank": 3,
+       "attrTags": []
       },
       {
        "name": "Silueta cambiante",
@@ -6580,7 +6732,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 3
+       "commonRank": 3,
+       "attrTags": []
       },
       {
        "name": "Escudar compañero",
@@ -6625,7 +6778,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Mente en blanco",
@@ -6703,7 +6857,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Espejo del karma",
@@ -6752,7 +6907,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Barrera mágica",
@@ -6796,7 +6952,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 3
+       "commonRank": 3,
+       "attrTags": []
       },
       {
        "name": "Muralla material",
@@ -6840,7 +6997,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Santuario",
@@ -6885,7 +7043,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 3
+       "commonRank": 3,
+       "attrTags": []
       },
       {
        "name": "Introspectiva",
@@ -6923,7 +7082,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 3
+       "commonRank": 3,
+       "attrTags": []
       },
       {
        "name": "Piel de acero",
@@ -6973,7 +7133,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       }
      ]
     },
@@ -7012,7 +7173,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Portal Defensivo",
@@ -7039,7 +7201,8 @@
        "buffs": [],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Maestría de Guerra",
@@ -7075,7 +7238,10 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": [
+        "+Inteligencia"
+       ]
       },
       {
        "name": "Protección Divina",
@@ -7107,7 +7273,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Sangre de Warmaster",
@@ -7139,7 +7306,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       }
      ]
     }
@@ -7147,7 +7315,8 @@
    "weaponGroups": [],
    "signatureSoloSpell": null,
    "soloCallout": "Vas solo: se prioriza tu propio sustento — <b>Curarse</b>, <b>Regenerarse</b> y tus escudos personales — para encadenar peleas sin volver a rezar cada dos mobs. El resto se reparte entre daño y control para acortar cada combate. Nota: a diferencia del Cazador, no valido esta prioridad contra una mecánica de invocación específica — ajústala si notas que tu invocación se queda corta.",
-   "groupCallout": "Levéas en grupo: se priorizan curaciones y protecciones grupales además del daño en área, para rendir como apoyo del equipo. Consejo de la comunidad: en grupo, tu XP depende de haber lanzado suficientes hechizos sobre quien remata al monstruo — no dudes en curar, buffar o disipar aunque no sea estrictamente necesario, es lo que te da crédito de la muerte."
+   "groupCallout": "Levéas en grupo: se priorizan curaciones y protecciones grupales además del daño en área, para rendir como apoyo del equipo. Consejo de la comunidad: en grupo, tu XP depende de haber lanzado suficientes hechizos sobre quien remata al monstruo — no dudes en curar, buffar o disipar aunque no sea estrictamente necesario, es lo que te da crédito de la muerte.",
+   "primaryAttribute": "Inteligencia"
   },
   "warlock": {
    "label": "Brujo",
@@ -7323,7 +7492,8 @@
          ]
         }
        ],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Plaga de insectos",
@@ -7378,7 +7548,8 @@
          ]
         }
        ],
-       "commonRank": 1
+       "commonRank": 1,
+       "attrTags": []
       },
       {
        "name": "Llamarada",
@@ -7422,7 +7593,8 @@
          ]
         }
        ],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Empuje mental",
@@ -7472,7 +7644,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 3
+       "commonRank": 3,
+       "attrTags": []
       },
       {
        "name": "Hiedra espinosa",
@@ -7527,7 +7700,8 @@
          ]
         }
        ],
-       "commonRank": 3
+       "commonRank": 3,
+       "attrTags": []
       },
       {
        "name": "Dominio de la voluntad",
@@ -7571,7 +7745,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Silenciar",
@@ -7615,7 +7790,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 3
+       "commonRank": 3,
+       "attrTags": []
       },
       {
        "name": "Muro de agujas",
@@ -7659,7 +7835,8 @@
          ]
         }
        ],
-       "commonRank": 3
+       "commonRank": 3,
+       "attrTags": []
       },
       {
        "name": "Maestro del tiempo",
@@ -7724,7 +7901,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Masa devoradora de Sultar",
@@ -7810,7 +7988,8 @@
          ]
         }
        ],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       }
      ]
     },
@@ -7862,7 +8041,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Ignición de maná",
@@ -7906,7 +8086,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Unión sinérgica",
@@ -7950,7 +8131,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 1
+       "commonRank": 1,
+       "attrTags": []
       },
       {
        "name": "Sangre de dragón",
@@ -7988,7 +8170,10 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": [
+        "+Inteligencia"
+       ]
       },
       {
        "name": "Préstamo de energía",
@@ -8027,7 +8212,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Sacrificio ambicioso",
@@ -8076,7 +8262,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Devoción arcana",
@@ -8120,7 +8307,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Laguna de maná",
@@ -8158,7 +8346,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Comunión de mana",
@@ -8202,7 +8391,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Pilón de mana",
@@ -8252,7 +8442,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       }
      ]
     },
@@ -8328,7 +8519,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Aceleración arcana",
@@ -8372,7 +8564,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Proyección arcana",
@@ -8417,7 +8610,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Magia de combate",
@@ -8455,7 +8649,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Campo estático",
@@ -8510,7 +8705,8 @@
          ]
         }
        ],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Magnificación de hielo",
@@ -8579,7 +8775,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Cúpula de protección",
@@ -8629,7 +8826,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Control metabólico",
@@ -8678,7 +8876,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Magnificación de electricidad",
@@ -8747,7 +8946,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Furia de Evendim",
@@ -8791,7 +8991,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       }
      ]
     },
@@ -8852,7 +9053,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Destreza felina",
@@ -8896,7 +9098,10 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 3
+       "commonRank": 3,
+       "attrTags": [
+        "+Destreza"
+       ]
       },
       {
        "name": "Ceguera",
@@ -8956,7 +9161,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Bendición",
@@ -9016,7 +9222,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Fuerza de oso",
@@ -9060,7 +9267,10 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": [
+        "+Fuerza"
+       ]
       },
       {
        "name": "Bendecir arma",
@@ -9105,7 +9315,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Disipar magia",
@@ -9149,7 +9360,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 3
+       "commonRank": 3,
+       "attrTags": []
       },
       {
        "name": "Astucia de zorro",
@@ -9193,7 +9405,10 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": [
+        "+Inteligencia"
+       ]
       },
       {
        "name": "Torpeza",
@@ -9247,7 +9462,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Disipar magia en masa",
@@ -9291,7 +9507,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       }
      ]
     },
@@ -9352,7 +9569,8 @@
          ]
         }
        ],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Lentitud",
@@ -9396,7 +9614,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 3
+       "commonRank": 3,
+       "attrTags": []
       },
       {
        "name": "Petrificar manos",
@@ -9456,7 +9675,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Pereza",
@@ -9510,7 +9730,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Meteorito",
@@ -9575,7 +9796,8 @@
          ]
         }
        ],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Muro de viento",
@@ -9625,7 +9847,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Estallido de cristales",
@@ -9669,7 +9892,8 @@
          ]
         }
        ],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Fragilidad",
@@ -9713,7 +9937,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Puño de golem",
@@ -9757,7 +9982,8 @@
          ]
         }
        ],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Terror de Sultar",
@@ -9833,7 +10059,8 @@
          ]
         }
        ],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       }
      ]
     },
@@ -9884,7 +10111,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Oscuridad",
@@ -9928,7 +10156,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 3
+       "commonRank": 3,
+       "attrTags": []
       },
       {
        "name": "Enfurecer",
@@ -9982,7 +10211,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 3
+       "commonRank": 3,
+       "attrTags": []
       },
       {
        "name": "Absorción vital",
@@ -10021,7 +10251,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 3
+       "commonRank": 3,
+       "attrTags": []
       },
       {
        "name": "Guardias sádicos",
@@ -10081,7 +10312,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 2
+       "commonRank": 2,
+       "attrTags": []
       },
       {
        "name": "Sirvientes sádicos",
@@ -10120,7 +10352,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 3
+       "commonRank": 3,
+       "attrTags": []
       },
       {
        "name": "Guardián de almas",
@@ -10175,7 +10408,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Cremación",
@@ -10219,7 +10453,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 3
+       "commonRank": 3,
+       "attrTags": []
       },
       {
        "name": "Poseer invocación",
@@ -10263,7 +10498,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 3
+       "commonRank": 3,
+       "attrTags": []
       },
       {
        "name": "Maestro de la destrucción",
@@ -10318,7 +10554,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       }
      ]
     },
@@ -10369,7 +10606,8 @@
          ]
         }
        ],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Explosión de hielo",
@@ -10429,7 +10667,8 @@
          ]
         }
        ],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Relámpago",
@@ -10473,7 +10712,8 @@
          ]
         }
        ],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Comunión elemental",
@@ -10531,7 +10771,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Paralizar",
@@ -10575,7 +10816,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 2
+       "commonRank": 2,
+       "attrTags": []
       },
       {
        "name": "Tormenta helada",
@@ -10631,7 +10873,8 @@
          ]
         }
        ],
-       "commonRank": 1
+       "commonRank": 1,
+       "attrTags": []
       },
       {
        "name": "Exposición alos elementos",
@@ -10705,7 +10948,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Explosión de magma",
@@ -10759,7 +11003,8 @@
          ]
         }
        ],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Tornado",
@@ -10815,7 +11060,8 @@
          ]
         }
        ],
-       "commonRank": 2
+       "commonRank": 2,
+       "attrTags": []
       },
       {
        "name": "Invocar rayos",
@@ -10864,7 +11110,8 @@
          ]
         }
        ],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       }
      ]
     },
@@ -10903,7 +11150,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Portal Offensivo",
@@ -10930,7 +11178,8 @@
        "buffs": [],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Maestría de Guerra",
@@ -10966,7 +11215,10 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": [
+        "+Inteligencia"
+       ]
       },
       {
        "name": "Hiedra espinosa en masa",
@@ -11003,7 +11255,8 @@
          "value": "+750"
         }
        ],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Sangre de Warmaster",
@@ -11035,7 +11288,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       }
      ]
     }
@@ -11043,7 +11297,8 @@
    "weaponGroups": [],
    "signatureSoloSpell": null,
    "soloCallout": "Vas solo: se prioriza tu propio sustento — <b>Vampirismo</b> y <b>Absorción vital</b> (que te devuelven salud con cada golpe) además de tus escudos personales — para encadenar peleas sin descansar. El resto se reparte entre daño y control para acortar cada combate.",
-   "groupCallout": "Levéas en grupo: se priorizan las habilidades de daño en área y control en área, ya que en grupo no dependes tanto de tu propio drenaje de vida. Consejo de la comunidad: tus hechizos de control (raíz, aturdimiento) ayudan al grupo a sostener el kill, pero no abuses de poderes ofensivos completos si no es tu turno de rematar — pueden anular la XP de otros."
+   "groupCallout": "Levéas en grupo: se priorizan las habilidades de daño en área y control en área, ya que en grupo no dependes tanto de tu propio drenaje de vida. Consejo de la comunidad: tus hechizos de control (raíz, aturdimiento) ayudan al grupo a sostener el kill, pero no abuses de poderes ofensivos completos si no es tu turno de rematar — pueden anular la XP de otros.",
+   "primaryAttribute": "Inteligencia"
   },
   "marksman": {
    "label": "Tirador",
@@ -11231,7 +11486,8 @@
          ]
         }
        ],
-       "commonRank": 2
+       "commonRank": 2,
+       "attrTags": []
       },
       {
        "name": "Disparo rápido",
@@ -11281,7 +11537,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 1
+       "commonRank": 1,
+       "attrTags": []
       },
       {
        "name": "Flecha paralizadora",
@@ -11337,7 +11594,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 2
+       "commonRank": 2,
+       "attrTags": []
       },
       {
        "name": "Ligereza",
@@ -11376,7 +11634,10 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 2
+       "commonRank": 2,
+       "attrTags": [
+        "+Destreza"
+       ]
       },
       {
        "name": "Meditación",
@@ -11427,7 +11688,10 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": [
+        "+Concentración"
+       ]
       },
       {
        "name": "Adaptabilidad",
@@ -11472,7 +11736,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Desgarrar",
@@ -11523,7 +11788,8 @@
          ]
         }
        ],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Duelista",
@@ -11562,7 +11828,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Ralentizar",
@@ -11617,7 +11884,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Tiro de repetición",
@@ -11666,7 +11934,8 @@
          ]
         }
        ],
-       "commonRank": null
+       "commonRank": null,
+       "attrTags": []
       }
      ]
     },
@@ -11718,7 +11987,8 @@
          ]
         }
        ],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Tiro parabólico",
@@ -11770,7 +12040,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Maniobrabilidad",
@@ -11815,7 +12086,10 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": [
+        "+Destreza"
+       ]
       },
       {
        "name": "Ojo de águila",
@@ -11860,7 +12134,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Tiro al blanco",
@@ -11916,7 +12191,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Omnipresencia",
@@ -11955,7 +12231,10 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 3
+       "commonRank": 3,
+       "attrTags": [
+        "+Concentración"
+       ]
       },
       {
        "name": "Despedazar",
@@ -12005,7 +12284,8 @@
          ]
         }
        ],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Especialista",
@@ -12044,7 +12324,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Ofuscar",
@@ -12119,7 +12400,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Lluvia de proyectiles",
@@ -12169,7 +12451,8 @@
          ]
         }
        ],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       }
      ]
     },
@@ -12222,7 +12505,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Ataque sorpresivo",
@@ -12268,7 +12552,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 2
+       "commonRank": 2,
+       "attrTags": []
       },
       {
        "name": "Puño aturdidor",
@@ -12324,7 +12609,8 @@
          ]
         }
        ],
-       "commonRank": 3
+       "commonRank": 3,
+       "attrTags": []
       },
       {
        "name": "Represalia",
@@ -12369,7 +12655,8 @@
          ]
         }
        ],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Toque pegajoso",
@@ -12414,7 +12701,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 3
+       "commonRank": 3,
+       "attrTags": []
       },
       {
        "name": "Pelea sucia",
@@ -12465,7 +12753,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 1
+       "commonRank": 1,
+       "attrTags": []
       },
       {
        "name": "Fineza",
@@ -12516,7 +12805,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 1
+       "commonRank": 1,
+       "attrTags": []
       },
       {
        "name": "Centinela",
@@ -12565,7 +12855,11 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 3
+       "commonRank": 3,
+       "attrTags": [
+        "+Concentración",
+        "+Destreza"
+       ]
       },
       {
        "name": "Tiro de distración",
@@ -12610,7 +12904,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Flecha con abrojos",
@@ -12656,7 +12951,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       }
      ]
     },
@@ -12703,7 +12999,8 @@
        "buffs": [],
        "debuffs": [],
        "damage": [],
-       "commonRank": 2
+       "commonRank": 2,
+       "attrTags": []
       },
       {
        "name": "Movilidad",
@@ -12748,7 +13045,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Tácticas evasivas",
@@ -12804,7 +13102,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Reflejos felinos",
@@ -12843,7 +13142,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 3
+       "commonRank": 3,
+       "attrTags": []
       },
       {
        "name": "Acrobático",
@@ -12894,7 +13194,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Eludir conjuros",
@@ -12945,7 +13246,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Escapista",
@@ -12990,7 +13292,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 2
+       "commonRank": 2,
+       "attrTags": []
       },
       {
        "name": "Astucia",
@@ -13029,7 +13332,10 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 1
+       "commonRank": 1,
+       "attrTags": [
+        "+Inteligencia"
+       ]
       },
       {
        "name": "Perfil bajo",
@@ -13074,7 +13380,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 2
+       "commonRank": 2,
+       "attrTags": []
       },
       {
        "name": "Hijo del viento",
@@ -13124,7 +13431,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       }
      ]
     },
@@ -13196,7 +13504,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Ola invernal",
@@ -13252,7 +13561,8 @@
          ]
         }
        ],
-       "commonRank": 3
+       "commonRank": 3,
+       "attrTags": []
       },
       {
        "name": "Rafaga de viento",
@@ -13296,7 +13606,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Mordida de serpiente",
@@ -13350,7 +13661,8 @@
          ]
         }
        ],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Fuego de Ignus",
@@ -13411,7 +13723,8 @@
          ]
         }
        ],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Flecha etérea",
@@ -13455,7 +13768,8 @@
          ]
         }
        ],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Explosión de agujas",
@@ -13503,7 +13817,8 @@
          ]
         }
        ],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Proyectil arcano",
@@ -13567,7 +13882,8 @@
          ]
         }
        ],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Lluvia de fuego",
@@ -13615,7 +13931,8 @@
          ]
         }
        ],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Flecha de rayo",
@@ -13670,7 +13987,8 @@
          ]
         }
        ],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       }
      ]
     },
@@ -13732,7 +14050,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Enfocar",
@@ -13781,7 +14100,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Perforador de piel",
@@ -13842,7 +14162,8 @@
          ]
         }
        ],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Previsión",
@@ -13881,7 +14202,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Maldición del cíclope",
@@ -13940,7 +14262,8 @@
          "value": "+125%"
         }
        ],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Ataque letal",
@@ -13998,7 +14321,8 @@
          ]
         }
        ],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Posición estratégica",
@@ -14043,7 +14367,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Ojo entrenado",
@@ -14081,7 +14406,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Tiro buscador",
@@ -14131,7 +14457,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Mirada de halcón",
@@ -14192,7 +14519,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       }
      ]
     },
@@ -14231,7 +14559,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Flecha de fuego",
@@ -14263,7 +14592,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Maestría de Guerra",
@@ -14295,7 +14625,10 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": [
+        "+Destreza"
+       ]
       },
       {
        "name": "Instinto asesino",
@@ -14336,7 +14669,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Sangre de Warmaster",
@@ -14368,7 +14702,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       }
      ]
     }
@@ -14392,7 +14727,8 @@
    ],
    "signatureSoloSpell": null,
    "soloCallout": "Vas solo: sin mascota que te ayude, se prioriza tu propio control y evasión (Trucos, Evasión) para no dejarte alcanzar por los mobs, combinado con el daño más alto posible de Maestría en flechas y Puntería para acortar cada pelea.",
-   "groupCallout": "Levéas en grupo: se priorizan las habilidades de área para limpiar oleadas de monstruos más rápido — el Tirador brilla como daño a distancia sostenido para el grupo. Consejo de la comunidad: si levean en grupo organizado (no solo cerca uno del otro), usar poderes en vez de golpes normales puede anular la XP de tus compañeros en ese kill — para maximizar XP de grupo, considera golpear con ataques normales y reservar los poderes para cuando realmente los necesites."
+   "groupCallout": "Levéas en grupo: se priorizan las habilidades de área para limpiar oleadas de monstruos más rápido — el Tirador brilla como daño a distancia sostenido para el grupo. Consejo de la comunidad: si levean en grupo organizado (no solo cerca uno del otro), usar poderes en vez de golpes normales puede anular la XP de tus compañeros en ese kill — para maximizar XP de grupo, considera golpear con ataques normales y reservar los poderes para cuando realmente los necesites.",
+   "primaryAttribute": "Destreza"
   },
   "barbarian": {
    "label": "Bárbaro",
@@ -14572,7 +14908,8 @@
          ]
         }
        ],
-       "commonRank": 2
+       "commonRank": 2,
+       "attrTags": []
       },
       {
        "name": "Esgrimes precisos",
@@ -14616,7 +14953,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Incapacitar",
@@ -14660,7 +14998,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 3
+       "commonRank": 3,
+       "attrTags": []
       },
       {
        "name": "Atlético",
@@ -14708,7 +15047,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Cruz del sur",
@@ -14756,7 +15096,8 @@
          ]
         }
        ],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Choque",
@@ -14822,7 +15163,8 @@
          "value": "110%"
         }
        ],
-       "commonRank": null
+       "commonRank": null,
+       "attrTags": []
       },
       {
        "name": "Arrasador",
@@ -14876,7 +15218,8 @@
          ]
         }
        ],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Piel de hierro",
@@ -14914,7 +15257,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 2
+       "commonRank": 2,
+       "attrTags": []
       },
       {
        "name": "Ataque fatal",
@@ -14964,7 +15308,8 @@
          "value": "100%"
         }
        ],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Tifón",
@@ -15030,7 +15375,8 @@
          ]
         }
        ],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       }
      ]
     },
@@ -15085,7 +15431,8 @@
          ]
         }
        ],
-       "commonRank": 2
+       "commonRank": 2,
+       "attrTags": []
       },
       {
        "name": "Impactos brutales",
@@ -15129,7 +15476,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Rompe costillas",
@@ -15184,7 +15532,8 @@
          ]
         }
        ],
-       "commonRank": 1
+       "commonRank": 1,
+       "attrTags": []
       },
       {
        "name": "Anatomía letal",
@@ -15222,7 +15571,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Triturador",
@@ -15277,7 +15627,8 @@
          "value": "+100%"
         }
        ],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Ejecución",
@@ -15327,7 +15678,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Aplasta mentes",
@@ -15386,7 +15738,8 @@
          "value": "+100%"
         }
        ],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Temple de acero",
@@ -15424,7 +15777,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 2
+       "commonRank": 2,
+       "attrTags": []
       },
       {
        "name": "Rompe quijadas",
@@ -15473,7 +15827,8 @@
          "value": "+100%"
         }
        ],
-       "commonRank": 3
+       "commonRank": 3,
+       "attrTags": []
       },
       {
        "name": "Golpe de trueno",
@@ -15539,7 +15894,8 @@
          ]
         }
        ],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       }
      ]
     },
@@ -15594,7 +15950,8 @@
          ]
         }
        ],
-       "commonRank": 2
+       "commonRank": 2,
+       "attrTags": []
       },
       {
        "name": "Maniobras ágiles",
@@ -15638,7 +15995,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Balestra",
@@ -15693,7 +16051,8 @@
          ]
         }
        ],
-       "commonRank": 1
+       "commonRank": 1,
+       "attrTags": []
       },
       {
        "name": "Versatilidad",
@@ -15741,7 +16100,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Riposte",
@@ -15796,7 +16156,8 @@
          ]
         }
        ],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Empalamiento",
@@ -15865,7 +16226,8 @@
          ]
         }
        ],
-       "commonRank": 1
+       "commonRank": 1,
+       "attrTags": []
       },
       {
        "name": "Perfora cerebros",
@@ -15930,7 +16292,8 @@
          "value": "+100%"
         }
        ],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Flexibilidad",
@@ -15968,7 +16331,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 2
+       "commonRank": 2,
+       "attrTags": []
       },
       {
        "name": "Estocada múltiple",
@@ -16022,7 +16386,8 @@
          ]
         }
        ],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Golpe relámpago",
@@ -16088,7 +16453,8 @@
          ]
         }
        ],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       }
      ]
     },
@@ -16150,7 +16516,8 @@
          ]
         }
        ],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Cautela",
@@ -16194,7 +16561,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 2
+       "commonRank": 2,
+       "attrTags": []
       },
       {
        "name": "Degollador",
@@ -16227,7 +16595,8 @@
        "buffs": [],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Defensa marcial",
@@ -16265,7 +16634,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 3
+       "commonRank": 3,
+       "attrTags": []
       },
       {
        "name": "Preparación rigurosa",
@@ -16309,7 +16679,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 2
+       "commonRank": 2,
+       "attrTags": []
       },
       {
        "name": "Revés",
@@ -16364,7 +16735,8 @@
          ]
         }
        ],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Embestida",
@@ -16418,7 +16790,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 3
+       "commonRank": 3,
+       "attrTags": []
       },
       {
        "name": "Intimidar",
@@ -16468,7 +16841,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 3
+       "commonRank": 3,
+       "attrTags": []
       },
       {
        "name": "Inhabilitar",
@@ -16522,7 +16896,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 3
+       "commonRank": 3,
+       "attrTags": []
       },
       {
        "name": "Reflejos marciales",
@@ -16582,7 +16957,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       }
      ]
     },
@@ -16638,7 +17014,10 @@
         }
        ],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": [
+        "+Fuerza"
+       ]
       },
       {
        "name": "Frenesí",
@@ -16683,7 +17062,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "¡¡Corten sus cabezas!!",
@@ -16727,7 +17107,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Sed de sangre",
@@ -16791,7 +17172,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Rugido desafiante",
@@ -16845,7 +17227,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Bramido ensordecedor",
@@ -16889,7 +17272,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 2
+       "commonRank": 2,
+       "attrTags": []
       },
       {
        "name": "Berserk",
@@ -16948,7 +17332,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Fuerza sobrecogedora",
@@ -16986,7 +17371,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Retorno",
@@ -17040,7 +17426,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Desquiciamiento",
@@ -17140,7 +17527,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       }
      ]
     },
@@ -17198,7 +17586,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Golpe espiritual",
@@ -17253,7 +17642,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Despedazar",
@@ -17302,7 +17692,8 @@
          "value": "+100%"
         }
        ],
-       "commonRank": 1
+       "commonRank": 1,
+       "attrTags": []
       },
       {
        "name": "Ataque bestial",
@@ -17358,7 +17749,8 @@
          ]
         }
        ],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Alarido",
@@ -17402,7 +17794,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 3
+       "commonRank": 3,
+       "attrTags": []
       },
       {
        "name": "Onda expansiva",
@@ -17456,7 +17849,8 @@
          ]
         }
        ],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Desestabilizador",
@@ -17505,7 +17899,8 @@
          "value": "+100%"
         }
        ],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Fulminante",
@@ -17554,7 +17949,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Manos de Acero",
@@ -17602,7 +17998,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Furia de la tierra",
@@ -17658,7 +18055,8 @@
          ]
         }
        ],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       }
      ]
     },
@@ -17697,7 +18095,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Maestría de Guerra",
@@ -17729,7 +18128,10 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": [
+        "+Fuerza"
+       ]
       },
       {
        "name": "Sangre de Warmaster",
@@ -17761,7 +18163,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Bandera de Warmaster",
@@ -17793,7 +18196,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Grito Heroico",
@@ -17826,7 +18230,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       }
      ]
     }
@@ -17870,7 +18275,8 @@
    ],
    "signatureSoloSpell": null,
    "soloCallout": "Vas solo: sin autocuración, se prioriza control (aturdimientos, miedo) para reducir el daño que recibes mientras rematas rápido con Gritos de guerra y tu tipo de arma. Confirmado por la wiki: si eliges dos armas de una mano, Armas a dos manos no se usa — el árbol de tipo de arma lo determina tu arma principal.",
-   "groupCallout": "Levéas en grupo: se priorizan los golpes en área y los gritos que apoyan al equipo, para limpiar oleadas rápido como daño cuerpo a cuerpo del grupo. Consejo de la comunidad: si levean en grupo organizado (no solo cerca uno del otro), usar poderes en vez de golpes normales puede anular la XP de tus compañeros en ese kill — para maximizar XP de grupo, considera golpear con ataques normales y reservar los poderes para cuando realmente los necesites."
+   "groupCallout": "Levéas en grupo: se priorizan los golpes en área y los gritos que apoyan al equipo, para limpiar oleadas rápido como daño cuerpo a cuerpo del grupo. Consejo de la comunidad: si levean en grupo organizado (no solo cerca uno del otro), usar poderes en vez de golpes normales puede anular la XP de tus compañeros en ese kill — para maximizar XP de grupo, considera golpear con ataques normales y reservar los poderes para cuando realmente los necesites.",
+   "primaryAttribute": "Fuerza"
   },
   "knight": {
    "label": "Caballero",
@@ -18050,7 +18456,8 @@
          ]
         }
        ],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Esgrimes precisos",
@@ -18094,7 +18501,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Incapacitar",
@@ -18138,7 +18546,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 3
+       "commonRank": 3,
+       "attrTags": []
       },
       {
        "name": "Atlético",
@@ -18186,7 +18595,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Cruz del sur",
@@ -18234,7 +18644,8 @@
          ]
         }
        ],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Choque",
@@ -18300,7 +18711,8 @@
          "value": "110%"
         }
        ],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Arrasador",
@@ -18354,7 +18766,8 @@
          ]
         }
        ],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Piel de hierro",
@@ -18392,7 +18805,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 2
+       "commonRank": 2,
+       "attrTags": []
       },
       {
        "name": "Ataque fatal",
@@ -18442,7 +18856,8 @@
          "value": "100%"
         }
        ],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Tifón",
@@ -18508,7 +18923,8 @@
          ]
         }
        ],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       }
      ]
     },
@@ -18563,7 +18979,8 @@
          ]
         }
        ],
-       "commonRank": 3
+       "commonRank": 3,
+       "attrTags": []
       },
       {
        "name": "Impactos brutales",
@@ -18607,7 +19024,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Rompe costillas",
@@ -18662,7 +19080,8 @@
          ]
         }
        ],
-       "commonRank": 2
+       "commonRank": 2,
+       "attrTags": []
       },
       {
        "name": "Anatomía letal",
@@ -18700,7 +19119,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Triturador",
@@ -18755,7 +19175,8 @@
          "value": "+100%"
         }
        ],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Ejecución",
@@ -18805,7 +19226,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Aplasta mentes",
@@ -18864,7 +19286,8 @@
          "value": "+100%"
         }
        ],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Temple de acero",
@@ -18902,7 +19325,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 2
+       "commonRank": 2,
+       "attrTags": []
       },
       {
        "name": "Rompe quijadas",
@@ -18951,7 +19375,8 @@
          "value": "+100%"
         }
        ],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Golpe de trueno",
@@ -19017,7 +19442,8 @@
          ]
         }
        ],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       }
      ]
     },
@@ -19072,7 +19498,8 @@
          ]
         }
        ],
-       "commonRank": 2
+       "commonRank": 2,
+       "attrTags": []
       },
       {
        "name": "Maniobras ágiles",
@@ -19116,7 +19543,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Balestra",
@@ -19171,7 +19599,8 @@
          ]
         }
        ],
-       "commonRank": 2
+       "commonRank": 2,
+       "attrTags": []
       },
       {
        "name": "Versatilidad",
@@ -19219,7 +19648,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Riposte",
@@ -19274,7 +19704,8 @@
          ]
         }
        ],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Empalamiento",
@@ -19343,7 +19774,8 @@
          ]
         }
        ],
-       "commonRank": 1
+       "commonRank": 1,
+       "attrTags": []
       },
       {
        "name": "Perfora cerebros",
@@ -19408,7 +19840,8 @@
          "value": "+100%"
         }
        ],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Flexibilidad",
@@ -19446,7 +19879,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 2
+       "commonRank": 2,
+       "attrTags": []
       },
       {
        "name": "Estocada múltiple",
@@ -19500,7 +19934,8 @@
          ]
         }
        ],
-       "commonRank": null
+       "commonRank": null,
+       "attrTags": []
       },
       {
        "name": "Golpe relámpago",
@@ -19566,7 +20001,8 @@
          ]
         }
        ],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       }
      ]
     },
@@ -19628,7 +20064,8 @@
          ]
         }
        ],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Cautela",
@@ -19672,7 +20109,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 3
+       "commonRank": 3,
+       "attrTags": []
       },
       {
        "name": "Degollador",
@@ -19705,7 +20143,8 @@
        "buffs": [],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Defensa marcial",
@@ -19743,7 +20182,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Preparación rigurosa",
@@ -19787,7 +20227,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 2
+       "commonRank": 2,
+       "attrTags": []
       },
       {
        "name": "Revés",
@@ -19842,7 +20283,8 @@
          ]
         }
        ],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Embestida",
@@ -19896,7 +20338,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Intimidar",
@@ -19946,7 +20389,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 3
+       "commonRank": 3,
+       "attrTags": []
       },
       {
        "name": "Inhabilitar",
@@ -20000,7 +20444,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 2
+       "commonRank": 2,
+       "attrTags": []
       },
       {
        "name": "Reflejos marciales",
@@ -20060,7 +20505,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       }
      ]
     },
@@ -20128,7 +20574,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 3
+       "commonRank": 3,
+       "attrTags": []
       },
       {
        "name": "Provocar",
@@ -20198,7 +20645,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 3
+       "commonRank": 3,
+       "attrTags": []
       },
       {
        "name": "Finta",
@@ -20242,7 +20690,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Temple de protector",
@@ -20300,7 +20749,10 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": [
+        "+Constitución"
+       ]
       },
       {
        "name": "Instancia ofensiva",
@@ -20347,7 +20799,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Soporte defensivo",
@@ -20426,7 +20879,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Piel de troll",
@@ -20470,7 +20924,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Furor del caballero",
@@ -20515,7 +20970,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Presencia heroica",
@@ -20560,7 +21016,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 3
+       "commonRank": 3,
+       "attrTags": []
       },
       {
        "name": "Ejército de uno",
@@ -20614,7 +21071,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       }
      ]
     },
@@ -20665,7 +21123,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 2
+       "commonRank": 2,
+       "attrTags": []
       },
       {
        "name": "Avasallar",
@@ -20721,7 +21180,8 @@
          ]
         }
        ],
-       "commonRank": 3
+       "commonRank": 3,
+       "attrTags": []
       },
       {
        "name": "Proteger aliado",
@@ -20775,7 +21235,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Bloqueo preciso",
@@ -20828,7 +21289,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 2
+       "commonRank": 2,
+       "attrTags": []
       },
       {
        "name": "Instancia defensiva",
@@ -20875,7 +21337,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Manto etéreo",
@@ -20930,7 +21393,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Muro protector",
@@ -20975,7 +21439,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Firmeza",
@@ -21013,7 +21478,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       },
       {
        "name": "Escudo estelar",
@@ -21063,7 +21529,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Barrera deflectora",
@@ -21113,7 +21580,8 @@
         }
        ],
        "damage": [],
-       "commonRank": 4
+       "commonRank": 4,
+       "attrTags": []
       }
      ]
     },
@@ -21152,7 +21620,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Maestría de Guerra",
@@ -21184,7 +21653,10 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": [
+        "+Constitución"
+       ]
       },
       {
        "name": "Sangre de Warmaster",
@@ -21216,7 +21688,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Asistencia del Paladín",
@@ -21249,7 +21722,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       },
       {
        "name": "Bendecido",
@@ -21282,7 +21756,8 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 5
+       "commonRank": 5,
+       "attrTags": []
       }
      ]
     }
@@ -21311,7 +21786,8 @@
    ],
    "signatureSoloSpell": null,
    "soloCallout": "Vas solo: como no tienes autocuración, se prioriza todo lo defensivo de Vanguardia y Escudos (bloqueo, resistencia, provocar) para aguantar peleas largas sin caer, complementado con tu tipo de arma para no eternizar cada combate. El Caballero siempre usa arma de una mano + escudo — es la única clase que puede equipar escudos.",
-   "groupCallout": "Levéas en grupo: se priorizan las habilidades que protegen aliados y controlan al enemigo, el rol natural del Caballero como tanque del grupo. Consejo de la comunidad: si levean en grupo organizado (no solo cerca uno del otro), usar poderes en vez de golpes normales puede anular la XP de tus compañeros en ese kill — para maximizar XP de grupo, considera golpear con ataques normales y reservar los poderes para cuando realmente los necesites."
+   "groupCallout": "Levéas en grupo: se priorizan las habilidades que protegen aliados y controlan al enemigo, el rol natural del Caballero como tanque del grupo. Consejo de la comunidad: si levean en grupo organizado (no solo cerca uno del otro), usar poderes en vez de golpes normales puede anular la XP de tus compañeros en ese kill — para maximizar XP de grupo, considera golpear con ataques normales y reservar los poderes para cuando realmente los necesites.",
+   "primaryAttribute": "Constitución"
   }
  }
 }

@@ -57,7 +57,13 @@ function buildDetailTable(sp, rank, cap){
 function buildSpellDetailHTML(name, sp, idx, dlvl, rank){
   const cap = spellCap(name, idx, dlvl);
   let html = '';
+  html += `<div class="sd-badges">`;
   if(sp.type) html += `<div class="sd-type">${TYPE_LABEL[sp.type] || sp.type}</div>`;
+  (sp.attrTags||[]).forEach(tag=>{
+    const isPrimary = tag === '+'+CLASS.primaryAttribute;
+    html += `<div class="sd-attr${isPrimary?' sd-attr-primary':''}">Atributo ${tag}</div>`;
+  });
+  html += `</div>`;
   if(sp.commonRank) html += `<div class="sd-community">La comunidad suele dejarla en rango ${sp.commonRank}/5</div>`;
   const fixed = [];
   if(sp.cast != null && !Array.isArray(sp.cast)) fixed.push(`<span>Lanz. <b>${sp.cast}s</b></span>`);
@@ -200,9 +206,10 @@ function renderLevelByLevel(startLevel, endLevel, sequence){
   for(let lvl = startLevel+1; lvl <= endLevel; lvl++){
     const build = sequence[lvl];
     const items = diffBuilds(prevBuild, build);
-    if(items.length > 0){
-      html += `<div class="lvl-row"><span class="lvl-badge">Nv.${lvl}</span><div class="lvl-changes">${renderCompactDiff(items)}</div></div>`;
-    }
+    const changes = items.length > 0
+      ? renderCompactDiff(items)
+      : `<span class="lvl-nochange">Sin cambios — seguí como estabas.</span>`;
+    html += `<div class="lvl-row"><span class="lvl-badge">Nv.${lvl}</span><div class="lvl-changes">${changes}</div></div>`;
     prevBuild = build;
   }
   return html || `<p class="empty-note">No hay ranuras nuevas de disciplina o poder en este tramo — ya tenías todo lo disponible reservado.</p>`;

@@ -60,6 +60,13 @@ function spellScore(name, sp, ctx){
   if(ctx.soloSustainBonus && sp.soloSustain) s += ctx.soloSustainBonus;
   if(ctx.soloPersonalBonus && sp.soloPersonal) s += ctx.soloPersonalBonus;
   if(ctx.soloDefenseBonus && sp.cat === 'defense') s += ctx.soloDefenseBonus;
+  // A modest, context-independent bump for spells that buff the class's own
+  // primary attribute (Destreza for Archer, Fuerza for Barbarian, etc.) —
+  // that stat compounds into everything the character does, so it's worth
+  // a little extra regardless of playstyle.
+  if(CLASS.primaryAttribute && sp.attrTags && sp.attrTags.includes('+'+CLASS.primaryAttribute)){
+    s += 1.2;
+  }
   return Math.max(0, s);
 }
 function discScoreOf(name, ctx){
@@ -349,19 +356,24 @@ function buildLevelSequence(current, goal, ctxFn){
   // ends up matching the level-60-quality result by construction.
   const finalBuild = computeBuild(goal, ctxFn);
   const weaponLocked = new Set(finalBuild.locked);
-  weaponLocked.delete(WM_NAME); // WM's lock is level-dependent, handled separately below
+  weaponLocked.delete(WM_NAME); // handled explicitly below, independent of the goal level
   const seq = {};
   let prev = null;
   for(let lvl = current; lvl <= goal; lvl++){
     const dpBudget = totalDP(lvl);
     const ppBudget = totalPP(lvl);
     const lockedNow = new Set(weaponLocked);
-    if(lvl < MAXCHARLEVEL) lockedNow.add(WM_NAME);
+    // Progreso de leveo never touches Warmaster, even once level 60 is
+    // reached — it's a deliberately separate track from "how do I get to
+    // 60", not something to fold into the leveling path. Build a medida and
+    // los arquetipos still consider it normally; this only affects this
+    // sequence.
+    lockedNow.add(WM_NAME);
     const {dlvl, dpLeft} = replayDiscOrder(finalBuild.discPurchaseOrder, lvl, dpBudget, lockedNow);
     const {ranks, ppLeft} = replayPowerOrder(finalBuild.powerPurchaseOrder, ppBudget, dlvl);
     let build = {
       level: lvl, dpBudget, ppBudget, dpLeft, ppLeft, dlvl, ranks,
-      discScore: finalBuild.discScore, wmUnlocked: lvl >= MAXCHARLEVEL,
+      discScore: finalBuild.discScore, wmUnlocked: false,
       locked: lockedNow, ctx: ctxFn
     };
     build = clampSequenceStep(build, prev, finalBuild);
