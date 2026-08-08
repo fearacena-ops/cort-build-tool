@@ -16,13 +16,36 @@ Los datos de disciplinas, habilidades y costos de puntos vienen del proyecto ope
 - Estadísticas de uso real de la comunidad (vía la API pública de estadísticas de CoRT), para calibrar qué tan seguido invierte la gente en cada habilidad y hasta qué rango.
 - Guías e información de la comunidad y de la wiki oficial.
 
-## Sobre este archivo
+## Estructura del proyecto
 
-Es un único archivo HTML autocontenido (HTML + CSS + JavaScript, sin dependencias de build ni backend). Todo el motor de cálculo corre en el navegador. La única dependencia externa es [html2canvas](https://html2canvas.hertzen.com/) (cargada bajo demanda solo al exportar una build como imagen).
+```
+cort-build-tool/
+├── index.html              → markup + carga de los archivos de abajo
+├── css/
+│   └── styles.css          → todos los estilos, incluidos los 3 temas de reino
+├── js/
+│   ├── engine.js           → motor de cálculo puro (sin tocar el DOM)
+│   ├── render.js           → funciones que arman HTML (tarjetas, tablas, export)
+│   ├── main.js              → estado de la interfaz, botones, arranque (initApp)
+│   └── data-loader.js       → pide data/game-data.json y llama a initApp()
+└── data/
+    ├── game-data.json      → clases, disciplinas, habilidades, puntajes
+    └── icons/               → un .webp por disciplina (hoja de sprites)
+```
 
-## Desarrollo
+No hay ningún paso de build: son archivos estáticos que se sirven tal cual — `<script>` clásicos, sin `type="module"`, que comparten alcance entre sí igual que si fuera un solo archivo.
 
-No hace falta ningún paso de build. Para probarlo localmente, simplemente abrí `index.html` en el navegador.
+**Importante**: como `data-loader.js` usa `fetch()` para pedir `data/game-data.json`, el sitio necesita servirse por HTTP — no funciona abriendo `index.html` directo desde el disco (protocolo `file://`), los navegadores bloquean `fetch()` ahí por seguridad. Para probarlo en tu compu, corré un servidor local simple, por ejemplo:
+
+```
+python3 -m http.server 8000
+```
+
+y abrí `http://localhost:8000`. En Vercel/GitHub Pages esto no es un problema — ya sirven todo por HTTP.
+
+## Dependencias
+
+Ninguna en tiempo de desarrollo. La única dependencia externa en tiempo de ejecución es [html2canvas](https://html2canvas.hertzen.com/) (cargada bajo demanda solo al exportar una build como imagen).
 
 ---
 
