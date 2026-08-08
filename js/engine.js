@@ -200,10 +200,20 @@ function computeBuild(level, ctx, prevBuild, useNaturalDepth){
   return {level, dpBudget, ppBudget, dpLeft, ppLeft, dlvl, ranks, spellOrder, discPurchaseOrder, powerPurchaseOrder, discScore, wmUnlocked, locked, ctx};
 }
 
+// Modest bonus layered on top of the hand-calibrated sp.lvl/sp.pvp heuristic
+// when a spell is explicitly tagged (via the community catalog) as fitting
+// the exact situation being scored for. Kept small on purpose: sp.lvl/sp.pvp
+// already reflect real usage-stat calibration, this just nudges ties and
+// covers gaps that a 0-3 scale is too coarse to capture on its own.
+function contenidoBonus(sp, wantedTags){
+  if(!sp.contenido || !wantedTags || !wantedTags.length) return 0;
+  return sp.contenido.some(t=> wantedTags.includes(t)) ? 1.2 : 0;
+}
 function ctxLeveling(mode, weaponChoice){
   const solo = mode==='solo';
+  const wantedContent = solo ? ['Leveo PvE'] : ['Leveo grupo PvE', 'Leveo PvE'];
   return {
-    base: sp=> sp.lvl,
+    base: sp=> sp.lvl + contenidoBonus(sp, wantedContent),
     aoeBonus: mode==='group' ? 1.5 : 0,
     groupBonus: mode==='group' ? 0.5 : 0,
     rvrBonus: 0,
@@ -219,6 +229,10 @@ function ctxCustom(opts){
     group_pve: sp=>sp.lvl, solo_pve: sp=>sp.lvl,
     group_pvp: sp=>sp.pvp, solo_pvp: sp=>sp.pvp, rvr: sp=>sp.pvp
   };
+  const contentMap = {
+    group_pve: ['Grupo PvE'], solo_pve: ['PvE'],
+    group_pvp: ['Grupo PvP'], solo_pvp: ['PvP'], rvr: ['RvR'],
+  };
   const bonusMap = {
     group_pve: {aoeBonus:1.5, groupBonus:1, rvrBonus:0},
     solo_pve: {aoeBonus:0, groupBonus:0, rvrBonus:0},
@@ -226,8 +240,9 @@ function ctxCustom(opts){
     solo_pvp: {aoeBonus:0, groupBonus:0, rvrBonus:0},
     rvr: {aoeBonus:1, groupBonus:1, rvrBonus:2},
   };
+  const wantedContent = contentMap[opts.context];
   return {
-    base: baseMap[opts.context],
+    base: sp=> baseMap[opts.context](sp) + contenidoBonus(sp, wantedContent),
     ...bonusMap[opts.context],
     role: opts.role || null,
     roleBonus: 1.4,
