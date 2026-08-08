@@ -36,7 +36,7 @@ function buildDetailTable(sp, rank, cap){
   (sp.buffs||[]).forEach(e=> rows.push({label:e.label, value:e.value}));
   const tabular = rows.filter(r=> Array.isArray(r.value) || typeof r.value === 'number');
   if(tabular.length===0) return '';
-  let html = `<table class="detail-table"><thead><tr><th></th>`;
+  let html = `<table class="detail-table"><thead><tr><th style="width:34%"></th>`;
   for(let r=1;r<=MAXPLEVEL;r++){
     const cls = r===rank ? 'cur' : (r>cap ? 'locked' : '');
     html += `<th class="${cls}">${r}</th>`;

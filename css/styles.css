@@ -236,8 +236,9 @@
     .choice-btn{padding:10px 16px;}
     .main-tab{padding:12px 16px;font-size:15px;}
     .go-btn{padding:15px;}
-    table.detail-table{font-size:10.5px;}
+    table.detail-table{font-size:10.5px;table-layout:fixed;}
     table.detail-table th, table.detail-table td{padding:5px 5px;}
+    table.detail-table th.rowlabel, table.detail-table td.rowlabel{white-space:normal;}
   }
   @media (max-width:460px){
     .wrap{padding:20px 12px 50px;}
@@ -254,4 +255,9 @@
     .export-row .go-btn{min-width:140px;}
     .choice-group{gap:6px;}
     .choice-btn{font-size:12.5px;padding:8px 12px;}
+    /* Long effect names (e.g. "Recuperación de maná por golpe") no longer
+       force the whole stat table wider than the screen — let them wrap to
+       a second line instead of relying on horizontal scroll to reach them. */
+    table.detail-table th.rowlabel, table.detail-table td.rowlabel{white-space:normal;}
+    table.detail-table{table-layout:fixed;}
   }
