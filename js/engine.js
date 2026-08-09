@@ -371,6 +371,68 @@ function clampSequenceStep(build, prev, finalBuild){
   let ppSpent = 0; Object.values(ranks).forEach(r=> ppSpent += r);
   return {...build, dlvl, ranks, dpLeft: Math.max(0, build.dpBudget-dpSpent), ppLeft: Math.max(0, build.ppBudget-ppSpent)};
 }
+// The replay above can leave a discipline sitting at dlvl>0 with zero power
+// points spent — not because the algorithm forgot it, but because its "give
+// this tree at least 1 point" turn was scheduled late in the FINAL build's
+// priority order, and this intermediate level's budget hasn't reached that
+// point in the sequence yet, even though the discipline itself already
+// leveled up via its own separate purchase order. Fix it locally: any
+// invested discipline with zero ranks gets 1 point in its best available
+// spell, paid for by trimming the lowest-priority spell elsewhere that has
+// more than the bare minimum to spare.
+function ensureCoverageStep(build, finalBuild){
+  const ranks = {...build.ranks};
+  const needsCoverage = DISC_NAMES.filter(name=>{
+    if((build.dlvl[name]||0) <= 0) return false;
+    return !CLASS.disciplines[name].spells.some((sp,idx)=> (ranks[name+'|'+idx]||0) > 0);
+  });
+  if(needsCoverage.length === 0) return build;
+
+  const additions = [];
+  needsCoverage.forEach(name=>{
+    let bestKey = null, bestScore = -1;
+    CLASS.disciplines[name].spells.forEach((sp,idx)=>{
+      const cap = spellCap(name, idx, build.dlvl[name]);
+      if(cap<=0) return;
+      const sc = spellScore(name, sp, build.ctx);
+      if(sc > bestScore){ bestScore = sc; bestKey = name+'|'+idx; }
+    });
+    if(bestKey){ ranks[bestKey] = (ranks[bestKey]||0) + 1; additions.push(bestKey); }
+  });
+  if(additions.length === 0) return build;
+
+  // Pay for it: trim from the lowest-priority spells that currently hold
+  // more than 1 point, so we never empty out some OTHER discipline's own
+  // coverage while fixing this one.
+  let toTrim = additions.length;
+  for(let i = finalBuild.spellOrder.length - 1; i >= 0 && toTrim > 0; i--){
+    const key = finalBuild.spellOrder[i];
+    if(additions.includes(key)) continue;
+    const cur = ranks[key] || 0;
+    if(cur > 1){ ranks[key] = cur - 1; toTrim--; }
+  }
+  // Last resort: if every spell holding points is down to exactly 1 (rare,
+  // very budget-starved levels), trim single-point ones too — but never one
+  // that's the sole coverage for its own discipline.
+  if(toTrim > 0){
+    for(let i = finalBuild.spellOrder.length - 1; i >= 0 && toTrim > 0; i--){
+      const key = finalBuild.spellOrder[i];
+      if(additions.includes(key)) continue;
+      const cur = ranks[key] || 0;
+      if(cur !== 1) continue;
+      const [dname] = key.split('|');
+      const siblingsHavePoints = CLASS.disciplines[dname].spells.some((sp,idx)=>{
+        const k = dname+'|'+idx;
+        return k !== key && (ranks[k]||0) > 0;
+      });
+      if(siblingsHavePoints){ ranks[key] = 0; toTrim--; }
+    }
+  }
+
+  let ppSpent = 0;
+  Object.values(ranks).forEach(r=> ppSpent += r);
+  return {...build, ranks, ppLeft: Math.max(0, build.ppBudget - ppSpent)};
+}
 function buildLevelSequence(current, goal, ctxFn){
   // Compute the destination build exactly once, the same way Build a medida
   // does — then every level in between is just "how far into that same
@@ -398,6 +460,7 @@ function buildLevelSequence(current, goal, ctxFn){
       discScore: finalBuild.discScore, wmUnlocked: false,
       locked: lockedNow, ctx: ctxFn
     };
+    build = ensureCoverageStep(build, finalBuild);
     build = clampSequenceStep(build, prev, finalBuild);
     seq[lvl] = build;
     prev = build;
