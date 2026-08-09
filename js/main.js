@@ -427,7 +427,7 @@ function renderManualPanel(){
         <div class="sicon${rank===0?' dim':''}" style="${iconStyle(d.icon, idx+1, 38)}"></div>
         <div class="rank-pips">${pips}</div>
         <div class="spell-info">
-          <div class="spell-name">${sp.name} <span class="rk">Nv.${rank}/${MAXPLEVEL}</span> <span class="tag ${sp.cat}">${tagLabel(sp.cat)}</span>${flagChips(sp)}</div>
+          <div class="spell-name">${sp.name} <span class="rk">Nv.${rank}/${MAXPLEVEL}</span> ${roleTags(sp)}${flagChips(sp)}</div>
           <div class="spell-desc">${sp.desc}</div>
         </div>
         <button class="spell-expand" onclick="toggleSpellDetailManual('${key}')">▸</button>
