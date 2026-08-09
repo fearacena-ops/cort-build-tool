@@ -69,6 +69,7 @@ function buildSpellDetailHTML(name, sp, idx, dlvl, rank){
   });
   if(sp.blockable100) html += `<div class="sd-warn">Bloqueable 100%</div>`;
   if(sp.resistible100) html += `<div class="sd-warn">Resistible 100%</div>`;
+  if(sp.selfDebuff) html += `<div class="sd-cost">Tiene costo propio</div>`;
   html += `</div>`;
   if((sp.funciones||[]).length) html += `<div class="sd-funcs">${sp.funciones.map(f=>`<span class="sd-func">${f}</span>`).join('')}</div>`;
   if(sp.commonRank) html += `<div class="sd-community">La comunidad suele dejarla en rango ${sp.commonRank}/5</div>`;

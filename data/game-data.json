@@ -299,7 +299,8 @@
         "Grupo PvP",
         "Grupo PvE",
         "Leveo grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Disparo rápido",
@@ -375,7 +376,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": true
       },
       {
        "name": "Flecha paralizadora",
@@ -458,7 +460,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Ligereza",
@@ -523,7 +526,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Meditación",
@@ -602,7 +606,8 @@
        "contenidoSecundario": [
         "PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Adaptabilidad",
@@ -672,7 +677,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Desgarrar",
@@ -748,7 +754,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Duelista",
@@ -812,7 +819,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Ralentizar",
@@ -896,7 +904,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Tiro de repetición",
@@ -972,7 +981,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       }
      ]
     },
@@ -1052,7 +1062,8 @@
        "contenidoSecundario": [
         "Leveo PvE",
         "Leveo grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Tiro parabólico",
@@ -1128,7 +1139,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Maniobrabilidad",
@@ -1200,7 +1212,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Ojo de águila",
@@ -1269,7 +1282,8 @@
        "contenidoSecundario": [
         "PvE",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Tiro al blanco",
@@ -1351,7 +1365,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": true
       },
       {
        "name": "Omnipresencia",
@@ -1416,7 +1431,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Despedazar",
@@ -1492,7 +1508,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Especialista",
@@ -1555,7 +1572,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Ofuscar",
@@ -1656,7 +1674,8 @@
        "contenidoSecundario": [
         "PvE",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Lluvia de proyectiles",
@@ -1733,7 +1752,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       }
      ]
     },
@@ -1810,7 +1830,8 @@
        "contenidoSecundario": [
         "PvE",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Ataque sorpresivo",
@@ -1880,7 +1901,8 @@
        "contenidoSecundario": [
         "PvE",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Puño aturdidor",
@@ -1966,7 +1988,8 @@
        "contenidoSecundario": [
         "Leveo PvE",
         "Leveo grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Represalia",
@@ -2035,7 +2058,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Toque pegajoso",
@@ -2104,7 +2128,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Pelea sucia",
@@ -2180,7 +2205,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": true
       },
       {
        "name": "Fineza",
@@ -2254,7 +2280,8 @@
        "contenidoSecundario": [
         "PvE",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Centinela",
@@ -2330,7 +2357,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Tiro de distración",
@@ -2399,7 +2427,8 @@
        "contenidoSecundario": [
         "PvE",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Flecha con abrojos",
@@ -2473,7 +2502,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       }
      ]
     },
@@ -2544,7 +2574,8 @@
        "contenidoSecundario": [
         "PvE",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Movilidad",
@@ -2614,7 +2645,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Tácticas evasivas",
@@ -2697,7 +2729,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": true
       },
       {
        "name": "Reflejos felinos",
@@ -2761,7 +2794,8 @@
        "contenidoSecundario": [
         "PvE",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Acrobático",
@@ -2840,7 +2874,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Eludir conjuros",
@@ -2918,7 +2953,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Escapista",
@@ -2990,7 +3026,8 @@
        "contenidoSecundario": [
         "PvE",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Astucia",
@@ -3055,7 +3092,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Perfil bajo",
@@ -3128,7 +3166,8 @@
        "contenidoSecundario": [
         "PvE",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Hijo del viento",
@@ -3205,7 +3244,8 @@
        "contenidoSecundario": [
         "PvE",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       }
      ]
     },
@@ -3304,7 +3344,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Sentencia a muerte",
@@ -3377,7 +3418,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Vigilancia enemiga",
@@ -3448,7 +3490,8 @@
        "contenidoSecundario": [
         "PvE",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Espíritu salvaje",
@@ -3511,7 +3554,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Camuflaje",
@@ -3606,7 +3650,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Ligereza heredada",
@@ -3689,7 +3734,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Sangre fria",
@@ -3759,7 +3805,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Revelar",
@@ -3832,7 +3879,8 @@
        "contenidoSecundario": [
         "PvE",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Confundir",
@@ -3903,7 +3951,8 @@
        "contenidoSecundario": [
         "PvE",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Entorno acechador",
@@ -3989,7 +4038,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": true
       }
      ]
     },
@@ -4065,7 +4115,8 @@
        "contenidoSecundario": [
         "PvP",
         "Grupo PvP"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Curar mascota",
@@ -4139,7 +4190,8 @@
        "contenidoSecundario": [
         "PvP",
         "Grupo PvP"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Defensa salvaje",
@@ -4215,7 +4267,8 @@
        "contenidoSecundario": [
         "PvP",
         "Grupo PvP"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Vista prominente",
@@ -4291,7 +4344,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": true
       },
       {
        "name": "Adiestramiento",
@@ -4357,7 +4411,8 @@
        "contenidoSecundario": [
         "PvP",
         "Grupo PvP"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Revivir mascota",
@@ -4431,7 +4486,8 @@
        "contenidoSecundario": [
         "PvP",
         "Grupo PvP"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Cólera bestial",
@@ -4508,7 +4564,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": true
       },
       {
        "name": "Armadura natural",
@@ -4577,7 +4634,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Furia natural",
@@ -4669,7 +4727,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Coraza de la bestia",
@@ -4744,7 +4803,8 @@
        ],
        "contenidoSecundario": [
         "Grupo PvP"
-       ]
+       ],
+       "selfDebuff": false
       }
      ]
     },
@@ -4803,7 +4863,8 @@
         "Grupo PvP",
         "Grupo PvE"
        ],
-       "contenidoSecundario": []
+       "contenidoSecundario": [],
+       "selfDebuff": false
       },
       {
        "name": "Cuerno del viento",
@@ -4859,7 +4920,8 @@
         "Grupo PvE",
         "Leveo grupo PvE"
        ],
-       "contenidoSecundario": []
+       "contenidoSecundario": [],
+       "selfDebuff": false
       },
       {
        "name": "Maestría de Guerra",
@@ -4918,7 +4980,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Head of the Pack",
@@ -4979,7 +5042,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Sangre de Warmaster",
@@ -5036,7 +5100,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       }
      ]
     }
@@ -5265,7 +5330,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Plaga de insectos",
@@ -5349,7 +5415,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Llamarada",
@@ -5422,7 +5489,8 @@
         "PvP",
         "PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Empuje mental",
@@ -5499,7 +5567,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Hiedra espinosa",
@@ -5582,7 +5651,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Dominio de la voluntad",
@@ -5650,7 +5720,8 @@
        "contenidoSecundario": [
         "PvE",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Silenciar",
@@ -5721,7 +5792,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Muro de agujas",
@@ -5795,7 +5867,8 @@
         "PvP",
         "PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Maestro del tiempo",
@@ -5887,7 +5960,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Masa devoradora de Sultar",
@@ -5999,7 +6073,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       }
      ]
     },
@@ -6083,7 +6158,8 @@
         "PvP",
         "PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Ignición de maná",
@@ -6156,7 +6232,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Unión sinérgica",
@@ -6226,7 +6303,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Sangre de dragón",
@@ -6290,7 +6368,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Préstamo de energía",
@@ -6353,7 +6432,8 @@
        "contenidoSecundario": [
         "PvE",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Sacrificio ambicioso",
@@ -6429,7 +6509,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": true
       },
       {
        "name": "Devoción arcana",
@@ -6497,7 +6578,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Laguna de maná",
@@ -6561,7 +6643,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Comunión de mana",
@@ -6632,7 +6715,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Pilón de mana",
@@ -6712,7 +6796,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       }
      ]
     },
@@ -6816,7 +6901,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": true
       },
       {
        "name": "Aceleración arcana",
@@ -6885,7 +6971,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Proyección arcana",
@@ -6954,7 +7041,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Magia de combate",
@@ -7017,7 +7105,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Campo estático",
@@ -7103,7 +7192,8 @@
         "PvP",
         "PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Magnificación de hielo",
@@ -7200,7 +7290,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": true
       },
       {
        "name": "Cúpula de protección",
@@ -7280,7 +7371,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Control metabólico",
@@ -7357,7 +7449,8 @@
        "contenidoSecundario": [
         "PvE",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": true
       },
       {
        "name": "Magnificación de electricidad",
@@ -7454,7 +7547,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": true
       },
       {
        "name": "Furia de Evendim",
@@ -7526,7 +7620,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       }
      ]
     },
@@ -7613,7 +7708,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Destreza felina",
@@ -7683,7 +7779,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Ceguera",
@@ -7769,7 +7866,8 @@
        "contenidoSecundario": [
         "PvE",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Bendición",
@@ -7853,7 +7951,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Fuerza de oso",
@@ -7923,7 +8022,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Bendecir arma",
@@ -7997,7 +8097,8 @@
         "PvP",
         "PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Disipar magia",
@@ -8068,7 +8169,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Astucia de zorro",
@@ -8138,7 +8240,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Torpeza",
@@ -8214,7 +8317,8 @@
        "contenidoSecundario": [
         "PvE",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Disipar magia en masa",
@@ -8285,7 +8389,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       }
      ]
     },
@@ -8375,7 +8480,8 @@
         "PvP",
         "PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Curarse",
@@ -8445,7 +8551,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Revivir",
@@ -8543,7 +8650,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Regenerar aliado",
@@ -8614,7 +8722,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Regenerarse",
@@ -8683,7 +8792,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Intervención divina",
@@ -8754,7 +8864,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Salvador",
@@ -8822,7 +8933,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Regeneración mayor",
@@ -8908,7 +9020,8 @@
         "PvP",
         "PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Curación mayor",
@@ -8980,7 +9093,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Revivir en masa",
@@ -9069,7 +9183,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       }
      ]
     },
@@ -9146,7 +9261,8 @@
        "contenidoSecundario": [
         "PvP",
         "Grupo PvP"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Lazo extraplanar",
@@ -9211,7 +9327,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "invocar demonio",
@@ -9287,7 +9404,8 @@
        "contenidoSecundario": [
         "PvP",
         "Grupo PvP"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Lazo material",
@@ -9349,7 +9467,8 @@
        "contenidoSecundario": [
         "PvP",
         "Grupo PvP"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Invocar zombis",
@@ -9419,7 +9538,8 @@
        "contenidoSecundario": [
         "PvP",
         "Grupo PvP"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Furia demoníaca",
@@ -9494,7 +9614,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": true
       },
       {
        "name": "Invocar golem",
@@ -9564,7 +9685,8 @@
        "contenidoSecundario": [
         "PvP",
         "Grupo PvP"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Armadura mágica",
@@ -9632,7 +9754,8 @@
        "contenidoSecundario": [
         "PvP",
         "Grupo PvP"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Bebedor de sangre",
@@ -9701,7 +9824,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Invocar lich",
@@ -9787,7 +9911,8 @@
        "contenidoSecundario": [
         "PvP",
         "Grupo PvP"
-       ]
+       ],
+       "selfDebuff": false
       }
      ]
     },
@@ -9868,7 +9993,8 @@
         "PvP",
         "PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Silueta cambiante",
@@ -9960,7 +10086,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Escudar compañero",
@@ -10031,7 +10158,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Mente en blanco",
@@ -10134,7 +10262,8 @@
        "contenidoSecundario": [
         "PvE",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Espejo del karma",
@@ -10207,7 +10336,8 @@
        "contenidoSecundario": [
         "PvE",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Barrera mágica",
@@ -10279,7 +10409,8 @@
         "PvP",
         "PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Muralla material",
@@ -10350,7 +10481,8 @@
         "PvP",
         "PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Santuario",
@@ -10420,7 +10552,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Introspectiva",
@@ -10483,7 +10616,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Piel de acero",
@@ -10560,7 +10694,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       }
      ]
     },
@@ -10618,7 +10753,8 @@
         "Grupo PvP",
         "Grupo PvE"
        ],
-       "contenidoSecundario": []
+       "contenidoSecundario": [],
+       "selfDebuff": false
       },
       {
        "name": "Portal Defensivo",
@@ -10666,7 +10802,8 @@
         "RvR",
         "Grupo PvE"
        ],
-       "contenidoSecundario": []
+       "contenidoSecundario": [],
+       "selfDebuff": false
       },
       {
        "name": "Maestría de Guerra",
@@ -10729,7 +10866,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Protección Divina",
@@ -10790,7 +10928,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Sangre de Warmaster",
@@ -10846,7 +10985,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       }
      ]
     }
@@ -11055,7 +11195,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Plaga de insectos",
@@ -11139,7 +11280,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Llamarada",
@@ -11212,7 +11354,8 @@
         "PvP",
         "PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Empuje mental",
@@ -11289,7 +11432,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Hiedra espinosa",
@@ -11372,7 +11516,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Dominio de la voluntad",
@@ -11440,7 +11585,8 @@
        "contenidoSecundario": [
         "PvE",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Silenciar",
@@ -11511,7 +11657,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Muro de agujas",
@@ -11585,7 +11732,8 @@
         "PvP",
         "PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Maestro del tiempo",
@@ -11677,7 +11825,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Masa devoradora de Sultar",
@@ -11789,7 +11938,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       }
      ]
     },
@@ -11873,7 +12023,8 @@
         "PvP",
         "PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Ignición de maná",
@@ -11946,7 +12097,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Unión sinérgica",
@@ -12016,7 +12168,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Sangre de dragón",
@@ -12080,7 +12233,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Préstamo de energía",
@@ -12143,7 +12297,8 @@
        "contenidoSecundario": [
         "PvE",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Sacrificio ambicioso",
@@ -12219,7 +12374,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": true
       },
       {
        "name": "Devoción arcana",
@@ -12287,7 +12443,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Laguna de maná",
@@ -12351,7 +12508,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Comunión de mana",
@@ -12422,7 +12580,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Pilón de mana",
@@ -12502,7 +12661,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       }
      ]
     },
@@ -12606,7 +12766,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": true
       },
       {
        "name": "Aceleración arcana",
@@ -12675,7 +12836,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Proyección arcana",
@@ -12744,7 +12906,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Magia de combate",
@@ -12807,7 +12970,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Campo estático",
@@ -12893,7 +13057,8 @@
         "PvP",
         "PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Magnificación de hielo",
@@ -12990,7 +13155,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": true
       },
       {
        "name": "Cúpula de protección",
@@ -13070,7 +13236,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Control metabólico",
@@ -13147,7 +13314,8 @@
        "contenidoSecundario": [
         "PvE",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": true
       },
       {
        "name": "Magnificación de electricidad",
@@ -13244,7 +13412,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": true
       },
       {
        "name": "Furia de Evendim",
@@ -13316,7 +13485,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       }
      ]
     },
@@ -13403,7 +13573,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Destreza felina",
@@ -13473,7 +13644,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Ceguera",
@@ -13559,7 +13731,8 @@
        "contenidoSecundario": [
         "PvE",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Bendición",
@@ -13643,7 +13816,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Fuerza de oso",
@@ -13713,7 +13887,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Bendecir arma",
@@ -13787,7 +13962,8 @@
         "PvP",
         "PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Disipar magia",
@@ -13858,7 +14034,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Astucia de zorro",
@@ -13928,7 +14105,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Torpeza",
@@ -14004,7 +14182,8 @@
        "contenidoSecundario": [
         "PvE",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Disipar magia en masa",
@@ -14075,7 +14254,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       }
      ]
     },
@@ -14160,7 +14340,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Lentitud",
@@ -14229,7 +14410,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Petrificar manos",
@@ -14317,7 +14499,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Pereza",
@@ -14395,7 +14578,8 @@
        "contenidoSecundario": [
         "PvE",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Meteorito",
@@ -14485,7 +14669,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Muro de viento",
@@ -14559,7 +14744,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Estallido de cristales",
@@ -14632,7 +14818,8 @@
         "PvP",
         "PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Fragilidad",
@@ -14703,7 +14890,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Puño de golem",
@@ -14772,7 +14960,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Terror de Sultar",
@@ -14879,7 +15068,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       }
      ]
     },
@@ -14955,7 +15145,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Oscuridad",
@@ -15021,7 +15212,8 @@
        "contenidoSecundario": [
         "PvE",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Enfurecer",
@@ -15097,7 +15289,8 @@
        "contenidoSecundario": [
         "PvE",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Absorción vital",
@@ -15162,7 +15355,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Guardias sádicos",
@@ -15248,7 +15442,8 @@
        "contenidoSecundario": [
         "PvE",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Sirvientes sádicos",
@@ -15314,7 +15509,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Guardián de almas",
@@ -15397,7 +15593,8 @@
        "contenidoSecundario": [
         "PvE",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Cremación",
@@ -15463,7 +15660,8 @@
        "contenidoSecundario": [
         "PvE",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Poseer invocación",
@@ -15529,7 +15727,8 @@
        "contenidoSecundario": [
         "PvE",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Maestro de la destrucción",
@@ -15612,7 +15811,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       }
      ]
     },
@@ -15692,7 +15892,8 @@
         "PvP",
         "PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Explosión de hielo",
@@ -15777,7 +15978,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Relámpago",
@@ -15845,7 +16047,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Comunión elemental",
@@ -15932,7 +16135,8 @@
         "PvP",
         "PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Paralizar",
@@ -16000,7 +16204,8 @@
        "contenidoSecundario": [
         "PvE",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Tormenta helada",
@@ -16087,7 +16292,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Exposición alos elementos",
@@ -16185,7 +16391,8 @@
        "contenidoSecundario": [
         "PvE",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Explosión de magma",
@@ -16264,7 +16471,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Tornado",
@@ -16351,7 +16559,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Invocar rayos",
@@ -16428,7 +16637,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       }
      ]
     },
@@ -16486,7 +16696,8 @@
         "Grupo PvP",
         "Grupo PvE"
        ],
-       "contenidoSecundario": []
+       "contenidoSecundario": [],
+       "selfDebuff": false
       },
       {
        "name": "Portal Offensivo",
@@ -16534,7 +16745,8 @@
         "RvR",
         "Grupo PvE"
        ],
-       "contenidoSecundario": []
+       "contenidoSecundario": [],
+       "selfDebuff": false
       },
       {
        "name": "Maestría de Guerra",
@@ -16597,7 +16809,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Hiedra espinosa en masa",
@@ -16665,7 +16878,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Sangre de Warmaster",
@@ -16721,7 +16935,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       }
      ]
     }
@@ -16945,7 +17160,8 @@
         "Grupo PvP",
         "Grupo PvE",
         "Leveo grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Disparo rápido",
@@ -17021,7 +17237,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": true
       },
       {
        "name": "Flecha paralizadora",
@@ -17104,7 +17321,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Ligereza",
@@ -17169,7 +17387,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Meditación",
@@ -17248,7 +17467,8 @@
        "contenidoSecundario": [
         "PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Adaptabilidad",
@@ -17318,7 +17538,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Desgarrar",
@@ -17394,7 +17615,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Duelista",
@@ -17458,7 +17680,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Ralentizar",
@@ -17542,7 +17765,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Tiro de repetición",
@@ -17618,7 +17842,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       }
      ]
     },
@@ -17698,7 +17923,8 @@
        "contenidoSecundario": [
         "Leveo PvE",
         "Leveo grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Tiro parabólico",
@@ -17774,7 +18000,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Maniobrabilidad",
@@ -17846,7 +18073,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Ojo de águila",
@@ -17915,7 +18143,8 @@
        "contenidoSecundario": [
         "PvE",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Tiro al blanco",
@@ -17997,7 +18226,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": true
       },
       {
        "name": "Omnipresencia",
@@ -18062,7 +18292,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Despedazar",
@@ -18138,7 +18369,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Especialista",
@@ -18201,7 +18433,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Ofuscar",
@@ -18302,7 +18535,8 @@
        "contenidoSecundario": [
         "PvE",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Lluvia de proyectiles",
@@ -18379,7 +18613,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       }
      ]
     },
@@ -18456,7 +18691,8 @@
        "contenidoSecundario": [
         "PvE",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Ataque sorpresivo",
@@ -18526,7 +18762,8 @@
        "contenidoSecundario": [
         "PvE",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Puño aturdidor",
@@ -18612,7 +18849,8 @@
        "contenidoSecundario": [
         "Leveo PvE",
         "Leveo grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Represalia",
@@ -18681,7 +18919,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Toque pegajoso",
@@ -18750,7 +18989,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Pelea sucia",
@@ -18826,7 +19066,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": true
       },
       {
        "name": "Fineza",
@@ -18900,7 +19141,8 @@
        "contenidoSecundario": [
         "PvE",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Centinela",
@@ -18976,7 +19218,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Tiro de distración",
@@ -19045,7 +19288,8 @@
        "contenidoSecundario": [
         "PvE",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Flecha con abrojos",
@@ -19119,7 +19363,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       }
      ]
     },
@@ -19190,7 +19435,8 @@
        "contenidoSecundario": [
         "PvE",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Movilidad",
@@ -19260,7 +19506,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Tácticas evasivas",
@@ -19343,7 +19590,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": true
       },
       {
        "name": "Reflejos felinos",
@@ -19407,7 +19655,8 @@
        "contenidoSecundario": [
         "PvE",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Acrobático",
@@ -19486,7 +19735,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Eludir conjuros",
@@ -19564,7 +19814,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Escapista",
@@ -19636,7 +19887,8 @@
        "contenidoSecundario": [
         "PvE",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Astucia",
@@ -19701,7 +19953,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Perfil bajo",
@@ -19774,7 +20027,8 @@
        "contenidoSecundario": [
         "PvE",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Hijo del viento",
@@ -19851,7 +20105,8 @@
        "contenidoSecundario": [
         "PvE",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       }
      ]
     },
@@ -19952,7 +20207,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": true
       },
       {
        "name": "Ola invernal",
@@ -20036,7 +20292,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Rafaga de viento",
@@ -20102,7 +20359,8 @@
        "contenidoSecundario": [
         "PvE",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Mordida de serpiente",
@@ -20181,7 +20439,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Fuego de Ignus",
@@ -20270,7 +20529,8 @@
        ],
        "contenidoSecundario": [
         "Leveo grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Flecha etérea",
@@ -20338,7 +20598,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Explosión de agujas",
@@ -20413,7 +20674,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Proyectil arcano",
@@ -20501,7 +20763,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Lluvia de fuego",
@@ -20576,7 +20839,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Flecha de rayo",
@@ -20659,7 +20923,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       }
      ]
     },
@@ -20747,7 +21012,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": true
       },
       {
        "name": "Enfocar",
@@ -20821,7 +21087,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": true
       },
       {
        "name": "Perforador de piel",
@@ -20907,7 +21174,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Previsión",
@@ -20970,7 +21238,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Maldición del cíclope",
@@ -21053,7 +21322,8 @@
        "contenidoSecundario": [
         "PvE",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Ataque letal",
@@ -21135,7 +21405,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Posición estratégica",
@@ -21204,7 +21475,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Ojo entrenado",
@@ -21267,7 +21539,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Tiro buscador",
@@ -21339,7 +21612,8 @@
        "contenidoSecundario": [
         "PvE",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Mirada de halcón",
@@ -21425,7 +21699,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       }
      ]
     },
@@ -21483,7 +21758,8 @@
         "Grupo PvP",
         "Grupo PvE"
        ],
-       "contenidoSecundario": []
+       "contenidoSecundario": [],
+       "selfDebuff": false
       },
       {
        "name": "Flecha de fuego",
@@ -21543,7 +21819,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Maestría de Guerra",
@@ -21601,7 +21878,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Instinto asesino",
@@ -21670,7 +21948,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": true
       },
       {
        "name": "Sangre de Warmaster",
@@ -21726,7 +22005,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       }
      ]
     }
@@ -21956,7 +22236,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Esgrimes precisos",
@@ -22025,7 +22306,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Incapacitar",
@@ -22100,7 +22382,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Atlético",
@@ -22175,7 +22458,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Cruz del sur",
@@ -22247,7 +22531,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Choque",
@@ -22341,7 +22626,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Arrasador",
@@ -22424,7 +22710,8 @@
         "PvP",
         "PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Piel de hierro",
@@ -22491,7 +22778,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Ataque fatal",
@@ -22566,7 +22854,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Tifón",
@@ -22663,7 +22952,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       }
      ]
     },
@@ -22742,7 +23032,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Impactos brutales",
@@ -22811,7 +23102,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Rompe costillas",
@@ -22894,7 +23186,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Anatomía letal",
@@ -22956,7 +23249,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Triturador",
@@ -23036,7 +23330,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Ejecución",
@@ -23111,7 +23406,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Aplasta mentes",
@@ -23195,7 +23491,8 @@
        "contenidoSecundario": [
         "PvE",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Temple de acero",
@@ -23262,7 +23559,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Rompe quijadas",
@@ -23339,7 +23637,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Golpe de trueno",
@@ -23436,7 +23735,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       }
      ]
     },
@@ -23515,7 +23815,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Maniobras ágiles",
@@ -23584,7 +23885,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Balestra",
@@ -23667,7 +23969,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Versatilidad",
@@ -23739,7 +24042,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Riposte",
@@ -23821,7 +24125,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Empalamiento",
@@ -23916,7 +24221,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Perfora cerebros",
@@ -24004,7 +24310,8 @@
        "contenidoSecundario": [
         "PvE",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Flexibilidad",
@@ -24071,7 +24378,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Estocada múltiple",
@@ -24154,7 +24462,8 @@
         "PvP",
         "PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Golpe relámpago",
@@ -24248,7 +24557,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       }
      ]
     },
@@ -24338,7 +24648,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Cautela",
@@ -24410,7 +24721,8 @@
         "PvP",
         "PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Degollador",
@@ -24467,7 +24779,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Defensa marcial",
@@ -24528,7 +24841,8 @@
        "contenidoSecundario": [
         "PvE",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Preparación rigurosa",
@@ -24597,7 +24911,8 @@
        "contenidoSecundario": [
         "PvE",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Revés",
@@ -24677,7 +24992,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Embestida",
@@ -24758,7 +25074,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Intimidar",
@@ -24834,7 +25151,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Inhabilitar",
@@ -24913,7 +25231,8 @@
        "contenidoSecundario": [
         "PvE",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Reflejos marciales",
@@ -25000,7 +25319,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       }
      ]
     },
@@ -25085,7 +25405,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": true
       },
       {
        "name": "Frenesí",
@@ -25159,7 +25480,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "¡¡Corten sus cabezas!!",
@@ -25229,7 +25551,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Sed de sangre",
@@ -25318,7 +25641,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Rugido desafiante",
@@ -25399,7 +25723,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Bramido ensordecedor",
@@ -25472,7 +25797,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Berserk",
@@ -25558,7 +25884,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": true
       },
       {
        "name": "Fuerza sobrecogedora",
@@ -25622,7 +25949,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Retorno",
@@ -25700,7 +26028,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Desquiciamiento",
@@ -25827,7 +26156,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       }
      ]
     },
@@ -25914,7 +26244,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Golpe espiritual",
@@ -25995,7 +26326,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Despedazar",
@@ -26072,7 +26404,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Ataque bestial",
@@ -26156,7 +26489,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Alarido",
@@ -26227,7 +26561,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Onda expansiva",
@@ -26312,7 +26647,8 @@
         "PvP",
         "PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Desestabilizador",
@@ -26389,7 +26725,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Fulminante",
@@ -26464,7 +26801,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Manos de Acero",
@@ -26537,7 +26875,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Furia de la tierra",
@@ -26624,7 +26963,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       }
      ]
     },
@@ -26682,7 +27022,8 @@
         "Grupo PvP",
         "Grupo PvE"
        ],
-       "contenidoSecundario": []
+       "contenidoSecundario": [],
+       "selfDebuff": false
       },
       {
        "name": "Maestría de Guerra",
@@ -26740,7 +27081,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Sangre de Warmaster",
@@ -26796,7 +27138,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Bandera de Warmaster",
@@ -26855,7 +27198,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Grito Heroico",
@@ -26918,7 +27262,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       }
      ]
     }
@@ -27168,7 +27513,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Esgrimes precisos",
@@ -27237,7 +27583,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Incapacitar",
@@ -27312,7 +27659,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Atlético",
@@ -27387,7 +27735,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Cruz del sur",
@@ -27459,7 +27808,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Choque",
@@ -27553,7 +27903,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Arrasador",
@@ -27636,7 +27987,8 @@
         "PvP",
         "PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Piel de hierro",
@@ -27703,7 +28055,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Ataque fatal",
@@ -27778,7 +28131,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Tifón",
@@ -27875,7 +28229,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       }
      ]
     },
@@ -27954,7 +28309,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Impactos brutales",
@@ -28023,7 +28379,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Rompe costillas",
@@ -28106,7 +28463,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Anatomía letal",
@@ -28168,7 +28526,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Triturador",
@@ -28248,7 +28607,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Ejecución",
@@ -28323,7 +28683,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Aplasta mentes",
@@ -28407,7 +28768,8 @@
        "contenidoSecundario": [
         "PvE",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Temple de acero",
@@ -28474,7 +28836,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Rompe quijadas",
@@ -28551,7 +28914,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Golpe de trueno",
@@ -28648,7 +29012,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       }
      ]
     },
@@ -28727,7 +29092,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Maniobras ágiles",
@@ -28796,7 +29162,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Balestra",
@@ -28879,7 +29246,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Versatilidad",
@@ -28951,7 +29319,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Riposte",
@@ -29033,7 +29402,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Empalamiento",
@@ -29128,7 +29498,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Perfora cerebros",
@@ -29216,7 +29587,8 @@
        "contenidoSecundario": [
         "PvE",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Flexibilidad",
@@ -29283,7 +29655,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Estocada múltiple",
@@ -29366,7 +29739,8 @@
         "PvP",
         "PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Golpe relámpago",
@@ -29460,7 +29834,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       }
      ]
     },
@@ -29550,7 +29925,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Cautela",
@@ -29622,7 +29998,8 @@
         "PvP",
         "PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Degollador",
@@ -29679,7 +30056,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Defensa marcial",
@@ -29740,7 +30118,8 @@
        "contenidoSecundario": [
         "PvE",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Preparación rigurosa",
@@ -29809,7 +30188,8 @@
        "contenidoSecundario": [
         "PvE",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Revés",
@@ -29889,7 +30269,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Embestida",
@@ -29970,7 +30351,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Intimidar",
@@ -30046,7 +30428,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Inhabilitar",
@@ -30125,7 +30508,8 @@
        "contenidoSecundario": [
         "PvE",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Reflejos marciales",
@@ -30212,7 +30596,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       }
      ]
     },
@@ -30303,7 +30688,8 @@
        "contenidoSecundario": [
         "PvE",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Provocar",
@@ -30400,7 +30786,8 @@
        "contenidoSecundario": [
         "PvP",
         "Grupo PvP"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Finta",
@@ -30468,7 +30855,8 @@
        "contenidoSecundario": [
         "PvE",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Temple de protector",
@@ -30557,7 +30945,8 @@
         "PvP",
         "PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Instancia ofensiva",
@@ -30630,7 +31019,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": true
       },
       {
        "name": "Soporte defensivo",
@@ -30738,7 +31128,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": true
       },
       {
        "name": "Piel de troll",
@@ -30809,7 +31200,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Furor del caballero",
@@ -30880,7 +31272,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Presencia heroica",
@@ -30952,7 +31345,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Ejército de uno",
@@ -31035,7 +31429,8 @@
         "PvP",
         "PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       }
      ]
     },
@@ -31114,7 +31509,8 @@
         "PvP",
         "PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Avasallar",
@@ -31197,7 +31593,8 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Proteger aliado",
@@ -31279,7 +31676,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Bloqueo preciso",
@@ -31363,7 +31761,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Instancia defensiva",
@@ -31440,7 +31839,8 @@
         "PvP",
         "PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": true
       },
       {
        "name": "Manto etéreo",
@@ -31524,7 +31924,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Muro protector",
@@ -31599,7 +32000,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Firmeza",
@@ -31664,7 +32066,8 @@
         "PvP",
         "PvE",
         "Leveo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Escudo estelar",
@@ -31744,7 +32147,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Barrera deflectora",
@@ -31826,7 +32230,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       }
      ]
     },
@@ -31884,7 +32289,8 @@
         "Grupo PvP",
         "Grupo PvE"
        ],
-       "contenidoSecundario": []
+       "contenidoSecundario": [],
+       "selfDebuff": false
       },
       {
        "name": "Maestría de Guerra",
@@ -31943,7 +32349,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Sangre de Warmaster",
@@ -31999,7 +32406,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Asistencia del Paladín",
@@ -32059,7 +32467,8 @@
        "contenidoSecundario": [
         "PvP",
         "PvE"
-       ]
+       ],
+       "selfDebuff": false
       },
       {
        "name": "Bendecido",
@@ -32116,7 +32525,8 @@
        "contenidoSecundario": [
         "Grupo PvP",
         "Grupo PvE"
-       ]
+       ],
+       "selfDebuff": false
       }
      ]
     }

@@ -67,6 +67,11 @@ function spellScore(name, sp, ctx){
   if(CLASS.primaryAttribute && sp.attrTags && sp.attrTags.includes('+'+CLASS.primaryAttribute)){
     s += 1.2;
   }
+  // A skill that costs you something to use it (self-debuff trade-off, like
+  // "Instancia ofensiva" trading protection for damage) is objectively less
+  // free than an equivalent skill without that cost — a flat, always-on
+  // penalty, since the trade-off exists regardless of context.
+  if(sp.selfDebuff) s -= 0.3;
   return Math.max(0, s);
 }
 function discScoreOf(name, ctx){
