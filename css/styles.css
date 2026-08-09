@@ -109,11 +109,14 @@
   .diff-item .txt .h b{color:var(--bronze);}
   .diff-item .txt .s{font-size:12px;color:var(--ink-faint);margin-top:2px;font-style:italic;}
   .tag{font-family:var(--font-mono);font-size:9.5px;text-transform:uppercase;letter-spacing:.05em;padding:2px 7px;border-radius:10px;flex-shrink:0;white-space:nowrap;align-self:center;}
-  .tag.dmg{background:rgba(168,60,60,0.15);color:#d68080;}
-  .tag.control{background:rgba(90,147,168,0.15);color:#8fc2d6;}
-  .tag.defense{background:rgba(127,174,90,0.15);color:#a3d17f;}
-  .tag.support{background:rgba(160,130,210,0.15);color:#c3a8e8;}
+  .tag.dps{background:rgba(168,60,60,0.15);color:#d68080;}
+  .tag.tank{background:rgba(70,110,190,0.15);color:#8fa8e0;}
+  .tag.healer{background:rgba(90,180,120,0.15);color:#8fd6a8;}
+  .tag.buffer{background:rgba(210,170,60,0.15);color:#e8c878;}
+  .tag.debuffer{background:rgba(150,90,190,0.15);color:#c090e0;}
+  .tag.cc{background:rgba(90,147,168,0.15);color:#8fc2d6;}
   .tag.utility{background:rgba(201,161,90,0.15);color:var(--bronze);}
+  .diff-tags{display:flex;gap:4px;flex-shrink:0;align-self:center;}
   .diff-item.disc-up{border-left:3px solid var(--moss);}
   .diff-item.new{border-left:3px solid var(--bronze);}
   .empty-note{color:var(--ink-faint);font-size:13px;font-style:italic;}

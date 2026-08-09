@@ -23,7 +23,10 @@ function iconStyle(discKey, spellpos, boxSize){
   return `background-image:url(${ICONS_BASE_PATH}/${discKey}.webp);background-size:${sheetW}px ${sheetH}px;background-position:${off}px 0px;background-repeat:no-repeat;`;
 }
 
-function tagLabel(cat){ return {dmg:"Daño", control:"Control", defense:"Defensa", support:"Apoyo", utility:"Utilidad"}[cat] || cat; }
+function tagLabel(role){ return {dps:"DPS", tank:"Tanque", healer:"Curador", buffer:"Buffer", debuffer:"Debuffer", cc:"Control", utility:"Utilidad"}[role] || role; }
+function roleTags(sp){
+  return (sp.cat||[]).map(r=> `<span class="tag ${r}">${tagLabel(r)}</span>`).join('');
+}
 const ROLE_LABEL = {dps:"DPS", cc:"Control", support:"Apoyo", tank:"Tanque", flanker:"Flanqueador"};
 
 const TYPE_LABEL = {Passive:"Pasivo", Constant:"Constante", Direct:"Directo", Activable:"Activable", Aura:"Aura"};
@@ -128,7 +131,7 @@ function renderTabbedDiscs(build){
         <div class="sicon${rank===0?' dim':''}" style="${iconStyle(d.icon, idx+1, 38)}"></div>
         <div class="rank-pips">${pips}</div>
         <div class="spell-info">
-          <div class="spell-name">${sp.name} <span class="rk">Nv.${rank}/${MAXPLEVEL}</span> <span class="tag ${sp.cat}">${tagLabel(sp.cat)}</span>${flagChips(sp)}</div>
+          <div class="spell-name">${sp.name} <span class="rk">Nv.${rank}/${MAXPLEVEL}</span> ${roleTags(sp)}${flagChips(sp)}</div>
           <div class="spell-desc">${sp.desc}</div>
         </div>
         <button class="spell-expand" onclick="event.stopPropagation();toggleSpellDetail(this.closest('.spell-row'))">▸</button>
@@ -185,7 +188,7 @@ function renderDiff(items){
         <div class="h">${it.isNew?'Agrega':'Sube'} <b>${it.sp.name}</b> ${it.isNew?`(nuevo, rango ${it.after})`:`rango ${it.before} → ${it.after}`} <span style="color:var(--ink-faint);font-size:12px;font-style:normal">· ${d.es}</span></div>
         <div class="s">${it.sp.desc}</div>
       </div>
-      <span class="tag ${it.sp.cat}">${tagLabel(it.sp.cat)}</span>
+      <span class="diff-tags">${roleTags(it.sp)}</span>
     </div>`;
   });
   html += `</div>`;

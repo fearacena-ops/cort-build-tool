@@ -59,7 +59,7 @@ function spellScore(name, sp, ctx){
   if(ctx.petBoost && sig && name === sig.discipline && sp.name === sig.spellName) s += ctx.petBoost;
   if(ctx.soloSustainBonus && sp.soloSustain) s += ctx.soloSustainBonus;
   if(ctx.soloPersonalBonus && sp.soloPersonal) s += ctx.soloPersonalBonus;
-  if(ctx.soloDefenseBonus && sp.cat === 'defense') s += ctx.soloDefenseBonus;
+  if(ctx.soloDefenseBonus && sp.cat && sp.cat.includes('tank')) s += ctx.soloDefenseBonus;
   // A modest, context-independent bump for spells that buff the class's own
   // primary attribute (Destreza for Archer, Fuerza for Barbarian, etc.) —
   // that stat compounds into everything the character does, so it's worth

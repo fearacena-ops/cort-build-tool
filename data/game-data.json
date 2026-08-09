@@ -220,7 +220,9 @@
      "spells": [
       {
        "name": "Disparo dual",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 3,
        "pvp": 2,
        "note": "Tu golpe base a dos flechas: la columna vertebral del daño sostenido.",
@@ -280,12 +282,15 @@
         "PvP"
        ],
        "funciones": [
-        "Buff"
+        "Buff",
+        "DPS"
        ]
       },
       {
        "name": "Disparo rápido",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 3,
        "pvp": 2,
        "note": "Ráfaga de ataques más veloces, ideal para limpiar oleadas de monstruos.",
@@ -339,12 +344,15 @@
        ],
        "funciones": [
         "Buff",
+        "Crítico / burst",
         "Debuff"
        ]
       },
       {
        "name": "Flecha paralizadora",
-       "cat": "control",
+       "cat": [
+        "cc"
+       ],
        "lvl": 1,
        "pvp": 3,
        "note": "Raíz a los pies: corta la persecución de un rival en combate 1v1.",
@@ -404,12 +412,17 @@
         "PvP"
        ],
        "funciones": [
-        "Buff"
+        "Buff",
+        "Control",
+        "Control de masas",
+        "Debuff"
        ]
       },
       {
        "name": "Ligereza",
-       "cat": "dmg",
+       "cat": [
+        "buffer"
+       ],
        "lvl": 2,
        "pvp": 1,
        "note": "Pasiva de rapidez natural del arquero.",
@@ -457,7 +470,9 @@
       },
       {
        "name": "Meditación",
-       "cat": "dmg",
+       "cat": [
+        "buffer"
+       ],
        "lvl": 2,
        "pvp": 1,
        "note": "Recuperación de maná fuera de combate, acelera el farmeo largo.",
@@ -517,7 +532,9 @@
       },
       {
        "name": "Adaptabilidad",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 2,
        "note": "Ajuste táctico que mejora tu rendimiento a media pelea.",
@@ -564,12 +581,15 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Buff"
+        "Buff",
+        "Crítico / burst"
        ]
       },
       {
        "name": "Desgarrar",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "note": "Sangrado que se acumula, buen daño extra sin gastar más maná.",
@@ -623,11 +643,16 @@
         "PvE",
         "PvP"
        ],
-       "funciones": []
+       "funciones": [
+        "DPS",
+        "Daño prolongado"
+       ]
       },
       {
        "name": "Duelista",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 0,
        "pvp": 0,
        "note": "Pasiva de precisión y velocidad de disparo.",
@@ -668,12 +693,15 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Buff"
+        "Buff",
+        "Crítico / burst"
        ]
       },
       {
        "name": "Ralentizar",
-       "cat": "control",
+       "cat": [
+        "cc"
+       ],
        "lvl": 1,
        "pvp": 3,
        "note": "Ralentiza al rival, clave para kiting en RvR.",
@@ -734,12 +762,17 @@
         "RvR"
        ],
        "funciones": [
+        "Control",
+        "Control de masas",
+        "Debuff",
         "Área / AoE"
        ]
       },
       {
        "name": "Tiro de repetición",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 0,
        "note": "Golpe de área fuerte, muy bueno contra grupos de mobs o pelotones.",
@@ -796,6 +829,7 @@
         "RvR"
        ],
        "funciones": [
+        "DPS",
         "Área / AoE"
        ]
       }
@@ -808,7 +842,10 @@
      "spells": [
       {
        "name": "Penetra escudos",
-       "cat": "defense",
+       "cat": [
+        "tank",
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 3,
        "note": "Perfora armadura, muy útil contra Knights y Barbarians acorazados.",
@@ -858,12 +895,15 @@
         "PvP"
        ],
        "funciones": [
-        "DPS"
+        "DPS",
+        "Defensa"
        ]
       },
       {
        "name": "Tiro parabólico",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "note": "Prepara disparos de largo alcance para pelear a distancia segura.",
@@ -922,7 +962,9 @@
       },
       {
        "name": "Maniobrabilidad",
-       "cat": "utility",
+       "cat": [
+        "utility"
+       ],
        "lvl": 1,
        "pvp": 2,
        "note": "Mejora tu capacidad de esquivar mientras peleas a distancia.",
@@ -972,12 +1014,15 @@
         "PvP"
        ],
        "funciones": [
-        "Buff"
+        "Buff",
+        "Movilidad"
        ]
       },
       {
        "name": "Ojo de águila",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 0,
        "pvp": 0,
        "note": "Pasiva de precisión, sube tu tasa de acierto.",
@@ -1029,7 +1074,9 @@
       },
       {
        "name": "Tiro al blanco",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 0,
        "pvp": 0,
        "note": "Sube probabilidad de golpe crítico.",
@@ -1089,12 +1136,15 @@
        ],
        "funciones": [
         "Buff",
+        "Crítico / burst",
         "Debuff"
        ]
       },
       {
        "name": "Omnipresencia",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 2,
        "note": "Pasiva que ayuda a superar defensas enemigas.",
@@ -1142,7 +1192,9 @@
       },
       {
        "name": "Despedazar",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "note": "Daño directo adicional a distancia.",
@@ -1196,12 +1248,16 @@
         "PvP"
        ],
        "funciones": [
+        "DPS",
+        "Daño prolongado",
         "Debuff"
        ]
       },
       {
        "name": "Especialista",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "note": "Pasiva que explota puntos débiles del objetivo.",
@@ -1247,7 +1303,9 @@
       },
       {
        "name": "Ofuscar",
-       "cat": "control",
+       "cat": [
+        "cc"
+       ],
        "lvl": 1,
        "pvp": 3,
        "note": "Interrumpe la concentración enemiga, muy fuerte contra magos.",
@@ -1325,13 +1383,18 @@
         "PvP"
        ],
        "funciones": [
+        "Control",
+        "Control de masas",
+        "Debuff",
         "Sigilo",
         "Utilidad"
        ]
       },
       {
        "name": "Lluvia de proyectiles",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 3,
        "pvp": 1,
        "note": "Lluvia de flechas en área, excelente para levear en grupo, situacional en asedios.",
@@ -1389,6 +1452,7 @@
         "RvR"
        ],
        "funciones": [
+        "DPS",
         "Área / AoE"
        ]
       }
@@ -1401,7 +1465,9 @@
      "spells": [
       {
        "name": "Emboscada",
-       "cat": "control",
+       "cat": [
+        "cc"
+       ],
        "lvl": 1,
        "pvp": 3,
        "note": "Aturde desde el sigilo, tu apertura de combate en RvR.",
@@ -1449,11 +1515,17 @@
         "Grupo PvP",
         "PvP"
        ],
-       "funciones": []
+       "funciones": [
+        "Control",
+        "Control de masas",
+        "Debuff"
+       ]
       },
       {
        "name": "Ataque sorpresivo",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 3,
        "note": "Golpe fuerte que baja las defensas del rival desprevenido.",
@@ -1506,7 +1578,10 @@
       },
       {
        "name": "Puño aturdidor",
-       "cat": "control",
+       "cat": [
+        "cc",
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 3,
        "note": "Stun corto cuerpo a cuerpo, útil para rematar o escapar.",
@@ -1567,12 +1642,17 @@
         "PvP"
        ],
        "funciones": [
-        "DPS"
+        "Control",
+        "Control de masas",
+        "DPS",
+        "Debuff"
        ]
       },
       {
        "name": "Represalia",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 2,
        "note": "Devuelve parte del daño recibido, buen seguro defensivo.",
@@ -1620,11 +1700,15 @@
         "PvE",
         "PvP"
        ],
-       "funciones": []
+       "funciones": [
+        "DPS"
+       ]
       },
       {
        "name": "Toque pegajoso",
-       "cat": "dmg",
+       "cat": [
+        "cc"
+       ],
        "lvl": 1,
        "pvp": 3,
        "note": "Ralentiza al objetivo a distancia media.",
@@ -1676,7 +1760,9 @@
       },
       {
        "name": "Pelea sucia",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 3,
        "pvp": 3,
        "note": "Mejora tu daño a corta distancia si te acorralan.",
@@ -1736,7 +1822,9 @@
       },
       {
        "name": "Fineza",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 2,
        "note": "Dificulta que el rival explote tus puntos débiles.",
@@ -1789,12 +1877,15 @@
         "PvP"
        ],
        "funciones": [
+        "Crítico / burst",
         "Debuff"
        ]
       },
       {
        "name": "Centinela",
-       "cat": "dmg",
+       "cat": [
+        "buffer"
+       ],
        "lvl": 1,
        "pvp": 1,
        "note": "Agudiza percepción general.",
@@ -1853,7 +1944,9 @@
       },
       {
        "name": "Tiro de distración",
-       "cat": "control",
+       "cat": [
+        "cc"
+       ],
        "lvl": 1,
        "pvp": 2,
        "note": "Retrasa la reacción del enemigo unos instantes.",
@@ -1900,11 +1993,17 @@
         "Grupo PvP",
         "PvP"
        ],
-       "funciones": []
+       "funciones": [
+        "Control",
+        "Control de masas",
+        "Debuff"
+       ]
       },
       {
        "name": "Flecha con abrojos",
-       "cat": "utility",
+       "cat": [
+        "utility"
+       ],
        "lvl": 1,
        "pvp": 3,
        "note": "Ralentiza en área, muy fuerte defendiendo objetivos en guerra.",
@@ -1957,6 +2056,7 @@
        ],
        "funciones": [
         "Debuff",
+        "Movilidad",
         "Área / AoE"
        ]
       }
@@ -1969,7 +2069,9 @@
      "spells": [
       {
        "name": "Esquivar",
-       "cat": "dmg",
+       "cat": [
+        "utility"
+       ],
        "lvl": 1,
        "pvp": 3,
        "note": "Evita el próximo intento de control sobre ti.",
@@ -2014,7 +2116,9 @@
       },
       {
        "name": "Movilidad",
-       "cat": "utility",
+       "cat": [
+        "utility"
+       ],
        "lvl": 2,
        "pvp": 2,
        "note": "Más velocidad de movimiento, útil para levear y para reposicionarte en guerra.",
@@ -2062,12 +2166,15 @@
         "PvP"
        ],
        "funciones": [
-        "Buff"
+        "Buff",
+        "Movilidad"
        ]
       },
       {
        "name": "Tácticas evasivas",
-       "cat": "defense",
+       "cat": [
+        "tank"
+       ],
        "lvl": 1,
        "pvp": 2,
        "note": "Sube tu evasión a cambio de algo de efectividad ofensiva.",
@@ -2129,12 +2236,16 @@
        ],
        "funciones": [
         "Buff",
-        "Debuff"
+        "Debuff",
+        "Defensa",
+        "Mitigación / absorción"
        ]
       },
       {
        "name": "Reflejos felinos",
-       "cat": "defense",
+       "cat": [
+        "tank"
+       ],
        "lvl": 1,
        "pvp": 2,
        "note": "Pasiva que sube tu capacidad de esquivar golpes.",
@@ -2178,12 +2289,15 @@
         "PvP"
        ],
        "funciones": [
-        "Buff"
+        "Buff",
+        "Defensa"
        ]
       },
       {
        "name": "Acrobático",
-       "cat": "defense",
+       "cat": [
+        "tank"
+       ],
        "lvl": 1,
        "pvp": 2,
        "note": "Reduce el daño físico que recibes.",
@@ -2240,12 +2354,16 @@
        ],
        "funciones": [
         "Buff",
+        "Defensa",
         "Movilidad"
        ]
       },
       {
        "name": "Eludir conjuros",
-       "cat": "defense",
+       "cat": [
+        "tank",
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 3,
        "note": "Reduce daño mágico recibido, esencial contra realms con muchos magos.",
@@ -2302,12 +2420,15 @@
        ],
        "funciones": [
         "Buff",
-        "DPS"
+        "DPS",
+        "Defensa"
        ]
       },
       {
        "name": "Escapista",
-       "cat": "defense",
+       "cat": [
+        "tank"
+       ],
        "lvl": 1,
        "pvp": 3,
        "note": "Pico grande de evasión para salir con vida de un mal encuentro.",
@@ -2361,13 +2482,16 @@
        ],
        "funciones": [
         "Buff",
+        "Defensa",
         "Movilidad",
         "Área / AoE"
        ]
       },
       {
        "name": "Astucia",
-       "cat": "dmg",
+       "cat": [
+        "buffer"
+       ],
        "lvl": 1,
        "pvp": 1,
        "note": "Pasiva de eficiencia general en combate.",
@@ -2415,7 +2539,10 @@
       },
       {
        "name": "Perfil bajo",
-       "cat": "control",
+       "cat": [
+        "cc",
+        "tank"
+       ],
        "lvl": 1,
        "pvp": 2,
        "note": "Te vuelves inatacable un instante para reposicionarte o huir.",
@@ -2466,6 +2593,8 @@
        ],
        "funciones": [
         "Buff",
+        "Control",
+        "Control de masas",
         "Defensa",
         "Sigilo",
         "Utilidad"
@@ -2473,7 +2602,9 @@
       },
       {
        "name": "Hijo del viento",
-       "cat": "defense",
+       "cat": [
+        "tank"
+       ],
        "lvl": 1,
        "pvp": 3,
        "note": "Gran velocidad y evasión mágica combinadas, ideal para hostigar en guerra.",
@@ -2533,6 +2664,7 @@
        "funciones": [
         "Buff",
         "Debuff",
+        "Defensa",
         "Área / AoE"
        ]
       }
@@ -2545,7 +2677,9 @@
      "spells": [
       {
        "name": "Flecha enredadora",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "note": "Daño y reduce movimiento, buen opener a distancia.",
@@ -2616,12 +2750,15 @@
         "PvP"
        ],
        "funciones": [
+        "DPS",
         "Debuff"
        ]
       },
       {
        "name": "Sentencia a muerte",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 3,
        "note": "Marca al objetivo para golpes más letales, gran daño de remate.",
@@ -2674,13 +2811,16 @@
         "RvR"
        ],
        "funciones": [
+        "DPS",
         "Debuff",
         "Área / AoE"
        ]
       },
       {
        "name": "Vigilancia enemiga",
-       "cat": "utility",
+       "cat": [
+        "utility"
+       ],
        "lvl": 0,
        "pvp": 3,
        "note": "Inteligencia táctica sobre movimientos enemigos, oro puro en guerra de reinos.",
@@ -2728,12 +2868,16 @@
         "PvP"
        ],
        "funciones": [
-        "Buff"
+        "Buff",
+        "Sigilo",
+        "Utilidad"
        ]
       },
       {
        "name": "Espíritu salvaje",
-       "cat": "dmg",
+       "cat": [
+        "buffer"
+       ],
        "lvl": 2,
        "pvp": 1,
        "note": "Pasiva de adaptación a entornos hostiles.",
@@ -2779,7 +2923,10 @@
       },
       {
        "name": "Camuflaje",
-       "cat": "control",
+       "cat": [
+        "cc",
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 3,
        "note": "Sigilo real: tu principal herramienta de emboscada y escape en PvP.",
@@ -2847,7 +2994,10 @@
        ],
        "funciones": [
         "Buff",
+        "Control",
+        "Control de masas",
         "DPS",
+        "Debuff",
         "Invocación / mascota",
         "Sigilo",
         "Utilidad"
@@ -2855,7 +3005,9 @@
       },
       {
        "name": "Ligereza heredada",
-       "cat": "support",
+       "cat": [
+        "utility"
+       ],
        "lvl": 1,
        "pvp": 3,
        "note": "Aura de velocidad para el grupo, mejora la movilidad de tu escuadrón en guerra.",
@@ -2918,13 +3070,16 @@
         "RvR"
        ],
        "funciones": [
+        "Buff",
         "Gestión de recursos",
         "Utilidad"
        ]
       },
       {
        "name": "Sangre fria",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "note": "Golpe letal cuando ya tienes ventaja sobre el objetivo.",
@@ -2973,12 +3128,15 @@
         "PvP"
        ],
        "funciones": [
-        "Buff"
+        "Buff",
+        "DPS"
        ]
       },
       {
        "name": "Revelar",
-       "cat": "utility",
+       "cat": [
+        "utility"
+       ],
        "lvl": 0,
        "pvp": 3,
        "note": "Detecta enemigos ocultos, contrarresta el sigilo rival.",
@@ -3027,12 +3185,18 @@
        ],
        "funciones": [
         "Buff",
-        "Disipación / limpieza"
+        "Detección / exploración",
+        "Disipación / limpieza",
+        "Sigilo",
+        "Utilidad"
        ]
       },
       {
        "name": "Confundir",
-       "cat": "control",
+       "cat": [
+        "cc",
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 2,
        "note": "Impide conjuros no combativos del enemigo.",
@@ -3082,12 +3246,17 @@
         "PvP"
        ],
        "funciones": [
-        "DPS"
+        "Control",
+        "Control de masas",
+        "DPS",
+        "Debuff"
        ]
       },
       {
        "name": "Entorno acechador",
-       "cat": "utility",
+       "cat": [
+        "utility"
+       ],
        "lvl": 0,
        "pvp": 3,
        "note": "Sigilo grupal, útil en asaltos y defensas de fuertes/castillos.",
@@ -3152,6 +3321,9 @@
        "funciones": [
         "Buff",
         "Debuff",
+        "Movilidad",
+        "Sigilo",
+        "Utilidad",
         "Área / AoE"
        ]
       }
@@ -3164,7 +3336,10 @@
      "spells": [
       {
        "name": "Dominio natural",
-       "cat": "dmg",
+       "cat": [
+        "dps",
+        "tank"
+       ],
        "lvl": 3,
        "pvp": 1,
        "note": "Invoca a tu mascota, DPS y aguante extra mientras subes de nivel.",
@@ -3217,7 +3392,9 @@
       },
       {
        "name": "Curar mascota",
-       "cat": "support",
+       "cat": [
+        "healer"
+       ],
        "lvl": 2,
        "pvp": 0,
        "note": "Mantiene viva a tu mascota durante el farmeo.",
@@ -3269,12 +3446,17 @@
         "PvE"
        ],
        "funciones": [
+        "Buff",
+        "Curación",
         "Invocación / mascota"
        ]
       },
       {
        "name": "Defensa salvaje",
-       "cat": "defense",
+       "cat": [
+        "tank",
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 0,
        "note": "La mascota absorbe parte del daño que recibirías tú.",
@@ -3327,12 +3509,16 @@
        "funciones": [
         "Buff",
         "DPS",
-        "Invocación / mascota"
+        "Defensa",
+        "Invocación / mascota",
+        "Mitigación / absorción"
        ]
       },
       {
        "name": "Vista prominente",
-       "cat": "utility",
+       "cat": [
+        "utility"
+       ],
        "lvl": 1,
        "pvp": 1,
        "note": "La mascota amplía tu campo de visión.",
@@ -3388,12 +3574,15 @@
        ],
        "funciones": [
         "Buff",
-        "Debuff"
+        "Debuff",
+        "Invocación / mascota"
        ]
       },
       {
        "name": "Adiestramiento",
-       "cat": "utility",
+       "cat": [
+        "utility"
+       ],
        "lvl": 2,
        "pvp": 0,
        "note": "Pasiva de salud para la mascota.",
@@ -3436,12 +3625,15 @@
         "PvE"
        ],
        "funciones": [
-        "Buff"
+        "Buff",
+        "Invocación / mascota"
        ]
       },
       {
        "name": "Revivir mascota",
-       "cat": "support",
+       "cat": [
+        "healer"
+       ],
        "lvl": 2,
        "pvp": 0,
        "note": "Trae de vuelta a tu mascota si muere.",
@@ -3492,12 +3684,17 @@
         "PvE"
        ],
        "funciones": [
-        "Invocación / mascota"
+        "Buff",
+        "Curación",
+        "Invocación / mascota",
+        "Resurrección"
        ]
       },
       {
        "name": "Cólera bestial",
-       "cat": "utility",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 0,
        "note": "Más daño de la mascota a cambio de su evasión.",
@@ -3554,12 +3751,16 @@
        "funciones": [
         "Buff",
         "DPS",
-        "Debuff"
+        "Debuff",
+        "Invocación / mascota"
        ]
       },
       {
        "name": "Armadura natural",
-       "cat": "defense",
+       "cat": [
+        "tank",
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 0,
        "note": "Pasiva de resistencia para la mascota.",
@@ -3604,12 +3805,17 @@
        ],
        "funciones": [
         "Buff",
-        "DPS"
+        "DPS",
+        "Defensa",
+        "Mitigación / absorción"
        ]
       },
       {
        "name": "Furia natural",
-       "cat": "control",
+       "cat": [
+        "cc",
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 0,
        "note": "Explosión de daño en área de la mascota.",
@@ -3677,14 +3883,20 @@
         "RvR"
        ],
        "funciones": [
+        "Control",
+        "Control de masas",
         "DPS",
+        "Debuff",
         "Invocación / mascota",
         "Área / AoE"
        ]
       },
       {
        "name": "Coraza de la bestia",
-       "cat": "defense",
+       "cat": [
+        "tank",
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 0,
        "note": "Más defensa plana para la mascota.",
@@ -3737,6 +3949,7 @@
        "funciones": [
         "Buff",
         "DPS",
+        "Defensa",
         "Invocación / mascota"
        ]
       }
@@ -3749,7 +3962,9 @@
      "spells": [
       {
        "name": "Concilio de Guerra",
-       "cat": "dmg",
+       "cat": [
+        "buffer"
+       ],
        "lvl": 3,
        "pvp": 3,
        "note": "Pasiva de comunicación de Warmaster.",
@@ -3789,7 +4004,9 @@
       },
       {
        "name": "Cuerno del viento",
-       "cat": "utility",
+       "cat": [
+        "utility"
+       ],
        "lvl": 1,
        "pvp": 3,
        "note": "Grito de guerra que acelera a todo tu grupo, muy usado en cargas de RvR.",
@@ -3829,12 +4046,15 @@
        ],
        "funciones": [
         "Buff",
+        "Movilidad",
         "Área / AoE"
        ]
       },
       {
        "name": "Maestría de Guerra",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 3,
        "note": "Pasiva que sube tu atributo principal de clase.",
@@ -3876,7 +4096,9 @@
       },
       {
        "name": "Head of the Pack",
-       "cat": "support",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 3,
        "note": "Pico de daño temporal para rematar peleas grandes.",
@@ -3917,13 +4139,16 @@
         "RvR"
        ],
        "funciones": [
+        "Buff",
         "DPS",
         "Área / AoE"
        ]
       },
       {
        "name": "Sangre de Warmaster",
-       "cat": "dmg",
+       "cat": [
+        "buffer"
+       ],
        "lvl": 2,
        "pvp": 3,
        "note": "Pasiva de capacidad atlética por años de entrenamiento.",
@@ -4124,7 +4349,9 @@
      "spells": [
       {
        "name": "Misil arcano",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 0,
        "roles": [
@@ -4171,11 +4398,16 @@
         "PvE",
         "PvP"
        ],
-       "funciones": []
+       "funciones": [
+        "DPS"
+       ]
       },
       {
        "name": "Plaga de insectos",
-       "cat": "control",
+       "cat": [
+        "cc",
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -4235,13 +4467,18 @@
         "PvP"
        ],
        "funciones": [
+        "Control",
+        "Control de masas",
         "DPS",
-        "Daño prolongado"
+        "Daño prolongado",
+        "Debuff"
        ]
       },
       {
        "name": "Llamarada",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 0,
        "roles": [
@@ -4293,12 +4530,15 @@
         "RvR"
        ],
        "funciones": [
+        "DPS",
         "Área / AoE"
        ]
       },
       {
        "name": "Empuje mental",
-       "cat": "dmg",
+       "cat": [
+        "cc"
+       ],
        "lvl": 1,
        "pvp": 3,
        "roles": [
@@ -4360,7 +4600,10 @@
       },
       {
        "name": "Hiedra espinosa",
-       "cat": "control",
+       "cat": [
+        "cc",
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 3,
        "roles": [
@@ -4420,12 +4663,17 @@
         "PvP"
        ],
        "funciones": [
-        "DPS"
+        "Control",
+        "Control de masas",
+        "DPS",
+        "Debuff"
        ]
       },
       {
        "name": "Dominio de la voluntad",
-       "cat": "control",
+       "cat": [
+        "cc"
+       ],
        "lvl": 1,
        "pvp": 3,
        "roles": [
@@ -4471,11 +4719,17 @@
         "Grupo PvP",
         "PvP"
        ],
-       "funciones": []
+       "funciones": [
+        "Control",
+        "Control de masas",
+        "Debuff"
+       ]
       },
       {
        "name": "Silenciar",
-       "cat": "control",
+       "cat": [
+        "cc"
+       ],
        "lvl": 1,
        "pvp": 3,
        "roles": [
@@ -4525,12 +4779,17 @@
         "PvP"
        ],
        "funciones": [
+        "Control",
+        "Control de masas",
+        "Debuff",
         "Invocación / mascota"
        ]
       },
       {
        "name": "Muro de agujas",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -4582,12 +4841,16 @@
         "RvR"
        ],
        "funciones": [
+        "DPS",
+        "Daño prolongado",
         "Área / AoE"
        ]
       },
       {
        "name": "Maestro del tiempo",
-       "cat": "dmg",
+       "cat": [
+        "cc"
+       ],
        "lvl": 1,
        "pvp": 3,
        "roles": [
@@ -4664,7 +4927,9 @@
       },
       {
        "name": "Masa devoradora de Sultar",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -4754,6 +5019,8 @@
         "PvP"
        ],
        "funciones": [
+        "DPS",
+        "Daño prolongado",
         "Debuff"
        ]
       }
@@ -4766,7 +5033,10 @@
      "spells": [
       {
        "name": "Barrera de energía",
-       "cat": "defense",
+       "cat": [
+        "tank",
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -4818,13 +5088,18 @@
        "funciones": [
         "Buff",
         "DPS",
+        "Defensa",
         "Gestión de recursos",
+        "Mitigación / absorción",
         "Utilidad"
        ]
       },
       {
        "name": "Ignición de maná",
-       "cat": "defense",
+       "cat": [
+        "tank",
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -4875,12 +5150,15 @@
         "DPS",
         "Debuff",
         "Gestión de recursos",
+        "Mitigación / absorción",
         "Utilidad"
        ]
       },
       {
        "name": "Unión sinérgica",
-       "cat": "support",
+       "cat": [
+        "utility"
+       ],
        "lvl": 3,
        "pvp": 3,
        "roles": [
@@ -4930,13 +5208,16 @@
         "RvR"
        ],
        "funciones": [
+        "Buff",
         "Gestión de recursos",
         "Utilidad"
        ]
       },
       {
        "name": "Sangre de dragón",
-       "cat": "dmg",
+       "cat": [
+        "buffer"
+       ],
        "lvl": 2,
        "pvp": 1,
        "roles": [
@@ -4983,7 +5264,9 @@
       },
       {
        "name": "Préstamo de energía",
-       "cat": "dmg",
+       "cat": [
+        "cc"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -5032,7 +5315,9 @@
       },
       {
        "name": "Sacrificio ambicioso",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 1,
        "roles": [
@@ -5093,7 +5378,9 @@
       },
       {
        "name": "Devoción arcana",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 1,
        "roles": [
@@ -5144,7 +5431,9 @@
       },
       {
        "name": "Laguna de maná",
-       "cat": "dmg",
+       "cat": [
+        "utility"
+       ],
        "lvl": 2,
        "pvp": 1,
        "roles": [
@@ -5192,7 +5481,9 @@
       },
       {
        "name": "Comunión de mana",
-       "cat": "support",
+       "cat": [
+        "utility"
+       ],
        "lvl": 1,
        "pvp": 1,
        "roles": [
@@ -5242,6 +5533,7 @@
         "RvR"
        ],
        "funciones": [
+        "Buff",
         "Gestión de recursos",
         "Utilidad",
         "Área / AoE"
@@ -5249,7 +5541,9 @@
       },
       {
        "name": "Pilón de mana",
-       "cat": "defense",
+       "cat": [
+        "tank"
+       ],
        "lvl": 1,
        "pvp": 3,
        "roles": [
@@ -5308,7 +5602,9 @@
        "funciones": [
         "Buff",
         "Debuff",
+        "Defensa",
         "Gestión de recursos",
+        "Mitigación / absorción",
         "Utilidad",
         "Área / AoE"
        ]
@@ -5322,7 +5618,9 @@
      "spells": [
       {
        "name": "Magnificación de fuego",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 3,
        "pvp": 2,
        "roles": [
@@ -5396,12 +5694,15 @@
        ],
        "funciones": [
         "Buff",
+        "DPS",
         "Debuff"
        ]
       },
       {
        "name": "Aceleración arcana",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -5457,7 +5758,9 @@
       },
       {
        "name": "Proyección arcana",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -5509,7 +5812,9 @@
       },
       {
        "name": "Magia de combate",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -5551,12 +5856,15 @@
         "PvP"
        ],
        "funciones": [
-        "Buff"
+        "Buff",
+        "DPS"
        ]
       },
       {
        "name": "Campo estático",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 3,
        "roles": [
@@ -5619,13 +5927,17 @@
         "RvR"
        ],
        "funciones": [
+        "DPS",
+        "Daño prolongado",
         "Debuff",
         "Área / AoE"
        ]
       },
       {
        "name": "Magnificación de hielo",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 0,
        "roles": [
@@ -5699,12 +6011,16 @@
        ],
        "funciones": [
         "Buff",
+        "DPS",
         "Debuff"
        ]
       },
       {
        "name": "Cúpula de protección",
-       "cat": "defense",
+       "cat": [
+        "tank",
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -5765,12 +6081,16 @@
         "Buff",
         "DPS",
         "Debuff",
+        "Defensa",
+        "Mitigación / absorción",
         "Área / AoE"
        ]
       },
       {
        "name": "Control metabólico",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 0,
        "pvp": 0,
        "roles": [
@@ -5824,6 +6144,7 @@
        ],
        "funciones": [
         "Buff",
+        "DPS",
         "Debuff",
         "Gestión de recursos",
         "Utilidad"
@@ -5831,7 +6152,9 @@
       },
       {
        "name": "Magnificación de electricidad",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 0,
        "roles": [
@@ -5905,12 +6228,15 @@
        ],
        "funciones": [
         "Buff",
+        "DPS",
         "Debuff"
        ]
       },
       {
        "name": "Furia de Evendim",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -5962,6 +6288,7 @@
         "RvR"
        ],
        "funciones": [
+        "DPS",
         "Debuff",
         "Gestión de recursos",
         "Utilidad",
@@ -5977,7 +6304,9 @@
      "spells": [
       {
        "name": "Maldición",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -6035,12 +6364,16 @@
         "PvP"
        ],
        "funciones": [
+        "Crítico / burst",
+        "DPS",
         "Debuff"
        ]
       },
       {
        "name": "Destreza felina",
-       "cat": "support",
+       "cat": [
+        "buffer"
+       ],
        "lvl": 2,
        "pvp": 1,
        "roles": [
@@ -6090,11 +6423,15 @@
         "Leveo grupo PvE",
         "RvR"
        ],
-       "funciones": []
+       "funciones": [
+        "Buff"
+       ]
       },
       {
        "name": "Ceguera",
-       "cat": "control",
+       "cat": [
+        "cc"
+       ],
        "lvl": 1,
        "pvp": 3,
        "roles": [
@@ -6156,11 +6493,17 @@
         "Grupo PvP",
         "PvP"
        ],
-       "funciones": []
+       "funciones": [
+        "Control",
+        "Control de masas",
+        "Debuff"
+       ]
       },
       {
        "name": "Bendición",
-       "cat": "dmg",
+       "cat": [
+        "buffer"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -6227,7 +6570,9 @@
       },
       {
        "name": "Fuerza de oso",
-       "cat": "support",
+       "cat": [
+        "buffer"
+       ],
        "lvl": 2,
        "pvp": 1,
        "roles": [
@@ -6277,11 +6622,15 @@
         "Leveo grupo PvE",
         "RvR"
        ],
-       "funciones": []
+       "funciones": [
+        "Buff"
+       ]
       },
       {
        "name": "Bendecir arma",
-       "cat": "support",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 1,
        "roles": [
@@ -6334,12 +6683,15 @@
         "RvR"
        ],
        "funciones": [
+        "Buff",
         "DPS"
        ]
       },
       {
        "name": "Disipar magia",
-       "cat": "support",
+       "cat": [
+        "utility"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -6389,13 +6741,17 @@
         "RvR"
        ],
        "funciones": [
+        "Buff",
+        "Disipación / limpieza",
         "Utilidad",
         "Área / AoE"
        ]
       },
       {
        "name": "Astucia de zorro",
-       "cat": "support",
+       "cat": [
+        "buffer"
+       ],
        "lvl": 2,
        "pvp": 1,
        "roles": [
@@ -6445,11 +6801,15 @@
         "Leveo grupo PvE",
         "RvR"
        ],
-       "funciones": []
+       "funciones": [
+        "Buff"
+       ]
       },
       {
        "name": "Torpeza",
-       "cat": "dmg",
+       "cat": [
+        "cc"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -6510,7 +6870,9 @@
       },
       {
        "name": "Disipar magia en masa",
-       "cat": "support",
+       "cat": [
+        "utility"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -6560,6 +6922,8 @@
         "RvR"
        ],
        "funciones": [
+        "Buff",
+        "Disipación / limpieza",
         "Utilidad",
         "Área / AoE"
        ]
@@ -6573,7 +6937,9 @@
      "spells": [
       {
        "name": "Curar aliado",
-       "cat": "support",
+       "cat": [
+        "healer"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -6633,11 +6999,16 @@
         "PvE",
         "RvR"
        ],
-       "funciones": []
+       "funciones": [
+        "Buff",
+        "Curación"
+       ]
       },
       {
        "name": "Curarse",
-       "cat": "support",
+       "cat": [
+        "healer"
+       ],
        "lvl": 3,
        "pvp": 3,
        "roles": [
@@ -6687,11 +7058,16 @@
         "Leveo grupo PvE",
         "PvE"
        ],
-       "funciones": []
+       "funciones": [
+        "Buff",
+        "Curación"
+       ]
       },
       {
        "name": "Revivir",
-       "cat": "support",
+       "cat": [
+        "healer"
+       ],
        "lvl": 3,
        "pvp": 3,
        "roles": [
@@ -6766,13 +7142,18 @@
         "RvR"
        ],
        "funciones": [
+        "Buff",
+        "Curación",
         "Gestión de recursos",
+        "Resurrección",
         "Utilidad"
        ]
       },
       {
        "name": "Regenerar aliado",
-       "cat": "support",
+       "cat": [
+        "healer"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -6822,11 +7203,16 @@
         "PvE",
         "RvR"
        ],
-       "funciones": []
+       "funciones": [
+        "Buff",
+        "Curación"
+       ]
       },
       {
        "name": "Regenerarse",
-       "cat": "support",
+       "cat": [
+        "healer"
+       ],
        "lvl": 3,
        "pvp": 2,
        "roles": [
@@ -6875,11 +7261,16 @@
         "Leveo grupo PvE",
         "PvE"
        ],
-       "funciones": []
+       "funciones": [
+        "Buff",
+        "Curación"
+       ]
       },
       {
        "name": "Intervención divina",
-       "cat": "defense",
+       "cat": [
+        "tank"
+       ],
        "lvl": 1,
        "pvp": 3,
        "roles": [
@@ -6931,12 +7322,16 @@
         "RvR"
        ],
        "funciones": [
-        "Buff"
+        "Anti-control",
+        "Buff",
+        "Defensa"
        ]
       },
       {
        "name": "Salvador",
-       "cat": "support",
+       "cat": [
+        "buffer"
+       ],
        "lvl": 2,
        "pvp": 3,
        "roles": [
@@ -6984,11 +7379,16 @@
         "Leveo grupo PvE",
         "RvR"
        ],
-       "funciones": []
+       "funciones": [
+        "Buff"
+       ]
       },
       {
        "name": "Regeneración mayor",
-       "cat": "support",
+       "cat": [
+        "healer",
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -7049,13 +7449,17 @@
         "RvR"
        ],
        "funciones": [
+        "Buff",
+        "Curación",
         "Daño prolongado",
         "Área / AoE"
        ]
       },
       {
        "name": "Curación mayor",
-       "cat": "support",
+       "cat": [
+        "healer"
+       ],
        "lvl": 2,
        "pvp": 3,
        "roles": [
@@ -7106,12 +7510,16 @@
         "RvR"
        ],
        "funciones": [
+        "Buff",
+        "Curación",
         "Área / AoE"
        ]
       },
       {
        "name": "Revivir en masa",
-       "cat": "support",
+       "cat": [
+        "healer"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -7180,6 +7588,9 @@
         "RvR"
        ],
        "funciones": [
+        "Buff",
+        "Curación",
+        "Resurrección",
         "Área / AoE"
        ]
       }
@@ -7192,7 +7603,9 @@
      "spells": [
       {
        "name": "Invocar diablillos",
-       "cat": "utility",
+       "cat": [
+        "utility"
+       ],
        "lvl": 3,
        "pvp": 1,
        "roles": [
@@ -7241,12 +7654,16 @@
         "PvE"
        ],
        "funciones": [
-        "Buff"
+        "Buff",
+        "Invocación / mascota"
        ]
       },
       {
        "name": "Lazo extraplanar",
-       "cat": "defense",
+       "cat": [
+        "tank",
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 1,
        "roles": [
@@ -7289,12 +7706,15 @@
        ],
        "funciones": [
         "DPS",
-        "Debuff"
+        "Debuff",
+        "Mitigación / absorción"
        ]
       },
       {
        "name": "invocar demonio",
-       "cat": "utility",
+       "cat": [
+        "utility"
+       ],
        "lvl": 2,
        "pvp": 1,
        "roles": [
@@ -7349,12 +7769,15 @@
         "PvE"
        ],
        "funciones": [
-        "Buff"
+        "Buff",
+        "Invocación / mascota"
        ]
       },
       {
        "name": "Lazo material",
-       "cat": "dmg",
+       "cat": [
+        "tank"
+       ],
        "lvl": 2,
        "pvp": 1,
        "roles": [
@@ -7399,7 +7822,9 @@
       },
       {
        "name": "Invocar zombis",
-       "cat": "utility",
+       "cat": [
+        "utility"
+       ],
        "lvl": 2,
        "pvp": 1,
        "roles": [
@@ -7448,12 +7873,15 @@
         "PvE"
        ],
        "funciones": [
-        "Buff"
+        "Buff",
+        "Invocación / mascota"
        ]
       },
       {
        "name": "Furia demoníaca",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 0,
        "roles": [
@@ -7507,12 +7935,15 @@
        ],
        "funciones": [
         "Buff",
+        "DPS",
         "Debuff"
        ]
       },
       {
        "name": "Invocar golem",
-       "cat": "utility",
+       "cat": [
+        "utility"
+       ],
        "lvl": 2,
        "pvp": 1,
        "roles": [
@@ -7561,12 +7992,16 @@
         "PvE"
        ],
        "funciones": [
-        "Buff"
+        "Buff",
+        "Invocación / mascota"
        ]
       },
       {
        "name": "Armadura mágica",
-       "cat": "defense",
+       "cat": [
+        "tank",
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 0,
        "roles": [
@@ -7610,12 +8045,16 @@
        ],
        "funciones": [
         "Buff",
-        "DPS"
+        "DPS",
+        "Defensa",
+        "Mitigación / absorción"
        ]
       },
       {
        "name": "Bebedor de sangre",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 0,
        "roles": [
@@ -7663,12 +8102,15 @@
         "PvP"
        ],
        "funciones": [
-        "Buff"
+        "Buff",
+        "DPS"
        ]
       },
       {
        "name": "Invocar lich",
-       "cat": "utility",
+       "cat": [
+        "utility"
+       ],
        "lvl": 2,
        "pvp": 1,
        "roles": [
@@ -7733,7 +8175,8 @@
         "PvE"
        ],
        "funciones": [
-        "Buff"
+        "Buff",
+        "Invocación / mascota"
        ]
       }
      ]
@@ -7745,7 +8188,9 @@
      "spells": [
       {
        "name": "Armadura de energía",
-       "cat": "defense",
+       "cat": [
+        "tank"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -7795,13 +8240,17 @@
        ],
        "funciones": [
         "Buff",
+        "Defensa",
         "Gestión de recursos",
+        "Mitigación / absorción",
         "Utilidad"
        ]
       },
       {
        "name": "Silueta cambiante",
-       "cat": "utility",
+       "cat": [
+        "utility"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -7870,12 +8319,16 @@
        ],
        "funciones": [
         "Buff",
-        "Debuff"
+        "Debuff",
+        "Sigilo",
+        "Utilidad"
        ]
       },
       {
        "name": "Escudar compañero",
-       "cat": "defense",
+       "cat": [
+        "tank"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -7927,12 +8380,16 @@
         "RvR"
        ],
        "funciones": [
-        "Buff"
+        "Buff",
+        "Defensa",
+        "Mitigación / absorción"
        ]
       },
       {
        "name": "Mente en blanco",
-       "cat": "defense",
+       "cat": [
+        "tank"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -8015,12 +8472,15 @@
         "PvP"
        ],
        "funciones": [
-        "Buff"
+        "Buff",
+        "Defensa"
        ]
       },
       {
        "name": "Espejo del karma",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -8074,12 +8534,15 @@
        ],
        "funciones": [
         "Buff",
+        "DPS",
         "Debuff"
        ]
       },
       {
        "name": "Barrera mágica",
-       "cat": "defense",
+       "cat": [
+        "tank"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -8128,12 +8591,16 @@
         "PvP"
        ],
        "funciones": [
-        "Buff"
+        "Buff",
+        "Defensa",
+        "Mitigación / absorción"
        ]
       },
       {
        "name": "Muralla material",
-       "cat": "defense",
+       "cat": [
+        "tank"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -8182,12 +8649,15 @@
         "PvP"
        ],
        "funciones": [
-        "Buff"
+        "Buff",
+        "Defensa"
        ]
       },
       {
        "name": "Santuario",
-       "cat": "defense",
+       "cat": [
+        "tank"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -8237,12 +8707,15 @@
         "PvP"
        ],
        "funciones": [
-        "Buff"
+        "Buff",
+        "Defensa"
        ]
       },
       {
        "name": "Introspectiva",
-       "cat": "support",
+       "cat": [
+        "buffer"
+       ],
        "lvl": 3,
        "pvp": 3,
        "roles": [
@@ -8285,12 +8758,16 @@
         "RvR"
        ],
        "funciones": [
+        "Buff",
         "Área / AoE"
        ]
       },
       {
        "name": "Piel de acero",
-       "cat": "defense",
+       "cat": [
+        "tank",
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -8346,7 +8823,8 @@
        ],
        "funciones": [
         "Buff",
-        "DPS"
+        "DPS",
+        "Defensa"
        ]
       }
      ]
@@ -8358,7 +8836,9 @@
      "spells": [
       {
        "name": "Concilio de Guerra",
-       "cat": "dmg",
+       "cat": [
+        "buffer"
+       ],
        "lvl": 3,
        "pvp": 3,
        "roles": [
@@ -8397,7 +8877,9 @@
       },
       {
        "name": "Portal Defensivo",
-       "cat": "utility",
+       "cat": [
+        "utility"
+       ],
        "lvl": 1,
        "pvp": 3,
        "roles": [
@@ -8428,11 +8910,17 @@
         "PvP",
         "RvR"
        ],
-       "funciones": []
+       "funciones": [
+        "Movilidad",
+        "Transporte",
+        "Utilidad"
+       ]
       },
       {
        "name": "Maestría de Guerra",
-       "cat": "utility",
+       "cat": [
+        "utility"
+       ],
        "lvl": 2,
        "pvp": 3,
        "roles": [
@@ -8474,12 +8962,16 @@
         "PvE"
        ],
        "funciones": [
-        "Buff"
+        "Buff",
+        "Invocación / mascota"
        ]
       },
       {
        "name": "Protección Divina",
-       "cat": "support",
+       "cat": [
+        "healer",
+        "tank"
+       ],
        "lvl": 1,
        "pvp": 3,
        "roles": [
@@ -8518,12 +9010,16 @@
         "RvR"
        ],
        "funciones": [
+        "Buff",
+        "Curación",
         "Mitigación / absorción"
        ]
       },
       {
        "name": "Sangre de Warmaster",
-       "cat": "dmg",
+       "cat": [
+        "tank"
+       ],
        "lvl": 2,
        "pvp": 3,
        "roles": [
@@ -8703,7 +9199,9 @@
      "spells": [
       {
        "name": "Misil arcano",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 0,
        "roles": [
@@ -8750,11 +9248,16 @@
         "PvE",
         "PvP"
        ],
-       "funciones": []
+       "funciones": [
+        "DPS"
+       ]
       },
       {
        "name": "Plaga de insectos",
-       "cat": "control",
+       "cat": [
+        "cc",
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -8814,13 +9317,18 @@
         "PvP"
        ],
        "funciones": [
+        "Control",
+        "Control de masas",
         "DPS",
-        "Daño prolongado"
+        "Daño prolongado",
+        "Debuff"
        ]
       },
       {
        "name": "Llamarada",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 3,
        "pvp": 2,
        "roles": [
@@ -8872,12 +9380,15 @@
         "RvR"
        ],
        "funciones": [
+        "DPS",
         "Área / AoE"
        ]
       },
       {
        "name": "Empuje mental",
-       "cat": "dmg",
+       "cat": [
+        "cc"
+       ],
        "lvl": 1,
        "pvp": 3,
        "roles": [
@@ -8939,7 +9450,10 @@
       },
       {
        "name": "Hiedra espinosa",
-       "cat": "control",
+       "cat": [
+        "cc",
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 3,
        "roles": [
@@ -8999,12 +9513,17 @@
         "PvP"
        ],
        "funciones": [
-        "DPS"
+        "Control",
+        "Control de masas",
+        "DPS",
+        "Debuff"
        ]
       },
       {
        "name": "Dominio de la voluntad",
-       "cat": "control",
+       "cat": [
+        "cc"
+       ],
        "lvl": 1,
        "pvp": 3,
        "roles": [
@@ -9050,11 +9569,17 @@
         "Grupo PvP",
         "PvP"
        ],
-       "funciones": []
+       "funciones": [
+        "Control",
+        "Control de masas",
+        "Debuff"
+       ]
       },
       {
        "name": "Silenciar",
-       "cat": "control",
+       "cat": [
+        "cc"
+       ],
        "lvl": 1,
        "pvp": 3,
        "roles": [
@@ -9104,12 +9629,17 @@
         "PvP"
        ],
        "funciones": [
+        "Control",
+        "Control de masas",
+        "Debuff",
         "Invocación / mascota"
        ]
       },
       {
        "name": "Muro de agujas",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 0,
        "pvp": 0,
        "roles": [
@@ -9161,12 +9691,16 @@
         "RvR"
        ],
        "funciones": [
+        "DPS",
+        "Daño prolongado",
         "Área / AoE"
        ]
       },
       {
        "name": "Maestro del tiempo",
-       "cat": "dmg",
+       "cat": [
+        "cc"
+       ],
        "lvl": 1,
        "pvp": 3,
        "roles": [
@@ -9243,7 +9777,9 @@
       },
       {
        "name": "Masa devoradora de Sultar",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -9333,6 +9869,8 @@
         "PvP"
        ],
        "funciones": [
+        "DPS",
+        "Daño prolongado",
         "Debuff"
        ]
       }
@@ -9345,7 +9883,10 @@
      "spells": [
       {
        "name": "Barrera de energía",
-       "cat": "defense",
+       "cat": [
+        "tank",
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -9397,13 +9938,18 @@
        "funciones": [
         "Buff",
         "DPS",
+        "Defensa",
         "Gestión de recursos",
+        "Mitigación / absorción",
         "Utilidad"
        ]
       },
       {
        "name": "Ignición de maná",
-       "cat": "defense",
+       "cat": [
+        "tank",
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -9454,12 +10000,15 @@
         "DPS",
         "Debuff",
         "Gestión de recursos",
+        "Mitigación / absorción",
         "Utilidad"
        ]
       },
       {
        "name": "Unión sinérgica",
-       "cat": "support",
+       "cat": [
+        "utility"
+       ],
        "lvl": 1,
        "pvp": 1,
        "roles": [
@@ -9509,13 +10058,16 @@
         "RvR"
        ],
        "funciones": [
+        "Buff",
         "Gestión de recursos",
         "Utilidad"
        ]
       },
       {
        "name": "Sangre de dragón",
-       "cat": "dmg",
+       "cat": [
+        "buffer"
+       ],
        "lvl": 2,
        "pvp": 1,
        "roles": [
@@ -9562,7 +10114,9 @@
       },
       {
        "name": "Préstamo de energía",
-       "cat": "dmg",
+       "cat": [
+        "cc"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -9611,7 +10165,9 @@
       },
       {
        "name": "Sacrificio ambicioso",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 1,
        "roles": [
@@ -9672,7 +10228,9 @@
       },
       {
        "name": "Devoción arcana",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 1,
        "roles": [
@@ -9723,7 +10281,9 @@
       },
       {
        "name": "Laguna de maná",
-       "cat": "dmg",
+       "cat": [
+        "utility"
+       ],
        "lvl": 2,
        "pvp": 1,
        "roles": [
@@ -9771,7 +10331,9 @@
       },
       {
        "name": "Comunión de mana",
-       "cat": "support",
+       "cat": [
+        "utility"
+       ],
        "lvl": 1,
        "pvp": 1,
        "roles": [
@@ -9821,6 +10383,7 @@
         "RvR"
        ],
        "funciones": [
+        "Buff",
         "Gestión de recursos",
         "Utilidad",
         "Área / AoE"
@@ -9828,7 +10391,9 @@
       },
       {
        "name": "Pilón de mana",
-       "cat": "defense",
+       "cat": [
+        "tank"
+       ],
        "lvl": 1,
        "pvp": 1,
        "roles": [
@@ -9887,7 +10452,9 @@
        "funciones": [
         "Buff",
         "Debuff",
+        "Defensa",
         "Gestión de recursos",
+        "Mitigación / absorción",
         "Utilidad",
         "Área / AoE"
        ]
@@ -9901,7 +10468,9 @@
      "spells": [
       {
        "name": "Magnificación de fuego",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 3,
        "pvp": 2,
        "roles": [
@@ -9975,12 +10544,15 @@
        ],
        "funciones": [
         "Buff",
+        "DPS",
         "Debuff"
        ]
       },
       {
        "name": "Aceleración arcana",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -10036,7 +10608,9 @@
       },
       {
        "name": "Proyección arcana",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -10088,7 +10662,9 @@
       },
       {
        "name": "Magia de combate",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -10130,12 +10706,15 @@
         "PvP"
        ],
        "funciones": [
-        "Buff"
+        "Buff",
+        "DPS"
        ]
       },
       {
        "name": "Campo estático",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 3,
        "roles": [
@@ -10198,13 +10777,17 @@
         "RvR"
        ],
        "funciones": [
+        "DPS",
+        "Daño prolongado",
         "Debuff",
         "Área / AoE"
        ]
       },
       {
        "name": "Magnificación de hielo",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 0,
        "roles": [
@@ -10278,12 +10861,16 @@
        ],
        "funciones": [
         "Buff",
+        "DPS",
         "Debuff"
        ]
       },
       {
        "name": "Cúpula de protección",
-       "cat": "defense",
+       "cat": [
+        "tank",
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -10344,12 +10931,16 @@
         "Buff",
         "DPS",
         "Debuff",
+        "Defensa",
+        "Mitigación / absorción",
         "Área / AoE"
        ]
       },
       {
        "name": "Control metabólico",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -10403,6 +10994,7 @@
        ],
        "funciones": [
         "Buff",
+        "DPS",
         "Debuff",
         "Gestión de recursos",
         "Utilidad"
@@ -10410,7 +11002,9 @@
       },
       {
        "name": "Magnificación de electricidad",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 3,
        "pvp": 2,
        "roles": [
@@ -10484,12 +11078,15 @@
        ],
        "funciones": [
         "Buff",
+        "DPS",
         "Debuff"
        ]
       },
       {
        "name": "Furia de Evendim",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -10541,6 +11138,7 @@
         "RvR"
        ],
        "funciones": [
+        "DPS",
         "Debuff",
         "Gestión de recursos",
         "Utilidad",
@@ -10556,7 +11154,9 @@
      "spells": [
       {
        "name": "Maldición",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -10614,12 +11214,16 @@
         "PvP"
        ],
        "funciones": [
+        "Crítico / burst",
+        "DPS",
         "Debuff"
        ]
       },
       {
        "name": "Destreza felina",
-       "cat": "support",
+       "cat": [
+        "buffer"
+       ],
        "lvl": 2,
        "pvp": 1,
        "roles": [
@@ -10669,11 +11273,15 @@
         "Leveo grupo PvE",
         "RvR"
        ],
-       "funciones": []
+       "funciones": [
+        "Buff"
+       ]
       },
       {
        "name": "Ceguera",
-       "cat": "control",
+       "cat": [
+        "cc"
+       ],
        "lvl": 1,
        "pvp": 3,
        "roles": [
@@ -10735,11 +11343,17 @@
         "Grupo PvP",
         "PvP"
        ],
-       "funciones": []
+       "funciones": [
+        "Control",
+        "Control de masas",
+        "Debuff"
+       ]
       },
       {
        "name": "Bendición",
-       "cat": "dmg",
+       "cat": [
+        "buffer"
+       ],
        "lvl": 0,
        "pvp": 0,
        "roles": [
@@ -10806,7 +11420,9 @@
       },
       {
        "name": "Fuerza de oso",
-       "cat": "support",
+       "cat": [
+        "buffer"
+       ],
        "lvl": 2,
        "pvp": 1,
        "roles": [
@@ -10856,11 +11472,15 @@
         "Leveo grupo PvE",
         "RvR"
        ],
-       "funciones": []
+       "funciones": [
+        "Buff"
+       ]
       },
       {
        "name": "Bendecir arma",
-       "cat": "support",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 1,
        "roles": [
@@ -10913,12 +11533,15 @@
         "RvR"
        ],
        "funciones": [
+        "Buff",
         "DPS"
        ]
       },
       {
        "name": "Disipar magia",
-       "cat": "support",
+       "cat": [
+        "utility"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -10968,13 +11591,17 @@
         "RvR"
        ],
        "funciones": [
+        "Buff",
+        "Disipación / limpieza",
         "Utilidad",
         "Área / AoE"
        ]
       },
       {
        "name": "Astucia de zorro",
-       "cat": "support",
+       "cat": [
+        "buffer"
+       ],
        "lvl": 2,
        "pvp": 1,
        "roles": [
@@ -11024,11 +11651,15 @@
         "Leveo grupo PvE",
         "RvR"
        ],
-       "funciones": []
+       "funciones": [
+        "Buff"
+       ]
       },
       {
        "name": "Torpeza",
-       "cat": "dmg",
+       "cat": [
+        "cc"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -11089,7 +11720,9 @@
       },
       {
        "name": "Disipar magia en masa",
-       "cat": "support",
+       "cat": [
+        "utility"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -11139,6 +11772,8 @@
         "RvR"
        ],
        "funciones": [
+        "Buff",
+        "Disipación / limpieza",
         "Utilidad",
         "Área / AoE"
        ]
@@ -11152,7 +11787,9 @@
      "spells": [
       {
        "name": "Estalagmita",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 3,
        "pvp": 2,
        "roles": [
@@ -11209,11 +11846,15 @@
         "PvE",
         "PvP"
        ],
-       "funciones": []
+       "funciones": [
+        "DPS"
+       ]
       },
       {
        "name": "Lentitud",
-       "cat": "utility",
+       "cat": [
+        "utility"
+       ],
        "lvl": 1,
        "pvp": 3,
        "roles": [
@@ -11259,12 +11900,16 @@
         "PvP"
        ],
        "funciones": [
-        "Debuff"
+        "Debuff",
+        "Movilidad"
        ]
       },
       {
        "name": "Petrificar manos",
-       "cat": "control",
+       "cat": [
+        "cc",
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 3,
        "roles": [
@@ -11327,12 +11972,17 @@
         "PvP"
        ],
        "funciones": [
-        "Crítico / burst"
+        "Control",
+        "Control de masas",
+        "Crítico / burst",
+        "Debuff"
        ]
       },
       {
        "name": "Pereza",
-       "cat": "control",
+       "cat": [
+        "cc"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -11388,11 +12038,17 @@
         "Grupo PvP",
         "PvP"
        ],
-       "funciones": []
+       "funciones": [
+        "Control",
+        "Control de masas",
+        "Debuff"
+       ]
       },
       {
        "name": "Meteorito",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 3,
        "pvp": 2,
        "roles": [
@@ -11461,12 +12117,15 @@
         "PvP"
        ],
        "funciones": [
+        "DPS",
         "Debuff"
        ]
       },
       {
        "name": "Muro de viento",
-       "cat": "dmg",
+       "cat": [
+        "tank"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -11523,7 +12182,9 @@
       },
       {
        "name": "Estallido de cristales",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -11575,12 +12236,15 @@
         "RvR"
        ],
        "funciones": [
+        "DPS",
         "Área / AoE"
        ]
       },
       {
        "name": "Fragilidad",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -11628,12 +12292,15 @@
         "PvP"
        ],
        "funciones": [
+        "DPS",
         "Debuff"
        ]
       },
       {
        "name": "Puño de golem",
-       "cat": "utility",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -11682,12 +12349,16 @@
         "PvP"
        ],
        "funciones": [
-        "DPS"
+        "DPS",
+        "Invocación / mascota"
        ]
       },
       {
        "name": "Terror de Sultar",
-       "cat": "control",
+       "cat": [
+        "cc",
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 3,
        "roles": [
@@ -11771,7 +12442,10 @@
         "RvR"
        ],
        "funciones": [
+        "Control",
+        "Control de masas",
         "DPS",
+        "Debuff",
         "Área / AoE"
        ]
       }
@@ -11784,7 +12458,9 @@
      "spells": [
       {
        "name": "Vampirismo",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 3,
        "pvp": 2,
        "roles": [
@@ -11830,12 +12506,15 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Buff"
+        "Buff",
+        "Sostenimiento / robo"
        ]
       },
       {
        "name": "Oscuridad",
-       "cat": "dmg",
+       "cat": [
+        "cc"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -11886,7 +12565,9 @@
       },
       {
        "name": "Enfurecer",
-       "cat": "dmg",
+       "cat": [
+        "cc"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -11947,7 +12628,9 @@
       },
       {
        "name": "Absorción vital",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -11990,12 +12673,16 @@
         "PvP"
        ],
        "funciones": [
-        "Buff"
+        "Buff",
+        "DPS",
+        "Sostenimiento / robo"
        ]
       },
       {
        "name": "Guardias sádicos",
-       "cat": "control",
+       "cat": [
+        "cc"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -12057,11 +12744,17 @@
         "Grupo PvP",
         "PvP"
        ],
-       "funciones": []
+       "funciones": [
+        "Control",
+        "Control de masas",
+        "Debuff"
+       ]
       },
       {
        "name": "Sirvientes sádicos",
-       "cat": "utility",
+       "cat": [
+        "utility"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -12104,12 +12797,17 @@
         "PvE"
        ],
        "funciones": [
-        "Buff"
+        "Buff",
+        "Gestión de recursos",
+        "Invocación / mascota",
+        "Utilidad"
        ]
       },
       {
        "name": "Guardián de almas",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 0,
        "pvp": 3,
        "roles": [
@@ -12170,13 +12868,17 @@
        ],
        "funciones": [
         "Buff",
+        "Daño prolongado",
         "Debuff",
-        "Invocación / mascota"
+        "Invocación / mascota",
+        "Sostenimiento / robo"
        ]
       },
       {
        "name": "Cremación",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 3,
        "roles": [
@@ -12227,7 +12929,9 @@
       },
       {
        "name": "Poseer invocación",
-       "cat": "dmg",
+       "cat": [
+        "cc"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -12278,7 +12982,9 @@
       },
       {
        "name": "Maestro de la destrucción",
-       "cat": "utility",
+       "cat": [
+        "utility"
+       ],
        "lvl": 1,
        "pvp": 3,
        "roles": [
@@ -12342,6 +13048,7 @@
        ],
        "funciones": [
         "Debuff",
+        "Invocación / mascota",
         "Área / AoE"
        ]
       }
@@ -12354,7 +13061,9 @@
      "spells": [
       {
        "name": "Bola de fuego",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 3,
        "pvp": 2,
        "roles": [
@@ -12406,12 +13115,15 @@
         "RvR"
        ],
        "funciones": [
+        "DPS",
         "Área / AoE"
        ]
       },
       {
        "name": "Explosión de hielo",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -12475,12 +13187,15 @@
         "PvP"
        ],
        "funciones": [
+        "DPS",
         "Debuff"
        ]
       },
       {
        "name": "Relámpago",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 3,
        "pvp": 2,
        "roles": [
@@ -12527,11 +13242,16 @@
         "PvE",
         "PvP"
        ],
-       "funciones": []
+       "funciones": [
+        "DPS"
+       ]
       },
       {
        "name": "Comunión elemental",
-       "cat": "defense",
+       "cat": [
+        "tank",
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -12595,12 +13315,15 @@
        ],
        "funciones": [
         "Buff",
-        "DPS"
+        "DPS",
+        "Defensa"
        ]
       },
       {
        "name": "Paralizar",
-       "cat": "control",
+       "cat": [
+        "cc"
+       ],
        "lvl": 1,
        "pvp": 3,
        "roles": [
@@ -12646,11 +13369,18 @@
         "Grupo PvP",
         "PvP"
        ],
-       "funciones": []
+       "funciones": [
+        "Control",
+        "Control de masas",
+        "Debuff"
+       ]
       },
       {
        "name": "Tormenta helada",
-       "cat": "control",
+       "cat": [
+        "cc",
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 3,
        "roles": [
@@ -12714,13 +13444,18 @@
         "RvR"
        ],
        "funciones": [
+        "Control",
+        "Control de masas",
         "DPS",
+        "Debuff",
         "Área / AoE"
        ]
       },
       {
        "name": "Exposición alos elementos",
-       "cat": "dmg",
+       "cat": [
+        "cc"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -12801,7 +13536,9 @@
       },
       {
        "name": "Explosión de magma",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -12858,11 +13595,17 @@
         "PvE",
         "PvP"
        ],
-       "funciones": []
+       "funciones": [
+        "DPS",
+        "Daño prolongado"
+       ]
       },
       {
        "name": "Tornado",
-       "cat": "control",
+       "cat": [
+        "cc",
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -12926,13 +13669,18 @@
         "RvR"
        ],
        "funciones": [
+        "Control",
+        "Control de masas",
         "DPS",
+        "Debuff",
         "Área / AoE"
        ]
       },
       {
        "name": "Invocar rayos",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -12989,6 +13737,7 @@
         "RvR"
        ],
        "funciones": [
+        "DPS",
         "Debuff",
         "Área / AoE"
        ]
@@ -13002,7 +13751,9 @@
      "spells": [
       {
        "name": "Concilio de Guerra",
-       "cat": "dmg",
+       "cat": [
+        "buffer"
+       ],
        "lvl": 3,
        "pvp": 3,
        "roles": [
@@ -13041,7 +13792,9 @@
       },
       {
        "name": "Portal Offensivo",
-       "cat": "utility",
+       "cat": [
+        "utility"
+       ],
        "lvl": 1,
        "pvp": 3,
        "roles": [
@@ -13072,11 +13825,17 @@
         "PvP",
         "RvR"
        ],
-       "funciones": []
+       "funciones": [
+        "Movilidad",
+        "Transporte",
+        "Utilidad"
+       ]
       },
       {
        "name": "Maestría de Guerra",
-       "cat": "utility",
+       "cat": [
+        "utility"
+       ],
        "lvl": 2,
        "pvp": 3,
        "roles": [
@@ -13118,12 +13877,16 @@
         "PvE"
        ],
        "funciones": [
-        "Buff"
+        "Buff",
+        "Invocación / mascota"
        ]
       },
       {
        "name": "Hiedra espinosa en masa",
-       "cat": "control",
+       "cat": [
+        "cc",
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 3,
        "roles": [
@@ -13168,13 +13931,18 @@
         "RvR"
        ],
        "funciones": [
+        "Control",
+        "Control de masas",
         "DPS",
+        "Debuff",
         "Área / AoE"
        ]
       },
       {
        "name": "Sangre de Warmaster",
-       "cat": "dmg",
+       "cat": [
+        "tank"
+       ],
        "lvl": 2,
        "pvp": 3,
        "roles": [
@@ -13354,7 +14122,9 @@
      "spells": [
       {
        "name": "Disparo dual",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 3,
        "pvp": 2,
        "note": "Tu golpe base a dos flechas: la columna vertebral del daño sostenido.",
@@ -13414,12 +14184,15 @@
         "PvP"
        ],
        "funciones": [
-        "Buff"
+        "Buff",
+        "DPS"
        ]
       },
       {
        "name": "Disparo rápido",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 3,
        "pvp": 2,
        "note": "Ráfaga de ataques más veloces, ideal para limpiar oleadas de monstruos.",
@@ -13473,12 +14246,15 @@
        ],
        "funciones": [
         "Buff",
+        "Crítico / burst",
         "Debuff"
        ]
       },
       {
        "name": "Flecha paralizadora",
-       "cat": "control",
+       "cat": [
+        "cc"
+       ],
        "lvl": 1,
        "pvp": 3,
        "note": "Raíz a los pies: corta la persecución de un rival en combate 1v1.",
@@ -13538,12 +14314,17 @@
         "PvP"
        ],
        "funciones": [
-        "Buff"
+        "Buff",
+        "Control",
+        "Control de masas",
+        "Debuff"
        ]
       },
       {
        "name": "Ligereza",
-       "cat": "dmg",
+       "cat": [
+        "buffer"
+       ],
        "lvl": 2,
        "pvp": 1,
        "note": "Pasiva de rapidez natural del arquero.",
@@ -13591,7 +14372,9 @@
       },
       {
        "name": "Meditación",
-       "cat": "dmg",
+       "cat": [
+        "buffer"
+       ],
        "lvl": 2,
        "pvp": 1,
        "note": "Recuperación de maná fuera de combate, acelera el farmeo largo.",
@@ -13651,7 +14434,9 @@
       },
       {
        "name": "Adaptabilidad",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 2,
        "note": "Ajuste táctico que mejora tu rendimiento a media pelea.",
@@ -13698,12 +14483,15 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Buff"
+        "Buff",
+        "Crítico / burst"
        ]
       },
       {
        "name": "Desgarrar",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 0,
        "pvp": 0,
        "note": "Sangrado que se acumula, buen daño extra sin gastar más maná.",
@@ -13757,11 +14545,16 @@
         "PvE",
         "PvP"
        ],
-       "funciones": []
+       "funciones": [
+        "DPS",
+        "Daño prolongado"
+       ]
       },
       {
        "name": "Duelista",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 0,
        "pvp": 0,
        "note": "Pasiva de precisión y velocidad de disparo.",
@@ -13802,12 +14595,15 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Buff"
+        "Buff",
+        "Crítico / burst"
        ]
       },
       {
        "name": "Ralentizar",
-       "cat": "control",
+       "cat": [
+        "cc"
+       ],
        "lvl": 1,
        "pvp": 3,
        "note": "Ralentiza al rival, clave para kiting en RvR.",
@@ -13868,12 +14664,17 @@
         "RvR"
        ],
        "funciones": [
+        "Control",
+        "Control de masas",
+        "Debuff",
         "Área / AoE"
        ]
       },
       {
        "name": "Tiro de repetición",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 0,
        "note": "Golpe de área fuerte, muy bueno contra grupos de mobs o pelotones.",
@@ -13930,6 +14731,7 @@
         "RvR"
        ],
        "funciones": [
+        "DPS",
         "Área / AoE"
        ]
       }
@@ -13942,7 +14744,10 @@
      "spells": [
       {
        "name": "Penetra escudos",
-       "cat": "defense",
+       "cat": [
+        "tank",
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 3,
        "note": "Perfora armadura, muy útil contra Knights y Barbarians acorazados.",
@@ -13992,12 +14797,15 @@
         "PvP"
        ],
        "funciones": [
-        "DPS"
+        "DPS",
+        "Defensa"
        ]
       },
       {
        "name": "Tiro parabólico",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "note": "Prepara disparos de largo alcance para pelear a distancia segura.",
@@ -14056,7 +14864,9 @@
       },
       {
        "name": "Maniobrabilidad",
-       "cat": "utility",
+       "cat": [
+        "utility"
+       ],
        "lvl": 1,
        "pvp": 2,
        "note": "Mejora tu capacidad de esquivar mientras peleas a distancia.",
@@ -14106,12 +14916,15 @@
         "PvP"
        ],
        "funciones": [
-        "Buff"
+        "Buff",
+        "Movilidad"
        ]
       },
       {
        "name": "Ojo de águila",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 0,
        "pvp": 0,
        "note": "Pasiva de precisión, sube tu tasa de acierto.",
@@ -14163,7 +14976,9 @@
       },
       {
        "name": "Tiro al blanco",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "note": "Sube probabilidad de golpe crítico.",
@@ -14223,12 +15038,15 @@
        ],
        "funciones": [
         "Buff",
+        "Crítico / burst",
         "Debuff"
        ]
       },
       {
        "name": "Omnipresencia",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 2,
        "note": "Pasiva que ayuda a superar defensas enemigas.",
@@ -14276,7 +15094,9 @@
       },
       {
        "name": "Despedazar",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "note": "Daño directo adicional a distancia.",
@@ -14330,12 +15150,16 @@
         "PvP"
        ],
        "funciones": [
+        "DPS",
+        "Daño prolongado",
         "Debuff"
        ]
       },
       {
        "name": "Especialista",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "note": "Pasiva que explota puntos débiles del objetivo.",
@@ -14381,7 +15205,9 @@
       },
       {
        "name": "Ofuscar",
-       "cat": "control",
+       "cat": [
+        "cc"
+       ],
        "lvl": 1,
        "pvp": 3,
        "note": "Interrumpe la concentración enemiga, muy fuerte contra magos.",
@@ -14459,13 +15285,18 @@
         "PvP"
        ],
        "funciones": [
+        "Control",
+        "Control de masas",
+        "Debuff",
         "Sigilo",
         "Utilidad"
        ]
       },
       {
        "name": "Lluvia de proyectiles",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 3,
        "pvp": 1,
        "note": "Lluvia de flechas en área, excelente para levear en grupo, situacional en asedios.",
@@ -14523,6 +15354,7 @@
         "RvR"
        ],
        "funciones": [
+        "DPS",
         "Área / AoE"
        ]
       }
@@ -14535,7 +15367,9 @@
      "spells": [
       {
        "name": "Emboscada",
-       "cat": "control",
+       "cat": [
+        "cc"
+       ],
        "lvl": 1,
        "pvp": 3,
        "note": "Aturde desde el sigilo, tu apertura de combate en RvR.",
@@ -14583,11 +15417,17 @@
         "Grupo PvP",
         "PvP"
        ],
-       "funciones": []
+       "funciones": [
+        "Control",
+        "Control de masas",
+        "Debuff"
+       ]
       },
       {
        "name": "Ataque sorpresivo",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 3,
        "note": "Golpe fuerte que baja las defensas del rival desprevenido.",
@@ -14640,7 +15480,10 @@
       },
       {
        "name": "Puño aturdidor",
-       "cat": "control",
+       "cat": [
+        "cc",
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 3,
        "note": "Stun corto cuerpo a cuerpo, útil para rematar o escapar.",
@@ -14701,12 +15544,17 @@
         "PvP"
        ],
        "funciones": [
-        "DPS"
+        "Control",
+        "Control de masas",
+        "DPS",
+        "Debuff"
        ]
       },
       {
        "name": "Represalia",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 2,
        "note": "Devuelve parte del daño recibido, buen seguro defensivo.",
@@ -14754,11 +15602,15 @@
         "PvE",
         "PvP"
        ],
-       "funciones": []
+       "funciones": [
+        "DPS"
+       ]
       },
       {
        "name": "Toque pegajoso",
-       "cat": "dmg",
+       "cat": [
+        "cc"
+       ],
        "lvl": 1,
        "pvp": 3,
        "note": "Ralentiza al objetivo a distancia media.",
@@ -14810,7 +15662,9 @@
       },
       {
        "name": "Pelea sucia",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 1,
        "note": "Mejora tu daño a corta distancia si te acorralan.",
@@ -14870,7 +15724,9 @@
       },
       {
        "name": "Fineza",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 2,
        "note": "Dificulta que el rival explote tus puntos débiles.",
@@ -14923,12 +15779,15 @@
         "PvP"
        ],
        "funciones": [
+        "Crítico / burst",
         "Debuff"
        ]
       },
       {
        "name": "Centinela",
-       "cat": "dmg",
+       "cat": [
+        "buffer"
+       ],
        "lvl": 1,
        "pvp": 1,
        "note": "Agudiza percepción general.",
@@ -14987,7 +15846,9 @@
       },
       {
        "name": "Tiro de distración",
-       "cat": "control",
+       "cat": [
+        "cc"
+       ],
        "lvl": 1,
        "pvp": 2,
        "note": "Retrasa la reacción del enemigo unos instantes.",
@@ -15034,11 +15895,17 @@
         "Grupo PvP",
         "PvP"
        ],
-       "funciones": []
+       "funciones": [
+        "Control",
+        "Control de masas",
+        "Debuff"
+       ]
       },
       {
        "name": "Flecha con abrojos",
-       "cat": "utility",
+       "cat": [
+        "utility"
+       ],
        "lvl": 1,
        "pvp": 3,
        "note": "Ralentiza en área, muy fuerte defendiendo objetivos en guerra.",
@@ -15091,6 +15958,7 @@
        ],
        "funciones": [
         "Debuff",
+        "Movilidad",
         "Área / AoE"
        ]
       }
@@ -15103,7 +15971,9 @@
      "spells": [
       {
        "name": "Esquivar",
-       "cat": "dmg",
+       "cat": [
+        "utility"
+       ],
        "lvl": 1,
        "pvp": 3,
        "note": "Evita el próximo intento de control sobre ti.",
@@ -15148,7 +16018,9 @@
       },
       {
        "name": "Movilidad",
-       "cat": "utility",
+       "cat": [
+        "utility"
+       ],
        "lvl": 2,
        "pvp": 2,
        "note": "Más velocidad de movimiento, útil para levear y para reposicionarte en guerra.",
@@ -15196,12 +16068,15 @@
         "PvP"
        ],
        "funciones": [
-        "Buff"
+        "Buff",
+        "Movilidad"
        ]
       },
       {
        "name": "Tácticas evasivas",
-       "cat": "defense",
+       "cat": [
+        "tank"
+       ],
        "lvl": 1,
        "pvp": 2,
        "note": "Sube tu evasión a cambio de algo de efectividad ofensiva.",
@@ -15263,12 +16138,16 @@
        ],
        "funciones": [
         "Buff",
-        "Debuff"
+        "Debuff",
+        "Defensa",
+        "Mitigación / absorción"
        ]
       },
       {
        "name": "Reflejos felinos",
-       "cat": "defense",
+       "cat": [
+        "tank"
+       ],
        "lvl": 1,
        "pvp": 2,
        "note": "Pasiva que sube tu capacidad de esquivar golpes.",
@@ -15312,12 +16191,15 @@
         "PvP"
        ],
        "funciones": [
-        "Buff"
+        "Buff",
+        "Defensa"
        ]
       },
       {
        "name": "Acrobático",
-       "cat": "defense",
+       "cat": [
+        "tank"
+       ],
        "lvl": 1,
        "pvp": 2,
        "note": "Reduce el daño físico que recibes.",
@@ -15374,12 +16256,16 @@
        ],
        "funciones": [
         "Buff",
+        "Defensa",
         "Movilidad"
        ]
       },
       {
        "name": "Eludir conjuros",
-       "cat": "defense",
+       "cat": [
+        "tank",
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 3,
        "note": "Reduce daño mágico recibido, esencial contra realms con muchos magos.",
@@ -15436,12 +16322,15 @@
        ],
        "funciones": [
         "Buff",
-        "DPS"
+        "DPS",
+        "Defensa"
        ]
       },
       {
        "name": "Escapista",
-       "cat": "defense",
+       "cat": [
+        "tank"
+       ],
        "lvl": 1,
        "pvp": 3,
        "note": "Pico grande de evasión para salir con vida de un mal encuentro.",
@@ -15495,13 +16384,16 @@
        ],
        "funciones": [
         "Buff",
+        "Defensa",
         "Movilidad",
         "Área / AoE"
        ]
       },
       {
        "name": "Astucia",
-       "cat": "dmg",
+       "cat": [
+        "buffer"
+       ],
        "lvl": 1,
        "pvp": 1,
        "note": "Pasiva de eficiencia general en combate.",
@@ -15549,7 +16441,10 @@
       },
       {
        "name": "Perfil bajo",
-       "cat": "control",
+       "cat": [
+        "cc",
+        "tank"
+       ],
        "lvl": 1,
        "pvp": 2,
        "note": "Te vuelves inatacable un instante para reposicionarte o huir.",
@@ -15600,6 +16495,8 @@
        ],
        "funciones": [
         "Buff",
+        "Control",
+        "Control de masas",
         "Defensa",
         "Sigilo",
         "Utilidad"
@@ -15607,7 +16504,9 @@
       },
       {
        "name": "Hijo del viento",
-       "cat": "defense",
+       "cat": [
+        "tank"
+       ],
        "lvl": 1,
        "pvp": 3,
        "note": "Gran velocidad y evasión mágica combinadas, ideal para hostigar en guerra.",
@@ -15667,6 +16566,7 @@
        "funciones": [
         "Buff",
         "Debuff",
+        "Defensa",
         "Área / AoE"
        ]
       }
@@ -15679,7 +16579,9 @@
      "spells": [
       {
        "name": "Saetas recargadas",
-       "cat": "utility",
+       "cat": [
+        "dps"
+       ],
        "lvl": 3,
        "pvp": 2,
        "roles": [
@@ -15750,12 +16652,18 @@
        "funciones": [
         "Buff",
         "DPS",
-        "Debuff"
+        "Debuff",
+        "Gestión de recursos",
+        "Movilidad",
+        "Utilidad"
        ]
       },
       {
        "name": "Ola invernal",
-       "cat": "control",
+       "cat": [
+        "cc",
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 3,
        "roles": [
@@ -15816,12 +16724,17 @@
         "PvP"
        ],
        "funciones": [
-        "DPS"
+        "Control",
+        "Control de masas",
+        "DPS",
+        "Debuff"
        ]
       },
       {
        "name": "Rafaga de viento",
-       "cat": "dmg",
+       "cat": [
+        "cc"
+       ],
        "lvl": 1,
        "pvp": 3,
        "roles": [
@@ -15872,7 +16785,9 @@
       },
       {
        "name": "Mordida de serpiente",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -15929,11 +16844,16 @@
         "PvE",
         "PvP"
        ],
-       "funciones": []
+       "funciones": [
+        "DPS",
+        "Daño prolongado"
+       ]
       },
       {
        "name": "Fuego de Ignus",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 3,
        "pvp": 2,
        "roles": [
@@ -16002,13 +16922,16 @@
         "RvR"
        ],
        "funciones": [
+        "DPS",
         "Debuff",
         "Área / AoE"
        ]
       },
       {
        "name": "Flecha etérea",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 3,
        "roles": [
@@ -16055,11 +16978,15 @@
         "PvE",
         "PvP"
        ],
-       "funciones": []
+       "funciones": [
+        "DPS"
+       ]
       },
       {
        "name": "Explosión de agujas",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 0,
        "pvp": 0,
        "roles": [
@@ -16115,12 +17042,15 @@
         "RvR"
        ],
        "funciones": [
+        "DPS",
         "Área / AoE"
        ]
       },
       {
        "name": "Proyectil arcano",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -16187,11 +17117,15 @@
         "PvE",
         "PvP"
        ],
-       "funciones": []
+       "funciones": [
+        "DPS"
+       ]
       },
       {
        "name": "Lluvia de fuego",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 3,
        "pvp": 1,
        "roles": [
@@ -16247,12 +17181,15 @@
         "RvR"
        ],
        "funciones": [
+        "DPS",
         "Área / AoE"
        ]
       },
       {
        "name": "Flecha de rayo",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 3,
        "pvp": 1,
        "roles": [
@@ -16315,6 +17252,7 @@
         "RvR"
        ],
        "funciones": [
+        "DPS",
         "Debuff",
         "Área / AoE"
        ]
@@ -16328,7 +17266,9 @@
      "spells": [
       {
        "name": "Vista mortal",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 3,
        "pvp": 2,
        "roles": [
@@ -16388,12 +17328,15 @@
        ],
        "funciones": [
         "Buff",
+        "DPS",
         "Debuff"
        ]
       },
       {
        "name": "Enfocar",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -16451,7 +17394,9 @@
       },
       {
        "name": "Perforador de piel",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 3,
        "roles": [
@@ -16516,12 +17461,15 @@
         "PvP"
        ],
        "funciones": [
+        "DPS",
         "Debuff"
        ]
       },
       {
        "name": "Previsión",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -16567,7 +17515,9 @@
       },
       {
        "name": "Maldición del cíclope",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 3,
        "roles": [
@@ -16630,12 +17580,16 @@
         "PvP"
        ],
        "funciones": [
+        "Crítico / burst",
+        "DPS",
         "Debuff"
        ]
       },
       {
        "name": "Ataque letal",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 3,
        "pvp": 2,
        "roles": [
@@ -16696,11 +17650,15 @@
         "PvE",
         "PvP"
        ],
-       "funciones": []
+       "funciones": [
+        "DPS"
+       ]
       },
       {
        "name": "Posición estratégica",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -16752,7 +17710,9 @@
       },
       {
        "name": "Ojo entrenado",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -16792,12 +17752,15 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Buff"
+        "Buff",
+        "Crítico / burst"
        ]
       },
       {
        "name": "Tiro buscador",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 0,
        "pvp": 0,
        "roles": [
@@ -16854,7 +17817,9 @@
       },
       {
        "name": "Mirada de halcón",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 3,
        "pvp": 2,
        "roles": [
@@ -16931,7 +17896,9 @@
      "spells": [
       {
        "name": "Concilio de Guerra",
-       "cat": "dmg",
+       "cat": [
+        "buffer"
+       ],
        "lvl": 3,
        "pvp": 3,
        "roles": [
@@ -16970,7 +17937,9 @@
       },
       {
        "name": "Flecha de fuego",
-       "cat": "support",
+       "cat": [
+        "utility"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -17008,12 +17977,16 @@
         "RvR"
        ],
        "funciones": [
+        "Buff",
+        "Disipación / limpieza",
         "Utilidad"
        ]
       },
       {
        "name": "Maestría de Guerra",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 3,
        "roles": [
@@ -17054,7 +18027,9 @@
       },
       {
        "name": "Instinto asesino",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 3,
        "roles": [
@@ -17109,7 +18084,9 @@
       },
       {
        "name": "Sangre de Warmaster",
-       "cat": "dmg",
+       "cat": [
+        "tank"
+       ],
        "lvl": 0,
        "pvp": 1,
        "roles": [
@@ -17305,7 +18282,9 @@
      "spells": [
       {
        "name": "Carga",
-       "cat": "utility",
+       "cat": [
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 0,
        "roles": [
@@ -17357,12 +18336,15 @@
         "PvP"
        ],
        "funciones": [
-        "DPS"
+        "DPS",
+        "Movilidad"
        ]
       },
       {
        "name": "Esgrimes precisos",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -17410,12 +18392,16 @@
         "PvP"
        ],
        "funciones": [
-        "Buff"
+        "Buff",
+        "DPS"
        ]
       },
       {
        "name": "Incapacitar",
-       "cat": "control",
+       "cat": [
+        "cc",
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 3,
        "roles": [
@@ -17466,13 +18452,18 @@
         "RvR"
        ],
        "funciones": [
+        "Control",
+        "Control de masas",
         "DPS",
+        "Debuff",
         "Movilidad"
        ]
       },
       {
        "name": "Atlético",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 1,
        "roles": [
@@ -17525,13 +18516,16 @@
        ],
        "funciones": [
         "Buff",
+        "DPS",
         "Gestión de recursos",
         "Utilidad"
        ]
       },
       {
        "name": "Cruz del sur",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -17582,11 +18576,16 @@
         "PvE",
         "PvP"
        ],
-       "funciones": []
+       "funciones": [
+        "DPS"
+       ]
       },
       {
        "name": "Choque",
-       "cat": "control",
+       "cat": [
+        "cc",
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 3,
        "roles": [
@@ -17657,12 +18656,17 @@
         "PvP"
        ],
        "funciones": [
-        "DPS"
+        "Control",
+        "Control de masas",
+        "DPS",
+        "Debuff"
        ]
       },
       {
        "name": "Arrasador",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 0,
        "pvp": 0,
        "roles": [
@@ -17724,12 +18728,16 @@
         "RvR"
        ],
        "funciones": [
+        "DPS",
         "Área / AoE"
        ]
       },
       {
        "name": "Piel de hierro",
-       "cat": "defense",
+       "cat": [
+        "tank",
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -17773,12 +18781,15 @@
        ],
        "funciones": [
         "Buff",
-        "DPS"
+        "DPS",
+        "Defensa"
        ]
       },
       {
        "name": "Ataque fatal",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 0,
        "pvp": 0,
        "roles": [
@@ -17832,12 +18843,16 @@
         "PvP"
        ],
        "funciones": [
+        "DPS",
         "Debuff"
        ]
       },
       {
        "name": "Tifón",
-       "cat": "control",
+       "cat": [
+        "cc",
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -17911,7 +18926,10 @@
         "RvR"
        ],
        "funciones": [
+        "Control",
+        "Control de masas",
         "DPS",
+        "Debuff",
         "Área / AoE"
        ]
       }
@@ -17924,7 +18942,9 @@
      "spells": [
       {
        "name": "Impacto vigoroso",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 3,
        "pvp": 2,
        "roles": [
@@ -17975,11 +18995,15 @@
         "PvE",
         "PvP"
        ],
-       "funciones": []
+       "funciones": [
+        "DPS"
+       ]
       },
       {
        "name": "Impactos brutales",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -18027,12 +19051,16 @@
         "PvP"
        ],
        "funciones": [
-        "Buff"
+        "Buff",
+        "DPS"
        ]
       },
       {
        "name": "Rompe costillas",
-       "cat": "control",
+       "cat": [
+        "cc",
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 3,
        "roles": [
@@ -18092,12 +19120,17 @@
         "PvP"
        ],
        "funciones": [
-        "DPS"
+        "Control",
+        "Control de masas",
+        "DPS",
+        "Debuff"
        ]
       },
       {
        "name": "Anatomía letal",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 1,
        "roles": [
@@ -18142,7 +19175,9 @@
       },
       {
        "name": "Triturador",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -18201,12 +19236,15 @@
         "PvP"
        ],
        "funciones": [
+        "DPS",
         "Debuff"
        ]
       },
       {
        "name": "Ejecución",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -18258,12 +19296,15 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Buff"
+        "Buff",
+        "Crítico / burst"
        ]
       },
       {
        "name": "Aplasta mentes",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -18326,6 +19367,7 @@
         "PvP"
        ],
        "funciones": [
+        "DPS",
         "Debuff",
         "Disipación / limpieza",
         "Utilidad"
@@ -18333,7 +19375,10 @@
       },
       {
        "name": "Temple de acero",
-       "cat": "defense",
+       "cat": [
+        "tank",
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -18377,12 +19422,16 @@
        ],
        "funciones": [
         "Buff",
-        "DPS"
+        "DPS",
+        "Defensa"
        ]
       },
       {
        "name": "Rompe quijadas",
-       "cat": "control",
+       "cat": [
+        "cc",
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 3,
        "roles": [
@@ -18436,12 +19485,18 @@
         "PvP"
        ],
        "funciones": [
-        "DPS"
+        "Control",
+        "Control de masas",
+        "DPS",
+        "Debuff"
        ]
       },
       {
        "name": "Golpe de trueno",
-       "cat": "control",
+       "cat": [
+        "cc",
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -18515,7 +19570,10 @@
         "RvR"
        ],
        "funciones": [
+        "Control",
+        "Control de masas",
         "DPS",
+        "Debuff",
         "Área / AoE"
        ]
       }
@@ -18528,7 +19586,9 @@
      "spells": [
       {
        "name": "Destripador",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 3,
        "pvp": 2,
        "roles": [
@@ -18579,11 +19639,15 @@
         "PvE",
         "PvP"
        ],
-       "funciones": []
+       "funciones": [
+        "DPS"
+       ]
       },
       {
        "name": "Maniobras ágiles",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -18631,12 +19695,16 @@
         "PvP"
        ],
        "funciones": [
-        "Buff"
+        "Buff",
+        "DPS"
        ]
       },
       {
        "name": "Balestra",
-       "cat": "control",
+       "cat": [
+        "cc",
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -18696,12 +19764,17 @@
         "PvP"
        ],
        "funciones": [
-        "DPS"
+        "Control",
+        "Control de masas",
+        "DPS",
+        "Debuff"
        ]
       },
       {
        "name": "Versatilidad",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 1,
        "roles": [
@@ -18756,7 +19829,9 @@
       },
       {
        "name": "Riposte",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -18815,6 +19890,7 @@
         "PvP"
        ],
        "funciones": [
+        "DPS",
         "Debuff",
         "Gestión de recursos",
         "Utilidad"
@@ -18822,7 +19898,9 @@
       },
       {
        "name": "Empalamiento",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -18895,12 +19973,16 @@
         "PvP"
        ],
        "funciones": [
+        "DPS",
+        "Daño prolongado",
         "Debuff"
        ]
       },
       {
        "name": "Perfora cerebros",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 3,
        "roles": [
@@ -18969,12 +20051,16 @@
         "PvP"
        ],
        "funciones": [
+        "DPS",
         "Debuff"
        ]
       },
       {
        "name": "Flexibilidad",
-       "cat": "defense",
+       "cat": [
+        "tank",
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -19018,12 +20104,15 @@
        ],
        "funciones": [
         "Buff",
-        "DPS"
+        "DPS",
+        "Defensa"
        ]
       },
       {
        "name": "Estocada múltiple",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 0,
        "pvp": 0,
        "roles": [
@@ -19085,12 +20174,15 @@
         "RvR"
        ],
        "funciones": [
+        "DPS",
         "Área / AoE"
        ]
       },
       {
        "name": "Golpe relámpago",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -19164,6 +20256,7 @@
         "RvR"
        ],
        "funciones": [
+        "DPS",
         "Debuff",
         "Área / AoE"
        ]
@@ -19177,7 +20270,10 @@
      "spells": [
       {
        "name": "Puntapié",
-       "cat": "control",
+       "cat": [
+        "cc",
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 3,
        "roles": [
@@ -19237,12 +20333,17 @@
         "PvP"
        ],
        "funciones": [
-        "DPS"
+        "Control",
+        "Control de masas",
+        "DPS",
+        "Debuff"
        ]
       },
       {
        "name": "Cautela",
-       "cat": "defense",
+       "cat": [
+        "tank"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -19291,12 +20392,16 @@
         "PvP"
        ],
        "funciones": [
-        "Buff"
+        "Buff",
+        "Defensa",
+        "Mitigación / absorción"
        ]
       },
       {
        "name": "Degollador",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 3,
        "roles": [
@@ -19334,7 +20439,9 @@
       },
       {
        "name": "Defensa marcial",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -19374,12 +20481,15 @@
         "PvP"
        ],
        "funciones": [
+        "Crítico / burst",
         "Debuff"
        ]
       },
       {
        "name": "Preparación rigurosa",
-       "cat": "defense",
+       "cat": [
+        "tank"
+       ],
        "lvl": 1,
        "pvp": 3,
        "roles": [
@@ -19428,12 +20538,15 @@
         "PvP"
        ],
        "funciones": [
-        "Buff"
+        "Buff",
+        "Defensa"
        ]
       },
       {
        "name": "Revés",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 3,
        "roles": [
@@ -19492,12 +20605,15 @@
         "PvP"
        ],
        "funciones": [
+        "DPS",
         "Debuff"
        ]
       },
       {
        "name": "Embestida",
-       "cat": "utility",
+       "cat": [
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -19561,12 +20677,15 @@
        "funciones": [
         "Buff",
         "DPS",
+        "Movilidad",
         "Área / AoE"
        ]
       },
       {
        "name": "Intimidar",
-       "cat": "control",
+       "cat": [
+        "cc"
+       ],
        "lvl": 1,
        "pvp": 3,
        "roles": [
@@ -19618,11 +20737,17 @@
         "Grupo PvP",
         "PvP"
        ],
-       "funciones": []
+       "funciones": [
+        "Control",
+        "Control de masas",
+        "Debuff"
+       ]
       },
       {
        "name": "Inhabilitar",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 3,
        "roles": [
@@ -19680,12 +20805,16 @@
         "PvP"
        ],
        "funciones": [
+        "DPS",
         "Debuff"
        ]
       },
       {
        "name": "Reflejos marciales",
-       "cat": "defense",
+       "cat": [
+        "tank",
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -19751,7 +20880,8 @@
        ],
        "funciones": [
         "Buff",
-        "Crítico / burst"
+        "Crítico / burst",
+        "Defensa"
        ]
       }
      ]
@@ -19763,7 +20893,9 @@
      "spells": [
       {
        "name": "Coloso",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -19826,7 +20958,10 @@
       },
       {
        "name": "Frenesí",
-       "cat": "defense",
+       "cat": [
+        "tank",
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -19877,12 +21012,15 @@
        ],
        "funciones": [
         "Buff",
-        "DPS"
+        "DPS",
+        "Defensa"
        ]
       },
       {
        "name": "¡¡Corten sus cabezas!!",
-       "cat": "support",
+       "cat": [
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -19934,13 +21072,16 @@
         "RvR"
        ],
        "funciones": [
+        "Buff",
         "DPS",
         "Área / AoE"
        ]
       },
       {
        "name": "Sed de sangre",
-       "cat": "utility",
+       "cat": [
+        "utility"
+       ],
        "lvl": 3,
        "pvp": 2,
        "roles": [
@@ -20007,12 +21148,15 @@
         "PvP"
        ],
        "funciones": [
-        "Buff"
+        "Buff",
+        "Movilidad"
        ]
       },
       {
        "name": "Rugido desafiante",
-       "cat": "defense",
+       "cat": [
+        "tank"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -20071,12 +21215,17 @@
         "PvP"
        ],
        "funciones": [
-        "Buff"
+        "Amenaza / agro",
+        "Anti-control",
+        "Buff",
+        "Defensa"
        ]
       },
       {
        "name": "Bramido ensordecedor",
-       "cat": "control",
+       "cat": [
+        "cc"
+       ],
        "lvl": 1,
        "pvp": 3,
        "roles": [
@@ -20126,12 +21275,17 @@
         "RvR"
        ],
        "funciones": [
+        "Control",
+        "Control de masas",
+        "Debuff",
         "Área / AoE"
        ]
       },
       {
        "name": "Berserk",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -20202,7 +21356,9 @@
       },
       {
        "name": "Fuerza sobrecogedora",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -20249,12 +21405,15 @@
        ],
        "funciones": [
         "Buff",
+        "DPS",
         "Área / AoE"
        ]
       },
       {
        "name": "Retorno",
-       "cat": "dmg",
+       "cat": [
+        "buffer"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -20315,7 +21474,9 @@
       },
       {
        "name": "Desquiciamiento",
-       "cat": "defense",
+       "cat": [
+        "tank"
+       ],
        "lvl": 1,
        "pvp": 3,
        "roles": [
@@ -20420,7 +21581,8 @@
         "PvP"
        ],
        "funciones": [
-        "Buff"
+        "Buff",
+        "Defensa"
        ]
       }
      ]
@@ -20432,7 +21594,10 @@
      "spells": [
       {
        "name": "Amenaza",
-       "cat": "control",
+       "cat": [
+        "cc",
+        "tank"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -20489,12 +21654,16 @@
        "funciones": [
         "Amenaza / agro",
         "Buff",
+        "Control",
+        "Control de masas",
         "Crítico / burst"
        ]
       },
       {
        "name": "Golpe espiritual",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -20554,12 +21723,15 @@
        ],
        "funciones": [
         "Buff",
+        "DPS",
         "Debuff"
        ]
       },
       {
        "name": "Despedazar",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 0,
        "pvp": 0,
        "roles": [
@@ -20612,6 +21784,8 @@
         "PvP"
        ],
        "funciones": [
+        "DPS",
+        "Daño prolongado",
         "Debuff",
         "Gestión de recursos",
         "Utilidad"
@@ -20619,7 +21793,10 @@
       },
       {
        "name": "Ataque bestial",
-       "cat": "control",
+       "cat": [
+        "cc",
+        "dps"
+       ],
        "lvl": 3,
        "pvp": 2,
        "roles": [
@@ -20680,12 +21857,17 @@
         "PvP"
        ],
        "funciones": [
-        "DPS"
+        "Control",
+        "Control de masas",
+        "DPS",
+        "Debuff"
        ]
       },
       {
        "name": "Alarido",
-       "cat": "dmg",
+       "cat": [
+        "cc"
+       ],
        "lvl": 1,
        "pvp": 3,
        "roles": [
@@ -20741,7 +21923,9 @@
       },
       {
        "name": "Onda expansiva",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 0,
        "pvp": 0,
        "roles": [
@@ -20803,6 +21987,7 @@
         "RvR"
        ],
        "funciones": [
+        "DPS",
         "Gestión de recursos",
         "Utilidad",
         "Área / AoE"
@@ -20810,7 +21995,10 @@
       },
       {
        "name": "Desestabilizador",
-       "cat": "control",
+       "cat": [
+        "cc",
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -20864,12 +22052,17 @@
         "PvP"
        ],
        "funciones": [
-        "DPS"
+        "Control",
+        "Control de masas",
+        "DPS",
+        "Debuff"
        ]
       },
       {
        "name": "Fulminante",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -20923,12 +22116,15 @@
        ],
        "funciones": [
         "Buff",
+        "DPS",
         "Debuff"
        ]
       },
       {
        "name": "Manos de Acero",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 1,
        "roles": [
@@ -20980,12 +22176,16 @@
         "PvP"
        ],
        "funciones": [
-        "Buff"
+        "Buff",
+        "DPS"
        ]
       },
       {
        "name": "Furia de la tierra",
-       "cat": "control",
+       "cat": [
+        "cc",
+        "dps"
+       ],
        "lvl": 0,
        "pvp": 0,
        "roles": [
@@ -21049,7 +22249,10 @@
         "RvR"
        ],
        "funciones": [
+        "Control",
+        "Control de masas",
         "DPS",
+        "Debuff",
         "Área / AoE"
        ]
       }
@@ -21062,7 +22265,9 @@
      "spells": [
       {
        "name": "Concilio de Guerra",
-       "cat": "dmg",
+       "cat": [
+        "buffer"
+       ],
        "lvl": 3,
        "pvp": 3,
        "roles": [
@@ -21101,7 +22306,9 @@
       },
       {
        "name": "Maestría de Guerra",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 3,
        "roles": [
@@ -21142,7 +22349,9 @@
       },
       {
        "name": "Sangre de Warmaster",
-       "cat": "dmg",
+       "cat": [
+        "tank"
+       ],
        "lvl": 2,
        "pvp": 3,
        "roles": [
@@ -21181,7 +22390,9 @@
       },
       {
        "name": "Bandera de Warmaster",
-       "cat": "support",
+       "cat": [
+        "healer"
+       ],
        "lvl": 1,
        "pvp": 3,
        "roles": [
@@ -21219,11 +22430,16 @@
         "PvE",
         "RvR"
        ],
-       "funciones": []
+       "funciones": [
+        "Buff",
+        "Curación"
+       ]
       },
       {
        "name": "Grito Heroico",
-       "cat": "control",
+       "cat": [
+        "cc"
+       ],
        "lvl": 1,
        "pvp": 3,
        "roles": [
@@ -21264,6 +22480,8 @@
        ],
        "funciones": [
         "Buff",
+        "Control",
+        "Control de masas",
         "Movilidad",
         "Área / AoE"
        ]
@@ -21447,7 +22665,9 @@
      "spells": [
       {
        "name": "Carga",
-       "cat": "utility",
+       "cat": [
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 0,
        "roles": [
@@ -21499,12 +22719,15 @@
         "PvP"
        ],
        "funciones": [
-        "DPS"
+        "DPS",
+        "Movilidad"
        ]
       },
       {
        "name": "Esgrimes precisos",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -21552,12 +22775,16 @@
         "PvP"
        ],
        "funciones": [
-        "Buff"
+        "Buff",
+        "DPS"
        ]
       },
       {
        "name": "Incapacitar",
-       "cat": "control",
+       "cat": [
+        "cc",
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 3,
        "roles": [
@@ -21608,13 +22835,18 @@
         "RvR"
        ],
        "funciones": [
+        "Control",
+        "Control de masas",
         "DPS",
+        "Debuff",
         "Movilidad"
        ]
       },
       {
        "name": "Atlético",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 1,
        "roles": [
@@ -21667,13 +22899,16 @@
        ],
        "funciones": [
         "Buff",
+        "DPS",
         "Gestión de recursos",
         "Utilidad"
        ]
       },
       {
        "name": "Cruz del sur",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -21724,11 +22959,16 @@
         "PvE",
         "PvP"
        ],
-       "funciones": []
+       "funciones": [
+        "DPS"
+       ]
       },
       {
        "name": "Choque",
-       "cat": "control",
+       "cat": [
+        "cc",
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 3,
        "roles": [
@@ -21799,12 +23039,17 @@
         "PvP"
        ],
        "funciones": [
-        "DPS"
+        "Control",
+        "Control de masas",
+        "DPS",
+        "Debuff"
        ]
       },
       {
        "name": "Arrasador",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 0,
        "pvp": 0,
        "roles": [
@@ -21866,12 +23111,16 @@
         "RvR"
        ],
        "funciones": [
+        "DPS",
         "Área / AoE"
        ]
       },
       {
        "name": "Piel de hierro",
-       "cat": "defense",
+       "cat": [
+        "tank",
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -21915,12 +23164,15 @@
        ],
        "funciones": [
         "Buff",
-        "DPS"
+        "DPS",
+        "Defensa"
        ]
       },
       {
        "name": "Ataque fatal",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 0,
        "pvp": 0,
        "roles": [
@@ -21974,12 +23226,16 @@
         "PvP"
        ],
        "funciones": [
+        "DPS",
         "Debuff"
        ]
       },
       {
        "name": "Tifón",
-       "cat": "control",
+       "cat": [
+        "cc",
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -22053,7 +23309,10 @@
         "RvR"
        ],
        "funciones": [
+        "Control",
+        "Control de masas",
         "DPS",
+        "Debuff",
         "Área / AoE"
        ]
       }
@@ -22066,7 +23325,9 @@
      "spells": [
       {
        "name": "Impacto vigoroso",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 3,
        "pvp": 2,
        "roles": [
@@ -22117,11 +23378,15 @@
         "PvE",
         "PvP"
        ],
-       "funciones": []
+       "funciones": [
+        "DPS"
+       ]
       },
       {
        "name": "Impactos brutales",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -22169,12 +23434,16 @@
         "PvP"
        ],
        "funciones": [
-        "Buff"
+        "Buff",
+        "DPS"
        ]
       },
       {
        "name": "Rompe costillas",
-       "cat": "control",
+       "cat": [
+        "cc",
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 3,
        "roles": [
@@ -22234,12 +23503,17 @@
         "PvP"
        ],
        "funciones": [
-        "DPS"
+        "Control",
+        "Control de masas",
+        "DPS",
+        "Debuff"
        ]
       },
       {
        "name": "Anatomía letal",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 1,
        "roles": [
@@ -22284,7 +23558,9 @@
       },
       {
        "name": "Triturador",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 0,
        "pvp": 0,
        "roles": [
@@ -22343,12 +23619,15 @@
         "PvP"
        ],
        "funciones": [
+        "DPS",
         "Debuff"
        ]
       },
       {
        "name": "Ejecución",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 0,
        "pvp": 0,
        "roles": [
@@ -22400,12 +23679,15 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Buff"
+        "Buff",
+        "Crítico / burst"
        ]
       },
       {
        "name": "Aplasta mentes",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -22468,6 +23750,7 @@
         "PvP"
        ],
        "funciones": [
+        "DPS",
         "Debuff",
         "Disipación / limpieza",
         "Utilidad"
@@ -22475,7 +23758,10 @@
       },
       {
        "name": "Temple de acero",
-       "cat": "defense",
+       "cat": [
+        "tank",
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -22519,12 +23805,16 @@
        ],
        "funciones": [
         "Buff",
-        "DPS"
+        "DPS",
+        "Defensa"
        ]
       },
       {
        "name": "Rompe quijadas",
-       "cat": "control",
+       "cat": [
+        "cc",
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 3,
        "roles": [
@@ -22578,12 +23868,18 @@
         "PvP"
        ],
        "funciones": [
-        "DPS"
+        "Control",
+        "Control de masas",
+        "DPS",
+        "Debuff"
        ]
       },
       {
        "name": "Golpe de trueno",
-       "cat": "control",
+       "cat": [
+        "cc",
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -22657,7 +23953,10 @@
         "RvR"
        ],
        "funciones": [
+        "Control",
+        "Control de masas",
         "DPS",
+        "Debuff",
         "Área / AoE"
        ]
       }
@@ -22670,7 +23969,9 @@
      "spells": [
       {
        "name": "Destripador",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 3,
        "pvp": 2,
        "roles": [
@@ -22721,11 +24022,15 @@
         "PvE",
         "PvP"
        ],
-       "funciones": []
+       "funciones": [
+        "DPS"
+       ]
       },
       {
        "name": "Maniobras ágiles",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -22773,12 +24078,16 @@
         "PvP"
        ],
        "funciones": [
-        "Buff"
+        "Buff",
+        "DPS"
        ]
       },
       {
        "name": "Balestra",
-       "cat": "control",
+       "cat": [
+        "cc",
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -22838,12 +24147,17 @@
         "PvP"
        ],
        "funciones": [
-        "DPS"
+        "Control",
+        "Control de masas",
+        "DPS",
+        "Debuff"
        ]
       },
       {
        "name": "Versatilidad",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 1,
        "roles": [
@@ -22898,7 +24212,9 @@
       },
       {
        "name": "Riposte",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -22957,6 +24273,7 @@
         "PvP"
        ],
        "funciones": [
+        "DPS",
         "Debuff",
         "Gestión de recursos",
         "Utilidad"
@@ -22964,7 +24281,9 @@
       },
       {
        "name": "Empalamiento",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -23037,12 +24356,16 @@
         "PvP"
        ],
        "funciones": [
+        "DPS",
+        "Daño prolongado",
         "Debuff"
        ]
       },
       {
        "name": "Perfora cerebros",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 3,
        "roles": [
@@ -23111,12 +24434,16 @@
         "PvP"
        ],
        "funciones": [
+        "DPS",
         "Debuff"
        ]
       },
       {
        "name": "Flexibilidad",
-       "cat": "defense",
+       "cat": [
+        "tank",
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -23160,12 +24487,15 @@
        ],
        "funciones": [
         "Buff",
-        "DPS"
+        "DPS",
+        "Defensa"
        ]
       },
       {
        "name": "Estocada múltiple",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 0,
        "pvp": 0,
        "roles": [
@@ -23227,12 +24557,15 @@
         "RvR"
        ],
        "funciones": [
+        "DPS",
         "Área / AoE"
        ]
       },
       {
        "name": "Golpe relámpago",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -23306,6 +24639,7 @@
         "RvR"
        ],
        "funciones": [
+        "DPS",
         "Debuff",
         "Área / AoE"
        ]
@@ -23319,7 +24653,10 @@
      "spells": [
       {
        "name": "Puntapié",
-       "cat": "control",
+       "cat": [
+        "cc",
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 3,
        "roles": [
@@ -23379,12 +24716,17 @@
         "PvP"
        ],
        "funciones": [
-        "DPS"
+        "Control",
+        "Control de masas",
+        "DPS",
+        "Debuff"
        ]
       },
       {
        "name": "Cautela",
-       "cat": "defense",
+       "cat": [
+        "tank"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -23433,12 +24775,16 @@
         "PvP"
        ],
        "funciones": [
-        "Buff"
+        "Buff",
+        "Defensa",
+        "Mitigación / absorción"
        ]
       },
       {
        "name": "Degollador",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 3,
        "roles": [
@@ -23476,7 +24822,9 @@
       },
       {
        "name": "Defensa marcial",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -23516,12 +24864,15 @@
         "PvP"
        ],
        "funciones": [
+        "Crítico / burst",
         "Debuff"
        ]
       },
       {
        "name": "Preparación rigurosa",
-       "cat": "defense",
+       "cat": [
+        "tank"
+       ],
        "lvl": 1,
        "pvp": 3,
        "roles": [
@@ -23570,12 +24921,15 @@
         "PvP"
        ],
        "funciones": [
-        "Buff"
+        "Buff",
+        "Defensa"
        ]
       },
       {
        "name": "Revés",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 3,
        "roles": [
@@ -23634,12 +24988,15 @@
         "PvP"
        ],
        "funciones": [
+        "DPS",
         "Debuff"
        ]
       },
       {
        "name": "Embestida",
-       "cat": "utility",
+       "cat": [
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -23703,12 +25060,15 @@
        "funciones": [
         "Buff",
         "DPS",
+        "Movilidad",
         "Área / AoE"
        ]
       },
       {
        "name": "Intimidar",
-       "cat": "control",
+       "cat": [
+        "cc"
+       ],
        "lvl": 1,
        "pvp": 3,
        "roles": [
@@ -23760,11 +25120,17 @@
         "Grupo PvP",
         "PvP"
        ],
-       "funciones": []
+       "funciones": [
+        "Control",
+        "Control de masas",
+        "Debuff"
+       ]
       },
       {
        "name": "Inhabilitar",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 3,
        "roles": [
@@ -23822,12 +25188,16 @@
         "PvP"
        ],
        "funciones": [
+        "DPS",
         "Debuff"
        ]
       },
       {
        "name": "Reflejos marciales",
-       "cat": "defense",
+       "cat": [
+        "tank",
+        "dps"
+       ],
        "lvl": 0,
        "pvp": 0,
        "roles": [
@@ -23893,7 +25263,8 @@
        ],
        "funciones": [
         "Buff",
-        "Crítico / burst"
+        "Crítico / burst",
+        "Defensa"
        ]
       }
      ]
@@ -23905,7 +25276,9 @@
      "spells": [
       {
        "name": "Retar",
-       "cat": "defense",
+       "cat": [
+        "tank"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -23968,12 +25341,15 @@
         "PvP"
        ],
        "funciones": [
+        "Amenaza / agro",
         "Debuff"
        ]
       },
       {
        "name": "Provocar",
-       "cat": "defense",
+       "cat": [
+        "tank"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -24048,15 +25424,19 @@
         "PvP"
        ],
        "funciones": [
+        "Amenaza / agro",
         "Debuff",
         "Disipación / limpieza",
         "Invocación / mascota",
+        "Mitigación / absorción",
         "Utilidad"
        ]
       },
       {
        "name": "Finta",
-       "cat": "control",
+       "cat": [
+        "cc"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -24102,11 +25482,18 @@
         "Grupo PvP",
         "PvP"
        ],
-       "funciones": []
+       "funciones": [
+        "Control",
+        "Control de masas",
+        "Debuff"
+       ]
       },
       {
        "name": "Temple de protector",
-       "cat": "defense",
+       "cat": [
+        "tank",
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -24172,12 +25559,15 @@
        ],
        "funciones": [
         "Buff",
-        "DPS"
+        "DPS",
+        "Defensa"
        ]
       },
       {
        "name": "Instancia ofensiva",
-       "cat": "dmg",
+       "cat": [
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -24229,12 +25619,16 @@
        ],
        "funciones": [
         "Buff",
+        "DPS",
         "Debuff"
        ]
       },
       {
        "name": "Soporte defensivo",
-       "cat": "control",
+       "cat": [
+        "cc",
+        "tank"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -24319,12 +25713,17 @@
        ],
        "funciones": [
         "Buff",
+        "Control",
+        "Control de masas",
+        "Debuff",
         "Defensa"
        ]
       },
       {
        "name": "Piel de troll",
-       "cat": "defense",
+       "cat": [
+        "tank"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -24373,12 +25772,15 @@
         "PvP"
        ],
        "funciones": [
-        "Buff"
+        "Buff",
+        "Defensa"
        ]
       },
       {
        "name": "Furor del caballero",
-       "cat": "support",
+       "cat": [
+        "buffer"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -24427,11 +25829,15 @@
         "Leveo grupo PvE",
         "RvR"
        ],
-       "funciones": []
+       "funciones": [
+        "Buff"
+       ]
       },
       {
        "name": "Presencia heroica",
-       "cat": "defense",
+       "cat": [
+        "tank"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -24484,12 +25890,17 @@
        ],
        "funciones": [
         "Buff",
+        "Defensa",
+        "Mitigación / absorción",
         "Área / AoE"
        ]
       },
       {
        "name": "Ejército de uno",
-       "cat": "defense",
+       "cat": [
+        "tank",
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 3,
        "roles": [
@@ -24549,7 +25960,8 @@
        ],
        "funciones": [
         "Buff",
-        "DPS"
+        "DPS",
+        "Defensa"
        ]
       }
      ]
@@ -24561,7 +25973,9 @@
      "spells": [
       {
        "name": "Bloqueo",
-       "cat": "defense",
+       "cat": [
+        "tank"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -24610,12 +26024,17 @@
         "PvP"
        ],
        "funciones": [
-        "Buff"
+        "Buff",
+        "Defensa",
+        "Mitigación / absorción"
        ]
       },
       {
        "name": "Avasallar",
-       "cat": "defense",
+       "cat": [
+        "tank",
+        "dps"
+       ],
        "lvl": 2,
        "pvp": 2,
        "roles": [
@@ -24677,12 +26096,15 @@
        ],
        "funciones": [
         "DPS",
-        "Debuff"
+        "Debuff",
+        "Defensa"
        ]
       },
       {
        "name": "Proteger aliado",
-       "cat": "support",
+       "cat": [
+        "utility"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -24742,12 +26164,17 @@
         "RvR"
        ],
        "funciones": [
+        "Buff",
+        "Disipación / limpieza",
         "Utilidad"
        ]
       },
       {
        "name": "Bloqueo preciso",
-       "cat": "control",
+       "cat": [
+        "cc",
+        "tank"
+       ],
        "lvl": 2,
        "pvp": 3,
        "roles": [
@@ -24809,6 +26236,9 @@
        ],
        "funciones": [
         "Buff",
+        "Control",
+        "Control de masas",
+        "Debuff",
         "Defensa",
         "Mitigación / absorción",
         "Área / AoE"
@@ -24816,7 +26246,10 @@
       },
       {
        "name": "Instancia defensiva",
-       "cat": "defense",
+       "cat": [
+        "tank",
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -24870,12 +26303,16 @@
        "funciones": [
         "Buff",
         "DPS",
-        "Debuff"
+        "Debuff",
+        "Defensa"
        ]
       },
       {
        "name": "Manto etéreo",
-       "cat": "defense",
+       "cat": [
+        "tank",
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -24939,12 +26376,16 @@
        ],
        "funciones": [
         "Buff",
-        "DPS"
+        "DPS",
+        "Defensa"
        ]
       },
       {
        "name": "Muro protector",
-       "cat": "defense",
+       "cat": [
+        "tank",
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -24999,12 +26440,15 @@
        "funciones": [
         "Buff",
         "DPS",
+        "Defensa",
         "Área / AoE"
        ]
       },
       {
        "name": "Firmeza",
-       "cat": "defense",
+       "cat": [
+        "tank"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -25047,12 +26491,15 @@
         "PvP"
        ],
        "funciones": [
-        "Buff"
+        "Buff",
+        "Defensa"
        ]
       },
       {
        "name": "Escudo estelar",
-       "cat": "defense",
+       "cat": [
+        "tank"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -25111,12 +26558,17 @@
        "funciones": [
         "Buff",
         "Debuff",
+        "Defensa",
+        "Mitigación / absorción",
         "Área / AoE"
        ]
       },
       {
        "name": "Barrera deflectora",
-       "cat": "defense",
+       "cat": [
+        "tank",
+        "dps"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
@@ -25177,6 +26629,8 @@
         "Buff",
         "DPS",
         "Debuff",
+        "Defensa",
+        "Mitigación / absorción",
         "Área / AoE"
        ]
       }
@@ -25189,7 +26643,9 @@
      "spells": [
       {
        "name": "Concilio de Guerra",
-       "cat": "defense",
+       "cat": [
+        "buffer"
+       ],
        "lvl": 3,
        "pvp": 3,
        "roles": [
@@ -25228,7 +26684,9 @@
       },
       {
        "name": "Maestría de Guerra",
-       "cat": "defense",
+       "cat": [
+        "tank"
+       ],
        "lvl": 2,
        "pvp": 3,
        "roles": [
@@ -25267,12 +26725,15 @@
         "PvP"
        ],
        "funciones": [
-        "Buff"
+        "Buff",
+        "Defensa"
        ]
       },
       {
        "name": "Sangre de Warmaster",
-       "cat": "defense",
+       "cat": [
+        "tank"
+       ],
        "lvl": 2,
        "pvp": 3,
        "roles": [
@@ -25311,7 +26772,9 @@
       },
       {
        "name": "Asistencia del Paladín",
-       "cat": "defense",
+       "cat": [
+        "tank"
+       ],
        "lvl": 1,
        "pvp": 3,
        "roles": [
@@ -25352,12 +26815,16 @@
        ],
        "funciones": [
         "Buff",
+        "Defensa",
+        "Mitigación / absorción",
         "Área / AoE"
        ]
       },
       {
        "name": "Bendecido",
-       "cat": "defense",
+       "cat": [
+        "tank"
+       ],
        "lvl": 1,
        "pvp": 2,
        "roles": [
