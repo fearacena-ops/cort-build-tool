@@ -380,8 +380,8 @@
        ],
        "type": "Constant",
        "aoe": false,
-       "group": false,
-       "rvr": true,
+       "group": true,
+       "rvr": false,
        "roles": [
         "cc"
        ],
@@ -734,8 +734,8 @@
        "range": 0.0,
        "duration": 30.0,
        "type": "Constant",
-       "aoe": false,
-       "group": false,
+       "aoe": true,
+       "group": true,
        "rvr": true,
        "roles": [
         "cc"
@@ -883,8 +883,8 @@
        "duration": null,
        "type": "Direct",
        "aoe": false,
-       "group": false,
-       "rvr": true,
+       "group": true,
+       "rvr": false,
        "roles": [
         "dps"
        ],
@@ -1359,8 +1359,8 @@
        "duration": 30.0,
        "type": "Constant",
        "aoe": false,
-       "group": false,
-       "rvr": true,
+       "group": true,
+       "rvr": false,
        "roles": [
         "cc"
        ],
@@ -1531,8 +1531,8 @@
        ],
        "type": "Constant",
        "aoe": false,
-       "group": false,
-       "rvr": true,
+       "group": true,
+       "rvr": false,
        "roles": [
         "cc",
         "flanker"
@@ -1592,7 +1592,7 @@
        "type": "Constant",
        "aoe": false,
        "group": false,
-       "rvr": true,
+       "rvr": false,
        "roles": [
         "dps",
         "flanker"
@@ -1649,7 +1649,7 @@
        ],
        "type": "Constant",
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "roles": [
         "cc"
@@ -1775,7 +1775,7 @@
        "type": "Constant",
        "aoe": false,
        "group": false,
-       "rvr": true,
+       "rvr": false,
        "roles": [
         "cc"
        ],
@@ -2026,7 +2026,7 @@
        ],
        "type": "Constant",
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "roles": [
         "cc"
@@ -2156,7 +2156,7 @@
        "type": "Constant",
        "aoe": false,
        "group": false,
-       "rvr": true,
+       "rvr": false,
        "roles": [
         "flanker"
        ],
@@ -2256,8 +2256,8 @@
        "duration": 40.0,
        "type": "Constant",
        "aoe": false,
-       "group": false,
-       "rvr": true,
+       "group": true,
+       "rvr": false,
        "roles": [
         "flanker"
        ],
@@ -2323,7 +2323,7 @@
        "duration": null,
        "type": "Passive",
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "roles": [
         "flanker"
@@ -2389,8 +2389,8 @@
        ],
        "type": "Constant",
        "aoe": false,
-       "group": false,
-       "rvr": true,
+       "group": true,
+       "rvr": false,
        "roles": [
         "flanker"
        ],
@@ -2457,8 +2457,8 @@
        ],
        "type": "Constant",
        "aoe": false,
-       "group": false,
-       "rvr": true,
+       "group": true,
+       "rvr": false,
        "roles": [
         "flanker"
        ],
@@ -2523,8 +2523,8 @@
         8
        ],
        "type": "Constant",
-       "aoe": false,
-       "group": false,
+       "aoe": true,
+       "group": true,
        "rvr": true,
        "roles": [
         "flanker"
@@ -2642,8 +2642,8 @@
        ],
        "type": "Constant",
        "aoe": false,
-       "group": false,
-       "rvr": true,
+       "group": true,
+       "rvr": false,
        "roles": [
         "flanker"
        ],
@@ -2705,8 +2705,8 @@
         8
        ],
        "type": "Constant",
-       "aoe": false,
-       "group": false,
+       "aoe": true,
+       "group": true,
        "rvr": true,
        "roles": [
         "flanker"
@@ -2778,7 +2778,7 @@
        "type": "Constant",
        "aoe": false,
        "group": false,
-       "rvr": true,
+       "rvr": false,
        "roles": [
         "cc",
         "dps"
@@ -2857,8 +2857,8 @@
        "range": 25,
        "duration": 30,
        "type": "Constant",
-       "aoe": false,
-       "group": false,
+       "aoe": true,
+       "group": true,
        "rvr": true,
        "roles": [
         "dps"
@@ -2922,8 +2922,8 @@
        "duration": null,
        "type": "Direct",
        "aoe": false,
-       "group": true,
-       "rvr": true,
+       "group": false,
+       "rvr": false,
        "roles": [
         "support"
        ],
@@ -3038,8 +3038,8 @@
        ],
        "type": "Constant",
        "aoe": false,
-       "group": false,
-       "rvr": true,
+       "group": true,
+       "rvr": false,
        "roles": [
         "flanker"
        ],
@@ -3114,7 +3114,7 @@
        "range": 6,
        "duration": 60,
        "type": "Aura",
-       "aoe": true,
+       "aoe": false,
        "group": true,
        "rvr": true,
        "roles": [
@@ -3190,7 +3190,7 @@
        "type": "Constant",
        "aoe": false,
        "group": false,
-       "rvr": true,
+       "rvr": false,
        "roles": [
         "dps"
        ],
@@ -3254,8 +3254,8 @@
        ],
        "type": "Constant",
        "aoe": false,
-       "group": true,
-       "rvr": true,
+       "group": false,
+       "rvr": false,
        "roles": [
         "support"
        ],
@@ -3316,8 +3316,8 @@
        ],
        "type": "Constant",
        "aoe": false,
-       "group": false,
-       "rvr": true,
+       "group": true,
+       "rvr": false,
        "roles": [
         "cc"
        ],
@@ -3514,7 +3514,7 @@
        "duration": null,
        "type": "Direct",
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "roles": [
         "support",
@@ -3578,7 +3578,7 @@
        "duration": 30,
        "type": "Constant",
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "roles": [
         "tank"
@@ -3642,8 +3642,8 @@
        "duration": null,
        "type": "Activable",
        "aoe": false,
-       "group": true,
-       "rvr": true,
+       "group": false,
+       "rvr": false,
        "roles": [
         "support"
        ],
@@ -3761,7 +3761,7 @@
        "duration": null,
        "type": "Direct",
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "roles": [
         "support"
@@ -3886,7 +3886,7 @@
        "duration": null,
        "type": "Passive",
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "roles": [
         "tank"
@@ -3950,7 +3950,7 @@
        "type": "Direct",
        "aoe": true,
        "group": true,
-       "rvr": false,
+       "rvr": true,
        "roles": [
         "dps"
        ],
@@ -4032,7 +4032,7 @@
        "duration": 15.0,
        "type": "Constant",
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "roles": [
         "tank"
@@ -4096,8 +4096,8 @@
        "duration": null,
        "type": "Passive",
        "aoe": false,
-       "group": true,
-       "rvr": true,
+       "group": false,
+       "rvr": false,
        "roles": [
         "support"
        ],
@@ -4139,7 +4139,7 @@
        "range": null,
        "duration": 30,
        "type": "Constant",
-       "aoe": false,
+       "aoe": true,
        "group": true,
        "rvr": true,
        "roles": [
@@ -4191,7 +4191,7 @@
        "type": "Passive",
        "aoe": false,
        "group": false,
-       "rvr": true,
+       "rvr": false,
        "roles": [
         "dps"
        ],
@@ -4235,7 +4235,7 @@
        "range": null,
        "duration": 30,
        "type": "Constant",
-       "aoe": false,
+       "aoe": true,
        "group": true,
        "rvr": true,
        "roles": [
@@ -4289,7 +4289,7 @@
        "type": "Passive",
        "aoe": false,
        "group": false,
-       "rvr": true,
+       "rvr": false,
        "roles": [
         "flanker"
        ],
@@ -4546,7 +4546,7 @@
         "dps"
        ],
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
@@ -4620,7 +4620,7 @@
        ],
        "aoe": true,
        "group": true,
-       "rvr": false,
+       "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "Una llamarada brota de las manos del conjurador, quemando alos que se hallan en el rango.",
@@ -4748,7 +4748,7 @@
         "cc"
        ],
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
@@ -4820,8 +4820,8 @@
         "cc"
        ],
        "aoe": false,
-       "group": false,
-       "rvr": true,
+       "group": true,
+       "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "El mago somete la voluntad del oponente.",
@@ -4878,8 +4878,8 @@
         "cc"
        ],
        "aoe": false,
-       "group": false,
-       "rvr": true,
+       "group": true,
+       "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "El objetivo enmudece, quedando imposibilitado de invocar poderes.",
@@ -4940,8 +4940,8 @@
         "dps"
        ],
        "aoe": true,
-       "group": false,
-       "rvr": false,
+       "group": true,
+       "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "El mago se rodea de un muro de agujas que daña a todos los que lo rodean.",
@@ -5086,7 +5086,7 @@
        ],
        "aoe": false,
        "group": false,
-       "rvr": true,
+       "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "La ilusión de una masa de niebla engulle al objetivo, haciéndole creer que es cortado y desgarrada.",
@@ -5194,7 +5194,7 @@
         "support"
        ],
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "soloSustain": false,
        "soloPersonal": true,
@@ -5259,7 +5259,7 @@
        ],
        "aoe": false,
        "group": false,
-       "rvr": true,
+       "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "Quema pana del oponente, causádo daño imposible de resistir o absorber.",
@@ -5320,7 +5320,7 @@
        ],
        "aoe": false,
        "group": true,
-       "rvr": false,
+       "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "El mago transfiere parte de su mana a un aliado.",
@@ -5433,7 +5433,7 @@
        ],
        "aoe": false,
        "group": false,
-       "rvr": true,
+       "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "El mago roba puntos de maná del oponente, y los adhiere a su propia reserva.",
@@ -5655,9 +5655,9 @@
        "roles": [
         "support"
        ],
-       "aoe": false,
+       "aoe": true,
        "group": true,
-       "rvr": false,
+       "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "El mago crea una zona de regeneración de maná en la que los aliados pueden recupdiese.",
@@ -5718,7 +5718,7 @@
         "support",
         "tank"
        ],
-       "aoe": false,
+       "aoe": true,
        "group": true,
        "rvr": true,
        "soloSustain": false,
@@ -5880,9 +5880,9 @@
        "roles": [
         "dps"
        ],
-       "aoe": false,
-       "group": false,
-       "rvr": false,
+       "aoe": true,
+       "group": true,
+       "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "El mago gana velocidad en todos los ataques que hace con su báculo.",
@@ -6050,7 +6050,7 @@
        ],
        "aoe": true,
        "group": true,
-       "rvr": false,
+       "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "El mago se envuelve de un campo energético que reduce el movimiento de todos los enemigos que estén en su área.",
@@ -6209,7 +6209,7 @@
         "support",
         "tank"
        ],
-       "aoe": false,
+       "aoe": true,
        "group": true,
        "rvr": true,
        "soloSustain": false,
@@ -6431,7 +6431,7 @@
         "dps"
        ],
        "aoe": true,
-       "group": false,
+       "group": true,
        "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
@@ -6573,7 +6573,7 @@
        ],
        "aoe": false,
        "group": true,
-       "rvr": false,
+       "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "El mago incrementa la destreza de un aliado.",
@@ -6632,7 +6632,7 @@
         "cc"
        ],
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
@@ -6706,7 +6706,7 @@
         "support"
        ],
        "aoe": false,
-       "group": true,
+       "group": false,
        "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
@@ -6778,7 +6778,7 @@
        ],
        "aoe": false,
        "group": true,
-       "rvr": false,
+       "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "El mago incremeda la fuerza de un aliado.",
@@ -6839,7 +6839,7 @@
        ],
        "aoe": false,
        "group": true,
-       "rvr": false,
+       "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "Incrementa el daño del arma en un aliado.",
@@ -6899,9 +6899,9 @@
        "roles": [
         "support"
        ],
-       "aoe": false,
-       "group": false,
-       "rvr": false,
+       "aoe": true,
+       "group": true,
+       "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "Disipa todos los hechizos enemigos de un aliado o en el lanzador (si no elije un objetivo)",
@@ -6963,7 +6963,7 @@
        ],
        "aoe": false,
        "group": true,
-       "rvr": false,
+       "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "El mago incrementa la inteligencia de un aliado",
@@ -7157,7 +7157,7 @@
        ],
        "aoe": false,
        "group": true,
-       "rvr": false,
+       "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "Cura a un aliado.",
@@ -7228,7 +7228,7 @@
         "tank"
        ],
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "soloSustain": true,
        "soloPersonal": true,
@@ -7289,7 +7289,7 @@
        ],
        "aoe": false,
        "group": true,
-       "rvr": false,
+       "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "Revive a un aliado.",
@@ -7377,7 +7377,7 @@
        ],
        "aoe": false,
        "group": true,
-       "rvr": false,
+       "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "Cura a un aliado a medida que pasa el tiempo.",
@@ -7437,7 +7437,7 @@
         "support"
        ],
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "soloSustain": true,
        "soloPersonal": true,
@@ -7560,7 +7560,7 @@
         "support"
        ],
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
@@ -7620,7 +7620,7 @@
        ],
        "aoe": true,
        "group": true,
-       "rvr": false,
+       "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "Cura a todos los que se hallen en el área cercana al conjurador.",
@@ -7753,7 +7753,7 @@
        "roles": [
         "support"
        ],
-       "aoe": false,
+       "aoe": true,
        "group": true,
        "rvr": true,
        "soloSustain": false,
@@ -8252,7 +8252,7 @@
         "tank"
        ],
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "soloSustain": true,
        "soloPersonal": false,
@@ -8447,7 +8447,7 @@
         "tank"
        ],
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "soloSustain": false,
        "soloPersonal": true,
@@ -8591,7 +8591,7 @@
        ],
        "aoe": false,
        "group": true,
-       "rvr": false,
+       "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "Se crea un campo de fuerza alrededor de un aliado, le provee armadura extra.",
@@ -8652,8 +8652,8 @@
         "tank"
        ],
        "aoe": false,
-       "group": false,
-       "rvr": true,
+       "group": true,
+       "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "El conjurador recibe resistencia a lo poderes que doblegan la mente.",
@@ -8746,7 +8746,7 @@
        ],
        "aoe": false,
        "group": false,
-       "rvr": true,
+       "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "Refleja parte del daño recibido mientras el conjuro esté activo.",
@@ -8809,8 +8809,8 @@
         "tank"
        ],
        "aoe": false,
-       "group": false,
-       "rvr": true,
+       "group": true,
+       "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "El objetivo gana resistencia mágica.",
@@ -8869,8 +8869,8 @@
         "tank"
        ],
        "aoe": false,
-       "group": false,
-       "rvr": true,
+       "group": true,
+       "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "El objetivo gana resistencia física.",
@@ -8929,8 +8929,8 @@
         "support"
        ],
        "aoe": false,
-       "group": false,
-       "rvr": true,
+       "group": true,
+       "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "El conjurador crea una zona de invulnerabilidad. No podrá ser atacado, ni atacar, pero sí moverse.\n\n(Remueve todo efecto positivo que esté activo en el invocador)",
@@ -8987,9 +8987,9 @@
        "roles": [
         "support"
        ],
-       "aoe": false,
-       "group": false,
-       "rvr": false,
+       "aoe": true,
+       "group": true,
+       "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "El invocador aumenta la duración de todos los poderes propios o aliados que recibe.",
@@ -9042,8 +9042,8 @@
         "tank"
        ],
        "aoe": false,
-       "group": false,
-       "rvr": true,
+       "group": true,
+       "rvr": false,
        "soloSustain": false,
        "soloPersonal": true,
        "desc": "El conjurador crea una cobertura mágica que reduce significativamente el daño cortante, aplastante y punzante.",
@@ -9115,8 +9115,8 @@
         "support"
        ],
        "aoe": false,
-       "group": true,
-       "rvr": true,
+       "group": false,
+       "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "El Warmaster aprende un lenguaje de guerra que le permite comunicarse con sus iguales en secreto.",
@@ -9202,7 +9202,7 @@
        ],
        "aoe": false,
        "group": false,
-       "rvr": true,
+       "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "Gracias a su experiencia y largos años de batalla, el Maestro puede invocar los hechizos con mayor velocidad.",
@@ -9305,7 +9305,7 @@
        ],
        "aoe": false,
        "group": false,
-       "rvr": true,
+       "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "La capacidad atlética del Warmaster aumenta debido a sus largos años de entrenamiento.",
@@ -9546,7 +9546,7 @@
         "dps"
        ],
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
@@ -9620,7 +9620,7 @@
        ],
        "aoe": true,
        "group": true,
-       "rvr": false,
+       "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "Una llamarada brota de las manos del conjurador, quemando alos que se hallan en el rango.",
@@ -9748,7 +9748,7 @@
         "cc"
        ],
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
@@ -9820,8 +9820,8 @@
         "cc"
        ],
        "aoe": false,
-       "group": false,
-       "rvr": true,
+       "group": true,
+       "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "El mago somete la voluntad del oponente.",
@@ -9878,8 +9878,8 @@
         "cc"
        ],
        "aoe": false,
-       "group": false,
-       "rvr": true,
+       "group": true,
+       "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "El objetivo enmudece, quedando imposibilitado de invocar poderes.",
@@ -9940,8 +9940,8 @@
         "dps"
        ],
        "aoe": true,
-       "group": false,
-       "rvr": false,
+       "group": true,
+       "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "El mago se rodea de un muro de agujas que daña a todos los que lo rodean.",
@@ -10086,7 +10086,7 @@
        ],
        "aoe": false,
        "group": false,
-       "rvr": true,
+       "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "La ilusión de una masa de niebla engulle al objetivo, haciéndole creer que es cortado y desgarrada.",
@@ -10194,7 +10194,7 @@
         "support"
        ],
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "soloSustain": false,
        "soloPersonal": true,
@@ -10259,7 +10259,7 @@
        ],
        "aoe": false,
        "group": false,
-       "rvr": true,
+       "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "Quema pana del oponente, causádo daño imposible de resistir o absorber.",
@@ -10320,7 +10320,7 @@
        ],
        "aoe": false,
        "group": true,
-       "rvr": false,
+       "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "El mago transfiere parte de su mana a un aliado.",
@@ -10433,7 +10433,7 @@
        ],
        "aoe": false,
        "group": false,
-       "rvr": true,
+       "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "El mago roba puntos de maná del oponente, y los adhiere a su propia reserva.",
@@ -10655,9 +10655,9 @@
        "roles": [
         "support"
        ],
-       "aoe": false,
+       "aoe": true,
        "group": true,
-       "rvr": false,
+       "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "El mago crea una zona de regeneración de maná en la que los aliados pueden recupdiese.",
@@ -10718,9 +10718,9 @@
         "support",
         "tank"
        ],
-       "aoe": false,
+       "aoe": true,
        "group": true,
-       "rvr": false,
+       "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "El mago crea una aura de energía protectora a su alrededor que cubre a sus aliados.\n\nTodo aliado que se encuentre en su proximidad acumula barrera progresivamente hasta un límite de 2500 puntos.\n\nTodo aliado que se aleje del aura pierde los puntos acumulados inmediatamente.",
@@ -10880,9 +10880,9 @@
        "roles": [
         "dps"
        ],
-       "aoe": false,
-       "group": false,
-       "rvr": false,
+       "aoe": true,
+       "group": true,
+       "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "El mago gana velocidad en todos los ataques que hace con su báculo.",
@@ -11050,7 +11050,7 @@
        ],
        "aoe": true,
        "group": true,
-       "rvr": false,
+       "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "El mago se envuelve de un campo energético que reduce el movimiento de todos los enemigos que estén en su área.",
@@ -11209,7 +11209,7 @@
         "support",
         "tank"
        ],
-       "aoe": false,
+       "aoe": true,
        "group": true,
        "rvr": true,
        "soloSustain": false,
@@ -11431,7 +11431,7 @@
         "dps"
        ],
        "aoe": true,
-       "group": false,
+       "group": true,
        "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
@@ -11573,7 +11573,7 @@
        ],
        "aoe": false,
        "group": true,
-       "rvr": false,
+       "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "El mago incrementa la destreza de un aliado.",
@@ -11632,7 +11632,7 @@
         "cc"
        ],
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
@@ -11706,7 +11706,7 @@
         "support"
        ],
        "aoe": false,
-       "group": true,
+       "group": false,
        "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
@@ -11778,7 +11778,7 @@
        ],
        "aoe": false,
        "group": true,
-       "rvr": false,
+       "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "El mago incremeda la fuerza de un aliado.",
@@ -11839,7 +11839,7 @@
        ],
        "aoe": false,
        "group": true,
-       "rvr": false,
+       "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "Incrementa el daño del arma en un aliado.",
@@ -11899,9 +11899,9 @@
        "roles": [
         "support"
        ],
-       "aoe": false,
-       "group": false,
-       "rvr": false,
+       "aoe": true,
+       "group": true,
+       "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "Disipa todos los hechizos enemigos de un aliado o en el lanzador (si no elije un objetivo)",
@@ -11963,7 +11963,7 @@
        ],
        "aoe": false,
        "group": true,
-       "rvr": false,
+       "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "El mago incrementa la inteligencia de un aliado",
@@ -12224,7 +12224,7 @@
        ],
        "aoe": false,
        "group": false,
-       "rvr": true,
+       "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "Disminuye la velocidad de movimiento de un oponente.",
@@ -12280,8 +12280,8 @@
         "cc"
        ],
        "aoe": false,
-       "group": false,
-       "rvr": true,
+       "group": true,
+       "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "Las manos del oponente se paralizan, dificultando sus ataques.",
@@ -12355,7 +12355,7 @@
         "cc"
        ],
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
@@ -12563,8 +12563,8 @@
         "dps"
        ],
        "aoe": true,
-       "group": false,
-       "rvr": false,
+       "group": true,
+       "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "Una explosión de cristales afilados daña alos oponentes que se hallen en el área.",
@@ -12743,8 +12743,8 @@
         "cc",
         "dps"
        ],
-       "aoe": false,
-       "group": false,
+       "aoe": true,
+       "group": true,
        "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
@@ -13077,8 +13077,8 @@
         "cc"
        ],
        "aoe": false,
-       "group": false,
-       "rvr": true,
+       "group": true,
+       "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "Las almas dominadas por el brujo rodean a su víctima, haciéndola más vulnerable a ser controlada.",
@@ -13153,7 +13153,7 @@
        ],
        "aoe": false,
        "group": false,
-       "rvr": true,
+       "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "Llama a las almas que vagan por la tierra. Atacan a un enemigo de reino, al que le drenan maná.",
@@ -13280,7 +13280,7 @@
        ],
        "aoe": false,
        "group": false,
-       "rvr": true,
+       "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "El brujo invoca un poderoso conjuro que incinera el cuerpo del enemigo. Si el conjuro es exitoso, el enemigo es enviado al Altar de Resurrección.",
@@ -13335,7 +13335,7 @@
        ],
        "aoe": false,
        "group": false,
-       "rvr": true,
+       "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "Si el conjuro no es resistido el brujo tiene chances de controlar una criatura invocada (Invocación de conjurador). Bajo el comando del brujo la criatura dura hasta ser aniquilada.",
@@ -13390,7 +13390,7 @@
         "dps"
        ],
        "aoe": true,
-       "group": false,
+       "group": true,
        "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
@@ -13471,7 +13471,7 @@
        ],
        "aoe": true,
        "group": true,
-       "rvr": false,
+       "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "El invocador lanza una estera de llamas que causa daño a todos los enemigos en un área de impacto.",
@@ -13664,7 +13664,7 @@
         "tank"
        ],
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "soloSustain": false,
        "soloPersonal": true,
@@ -13738,8 +13738,8 @@
         "cc"
        ],
        "aoe": false,
-       "group": false,
-       "rvr": true,
+       "group": true,
+       "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "El objetivo es congelado. No puede atacar ni ser atacado.",
@@ -14029,8 +14029,8 @@
         "dps"
        ],
        "aoe": true,
-       "group": false,
-       "rvr": false,
+       "group": true,
+       "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "Un remolino de aire engulle a los que se hallen en el área.",
@@ -14180,8 +14180,8 @@
         "support"
        ],
        "aoe": false,
-       "group": true,
-       "rvr": true,
+       "group": false,
+       "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "El Warmaster aprende un lenguaje de guerra que le permite comunicarse con sus iguales en secreto.",
@@ -14267,7 +14267,7 @@
        ],
        "aoe": false,
        "group": false,
-       "rvr": true,
+       "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "Gracias a su experiencia y largos años de batalla, el Maestro puede invocar los hechizos con mayor velocidad.",
@@ -14319,7 +14319,7 @@
         "cc"
        ],
        "aoe": true,
-       "group": false,
+       "group": true,
        "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
@@ -14378,7 +14378,7 @@
        ],
        "aoe": false,
        "group": false,
-       "rvr": true,
+       "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "La capacidad atlética del Warmaster aumenta debido a sus largos años de entrenamiento.",
@@ -14712,8 +14712,8 @@
        ],
        "type": "Constant",
        "aoe": false,
-       "group": false,
-       "rvr": true,
+       "group": true,
+       "rvr": false,
        "roles": [
         "cc"
        ],
@@ -15066,8 +15066,8 @@
        "range": 0.0,
        "duration": 30.0,
        "type": "Constant",
-       "aoe": false,
-       "group": false,
+       "aoe": true,
+       "group": true,
        "rvr": true,
        "roles": [
         "cc"
@@ -15215,8 +15215,8 @@
        "duration": null,
        "type": "Direct",
        "aoe": false,
-       "group": false,
-       "rvr": true,
+       "group": true,
+       "rvr": false,
        "roles": [
         "dps"
        ],
@@ -15691,8 +15691,8 @@
        "duration": 30.0,
        "type": "Constant",
        "aoe": false,
-       "group": false,
-       "rvr": true,
+       "group": true,
+       "rvr": false,
        "roles": [
         "cc"
        ],
@@ -15863,8 +15863,8 @@
        ],
        "type": "Constant",
        "aoe": false,
-       "group": false,
-       "rvr": true,
+       "group": true,
+       "rvr": false,
        "roles": [
         "cc",
         "flanker"
@@ -15924,7 +15924,7 @@
        "type": "Constant",
        "aoe": false,
        "group": false,
-       "rvr": true,
+       "rvr": false,
        "roles": [
         "dps",
         "flanker"
@@ -15981,7 +15981,7 @@
        ],
        "type": "Constant",
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "roles": [
         "cc"
@@ -16107,7 +16107,7 @@
        "type": "Constant",
        "aoe": false,
        "group": false,
-       "rvr": true,
+       "rvr": false,
        "roles": [
         "cc"
        ],
@@ -16358,7 +16358,7 @@
        ],
        "type": "Constant",
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "roles": [
         "cc"
@@ -16488,7 +16488,7 @@
        "type": "Constant",
        "aoe": false,
        "group": false,
-       "rvr": true,
+       "rvr": false,
        "roles": [
         "flanker"
        ],
@@ -16588,8 +16588,8 @@
        "duration": 40.0,
        "type": "Constant",
        "aoe": false,
-       "group": false,
-       "rvr": true,
+       "group": true,
+       "rvr": false,
        "roles": [
         "flanker"
        ],
@@ -16655,7 +16655,7 @@
        "duration": null,
        "type": "Passive",
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "roles": [
         "flanker"
@@ -16721,8 +16721,8 @@
        ],
        "type": "Constant",
        "aoe": false,
-       "group": false,
-       "rvr": true,
+       "group": true,
+       "rvr": false,
        "roles": [
         "flanker"
        ],
@@ -16789,8 +16789,8 @@
        ],
        "type": "Constant",
        "aoe": false,
-       "group": false,
-       "rvr": true,
+       "group": true,
+       "rvr": false,
        "roles": [
         "flanker"
        ],
@@ -16855,8 +16855,8 @@
         8
        ],
        "type": "Constant",
-       "aoe": false,
-       "group": false,
+       "aoe": true,
+       "group": true,
        "rvr": true,
        "roles": [
         "flanker"
@@ -16974,8 +16974,8 @@
        ],
        "type": "Constant",
        "aoe": false,
-       "group": false,
-       "rvr": true,
+       "group": true,
+       "rvr": false,
        "roles": [
         "flanker"
        ],
@@ -17037,8 +17037,8 @@
         8
        ],
        "type": "Constant",
-       "aoe": false,
-       "group": false,
+       "aoe": true,
+       "group": true,
        "rvr": true,
        "roles": [
         "flanker"
@@ -17183,7 +17183,7 @@
         "dps"
        ],
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
@@ -17377,9 +17377,9 @@
        "roles": [
         "dps"
        ],
-       "aoe": false,
-       "group": false,
-       "rvr": false,
+       "aoe": true,
+       "group": true,
+       "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "Una flecha flamígera quema a quien se halle en su trayectoria.",
@@ -17459,7 +17459,7 @@
        ],
        "aoe": false,
        "group": false,
-       "rvr": true,
+       "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "Una flecha incorpórea ignora las protecciones del objetivo.",
@@ -17515,8 +17515,8 @@
         "dps"
        ],
        "aoe": true,
-       "group": false,
-       "rvr": false,
+       "group": true,
+       "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "La flecha disparada explota en montones de cristales afilados, causando daño cortante en un área.",
@@ -17938,7 +17938,7 @@
        ],
        "aoe": false,
        "group": false,
-       "rvr": true,
+       "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "Ataque centrado en la piel del oponente, reduciendo considerablemente sus resistencias. Funciona sólo si el enemigo tiene estas resistencias aumentadas.",
@@ -18455,8 +18455,8 @@
         "support"
        ],
        "aoe": false,
-       "group": true,
-       "rvr": true,
+       "group": false,
+       "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "El Warmaster aprende un lenguaje de guerra que le permite comunicarse con sus iguales en secreto.",
@@ -18548,7 +18548,7 @@
        ],
        "aoe": false,
        "group": false,
-       "rvr": true,
+       "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "El Warmaster mejora su atributo principal de clase.",
@@ -18591,8 +18591,8 @@
        "roles": [
         "dps"
        ],
-       "aoe": false,
-       "group": false,
+       "aoe": true,
+       "group": true,
        "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
@@ -18652,7 +18652,7 @@
        ],
        "aoe": false,
        "group": false,
-       "rvr": true,
+       "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "La capacidad atlética del Warmaster aumenta debido a sus largos años de entrenamiento.",
@@ -18972,8 +18972,8 @@
         "cc"
        ],
        "aoe": false,
-       "group": false,
-       "rvr": false,
+       "group": true,
+       "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "Golpe a los miembros que quita movilidad.",
@@ -19163,7 +19163,7 @@
         "dps"
        ],
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
@@ -19246,7 +19246,7 @@
        ],
        "aoe": true,
        "group": true,
-       "rvr": false,
+       "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "Ejecuta un golpe de barrida en arco. Todos los enemigos en ese arco reciben el daño del arma.",
@@ -19318,7 +19318,7 @@
         "tank"
        ],
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "soloSustain": false,
        "soloPersonal": true,
@@ -19651,7 +19651,7 @@
         "cc"
        ],
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
@@ -19904,7 +19904,7 @@
        ],
        "aoe": false,
        "group": false,
-       "rvr": true,
+       "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "Fuerte golpe que posibilita remover algunos de los poderes positivos que se encuentran activos en el objetivo.",
@@ -19979,7 +19979,7 @@
         "tank"
        ],
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "soloSustain": false,
        "soloPersonal": true,
@@ -20034,7 +20034,7 @@
         "cc"
        ],
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
@@ -20315,7 +20315,7 @@
         "dps"
        ],
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
@@ -20681,7 +20681,7 @@
         "tank"
        ],
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "soloSustain": false,
        "soloPersonal": true,
@@ -20736,7 +20736,7 @@
        ],
        "aoe": true,
        "group": true,
-       "rvr": false,
+       "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "Múltiples ataques en un área de arco. Los que se hallen en el área reciben el daño del arma.",
@@ -20900,7 +20900,7 @@
         "cc"
        ],
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
@@ -20972,7 +20972,7 @@
         "tank"
        ],
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "soloSustain": false,
        "soloPersonal": true,
@@ -21033,7 +21033,7 @@
        ],
        "aoe": false,
        "group": false,
-       "rvr": true,
+       "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "Asesta un ataque letal. El objetivo muere instantáneamente. La víctima debe tener una salud no mayora: \nNivel 1: 150\nNivel 2: 275\nNivel 3: 400\nNivel 4: 525 \nNivel 5: 650",
@@ -21075,7 +21075,7 @@
        ],
        "aoe": false,
        "group": false,
-       "rvr": true,
+       "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "El guerrero está entrenado en tácticas de evasivas. Reduce las chances de recibir ataques críticos.",
@@ -21124,8 +21124,8 @@
         "tank"
        ],
        "aoe": false,
-       "group": false,
-       "rvr": true,
+       "group": true,
+       "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "Mejora la evasión del arquero permitiendo evadir el próximo intento de control.",
@@ -21251,7 +21251,7 @@
        "roles": [
         "support"
        ],
-       "aoe": false,
+       "aoe": true,
        "group": true,
        "rvr": true,
        "soloSustain": false,
@@ -21326,7 +21326,7 @@
         "cc"
        ],
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
@@ -21459,7 +21459,7 @@
         "dps"
        ],
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
@@ -21611,7 +21611,7 @@
         "tank"
        ],
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "soloSustain": false,
        "soloPersonal": true,
@@ -21670,7 +21670,7 @@
        "roles": [
         "support"
        ],
-       "aoe": false,
+       "aoe": true,
        "group": true,
        "rvr": true,
        "soloSustain": false,
@@ -21811,8 +21811,8 @@
         "tank"
        ],
        "aoe": false,
-       "group": false,
-       "rvr": true,
+       "group": true,
+       "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "Al amedrentar a sus oponentes, el bárbaro necesita menos tiempo para planear sus ataques. En nivel 5, resiste el próximo intento de control.",
@@ -22018,9 +22018,9 @@
        "roles": [
         "dps"
        ],
-       "aoe": false,
-       "group": false,
-       "rvr": false,
+       "aoe": true,
+       "group": true,
+       "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "El bárbaro mejora el daño en todos sus ataques.",
@@ -22141,8 +22141,8 @@
         "tank"
        ],
        "aoe": false,
-       "group": false,
-       "rvr": true,
+       "group": true,
+       "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "El bárbaro entra en un estado de locura en el que es casi inmune alos intentos de control.",
@@ -22470,7 +22470,7 @@
         "cc"
        ],
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
@@ -22541,8 +22541,8 @@
        "roles": [
         "cc"
        ],
-       "aoe": false,
-       "group": false,
+       "aoe": true,
+       "group": true,
        "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
@@ -22603,7 +22603,7 @@
        ],
        "aoe": true,
        "group": true,
-       "rvr": false,
+       "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "Se crea una onda de energía con el arma, que hace daño aplastante a todos los enemigos en un arco.",
@@ -22677,7 +22677,7 @@
         "cc"
        ],
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
@@ -22954,8 +22954,8 @@
         "support"
        ],
        "aoe": false,
-       "group": true,
-       "rvr": true,
+       "group": false,
+       "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "El Warmaster aprende un lenguaje de guerra que le permite comunicarse con sus iguales en secreto.",
@@ -22998,7 +22998,7 @@
        ],
        "aoe": false,
        "group": false,
-       "rvr": true,
+       "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "El Warmaster mejora su atributo principal de clase.",
@@ -23043,7 +23043,7 @@
        ],
        "aoe": false,
        "group": false,
-       "rvr": true,
+       "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "La capacidad atlética del Warmaster aumenta debido a sus largos años de entrenamiento.",
@@ -23485,8 +23485,8 @@
         "cc"
        ],
        "aoe": false,
-       "group": false,
-       "rvr": false,
+       "group": true,
+       "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "Golpe a los miembros que quita movilidad.",
@@ -23676,7 +23676,7 @@
         "dps"
        ],
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
@@ -23759,7 +23759,7 @@
        ],
        "aoe": true,
        "group": true,
-       "rvr": false,
+       "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "Ejecuta un golpe de barrida en arco. Todos los enemigos en ese arco reciben el daño del arma.",
@@ -23831,7 +23831,7 @@
         "tank"
        ],
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "soloSustain": false,
        "soloPersonal": true,
@@ -24164,7 +24164,7 @@
         "cc"
        ],
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
@@ -24417,7 +24417,7 @@
        ],
        "aoe": false,
        "group": false,
-       "rvr": true,
+       "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "Fuerte golpe que posibilita remover algunos de los poderes positivos que se encuentran activos en el objetivo.",
@@ -24492,7 +24492,7 @@
         "tank"
        ],
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "soloSustain": false,
        "soloPersonal": true,
@@ -24547,7 +24547,7 @@
         "cc"
        ],
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
@@ -24828,7 +24828,7 @@
         "dps"
        ],
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
@@ -25194,7 +25194,7 @@
         "tank"
        ],
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "soloSustain": false,
        "soloPersonal": true,
@@ -25249,7 +25249,7 @@
        ],
        "aoe": true,
        "group": true,
-       "rvr": false,
+       "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "Múltiples ataques en un área de arco. Los que se hallen en el área reciben el daño del arma.",
@@ -25413,7 +25413,7 @@
         "cc"
        ],
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
@@ -25485,7 +25485,7 @@
         "tank"
        ],
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "soloSustain": false,
        "soloPersonal": true,
@@ -25546,7 +25546,7 @@
        ],
        "aoe": false,
        "group": false,
-       "rvr": true,
+       "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "Asesta un ataque letal. El objetivo muere instantáneamente. La víctima debe tener una salud no mayora: \nNivel 1: 150\nNivel 2: 275\nNivel 3: 400\nNivel 4: 525 \nNivel 5: 650",
@@ -25588,7 +25588,7 @@
        ],
        "aoe": false,
        "group": false,
-       "rvr": true,
+       "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "El guerrero está entrenado en tácticas de evasivas. Reduce las chances de recibir ataques críticos.",
@@ -25637,8 +25637,8 @@
         "tank"
        ],
        "aoe": false,
-       "group": false,
-       "rvr": true,
+       "group": true,
+       "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "Mejora la evasión del arquero permitiendo evadir el próximo intento de control.",
@@ -25764,7 +25764,7 @@
        "roles": [
         "support"
        ],
-       "aoe": false,
+       "aoe": true,
        "group": true,
        "rvr": true,
        "soloSustain": false,
@@ -25839,7 +25839,7 @@
         "cc"
        ],
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
@@ -25972,7 +25972,7 @@
         "dps"
        ],
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
@@ -26217,7 +26217,7 @@
         "cc"
        ],
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
@@ -26276,7 +26276,7 @@
         "tank"
        ],
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "soloSustain": false,
        "soloPersonal": true,
@@ -26415,8 +26415,8 @@
         "tank"
        ],
        "aoe": false,
-       "group": false,
-       "rvr": true,
+       "group": true,
+       "rvr": false,
        "soloSustain": false,
        "soloPersonal": true,
        "desc": "El guerrero adopta una táctica defensiva contra efectos aturdidores, pero se mueve más lentamente.",
@@ -26512,7 +26512,7 @@
         "tank"
        ],
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "soloSustain": false,
        "soloPersonal": true,
@@ -26573,7 +26573,7 @@
        ],
        "aoe": false,
        "group": true,
-       "rvr": false,
+       "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "El caballero se mueve extremadamente rápido durante un breve momento, teniendo más probabilidad de llegar a ayudar a un aliado en problemas O alcanzar a un enemigo.",
@@ -26630,7 +26630,7 @@
         "support",
         "tank"
        ],
-       "aoe": false,
+       "aoe": true,
        "group": true,
        "rvr": true,
        "soloSustain": false,
@@ -26695,8 +26695,8 @@
         "tank"
        ],
        "aoe": false,
-       "group": false,
-       "rvr": true,
+       "group": true,
+       "rvr": false,
        "soloSustain": false,
        "soloPersonal": true,
        "desc": "El caballero es casi inmune al daño.",
@@ -26772,7 +26772,7 @@
         "tank"
        ],
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "soloSustain": false,
        "soloPersonal": true,
@@ -26834,7 +26834,7 @@
         "cc"
        ],
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
@@ -26906,7 +26906,7 @@
        ],
        "aoe": false,
        "group": true,
-       "rvr": false,
+       "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "Disipa los efectos de control activos en el aliado.",
@@ -26976,8 +26976,8 @@
        "roles": [
         "tank"
        ],
-       "aoe": false,
-       "group": false,
+       "aoe": true,
+       "group": true,
        "rvr": true,
        "soloSustain": false,
        "soloPersonal": true,
@@ -27054,7 +27054,7 @@
         "tank"
        ],
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
@@ -27194,7 +27194,7 @@
         "support",
         "tank"
        ],
-       "aoe": false,
+       "aoe": true,
        "group": true,
        "rvr": true,
        "soloSustain": false,
@@ -27259,7 +27259,7 @@
         "tank"
        ],
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "soloSustain": false,
        "soloPersonal": true,
@@ -27312,7 +27312,7 @@
         "support",
         "tank"
        ],
-       "aoe": false,
+       "aoe": true,
        "group": true,
        "rvr": true,
        "soloSustain": false,
@@ -27383,7 +27383,7 @@
         "support",
         "tank"
        ],
-       "aoe": false,
+       "aoe": true,
        "group": true,
        "rvr": true,
        "soloSustain": false,
@@ -27462,8 +27462,8 @@
         "support"
        ],
        "aoe": false,
-       "group": true,
-       "rvr": true,
+       "group": false,
+       "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "El Warmaster aprende un lenguaje de guerra que le permite comunicarse con sus iguales en secreto.",
@@ -27505,8 +27505,8 @@
         "dps"
        ],
        "aoe": false,
-       "group": false,
-       "rvr": true,
+       "group": true,
+       "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "El Warmaster magnifica su Constitución.",
@@ -27555,7 +27555,7 @@
        ],
        "aoe": false,
        "group": false,
-       "rvr": true,
+       "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "La capacidad atlética del Warmaster aumenta debido a sus largos años de entrenamiento.",
@@ -27597,7 +27597,7 @@
         "tank",
         "support"
        ],
-       "aoe": false,
+       "aoe": true,
        "group": true,
        "rvr": true,
        "soloSustain": false,

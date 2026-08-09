@@ -150,7 +150,6 @@ function renderTabbedDiscs(build){
 }
 function flagChips(sp){
   let out = '';
-  if(sp.aoe) out += `<span class="flagchip">Área</span>`;
   if(sp.group) out += `<span class="flagchip">Grupo</span>`;
   if(sp.rvr) out += `<span class="flagchip">RvR</span>`;
   return out ? `<div class="flagchips">${out}</div>` : '';
