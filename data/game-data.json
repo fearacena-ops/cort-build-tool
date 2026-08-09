@@ -284,7 +284,9 @@
        "funciones": [
         "Buff",
         "DPS"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Disparo rápido",
@@ -346,7 +348,9 @@
         "Buff",
         "Crítico / burst",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Flecha paralizadora",
@@ -416,7 +420,9 @@
         "Control",
         "Control de masas",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Ligereza",
@@ -466,7 +472,9 @@
        ],
        "funciones": [
         "Buff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Meditación",
@@ -528,7 +536,9 @@
        ],
        "funciones": [
         "Buff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Adaptabilidad",
@@ -583,7 +593,9 @@
        "funciones": [
         "Buff",
         "Crítico / burst"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Desgarrar",
@@ -646,7 +658,9 @@
        "funciones": [
         "DPS",
         "Daño prolongado"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Duelista",
@@ -695,7 +709,9 @@
        "funciones": [
         "Buff",
         "Crítico / burst"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Ralentizar",
@@ -766,7 +782,9 @@
         "Control de masas",
         "Debuff",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Tiro de repetición",
@@ -831,7 +849,9 @@
        "funciones": [
         "DPS",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       }
      ]
     },
@@ -897,7 +917,9 @@
        "funciones": [
         "DPS",
         "Defensa"
-       ]
+       ],
+       "blockable100": true,
+       "resistible100": false
       },
       {
        "name": "Tiro parabólico",
@@ -958,7 +980,9 @@
        ],
        "funciones": [
         "Buff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Maniobrabilidad",
@@ -1016,7 +1040,9 @@
        "funciones": [
         "Buff",
         "Movilidad"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Ojo de águila",
@@ -1070,7 +1096,9 @@
        ],
        "funciones": [
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Tiro al blanco",
@@ -1138,7 +1166,9 @@
         "Buff",
         "Crítico / burst",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Omnipresencia",
@@ -1188,7 +1218,9 @@
        ],
        "funciones": [
         "Buff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Despedazar",
@@ -1251,7 +1283,9 @@
         "DPS",
         "Daño prolongado",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Especialista",
@@ -1299,7 +1333,9 @@
        ],
        "funciones": [
         "Buff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Ofuscar",
@@ -1388,7 +1424,9 @@
         "Debuff",
         "Sigilo",
         "Utilidad"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Lluvia de proyectiles",
@@ -1454,7 +1492,9 @@
        "funciones": [
         "DPS",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       }
      ]
     },
@@ -1519,7 +1559,9 @@
         "Control",
         "Control de masas",
         "Debuff"
-       ]
+       ],
+       "blockable100": true,
+       "resistible100": false
       },
       {
        "name": "Ataque sorpresivo",
@@ -1574,7 +1616,9 @@
        ],
        "funciones": [
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Puño aturdidor",
@@ -1646,7 +1690,9 @@
         "Control de masas",
         "DPS",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Represalia",
@@ -1702,7 +1748,9 @@
        ],
        "funciones": [
         "DPS"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Toque pegajoso",
@@ -1756,7 +1804,9 @@
        ],
        "funciones": [
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Pelea sucia",
@@ -1818,7 +1868,9 @@
        "funciones": [
         "Buff",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Fineza",
@@ -1879,7 +1931,9 @@
        "funciones": [
         "Crítico / burst",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Centinela",
@@ -1940,7 +1994,9 @@
        ],
        "funciones": [
         "Buff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Tiro de distración",
@@ -1997,7 +2053,9 @@
         "Control",
         "Control de masas",
         "Debuff"
-       ]
+       ],
+       "blockable100": true,
+       "resistible100": false
       },
       {
        "name": "Flecha con abrojos",
@@ -2058,7 +2116,9 @@
         "Debuff",
         "Movilidad",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       }
      ]
     },
@@ -2112,7 +2172,9 @@
        "contenido": [],
        "funciones": [
         "Utilidad"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Movilidad",
@@ -2168,7 +2230,9 @@
        "funciones": [
         "Buff",
         "Movilidad"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Tácticas evasivas",
@@ -2239,7 +2303,9 @@
         "Debuff",
         "Defensa",
         "Mitigación / absorción"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Reflejos felinos",
@@ -2291,7 +2357,9 @@
        "funciones": [
         "Buff",
         "Defensa"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Acrobático",
@@ -2356,7 +2424,9 @@
         "Buff",
         "Defensa",
         "Movilidad"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Eludir conjuros",
@@ -2422,7 +2492,9 @@
         "Buff",
         "DPS",
         "Defensa"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Escapista",
@@ -2485,7 +2557,9 @@
         "Defensa",
         "Movilidad",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Astucia",
@@ -2535,7 +2609,9 @@
        ],
        "funciones": [
         "Buff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Perfil bajo",
@@ -2598,7 +2674,9 @@
         "Defensa",
         "Sigilo",
         "Utilidad"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Hijo del viento",
@@ -2666,7 +2744,9 @@
         "Debuff",
         "Defensa",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       }
      ]
     },
@@ -2752,7 +2832,9 @@
        "funciones": [
         "DPS",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Sentencia a muerte",
@@ -2814,7 +2896,9 @@
         "DPS",
         "Debuff",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Vigilancia enemiga",
@@ -2871,7 +2955,9 @@
         "Buff",
         "Sigilo",
         "Utilidad"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Espíritu salvaje",
@@ -2919,7 +3005,9 @@
        ],
        "funciones": [
         "Buff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Camuflaje",
@@ -3001,7 +3089,9 @@
         "Invocación / mascota",
         "Sigilo",
         "Utilidad"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Ligereza heredada",
@@ -3073,7 +3163,9 @@
         "Buff",
         "Gestión de recursos",
         "Utilidad"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Sangre fria",
@@ -3130,7 +3222,9 @@
        "funciones": [
         "Buff",
         "DPS"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Revelar",
@@ -3189,7 +3283,9 @@
         "Disipación / limpieza",
         "Sigilo",
         "Utilidad"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Confundir",
@@ -3250,7 +3346,9 @@
         "Control de masas",
         "DPS",
         "Debuff"
-       ]
+       ],
+       "blockable100": true,
+       "resistible100": false
       },
       {
        "name": "Entorno acechador",
@@ -3325,7 +3423,9 @@
         "Sigilo",
         "Utilidad",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       }
      ]
     },
@@ -3388,7 +3488,9 @@
        ],
        "funciones": [
         "Buff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Curar mascota",
@@ -3449,7 +3551,9 @@
         "Buff",
         "Curación",
         "Invocación / mascota"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": true
       },
       {
        "name": "Defensa salvaje",
@@ -3512,7 +3616,9 @@
         "Defensa",
         "Invocación / mascota",
         "Mitigación / absorción"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Vista prominente",
@@ -3576,7 +3682,9 @@
         "Buff",
         "Debuff",
         "Invocación / mascota"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Adiestramiento",
@@ -3627,7 +3735,9 @@
        "funciones": [
         "Buff",
         "Invocación / mascota"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Revivir mascota",
@@ -3688,7 +3798,9 @@
         "Curación",
         "Invocación / mascota",
         "Resurrección"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Cólera bestial",
@@ -3753,7 +3865,9 @@
         "DPS",
         "Debuff",
         "Invocación / mascota"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Armadura natural",
@@ -3808,7 +3922,9 @@
         "DPS",
         "Defensa",
         "Mitigación / absorción"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Furia natural",
@@ -3889,7 +4005,9 @@
         "Debuff",
         "Invocación / mascota",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Coraza de la bestia",
@@ -3951,7 +4069,9 @@
         "DPS",
         "Defensa",
         "Invocación / mascota"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       }
      ]
     },
@@ -4000,7 +4120,9 @@
        ],
        "funciones": [
         "Buff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Cuerno del viento",
@@ -4048,7 +4170,9 @@
         "Buff",
         "Movilidad",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Maestría de Guerra",
@@ -4092,7 +4216,9 @@
        ],
        "funciones": [
         "Buff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Head of the Pack",
@@ -4142,7 +4268,9 @@
         "Buff",
         "DPS",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Sangre de Warmaster",
@@ -4184,7 +4312,9 @@
        ],
        "funciones": [
         "Buff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       }
      ]
     }
@@ -4400,7 +4530,9 @@
        ],
        "funciones": [
         "DPS"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Plaga de insectos",
@@ -4472,7 +4604,9 @@
         "DPS",
         "Daño prolongado",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Llamarada",
@@ -4532,7 +4666,9 @@
        "funciones": [
         "DPS",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Empuje mental",
@@ -4596,7 +4732,9 @@
        "funciones": [
         "Debuff",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Hiedra espinosa",
@@ -4667,7 +4805,9 @@
         "Control de masas",
         "DPS",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Dominio de la voluntad",
@@ -4723,7 +4863,9 @@
         "Control",
         "Control de masas",
         "Debuff"
-       ]
+       ],
+       "blockable100": true,
+       "resistible100": false
       },
       {
        "name": "Silenciar",
@@ -4783,7 +4925,9 @@
         "Control de masas",
         "Debuff",
         "Invocación / mascota"
-       ]
+       ],
+       "blockable100": true,
+       "resistible100": false
       },
       {
        "name": "Muro de agujas",
@@ -4844,7 +4988,9 @@
         "DPS",
         "Daño prolongado",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Maestro del tiempo",
@@ -4923,7 +5069,9 @@
        "funciones": [
         "Debuff",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Masa devoradora de Sultar",
@@ -5022,7 +5170,9 @@
         "DPS",
         "Daño prolongado",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       }
      ]
     },
@@ -5092,7 +5242,9 @@
         "Gestión de recursos",
         "Mitigación / absorción",
         "Utilidad"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Ignición de maná",
@@ -5152,7 +5304,9 @@
         "Gestión de recursos",
         "Mitigación / absorción",
         "Utilidad"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Unión sinérgica",
@@ -5211,7 +5365,9 @@
         "Buff",
         "Gestión de recursos",
         "Utilidad"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Sangre de dragón",
@@ -5260,7 +5416,9 @@
        ],
        "funciones": [
         "Buff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Préstamo de energía",
@@ -5311,7 +5469,9 @@
         "Buff",
         "Gestión de recursos",
         "Utilidad"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Sacrificio ambicioso",
@@ -5374,7 +5534,9 @@
         "Debuff",
         "Gestión de recursos",
         "Utilidad"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Devoción arcana",
@@ -5427,7 +5589,9 @@
        ],
        "funciones": [
         "Buff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Laguna de maná",
@@ -5477,7 +5641,9 @@
         "Buff",
         "Gestión de recursos",
         "Utilidad"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Comunión de mana",
@@ -5537,7 +5703,9 @@
         "Gestión de recursos",
         "Utilidad",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Pilón de mana",
@@ -5607,7 +5775,9 @@
         "Mitigación / absorción",
         "Utilidad",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       }
      ]
     },
@@ -5696,7 +5866,9 @@
         "Buff",
         "DPS",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Aceleración arcana",
@@ -5754,7 +5926,9 @@
        "funciones": [
         "Buff",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Proyección arcana",
@@ -5808,7 +5982,9 @@
        ],
        "funciones": [
         "Buff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Magia de combate",
@@ -5858,7 +6034,9 @@
        "funciones": [
         "Buff",
         "DPS"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Campo estático",
@@ -5931,7 +6109,9 @@
         "Daño prolongado",
         "Debuff",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Magnificación de hielo",
@@ -6013,7 +6193,9 @@
         "Buff",
         "DPS",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Cúpula de protección",
@@ -6084,7 +6266,9 @@
         "Defensa",
         "Mitigación / absorción",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Control metabólico",
@@ -6148,7 +6332,9 @@
         "Debuff",
         "Gestión de recursos",
         "Utilidad"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Magnificación de electricidad",
@@ -6230,7 +6416,9 @@
         "Buff",
         "DPS",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Furia de Evendim",
@@ -6293,7 +6481,9 @@
         "Gestión de recursos",
         "Utilidad",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       }
      ]
     },
@@ -6367,7 +6557,9 @@
         "Crítico / burst",
         "DPS",
         "Debuff"
-       ]
+       ],
+       "blockable100": true,
+       "resistible100": false
       },
       {
        "name": "Destreza felina",
@@ -6425,7 +6617,9 @@
        ],
        "funciones": [
         "Buff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Ceguera",
@@ -6497,7 +6691,9 @@
         "Control",
         "Control de masas",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Bendición",
@@ -6566,7 +6762,9 @@
        ],
        "funciones": [
         "Buff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Fuerza de oso",
@@ -6624,7 +6822,9 @@
        ],
        "funciones": [
         "Buff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Bendecir arma",
@@ -6685,7 +6885,9 @@
        "funciones": [
         "Buff",
         "DPS"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Disipar magia",
@@ -6745,7 +6947,9 @@
         "Disipación / limpieza",
         "Utilidad",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Astucia de zorro",
@@ -6803,7 +7007,9 @@
        ],
        "funciones": [
         "Buff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Torpeza",
@@ -6866,7 +7072,9 @@
        ],
        "funciones": [
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Disipar magia en masa",
@@ -6926,7 +7134,9 @@
         "Disipación / limpieza",
         "Utilidad",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       }
      ]
     },
@@ -7002,7 +7212,9 @@
        "funciones": [
         "Buff",
         "Curación"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Curarse",
@@ -7061,7 +7273,9 @@
        "funciones": [
         "Buff",
         "Curación"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Revivir",
@@ -7147,7 +7361,9 @@
         "Gestión de recursos",
         "Resurrección",
         "Utilidad"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Regenerar aliado",
@@ -7206,7 +7422,9 @@
        "funciones": [
         "Buff",
         "Curación"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Regenerarse",
@@ -7264,7 +7482,9 @@
        "funciones": [
         "Buff",
         "Curación"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Intervención divina",
@@ -7325,7 +7545,9 @@
         "Anti-control",
         "Buff",
         "Defensa"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Salvador",
@@ -7381,7 +7603,9 @@
        ],
        "funciones": [
         "Buff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Regeneración mayor",
@@ -7453,7 +7677,9 @@
         "Curación",
         "Daño prolongado",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Curación mayor",
@@ -7513,7 +7739,9 @@
         "Buff",
         "Curación",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Revivir en masa",
@@ -7592,7 +7820,9 @@
         "Curación",
         "Resurrección",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       }
      ]
     },
@@ -7656,7 +7886,9 @@
        "funciones": [
         "Buff",
         "Invocación / mascota"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Lazo extraplanar",
@@ -7708,7 +7940,9 @@
         "DPS",
         "Debuff",
         "Mitigación / absorción"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "invocar demonio",
@@ -7771,7 +8005,9 @@
        "funciones": [
         "Buff",
         "Invocación / mascota"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Lazo material",
@@ -7818,7 +8054,9 @@
        ],
        "funciones": [
         "Buff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Invocar zombis",
@@ -7875,7 +8113,9 @@
        "funciones": [
         "Buff",
         "Invocación / mascota"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Furia demoníaca",
@@ -7937,7 +8177,9 @@
         "Buff",
         "DPS",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Invocar golem",
@@ -7994,7 +8236,9 @@
        "funciones": [
         "Buff",
         "Invocación / mascota"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Armadura mágica",
@@ -8048,7 +8292,9 @@
         "DPS",
         "Defensa",
         "Mitigación / absorción"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Bebedor de sangre",
@@ -8104,7 +8350,9 @@
        "funciones": [
         "Buff",
         "DPS"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Invocar lich",
@@ -8177,7 +8425,9 @@
        "funciones": [
         "Buff",
         "Invocación / mascota"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       }
      ]
     },
@@ -8244,7 +8494,9 @@
         "Gestión de recursos",
         "Mitigación / absorción",
         "Utilidad"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Silueta cambiante",
@@ -8322,7 +8574,9 @@
         "Debuff",
         "Sigilo",
         "Utilidad"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Escudar compañero",
@@ -8383,7 +8637,9 @@
         "Buff",
         "Defensa",
         "Mitigación / absorción"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Mente en blanco",
@@ -8474,7 +8730,9 @@
        "funciones": [
         "Buff",
         "Defensa"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Espejo del karma",
@@ -8536,7 +8794,9 @@
         "Buff",
         "DPS",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Barrera mágica",
@@ -8594,7 +8854,9 @@
         "Buff",
         "Defensa",
         "Mitigación / absorción"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Muralla material",
@@ -8651,7 +8913,9 @@
        "funciones": [
         "Buff",
         "Defensa"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Santuario",
@@ -8709,7 +8973,9 @@
        "funciones": [
         "Buff",
         "Defensa"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Introspectiva",
@@ -8760,7 +9026,9 @@
        "funciones": [
         "Buff",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Piel de acero",
@@ -8825,7 +9093,9 @@
         "Buff",
         "DPS",
         "Defensa"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       }
      ]
     },
@@ -8873,7 +9143,9 @@
        ],
        "funciones": [
         "Buff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Portal Defensivo",
@@ -8914,7 +9186,9 @@
         "Movilidad",
         "Transporte",
         "Utilidad"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Maestría de Guerra",
@@ -8964,7 +9238,9 @@
        "funciones": [
         "Buff",
         "Invocación / mascota"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Protección Divina",
@@ -9013,7 +9289,9 @@
         "Buff",
         "Curación",
         "Mitigación / absorción"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Sangre de Warmaster",
@@ -9054,7 +9332,9 @@
        ],
        "funciones": [
         "Buff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       }
      ]
     }
@@ -9250,7 +9530,9 @@
        ],
        "funciones": [
         "DPS"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Plaga de insectos",
@@ -9322,7 +9604,9 @@
         "DPS",
         "Daño prolongado",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Llamarada",
@@ -9382,7 +9666,9 @@
        "funciones": [
         "DPS",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Empuje mental",
@@ -9446,7 +9732,9 @@
        "funciones": [
         "Debuff",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Hiedra espinosa",
@@ -9517,7 +9805,9 @@
         "Control de masas",
         "DPS",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Dominio de la voluntad",
@@ -9573,7 +9863,9 @@
         "Control",
         "Control de masas",
         "Debuff"
-       ]
+       ],
+       "blockable100": true,
+       "resistible100": false
       },
       {
        "name": "Silenciar",
@@ -9633,7 +9925,9 @@
         "Control de masas",
         "Debuff",
         "Invocación / mascota"
-       ]
+       ],
+       "blockable100": true,
+       "resistible100": false
       },
       {
        "name": "Muro de agujas",
@@ -9694,7 +9988,9 @@
         "DPS",
         "Daño prolongado",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Maestro del tiempo",
@@ -9773,7 +10069,9 @@
        "funciones": [
         "Debuff",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Masa devoradora de Sultar",
@@ -9872,7 +10170,9 @@
         "DPS",
         "Daño prolongado",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       }
      ]
     },
@@ -9942,7 +10242,9 @@
         "Gestión de recursos",
         "Mitigación / absorción",
         "Utilidad"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Ignición de maná",
@@ -10002,7 +10304,9 @@
         "Gestión de recursos",
         "Mitigación / absorción",
         "Utilidad"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Unión sinérgica",
@@ -10061,7 +10365,9 @@
         "Buff",
         "Gestión de recursos",
         "Utilidad"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Sangre de dragón",
@@ -10110,7 +10416,9 @@
        ],
        "funciones": [
         "Buff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Préstamo de energía",
@@ -10161,7 +10469,9 @@
         "Buff",
         "Gestión de recursos",
         "Utilidad"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Sacrificio ambicioso",
@@ -10224,7 +10534,9 @@
         "Debuff",
         "Gestión de recursos",
         "Utilidad"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Devoción arcana",
@@ -10277,7 +10589,9 @@
        ],
        "funciones": [
         "Buff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Laguna de maná",
@@ -10327,7 +10641,9 @@
         "Buff",
         "Gestión de recursos",
         "Utilidad"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Comunión de mana",
@@ -10387,7 +10703,9 @@
         "Gestión de recursos",
         "Utilidad",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Pilón de mana",
@@ -10457,7 +10775,9 @@
         "Mitigación / absorción",
         "Utilidad",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       }
      ]
     },
@@ -10546,7 +10866,9 @@
         "Buff",
         "DPS",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Aceleración arcana",
@@ -10604,7 +10926,9 @@
        "funciones": [
         "Buff",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Proyección arcana",
@@ -10658,7 +10982,9 @@
        ],
        "funciones": [
         "Buff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Magia de combate",
@@ -10708,7 +11034,9 @@
        "funciones": [
         "Buff",
         "DPS"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Campo estático",
@@ -10781,7 +11109,9 @@
         "Daño prolongado",
         "Debuff",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Magnificación de hielo",
@@ -10863,7 +11193,9 @@
         "Buff",
         "DPS",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Cúpula de protección",
@@ -10934,7 +11266,9 @@
         "Defensa",
         "Mitigación / absorción",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Control metabólico",
@@ -10998,7 +11332,9 @@
         "Debuff",
         "Gestión de recursos",
         "Utilidad"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Magnificación de electricidad",
@@ -11080,7 +11416,9 @@
         "Buff",
         "DPS",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Furia de Evendim",
@@ -11143,7 +11481,9 @@
         "Gestión de recursos",
         "Utilidad",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       }
      ]
     },
@@ -11217,7 +11557,9 @@
         "Crítico / burst",
         "DPS",
         "Debuff"
-       ]
+       ],
+       "blockable100": true,
+       "resistible100": false
       },
       {
        "name": "Destreza felina",
@@ -11275,7 +11617,9 @@
        ],
        "funciones": [
         "Buff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Ceguera",
@@ -11347,7 +11691,9 @@
         "Control",
         "Control de masas",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Bendición",
@@ -11416,7 +11762,9 @@
        ],
        "funciones": [
         "Buff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Fuerza de oso",
@@ -11474,7 +11822,9 @@
        ],
        "funciones": [
         "Buff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Bendecir arma",
@@ -11535,7 +11885,9 @@
        "funciones": [
         "Buff",
         "DPS"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Disipar magia",
@@ -11595,7 +11947,9 @@
         "Disipación / limpieza",
         "Utilidad",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Astucia de zorro",
@@ -11653,7 +12007,9 @@
        ],
        "funciones": [
         "Buff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Torpeza",
@@ -11716,7 +12072,9 @@
        ],
        "funciones": [
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Disipar magia en masa",
@@ -11776,7 +12134,9 @@
         "Disipación / limpieza",
         "Utilidad",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       }
      ]
     },
@@ -11848,7 +12208,9 @@
        ],
        "funciones": [
         "DPS"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Lentitud",
@@ -11902,7 +12264,9 @@
        "funciones": [
         "Debuff",
         "Movilidad"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Petrificar manos",
@@ -11976,7 +12340,9 @@
         "Control de masas",
         "Crítico / burst",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Pereza",
@@ -12042,7 +12408,9 @@
         "Control",
         "Control de masas",
         "Debuff"
-       ]
+       ],
+       "blockable100": true,
+       "resistible100": false
       },
       {
        "name": "Meteorito",
@@ -12119,7 +12487,9 @@
        "funciones": [
         "DPS",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Muro de viento",
@@ -12178,7 +12548,9 @@
        ],
        "funciones": [
         "Buff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Estallido de cristales",
@@ -12238,7 +12610,9 @@
        "funciones": [
         "DPS",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Fragilidad",
@@ -12294,7 +12668,9 @@
        "funciones": [
         "DPS",
         "Debuff"
-       ]
+       ],
+       "blockable100": true,
+       "resistible100": false
       },
       {
        "name": "Puño de golem",
@@ -12351,7 +12727,9 @@
        "funciones": [
         "DPS",
         "Invocación / mascota"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Terror de Sultar",
@@ -12447,7 +12825,9 @@
         "DPS",
         "Debuff",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       }
      ]
     },
@@ -12508,7 +12888,9 @@
        "funciones": [
         "Buff",
         "Sostenimiento / robo"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Oscuridad",
@@ -12561,7 +12943,9 @@
        ],
        "funciones": [
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Enfurecer",
@@ -12624,7 +13008,9 @@
        ],
        "funciones": [
         "Debuff"
-       ]
+       ],
+       "blockable100": true,
+       "resistible100": false
       },
       {
        "name": "Absorción vital",
@@ -12676,7 +13062,9 @@
         "Buff",
         "DPS",
         "Sostenimiento / robo"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Guardias sádicos",
@@ -12748,7 +13136,9 @@
         "Control",
         "Control de masas",
         "Debuff"
-       ]
+       ],
+       "blockable100": true,
+       "resistible100": true
       },
       {
        "name": "Sirvientes sádicos",
@@ -12801,7 +13191,9 @@
         "Gestión de recursos",
         "Invocación / mascota",
         "Utilidad"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Guardián de almas",
@@ -12872,7 +13264,9 @@
         "Debuff",
         "Invocación / mascota",
         "Sostenimiento / robo"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Cremación",
@@ -12925,7 +13319,9 @@
        ],
        "funciones": [
         "Buff"
-       ]
+       ],
+       "blockable100": true,
+       "resistible100": true
       },
       {
        "name": "Poseer invocación",
@@ -12978,7 +13374,9 @@
        ],
        "funciones": [
         "Buff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Maestro de la destrucción",
@@ -13050,7 +13448,9 @@
         "Debuff",
         "Invocación / mascota",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       }
      ]
     },
@@ -13117,7 +13517,9 @@
        "funciones": [
         "DPS",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Explosión de hielo",
@@ -13189,7 +13591,9 @@
        "funciones": [
         "DPS",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Relámpago",
@@ -13244,7 +13648,9 @@
        ],
        "funciones": [
         "DPS"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Comunión elemental",
@@ -13317,7 +13723,9 @@
         "Buff",
         "DPS",
         "Defensa"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Paralizar",
@@ -13373,7 +13781,9 @@
         "Control",
         "Control de masas",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Tormenta helada",
@@ -13449,7 +13859,9 @@
         "DPS",
         "Debuff",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Exposición alos elementos",
@@ -13532,7 +13944,9 @@
        ],
        "funciones": [
         "Debuff"
-       ]
+       ],
+       "blockable100": true,
+       "resistible100": false
       },
       {
        "name": "Explosión de magma",
@@ -13598,7 +14012,9 @@
        "funciones": [
         "DPS",
         "Daño prolongado"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Tornado",
@@ -13674,7 +14090,9 @@
         "DPS",
         "Debuff",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Invocar rayos",
@@ -13740,7 +14158,9 @@
         "DPS",
         "Debuff",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       }
      ]
     },
@@ -13788,7 +14208,9 @@
        ],
        "funciones": [
         "Buff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Portal Offensivo",
@@ -13829,7 +14251,9 @@
         "Movilidad",
         "Transporte",
         "Utilidad"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Maestría de Guerra",
@@ -13879,7 +14303,9 @@
        "funciones": [
         "Buff",
         "Invocación / mascota"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Hiedra espinosa en masa",
@@ -13936,7 +14362,9 @@
         "DPS",
         "Debuff",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Sangre de Warmaster",
@@ -13977,7 +14405,9 @@
        ],
        "funciones": [
         "Buff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       }
      ]
     }
@@ -14186,7 +14616,9 @@
        "funciones": [
         "Buff",
         "DPS"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Disparo rápido",
@@ -14248,7 +14680,9 @@
         "Buff",
         "Crítico / burst",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Flecha paralizadora",
@@ -14318,7 +14752,9 @@
         "Control",
         "Control de masas",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Ligereza",
@@ -14368,7 +14804,9 @@
        ],
        "funciones": [
         "Buff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Meditación",
@@ -14430,7 +14868,9 @@
        ],
        "funciones": [
         "Buff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Adaptabilidad",
@@ -14485,7 +14925,9 @@
        "funciones": [
         "Buff",
         "Crítico / burst"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Desgarrar",
@@ -14548,7 +14990,9 @@
        "funciones": [
         "DPS",
         "Daño prolongado"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Duelista",
@@ -14597,7 +15041,9 @@
        "funciones": [
         "Buff",
         "Crítico / burst"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Ralentizar",
@@ -14668,7 +15114,9 @@
         "Control de masas",
         "Debuff",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Tiro de repetición",
@@ -14733,7 +15181,9 @@
        "funciones": [
         "DPS",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       }
      ]
     },
@@ -14799,7 +15249,9 @@
        "funciones": [
         "DPS",
         "Defensa"
-       ]
+       ],
+       "blockable100": true,
+       "resistible100": false
       },
       {
        "name": "Tiro parabólico",
@@ -14860,7 +15312,9 @@
        ],
        "funciones": [
         "Buff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Maniobrabilidad",
@@ -14918,7 +15372,9 @@
        "funciones": [
         "Buff",
         "Movilidad"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Ojo de águila",
@@ -14972,7 +15428,9 @@
        ],
        "funciones": [
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Tiro al blanco",
@@ -15040,7 +15498,9 @@
         "Buff",
         "Crítico / burst",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Omnipresencia",
@@ -15090,7 +15550,9 @@
        ],
        "funciones": [
         "Buff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Despedazar",
@@ -15153,7 +15615,9 @@
         "DPS",
         "Daño prolongado",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Especialista",
@@ -15201,7 +15665,9 @@
        ],
        "funciones": [
         "Buff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Ofuscar",
@@ -15290,7 +15756,9 @@
         "Debuff",
         "Sigilo",
         "Utilidad"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Lluvia de proyectiles",
@@ -15356,7 +15824,9 @@
        "funciones": [
         "DPS",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       }
      ]
     },
@@ -15421,7 +15891,9 @@
         "Control",
         "Control de masas",
         "Debuff"
-       ]
+       ],
+       "blockable100": true,
+       "resistible100": false
       },
       {
        "name": "Ataque sorpresivo",
@@ -15476,7 +15948,9 @@
        ],
        "funciones": [
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Puño aturdidor",
@@ -15548,7 +16022,9 @@
         "Control de masas",
         "DPS",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Represalia",
@@ -15604,7 +16080,9 @@
        ],
        "funciones": [
         "DPS"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Toque pegajoso",
@@ -15658,7 +16136,9 @@
        ],
        "funciones": [
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Pelea sucia",
@@ -15720,7 +16200,9 @@
        "funciones": [
         "Buff",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Fineza",
@@ -15781,7 +16263,9 @@
        "funciones": [
         "Crítico / burst",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Centinela",
@@ -15842,7 +16326,9 @@
        ],
        "funciones": [
         "Buff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Tiro de distración",
@@ -15899,7 +16385,9 @@
         "Control",
         "Control de masas",
         "Debuff"
-       ]
+       ],
+       "blockable100": true,
+       "resistible100": false
       },
       {
        "name": "Flecha con abrojos",
@@ -15960,7 +16448,9 @@
         "Debuff",
         "Movilidad",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       }
      ]
     },
@@ -16014,7 +16504,9 @@
        "contenido": [],
        "funciones": [
         "Utilidad"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Movilidad",
@@ -16070,7 +16562,9 @@
        "funciones": [
         "Buff",
         "Movilidad"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Tácticas evasivas",
@@ -16141,7 +16635,9 @@
         "Debuff",
         "Defensa",
         "Mitigación / absorción"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Reflejos felinos",
@@ -16193,7 +16689,9 @@
        "funciones": [
         "Buff",
         "Defensa"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Acrobático",
@@ -16258,7 +16756,9 @@
         "Buff",
         "Defensa",
         "Movilidad"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Eludir conjuros",
@@ -16324,7 +16824,9 @@
         "Buff",
         "DPS",
         "Defensa"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Escapista",
@@ -16387,7 +16889,9 @@
         "Defensa",
         "Movilidad",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Astucia",
@@ -16437,7 +16941,9 @@
        ],
        "funciones": [
         "Buff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Perfil bajo",
@@ -16500,7 +17006,9 @@
         "Defensa",
         "Sigilo",
         "Utilidad"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Hijo del viento",
@@ -16568,7 +17076,9 @@
         "Debuff",
         "Defensa",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       }
      ]
     },
@@ -16656,7 +17166,9 @@
         "Gestión de recursos",
         "Movilidad",
         "Utilidad"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Ola invernal",
@@ -16728,7 +17240,9 @@
         "Control de masas",
         "DPS",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Rafaga de viento",
@@ -16781,7 +17295,9 @@
        ],
        "funciones": [
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Mordida de serpiente",
@@ -16847,7 +17363,9 @@
        "funciones": [
         "DPS",
         "Daño prolongado"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Fuego de Ignus",
@@ -16925,7 +17443,9 @@
         "DPS",
         "Debuff",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Flecha etérea",
@@ -16980,7 +17500,9 @@
        ],
        "funciones": [
         "DPS"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Explosión de agujas",
@@ -17044,7 +17566,9 @@
        "funciones": [
         "DPS",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Proyectil arcano",
@@ -17119,7 +17643,9 @@
        ],
        "funciones": [
         "DPS"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Lluvia de fuego",
@@ -17183,7 +17709,9 @@
        "funciones": [
         "DPS",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Flecha de rayo",
@@ -17255,7 +17783,9 @@
         "DPS",
         "Debuff",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       }
      ]
     },
@@ -17330,7 +17860,9 @@
         "Buff",
         "DPS",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Enfocar",
@@ -17390,7 +17922,9 @@
        "funciones": [
         "Buff",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Perforador de piel",
@@ -17463,7 +17997,9 @@
        "funciones": [
         "DPS",
         "Debuff"
-       ]
+       ],
+       "blockable100": true,
+       "resistible100": false
       },
       {
        "name": "Previsión",
@@ -17511,7 +18047,9 @@
        ],
        "funciones": [
         "Buff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Maldición del cíclope",
@@ -17583,7 +18121,9 @@
         "Crítico / burst",
         "DPS",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Ataque letal",
@@ -17652,7 +18192,9 @@
        ],
        "funciones": [
         "DPS"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Posición estratégica",
@@ -17706,7 +18248,9 @@
        ],
        "funciones": [
         "Buff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Ojo entrenado",
@@ -17754,7 +18298,9 @@
        "funciones": [
         "Buff",
         "Crítico / burst"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Tiro buscador",
@@ -17813,7 +18359,9 @@
        ],
        "funciones": [
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Mirada de halcón",
@@ -17885,7 +18433,9 @@
        "funciones": [
         "Buff",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       }
      ]
     },
@@ -17933,7 +18483,9 @@
        ],
        "funciones": [
         "Buff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Flecha de fuego",
@@ -17980,7 +18532,9 @@
         "Buff",
         "Disipación / limpieza",
         "Utilidad"
-       ]
+       ],
+       "blockable100": true,
+       "resistible100": true
       },
       {
        "name": "Maestría de Guerra",
@@ -18023,7 +18577,9 @@
        ],
        "funciones": [
         "Buff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Instinto asesino",
@@ -18080,7 +18636,9 @@
         "Buff",
         "Debuff",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Sangre de Warmaster",
@@ -18121,7 +18679,9 @@
        ],
        "funciones": [
         "Buff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       }
      ]
     }
@@ -18338,7 +18898,9 @@
        "funciones": [
         "DPS",
         "Movilidad"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Esgrimes precisos",
@@ -18394,7 +18956,9 @@
        "funciones": [
         "Buff",
         "DPS"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Incapacitar",
@@ -18457,7 +19021,9 @@
         "DPS",
         "Debuff",
         "Movilidad"
-       ]
+       ],
+       "blockable100": true,
+       "resistible100": false
       },
       {
        "name": "Atlético",
@@ -18519,7 +19085,9 @@
         "DPS",
         "Gestión de recursos",
         "Utilidad"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Cruz del sur",
@@ -18578,7 +19146,9 @@
        ],
        "funciones": [
         "DPS"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Choque",
@@ -18660,7 +19230,9 @@
         "Control de masas",
         "DPS",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": true
       },
       {
        "name": "Arrasador",
@@ -18730,7 +19302,9 @@
        "funciones": [
         "DPS",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Piel de hierro",
@@ -18783,7 +19357,9 @@
         "Buff",
         "DPS",
         "Defensa"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Ataque fatal",
@@ -18845,7 +19421,9 @@
        "funciones": [
         "DPS",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Tifón",
@@ -18931,7 +19509,9 @@
         "DPS",
         "Debuff",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       }
      ]
     },
@@ -18997,7 +19577,9 @@
        ],
        "funciones": [
         "DPS"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Impactos brutales",
@@ -19053,7 +19635,9 @@
        "funciones": [
         "Buff",
         "DPS"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Rompe costillas",
@@ -19124,7 +19708,9 @@
         "Control de masas",
         "DPS",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Anatomía letal",
@@ -19171,7 +19757,9 @@
        ],
        "funciones": [
         "Buff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Triturador",
@@ -19238,7 +19826,9 @@
        "funciones": [
         "DPS",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Ejecución",
@@ -19298,7 +19888,9 @@
        "funciones": [
         "Buff",
         "Crítico / burst"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Aplasta mentes",
@@ -19371,7 +19963,9 @@
         "Debuff",
         "Disipación / limpieza",
         "Utilidad"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Temple de acero",
@@ -19424,7 +20018,9 @@
         "Buff",
         "DPS",
         "Defensa"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Rompe quijadas",
@@ -19489,7 +20085,9 @@
         "Control de masas",
         "DPS",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Golpe de trueno",
@@ -19575,7 +20173,9 @@
         "DPS",
         "Debuff",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       }
      ]
     },
@@ -19641,7 +20241,9 @@
        ],
        "funciones": [
         "DPS"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Maniobras ágiles",
@@ -19697,7 +20299,9 @@
        "funciones": [
         "Buff",
         "DPS"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Balestra",
@@ -19768,7 +20372,9 @@
         "Control de masas",
         "DPS",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Versatilidad",
@@ -19825,7 +20431,9 @@
        ],
        "funciones": [
         "Buff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Riposte",
@@ -19894,7 +20502,9 @@
         "Debuff",
         "Gestión de recursos",
         "Utilidad"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Empalamiento",
@@ -19976,7 +20586,9 @@
         "DPS",
         "Daño prolongado",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Perfora cerebros",
@@ -20053,7 +20665,9 @@
        "funciones": [
         "DPS",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Flexibilidad",
@@ -20106,7 +20720,9 @@
         "Buff",
         "DPS",
         "Defensa"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Estocada múltiple",
@@ -20176,7 +20792,9 @@
        "funciones": [
         "DPS",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Golpe relámpago",
@@ -20259,7 +20877,9 @@
         "DPS",
         "Debuff",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       }
      ]
     },
@@ -20337,7 +20957,9 @@
         "Control de masas",
         "DPS",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Cautela",
@@ -20395,7 +21017,9 @@
         "Buff",
         "Defensa",
         "Mitigación / absorción"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Degollador",
@@ -20435,7 +21059,9 @@
        "contenido": [],
        "funciones": [
         "Utilidad"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Defensa marcial",
@@ -20483,7 +21109,9 @@
        "funciones": [
         "Crítico / burst",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Preparación rigurosa",
@@ -20540,7 +21168,9 @@
        "funciones": [
         "Buff",
         "Defensa"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Revés",
@@ -20607,7 +21237,9 @@
        "funciones": [
         "DPS",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Embestida",
@@ -20679,7 +21311,9 @@
         "DPS",
         "Movilidad",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Intimidar",
@@ -20741,7 +21375,9 @@
         "Control",
         "Control de masas",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Inhabilitar",
@@ -20807,7 +21443,9 @@
        "funciones": [
         "DPS",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Reflejos marciales",
@@ -20882,7 +21520,9 @@
         "Buff",
         "Crítico / burst",
         "Defensa"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       }
      ]
     },
@@ -20954,7 +21594,9 @@
         "Debuff",
         "Gestión de recursos",
         "Utilidad"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Frenesí",
@@ -21014,7 +21656,9 @@
         "Buff",
         "DPS",
         "Defensa"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "¡¡Corten sus cabezas!!",
@@ -21075,7 +21719,9 @@
         "Buff",
         "DPS",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Sed de sangre",
@@ -21150,7 +21796,9 @@
        "funciones": [
         "Buff",
         "Movilidad"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Rugido desafiante",
@@ -21219,7 +21867,9 @@
         "Anti-control",
         "Buff",
         "Defensa"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Bramido ensordecedor",
@@ -21279,7 +21929,9 @@
         "Control de masas",
         "Debuff",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Berserk",
@@ -21352,7 +22004,9 @@
         "Debuff",
         "Gestión de recursos",
         "Utilidad"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Fuerza sobrecogedora",
@@ -21407,7 +22061,9 @@
         "Buff",
         "DPS",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Retorno",
@@ -21470,7 +22126,9 @@
        ],
        "funciones": [
         "Buff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Desquiciamiento",
@@ -21583,7 +22241,9 @@
        "funciones": [
         "Buff",
         "Defensa"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       }
      ]
     },
@@ -21657,7 +22317,9 @@
         "Control",
         "Control de masas",
         "Crítico / burst"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Golpe espiritual",
@@ -21725,7 +22387,9 @@
         "Buff",
         "DPS",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Despedazar",
@@ -21789,7 +22453,9 @@
         "Debuff",
         "Gestión de recursos",
         "Utilidad"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Ataque bestial",
@@ -21861,7 +22527,9 @@
         "Control de masas",
         "DPS",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Alarido",
@@ -21919,7 +22587,9 @@
        "funciones": [
         "Debuff",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Onda expansiva",
@@ -21991,7 +22661,9 @@
         "Gestión de recursos",
         "Utilidad",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Desestabilizador",
@@ -22056,7 +22728,9 @@
         "Control de masas",
         "DPS",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Fulminante",
@@ -22118,7 +22792,9 @@
         "Buff",
         "DPS",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Manos de Acero",
@@ -22178,7 +22854,9 @@
        "funciones": [
         "Buff",
         "DPS"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Furia de la tierra",
@@ -22254,7 +22932,9 @@
         "DPS",
         "Debuff",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       }
      ]
     },
@@ -22302,7 +22982,9 @@
        ],
        "funciones": [
         "Buff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Maestría de Guerra",
@@ -22345,7 +23027,9 @@
        ],
        "funciones": [
         "Buff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Sangre de Warmaster",
@@ -22386,7 +23070,9 @@
        ],
        "funciones": [
         "Buff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Bandera de Warmaster",
@@ -22433,7 +23119,9 @@
        "funciones": [
         "Buff",
         "Curación"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Grito Heroico",
@@ -22484,7 +23172,9 @@
         "Control de masas",
         "Movilidad",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       }
      ]
     }
@@ -22721,7 +23411,9 @@
        "funciones": [
         "DPS",
         "Movilidad"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Esgrimes precisos",
@@ -22777,7 +23469,9 @@
        "funciones": [
         "Buff",
         "DPS"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Incapacitar",
@@ -22840,7 +23534,9 @@
         "DPS",
         "Debuff",
         "Movilidad"
-       ]
+       ],
+       "blockable100": true,
+       "resistible100": false
       },
       {
        "name": "Atlético",
@@ -22902,7 +23598,9 @@
         "DPS",
         "Gestión de recursos",
         "Utilidad"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Cruz del sur",
@@ -22961,7 +23659,9 @@
        ],
        "funciones": [
         "DPS"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Choque",
@@ -23043,7 +23743,9 @@
         "Control de masas",
         "DPS",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": true
       },
       {
        "name": "Arrasador",
@@ -23113,7 +23815,9 @@
        "funciones": [
         "DPS",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Piel de hierro",
@@ -23166,7 +23870,9 @@
         "Buff",
         "DPS",
         "Defensa"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Ataque fatal",
@@ -23228,7 +23934,9 @@
        "funciones": [
         "DPS",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Tifón",
@@ -23314,7 +24022,9 @@
         "DPS",
         "Debuff",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       }
      ]
     },
@@ -23380,7 +24090,9 @@
        ],
        "funciones": [
         "DPS"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Impactos brutales",
@@ -23436,7 +24148,9 @@
        "funciones": [
         "Buff",
         "DPS"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Rompe costillas",
@@ -23507,7 +24221,9 @@
         "Control de masas",
         "DPS",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Anatomía letal",
@@ -23554,7 +24270,9 @@
        ],
        "funciones": [
         "Buff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Triturador",
@@ -23621,7 +24339,9 @@
        "funciones": [
         "DPS",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Ejecución",
@@ -23681,7 +24401,9 @@
        "funciones": [
         "Buff",
         "Crítico / burst"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Aplasta mentes",
@@ -23754,7 +24476,9 @@
         "Debuff",
         "Disipación / limpieza",
         "Utilidad"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Temple de acero",
@@ -23807,7 +24531,9 @@
         "Buff",
         "DPS",
         "Defensa"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Rompe quijadas",
@@ -23872,7 +24598,9 @@
         "Control de masas",
         "DPS",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Golpe de trueno",
@@ -23958,7 +24686,9 @@
         "DPS",
         "Debuff",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       }
      ]
     },
@@ -24024,7 +24754,9 @@
        ],
        "funciones": [
         "DPS"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Maniobras ágiles",
@@ -24080,7 +24812,9 @@
        "funciones": [
         "Buff",
         "DPS"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Balestra",
@@ -24151,7 +24885,9 @@
         "Control de masas",
         "DPS",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Versatilidad",
@@ -24208,7 +24944,9 @@
        ],
        "funciones": [
         "Buff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Riposte",
@@ -24277,7 +25015,9 @@
         "Debuff",
         "Gestión de recursos",
         "Utilidad"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Empalamiento",
@@ -24359,7 +25099,9 @@
         "DPS",
         "Daño prolongado",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Perfora cerebros",
@@ -24436,7 +25178,9 @@
        "funciones": [
         "DPS",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Flexibilidad",
@@ -24489,7 +25233,9 @@
         "Buff",
         "DPS",
         "Defensa"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Estocada múltiple",
@@ -24559,7 +25305,9 @@
        "funciones": [
         "DPS",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Golpe relámpago",
@@ -24642,7 +25390,9 @@
         "DPS",
         "Debuff",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       }
      ]
     },
@@ -24720,7 +25470,9 @@
         "Control de masas",
         "DPS",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Cautela",
@@ -24778,7 +25530,9 @@
         "Buff",
         "Defensa",
         "Mitigación / absorción"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Degollador",
@@ -24818,7 +25572,9 @@
        "contenido": [],
        "funciones": [
         "Utilidad"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Defensa marcial",
@@ -24866,7 +25622,9 @@
        "funciones": [
         "Crítico / burst",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Preparación rigurosa",
@@ -24923,7 +25681,9 @@
        "funciones": [
         "Buff",
         "Defensa"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Revés",
@@ -24990,7 +25750,9 @@
        "funciones": [
         "DPS",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Embestida",
@@ -25062,7 +25824,9 @@
         "DPS",
         "Movilidad",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Intimidar",
@@ -25124,7 +25888,9 @@
         "Control",
         "Control de masas",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Inhabilitar",
@@ -25190,7 +25956,9 @@
        "funciones": [
         "DPS",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Reflejos marciales",
@@ -25265,7 +26033,9 @@
         "Buff",
         "Crítico / burst",
         "Defensa"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       }
      ]
     },
@@ -25343,7 +26113,9 @@
        "funciones": [
         "Amenaza / agro",
         "Debuff"
-       ]
+       ],
+       "blockable100": true,
+       "resistible100": false
       },
       {
        "name": "Provocar",
@@ -25430,7 +26202,9 @@
         "Invocación / mascota",
         "Mitigación / absorción",
         "Utilidad"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Finta",
@@ -25486,7 +26260,9 @@
         "Control",
         "Control de masas",
         "Debuff"
-       ]
+       ],
+       "blockable100": true,
+       "resistible100": false
       },
       {
        "name": "Temple de protector",
@@ -25561,7 +26337,9 @@
         "Buff",
         "DPS",
         "Defensa"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Instancia ofensiva",
@@ -25621,7 +26399,9 @@
         "Buff",
         "DPS",
         "Debuff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Soporte defensivo",
@@ -25717,7 +26497,9 @@
         "Control de masas",
         "Debuff",
         "Defensa"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Piel de troll",
@@ -25774,7 +26556,9 @@
        "funciones": [
         "Buff",
         "Defensa"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Furor del caballero",
@@ -25831,7 +26615,9 @@
        ],
        "funciones": [
         "Buff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Presencia heroica",
@@ -25893,7 +26679,9 @@
         "Defensa",
         "Mitigación / absorción",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Ejército de uno",
@@ -25962,7 +26750,9 @@
         "Buff",
         "DPS",
         "Defensa"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       }
      ]
     },
@@ -26027,7 +26817,9 @@
         "Buff",
         "Defensa",
         "Mitigación / absorción"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Avasallar",
@@ -26098,7 +26890,9 @@
         "DPS",
         "Debuff",
         "Defensa"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Proteger aliado",
@@ -26167,7 +26961,9 @@
         "Buff",
         "Disipación / limpieza",
         "Utilidad"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Bloqueo preciso",
@@ -26242,7 +27038,9 @@
         "Defensa",
         "Mitigación / absorción",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Instancia defensiva",
@@ -26305,7 +27103,9 @@
         "DPS",
         "Debuff",
         "Defensa"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Manto etéreo",
@@ -26378,7 +27178,9 @@
         "Buff",
         "DPS",
         "Defensa"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Muro protector",
@@ -26442,7 +27244,9 @@
         "DPS",
         "Defensa",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Firmeza",
@@ -26493,7 +27297,9 @@
        "funciones": [
         "Buff",
         "Defensa"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Escudo estelar",
@@ -26561,7 +27367,9 @@
         "Defensa",
         "Mitigación / absorción",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Barrera deflectora",
@@ -26632,7 +27440,9 @@
         "Defensa",
         "Mitigación / absorción",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       }
      ]
     },
@@ -26680,7 +27490,9 @@
        ],
        "funciones": [
         "Buff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Maestría de Guerra",
@@ -26727,7 +27539,9 @@
        "funciones": [
         "Buff",
         "Defensa"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Sangre de Warmaster",
@@ -26768,7 +27582,9 @@
        ],
        "funciones": [
         "Buff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Asistencia del Paladín",
@@ -26818,7 +27634,9 @@
         "Defensa",
         "Mitigación / absorción",
         "Área / AoE"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       },
       {
        "name": "Bendecido",
@@ -26860,7 +27678,9 @@
        ],
        "funciones": [
         "Buff"
-       ]
+       ],
+       "blockable100": false,
+       "resistible100": false
       }
      ]
     }

@@ -30,6 +30,7 @@ function roleTags(sp){
 const ROLE_LABEL = {dps:"DPS", cc:"Control", support:"Apoyo", tank:"Tanque", flanker:"Flanqueador"};
 
 const TYPE_LABEL = {Passive:"Pasivo", Constant:"Constante", Direct:"Directo", Activable:"Activable", Aura:"Aura"};
+const GCD_LABEL = {"Very Short":"Muy corto", "Short":"Corto", "Normal":"Normal", "Long":"Largo", "Very Long":"Muy largo"};
 function buildDetailTable(sp, rank, cap){
   const rows = [];
   if(sp.mana != null) rows.push({label:'Maná', value:sp.mana});
@@ -66,11 +67,14 @@ function buildSpellDetailHTML(name, sp, idx, dlvl, rank){
     const isPrimary = tag === '+'+CLASS.primaryAttribute;
     html += `<div class="sd-attr${isPrimary?' sd-attr-primary':''}">Atributo ${tag}</div>`;
   });
+  if(sp.blockable100) html += `<div class="sd-warn">Bloqueable 100%</div>`;
+  if(sp.resistible100) html += `<div class="sd-warn">Resistible 100%</div>`;
   html += `</div>`;
   if((sp.funciones||[]).length) html += `<div class="sd-funcs">${sp.funciones.map(f=>`<span class="sd-func">${f}</span>`).join('')}</div>`;
   if(sp.commonRank) html += `<div class="sd-community">La comunidad suele dejarla en rango ${sp.commonRank}/5</div>`;
   const fixed = [];
   if(sp.cast != null && !Array.isArray(sp.cast)) fixed.push(`<span>Lanz. <b>${sp.cast}s</b></span>`);
+  if(sp.gcd) fixed.push(`<span>GCD <b>${GCD_LABEL[sp.gcd] || sp.gcd}</b></span>`);
   if(sp.cooldown != null && !Array.isArray(sp.cooldown)) fixed.push(`<span>Reutil. <b>${sp.cooldown}s</b></span>`);
   if(sp.range) fixed.push(`<span>Alcance <b>${sp.range}m</b></span>`);
   if(sp.area) fixed.push(`<span>Área <b>${sp.area}m</b></span>`);
