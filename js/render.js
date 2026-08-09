@@ -154,7 +154,7 @@ const CONTENIDO_ABBR = {
   'Leveo PvE':'LPVE', 'Leveo grupo PvE':'LGPVE',
 };
 function flagChips(sp){
-  const cont = sp.contenido || [];
+  const cont = sp.contenidoPrincipal || [];
   if(!cont.length) return '';
   const out = cont.map(c=> `<span class="flagchip" title="${c}">${CONTENIDO_ABBR[c] || c}</span>`).join('');
   return `<div class="flagchips">${out}</div>`;
@@ -228,16 +228,18 @@ function renderLevelByLevel(startLevel, endLevel, sequence){
 }
 
 // Builds the shared export-card HTML from any {dlvl, ranks} build-like object
-function buildExportCardFromBuild(buildLike, level, titleSub){
+function buildExportCardFromBuild(buildLike, level, titleSub, customName){
   const dpBudget = totalDP(level);
   const ppBudget = totalPP(level);
   let dpSpent = 0, ppSpent = 0;
   DISC_NAMES.forEach(n=>{ dpSpent += costForDlvl(buildLike.dlvl[n]||0); });
   DISC_NAMES.forEach(n=> CLASS.disciplines[n].spells.forEach((sp,idx)=>{ ppSpent += buildLike.ranks[n+'|'+idx]||0; }));
+  const title = customName ? customName : CLASS.label;
+  const sub = customName ? `${CLASS.label} · ${titleSub}` : titleSub;
   let html = `<div class="export-card">
     <div class="export-header">
-      <div class="export-title">${CLASS.label}</div>
-      <div class="export-sub">${titleSub}</div>
+      <div class="export-title">${title}</div>
+      <div class="export-sub">${sub}</div>
     </div>
     <div class="summary-grid">
       <div class="stat-card"><div class="label">Nivel</div><div class="value">${level}</div></div>

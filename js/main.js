@@ -476,19 +476,22 @@ function msgAllExports(text){
 }
 
 // Generic export trigger: given a build-like object + level, renders offscreen and downloads a PNG
-function exportBuildAsImage(buildLike, level, titleSub, filenameSuffix, msgElId){
+function exportBuildAsImage(buildLike, level, titleSub, filenameSuffix, msgElId, customName){
   const msg = document.getElementById(msgElId);
   if(msg) msg.textContent = 'Generando imagen…';
   loadHtml2Canvas(()=>{
     const temp = document.createElement('div');
     temp.style.cssText = 'position:fixed;left:-9999px;top:0;width:640px;';
-    temp.innerHTML = buildExportCardFromBuild(buildLike, level, titleSub);
+    temp.innerHTML = buildExportCardFromBuild(buildLike, level, titleSub, customName);
     document.body.appendChild(temp);
     const themeBg = getComputedStyle(document.documentElement).getPropertyValue('--bg-1').trim() || '#161d17';
     window.html2canvas(temp.firstElementChild, {backgroundColor:themeBg, scale:2}).then(canvas=>{
       document.body.removeChild(temp);
       const link = document.createElement('a');
-      link.download = `${currentClass}_${filenameSuffix}.png`;
+      const namePart = customName ? '_' + customName.trim().toLowerCase()
+        .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+        .replace(/[^a-z0-9]+/g,'_').replace(/^_+|_+$/g,'').slice(0,40) : '';
+      link.download = `${currentClass}${namePart}_${filenameSuffix}.png`;
       link.href = canvas.toDataURL('image/png');
       link.click();
       if(msg) msg.textContent = 'Imagen descargada.';
@@ -564,7 +567,8 @@ function initApp(){
     document.getElementById('pc-export-msg').textContent = '';
   });
   document.getElementById('pc-export-img').addEventListener('click', ()=>{
-    exportBuildAsImage(manualState, manualState.level, `Build manual · Nivel ${manualState.level}`, `manual_nv${manualState.level}`, 'pc-export-msg');
+    const customName = document.getElementById('pc-build-name').value.trim() || null;
+    exportBuildAsImage(manualState, manualState.level, `Build manual · Nivel ${manualState.level}`, `manual_nv${manualState.level}`, 'pc-export-msg', customName);
   });
   document.getElementById('pc-export-txt').addEventListener('click', ()=>{
     let lines = [`${CLASS.label} — Build manual — Nivel ${manualState.level}`, ''];

@@ -206,8 +206,10 @@ function computeBuild(level, ctx, prevBuild, useNaturalDepth){
 // already reflect real usage-stat calibration, this just nudges ties and
 // covers gaps that a 0-3 scale is too coarse to capture on its own.
 function contenidoBonus(sp, wantedTags){
-  if(!sp.contenido || !wantedTags || !wantedTags.length) return 0;
-  return sp.contenido.some(t=> wantedTags.includes(t)) ? 1.2 : 0;
+  if(!wantedTags || !wantedTags.length) return 0;
+  if((sp.contenidoPrincipal||[]).some(t=> wantedTags.includes(t))) return 1.2;
+  if((sp.contenidoSecundario||[]).some(t=> wantedTags.includes(t))) return 0.5;
+  return 0;
 }
 function ctxLeveling(mode, weaponChoice){
   const solo = mode==='solo';
