@@ -23,7 +23,7 @@ function iconStyle(discKey, spellpos, boxSize){
   return `background-image:url(${ICONS_BASE_PATH}/${discKey}.webp);background-size:${sheetW}px ${sheetH}px;background-position:${off}px 0px;background-repeat:no-repeat;`;
 }
 
-function tagLabel(cat){ return {dmg:"Daño", control:"Control", defense:"Defensa", utility:"Utilidad"}[cat] || cat; }
+function tagLabel(cat){ return {dmg:"Daño", control:"Control", defense:"Defensa", support:"Apoyo", utility:"Utilidad"}[cat] || cat; }
 const ROLE_LABEL = {dps:"DPS", cc:"Control", support:"Apoyo", tank:"Tanque", flanker:"Flanqueador"};
 
 const TYPE_LABEL = {Passive:"Pasivo", Constant:"Constante", Direct:"Directo", Activable:"Activable", Aura:"Aura"};

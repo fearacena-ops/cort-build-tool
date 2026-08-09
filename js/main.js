@@ -8,6 +8,10 @@
    archivo ahora vive adentro de esa función.
    ========================================================================= */
 
+// Bump esto con cada versión publicada — es la única fuente de verdad,
+// se refleja solo en el encabezado de la página.
+const APP_VERSION = '1.0.0';
+
 function wireChoiceGroup(id){
   const el = document.getElementById(id);
   el.querySelectorAll('.choice-btn').forEach(btn=>{
@@ -123,6 +127,8 @@ function getWeaponChoice(containerId){
 let stageCounter = 0;
 let progressionExportConfigs = [];
 
+let pisoContents = [];
+let pisoActiveIdx = 0;
 function renderProgression(scroll){
   const current = Math.max(10, Math.min(59, parseInt(document.getElementById('pa-current').value) || 10));
   const goal = Math.max(current+1, Math.min(60, parseInt(document.getElementById('pa-goal').value) || 60));
@@ -134,6 +140,8 @@ function renderProgression(scroll){
   const out = document.getElementById('pa-output');
   out.innerHTML = '';
   progressionExportConfigs = [];
+  pisoContents = [];
+  pisoActiveIdx = 0;
   let strip = `<div class="path-strip"><span class="lvl">Nv.${current}</span>`;
   checkpoints.forEach(cp=>{ strip += ` <span class="sep">→</span> <span class="lvl">Nv.${cp}</span>`; });
   strip += `</div>`;
@@ -150,9 +158,9 @@ function renderProgression(scroll){
     const lvlId = `lvl-a-${stageCounter}`;
     const exportIdx = progressionExportConfigs.length;
     progressionExportConfigs.push({build, label: `Piso ${i+1} · Nivel ${cp}`, suffix: `leveo_piso${i+1}_nv${cp}`});
-    let html = `<div class="stage">
+    const html = `<div class="stage">
       <div class="stage-head">
-        <div class="stage-title"><span class="badge">Piso ${i+1}</span><h3>Hasta nivel ${cp}</h3></div>
+        <div class="stage-title"><h3>Hasta nivel ${cp}</h3></div>
         <div class="stage-stats"><span><b>${build.dpBudget-build.dpLeft}</b>/${build.dpBudget} disciplina</span><span><b>${build.ppBudget-build.ppLeft}</b>/${build.ppBudget} poder</span></div>
       </div>
       <div class="stage-body">
@@ -165,10 +173,15 @@ function renderProgression(scroll){
         <button class="toggle-full" onclick="exportProgressionStage(${exportIdx})">Exportar este piso como imagen ⬇</button>
       </div>
     </div>`;
-    out.insertAdjacentHTML('beforeend', html);
+    pisoContents.push(html);
     prevBuild = build;
     prevLevel = cp;
   });
+  let tabs = `<div class="piso-tabs">`;
+  checkpoints.forEach((cp,i)=>{ tabs += `<button class="piso-tab${i===0?' active':''}" onclick="selectPiso(${i})">Piso ${i+1}</button>`; });
+  tabs += `</div>`;
+  out.insertAdjacentHTML('beforeend', tabs);
+  out.insertAdjacentHTML('beforeend', `<div id="piso-content">${pisoContents[0]||''}</div>`);
   out.insertAdjacentHTML('beforeend', `<div id="pa-export-msg" class="hint"></div>`);
   if(scroll && out.scrollIntoView) out.scrollIntoView({behavior:'smooth', block:'start'});
 }
@@ -177,6 +190,11 @@ function exportProgressionStage(idx){
   const cfg = progressionExportConfigs[idx];
   if(!cfg) return;
   exportBuildAsImage(cfg.build, cfg.build.level, `Progreso de leveo · ${cfg.label}`, cfg.suffix, 'pa-export-msg');
+}
+function selectPiso(idx){
+  pisoActiveIdx = idx;
+  document.querySelectorAll('.piso-tab').forEach((btn,i)=> btn.classList.toggle('active', i===idx));
+  document.getElementById('piso-content').innerHTML = pisoContents[idx] || '';
 }
 
 const prioritySelect = document.getElementById('pb-priority');
@@ -584,6 +602,7 @@ function initApp(){
   });
 
   // --- Render inicial ---
+  document.getElementById('app-version').textContent = `Herramienta v${APP_VERSION}`;
   renderWeaponPanel('pa-weapon-panel');
   renderWeaponPanel('pb-bow', 'pb-weapon-section');
   renumberPanelsB();

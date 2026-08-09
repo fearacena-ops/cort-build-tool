@@ -20,6 +20,7 @@
     <div class="hero-meta">
       <span id="hero-meta-class">Prototipo · clase Hunter</span>
       <span>Datos: trainerdata.json v1.35.19</span>
+      <span id="app-version">Herramienta v1.0.0</span>
     </div>
   </header>
 
@@ -47,19 +48,19 @@
   </div>
 
   <div class="main-tabs">
-    <button class="main-tab active" data-panel="panel-progress">Progreso de leveo</button>
+    <button class="main-tab active" data-panel="panel-manual">Tu build</button>
+    <button class="main-tab" data-panel="panel-progress">Progreso de leveo</button>
     <button class="main-tab" data-panel="panel-custom">Build a medida</button>
-    <button class="main-tab" data-panel="panel-manual">Tu build</button>
   </div>
 
   <!-- ===================== TAB A: PROGRESO ===================== -->
-  <div class="main-panel active" id="panel-progress">
+  <div class="main-panel" id="panel-progress">
     <div class="panel">
       <h2><span class="num">1</span> Tu progreso</h2>
       <div class="row">
         <div class="field">
           <label>Nivel actual del personaje</label>
-          <div class="num-inputs"><input type="number" id="pa-current" min="10" max="59" value="32"></div>
+          <div class="num-inputs"><input type="number" id="pa-current" min="10" max="59" value="10"></div>
           <div class="hint">El nivel en el que estás parado ahora mismo.</div>
         </div>
         <div class="field">
@@ -136,7 +137,7 @@
   </div>
 
   <!-- ===================== TAB C: TU BUILD (MANUAL) ===================== -->
-  <div class="main-panel" id="panel-manual">
+  <div class="main-panel active" id="panel-manual">
     <div class="panel">
       <h2><span class="num">1</span> Nivel</h2>
       <div class="field" style="max-width:200px">
@@ -148,7 +149,7 @@
 
     <div class="panel" id="pc-archetypes-section" style="display:none">
       <h2>Sugerencias comunes</h2>
-      <div class="hint" style="margin-top:-8px;margin-bottom:14px">Configuraciones que la comunidad reconoce por nombre propio — las cargo como punto de partida en tu nivel actual, después las ajustas vos a mano con los +/-.</div>
+      <div class="hint" style="margin-top:-8px;margin-bottom:14px">Configuraciones que la comunidad reconoce por nombre propio — las cargo como punto de partida en tu nivel actual, y después las ajustas a mano con los +/-.</div>
       <div class="choice-group" id="pc-archetype-presets"></div>
       <div id="pc-archetype-blurb" class="hint" style="margin-top:10px"></div>
     </div>
