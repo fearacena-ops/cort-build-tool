@@ -148,11 +148,16 @@ function renderTabbedDiscs(build){
   panes += `</div>`;
   return `<div class="tabframe">${rail}${panes}</div>`;
 }
+const CONTENIDO_ABBR = {
+  'PvP':'PVP', 'PvE':'PVE', 'RvR':'RVR',
+  'Grupo PvE':'GPVE', 'Grupo PvP':'GPVP',
+  'Leveo PvE':'LPVE', 'Leveo grupo PvE':'LGPVE',
+};
 function flagChips(sp){
-  let out = '';
-  if(sp.group) out += `<span class="flagchip">Grupo</span>`;
-  if(sp.rvr) out += `<span class="flagchip">RvR</span>`;
-  return out ? `<div class="flagchips">${out}</div>` : '';
+  const cont = sp.contenido || [];
+  if(!cont.length) return '';
+  const out = cont.map(c=> `<span class="flagchip" title="${c}">${CONTENIDO_ABBR[c] || c}</span>`).join('');
+  return `<div class="flagchips">${out}</div>`;
 }
 function selectDiscTab(btn, uid, idx){
   const frame = btn.closest('.tabframe');
