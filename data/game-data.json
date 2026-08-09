@@ -466,7 +466,8 @@
       {
        "name": "Ligereza",
        "cat": [
-        "buffer"
+        "dps",
+        "mobility"
        ],
        "lvl": 2,
        "pvp": 1,
@@ -532,7 +533,7 @@
       {
        "name": "Meditación",
        "cat": [
-        "buffer"
+        "support"
        ],
        "lvl": 2,
        "pvp": 1,
@@ -994,7 +995,6 @@
       {
        "name": "Penetra escudos",
        "cat": [
-        "tank",
         "dps"
        ],
        "lvl": 2,
@@ -1068,7 +1068,7 @@
       {
        "name": "Tiro parabólico",
        "cat": [
-        "dps"
+        "support"
        ],
        "lvl": 2,
        "pvp": 2,
@@ -1145,7 +1145,7 @@
       {
        "name": "Maniobrabilidad",
        "cat": [
-        "utility"
+        "dps"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -1218,7 +1218,7 @@
       {
        "name": "Ojo de águila",
        "cat": [
-        "dps"
+        "support"
        ],
        "lvl": 0,
        "pvp": 0,
@@ -1907,8 +1907,7 @@
       {
        "name": "Puño aturdidor",
        "cat": [
-        "cc",
-        "dps"
+        "cc"
        ],
        "lvl": 1,
        "pvp": 3,
@@ -2286,7 +2285,7 @@
       {
        "name": "Centinela",
        "cat": [
-        "buffer"
+        "support"
        ],
        "lvl": 1,
        "pvp": 1,
@@ -2433,7 +2432,7 @@
       {
        "name": "Flecha con abrojos",
        "cat": [
-        "utility"
+        "cc"
        ],
        "lvl": 1,
        "pvp": 3,
@@ -2515,7 +2514,7 @@
       {
        "name": "Esquivar",
        "cat": [
-        "utility"
+        "tank"
        ],
        "lvl": 1,
        "pvp": 3,
@@ -2580,7 +2579,7 @@
       {
        "name": "Movilidad",
        "cat": [
-        "utility"
+        "mobility"
        ],
        "lvl": 2,
        "pvp": 2,
@@ -2880,8 +2879,7 @@
       {
        "name": "Eludir conjuros",
        "cat": [
-        "tank",
-        "dps"
+        "tank"
        ],
        "lvl": 1,
        "pvp": 3,
@@ -3032,7 +3030,7 @@
       {
        "name": "Astucia",
        "cat": [
-        "buffer"
+        "support"
        ],
        "lvl": 1,
        "pvp": 1,
@@ -3098,7 +3096,6 @@
       {
        "name": "Perfil bajo",
        "cat": [
-        "cc",
         "tank"
        ],
        "lvl": 1,
@@ -3350,7 +3347,7 @@
       {
        "name": "Sentencia a muerte",
        "cat": [
-        "dps"
+        "cc"
        ],
        "lvl": 2,
        "pvp": 3,
@@ -3424,7 +3421,7 @@
       {
        "name": "Vigilancia enemiga",
        "cat": [
-        "utility"
+        "support"
        ],
        "lvl": 0,
        "pvp": 3,
@@ -3496,7 +3493,7 @@
       {
        "name": "Espíritu salvaje",
        "cat": [
-        "buffer"
+        "mobility"
        ],
        "lvl": 2,
        "pvp": 1,
@@ -3560,7 +3557,6 @@
       {
        "name": "Camuflaje",
        "cat": [
-        "cc",
         "dps"
        ],
        "lvl": 1,
@@ -3656,7 +3652,7 @@
       {
        "name": "Ligereza heredada",
        "cat": [
-        "utility"
+        "support"
        ],
        "lvl": 1,
        "pvp": 3,
@@ -3811,7 +3807,7 @@
       {
        "name": "Revelar",
        "cat": [
-        "utility"
+        "support"
        ],
        "lvl": 0,
        "pvp": 3,
@@ -3885,8 +3881,7 @@
       {
        "name": "Confundir",
        "cat": [
-        "cc",
-        "dps"
+        "cc"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -3957,7 +3952,7 @@
       {
        "name": "Entorno acechador",
        "cat": [
-        "utility"
+        "support"
        ],
        "lvl": 0,
        "pvp": 3,
@@ -4051,8 +4046,7 @@
       {
        "name": "Dominio natural",
        "cat": [
-        "dps",
-        "tank"
+        "dps"
        ],
        "lvl": 3,
        "pvp": 1,
@@ -4121,7 +4115,7 @@
       {
        "name": "Curar mascota",
        "cat": [
-        "healer"
+        "healer_pet"
        ],
        "lvl": 2,
        "pvp": 0,
@@ -4196,8 +4190,7 @@
       {
        "name": "Defensa salvaje",
        "cat": [
-        "tank",
-        "dps"
+        "tank"
        ],
        "lvl": 2,
        "pvp": 0,
@@ -4273,7 +4266,7 @@
       {
        "name": "Vista prominente",
        "cat": [
-        "utility"
+        "support"
        ],
        "lvl": 1,
        "pvp": 1,
@@ -4350,7 +4343,7 @@
       {
        "name": "Adiestramiento",
        "cat": [
-        "utility"
+        "tank"
        ],
        "lvl": 2,
        "pvp": 0,
@@ -4417,7 +4410,7 @@
       {
        "name": "Revivir mascota",
        "cat": [
-        "healer"
+        "healer_pet"
        ],
        "lvl": 2,
        "pvp": 0,
@@ -4570,8 +4563,7 @@
       {
        "name": "Armadura natural",
        "cat": [
-        "tank",
-        "dps"
+        "tank"
        ],
        "lvl": 2,
        "pvp": 0,
@@ -4640,7 +4632,6 @@
       {
        "name": "Furia natural",
        "cat": [
-        "cc",
         "dps"
        ],
        "lvl": 2,
@@ -4733,8 +4724,7 @@
       {
        "name": "Coraza de la bestia",
        "cat": [
-        "tank",
-        "dps"
+        "tank"
        ],
        "lvl": 2,
        "pvp": 0,
@@ -4816,7 +4806,7 @@
       {
        "name": "Concilio de Guerra",
        "cat": [
-        "buffer"
+        "support"
        ],
        "lvl": 3,
        "pvp": 3,
@@ -4869,7 +4859,7 @@
       {
        "name": "Cuerno del viento",
        "cat": [
-        "utility"
+        "support"
        ],
        "lvl": 1,
        "pvp": 3,
@@ -5048,7 +5038,7 @@
       {
        "name": "Sangre de Warmaster",
        "cat": [
-        "buffer"
+        "tank"
        ],
        "lvl": 2,
        "pvp": 3,
@@ -5336,8 +5326,8 @@
       {
        "name": "Plaga de insectos",
        "cat": [
-        "cc",
-        "dps"
+        "dps",
+        "cc"
        ],
        "lvl": 2,
        "pvp": 2,
@@ -5573,8 +5563,7 @@
       {
        "name": "Hiedra espinosa",
        "cat": [
-        "cc",
-        "dps"
+        "cc"
        ],
        "lvl": 1,
        "pvp": 3,
@@ -5966,7 +5955,8 @@
       {
        "name": "Masa devoradora de Sultar",
        "cat": [
-        "dps"
+        "dps",
+        "cc"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -6086,8 +6076,7 @@
       {
        "name": "Barrera de energía",
        "cat": [
-        "tank",
-        "dps"
+        "tank"
        ],
        "lvl": 2,
        "pvp": 2,
@@ -6164,7 +6153,6 @@
       {
        "name": "Ignición de maná",
        "cat": [
-        "tank",
         "dps"
        ],
        "lvl": 2,
@@ -6238,7 +6226,7 @@
       {
        "name": "Unión sinérgica",
        "cat": [
-        "utility"
+        "support"
        ],
        "lvl": 3,
        "pvp": 3,
@@ -6309,7 +6297,7 @@
       {
        "name": "Sangre de dragón",
        "cat": [
-        "buffer"
+        "support"
        ],
        "lvl": 2,
        "pvp": 1,
@@ -6438,7 +6426,8 @@
       {
        "name": "Sacrificio ambicioso",
        "cat": [
-        "dps"
+        "dps",
+        "healer_self"
        ],
        "lvl": 2,
        "pvp": 1,
@@ -6515,7 +6504,7 @@
       {
        "name": "Devoción arcana",
        "cat": [
-        "dps"
+        "support"
        ],
        "lvl": 2,
        "pvp": 1,
@@ -6584,7 +6573,7 @@
       {
        "name": "Laguna de maná",
        "cat": [
-        "utility"
+        "support"
        ],
        "lvl": 2,
        "pvp": 1,
@@ -6649,7 +6638,7 @@
       {
        "name": "Comunión de mana",
        "cat": [
-        "utility"
+        "support"
        ],
        "lvl": 1,
        "pvp": 1,
@@ -6721,7 +6710,8 @@
       {
        "name": "Pilón de mana",
        "cat": [
-        "tank"
+        "tank",
+        "support"
        ],
        "lvl": 1,
        "pvp": 3,
@@ -6977,7 +6967,7 @@
       {
        "name": "Proyección arcana",
        "cat": [
-        "dps"
+        "support"
        ],
        "lvl": 2,
        "pvp": 2,
@@ -7111,7 +7101,8 @@
       {
        "name": "Campo estático",
        "cat": [
-        "dps"
+        "dps",
+        "cc"
        ],
        "lvl": 1,
        "pvp": 3,
@@ -7296,8 +7287,7 @@
       {
        "name": "Cúpula de protección",
        "cat": [
-        "tank",
-        "dps"
+        "tank"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -7633,7 +7623,7 @@
       {
        "name": "Maldición",
        "cat": [
-        "dps"
+        "cc"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -7714,7 +7704,7 @@
       {
        "name": "Destreza felina",
        "cat": [
-        "buffer"
+        "support"
        ],
        "lvl": 2,
        "pvp": 1,
@@ -7872,7 +7862,7 @@
       {
        "name": "Bendición",
        "cat": [
-        "buffer"
+        "support"
        ],
        "lvl": 2,
        "pvp": 2,
@@ -7957,7 +7947,7 @@
       {
        "name": "Fuerza de oso",
        "cat": [
-        "buffer"
+        "support"
        ],
        "lvl": 2,
        "pvp": 1,
@@ -8028,6 +8018,7 @@
       {
        "name": "Bendecir arma",
        "cat": [
+        "support",
         "dps"
        ],
        "lvl": 2,
@@ -8103,7 +8094,7 @@
       {
        "name": "Disipar magia",
        "cat": [
-        "utility"
+        "support"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -8175,7 +8166,7 @@
       {
        "name": "Astucia de zorro",
        "cat": [
-        "buffer"
+        "support"
        ],
        "lvl": 2,
        "pvp": 1,
@@ -8323,7 +8314,7 @@
       {
        "name": "Disipar magia en masa",
        "cat": [
-        "utility"
+        "support"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -8402,7 +8393,7 @@
       {
        "name": "Curar aliado",
        "cat": [
-        "healer"
+        "healer_ally"
        ],
        "lvl": 2,
        "pvp": 2,
@@ -8486,7 +8477,7 @@
       {
        "name": "Curarse",
        "cat": [
-        "healer"
+        "healer_self"
        ],
        "lvl": 3,
        "pvp": 3,
@@ -8557,7 +8548,7 @@
       {
        "name": "Revivir",
        "cat": [
-        "healer"
+        "healer_ally"
        ],
        "lvl": 3,
        "pvp": 3,
@@ -8656,7 +8647,7 @@
       {
        "name": "Regenerar aliado",
        "cat": [
-        "healer"
+        "healer_ally"
        ],
        "lvl": 2,
        "pvp": 2,
@@ -8728,7 +8719,7 @@
       {
        "name": "Regenerarse",
        "cat": [
-        "healer"
+        "healer_self"
        ],
        "lvl": 3,
        "pvp": 2,
@@ -8798,7 +8789,8 @@
       {
        "name": "Intervención divina",
        "cat": [
-        "tank"
+        "tank",
+        "healer_ally"
        ],
        "lvl": 1,
        "pvp": 3,
@@ -8870,7 +8862,7 @@
       {
        "name": "Salvador",
        "cat": [
-        "buffer"
+        "healer_ally"
        ],
        "lvl": 2,
        "pvp": 3,
@@ -8939,8 +8931,7 @@
       {
        "name": "Regeneración mayor",
        "cat": [
-        "healer",
-        "dps"
+        "healer_ally"
        ],
        "lvl": 2,
        "pvp": 2,
@@ -9026,7 +9017,7 @@
       {
        "name": "Curación mayor",
        "cat": [
-        "healer"
+        "healer_ally"
        ],
        "lvl": 2,
        "pvp": 3,
@@ -9099,7 +9090,7 @@
       {
        "name": "Revivir en masa",
        "cat": [
-        "healer"
+        "healer_ally"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -9196,7 +9187,7 @@
       {
        "name": "Invocar diablillos",
        "cat": [
-        "utility"
+        "dps"
        ],
        "lvl": 3,
        "pvp": 1,
@@ -9267,8 +9258,7 @@
       {
        "name": "Lazo extraplanar",
        "cat": [
-        "tank",
-        "dps"
+        "tank"
        ],
        "lvl": 2,
        "pvp": 1,
@@ -9333,7 +9323,7 @@
       {
        "name": "invocar demonio",
        "cat": [
-        "utility"
+        "dps"
        ],
        "lvl": 2,
        "pvp": 1,
@@ -9473,7 +9463,7 @@
       {
        "name": "Invocar zombis",
        "cat": [
-        "utility"
+        "dps"
        ],
        "lvl": 2,
        "pvp": 1,
@@ -9620,7 +9610,7 @@
       {
        "name": "Invocar golem",
        "cat": [
-        "utility"
+        "dps"
        ],
        "lvl": 2,
        "pvp": 1,
@@ -9691,8 +9681,7 @@
       {
        "name": "Armadura mágica",
        "cat": [
-        "tank",
-        "dps"
+        "tank"
        ],
        "lvl": 2,
        "pvp": 0,
@@ -9830,7 +9819,7 @@
       {
        "name": "Invocar lich",
        "cat": [
-        "utility"
+        "dps"
        ],
        "lvl": 2,
        "pvp": 1,
@@ -9999,7 +9988,7 @@
       {
        "name": "Silueta cambiante",
        "cat": [
-        "utility"
+        "tank"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -10092,7 +10081,8 @@
       {
        "name": "Escudar compañero",
        "cat": [
-        "tank"
+        "tank",
+        "healer_ally"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -10268,7 +10258,8 @@
       {
        "name": "Espejo del karma",
        "cat": [
-        "dps"
+        "dps",
+        "tank"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -10558,7 +10549,7 @@
       {
        "name": "Introspectiva",
        "cat": [
-        "buffer"
+        "support"
        ],
        "lvl": 3,
        "pvp": 3,
@@ -10622,8 +10613,7 @@
       {
        "name": "Piel de acero",
        "cat": [
-        "tank",
-        "dps"
+        "tank"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -10707,7 +10697,7 @@
       {
        "name": "Concilio de Guerra",
        "cat": [
-        "buffer"
+        "support"
        ],
        "lvl": 3,
        "pvp": 3,
@@ -10759,7 +10749,7 @@
       {
        "name": "Portal Defensivo",
        "cat": [
-        "utility"
+        "support"
        ],
        "lvl": 1,
        "pvp": 3,
@@ -10808,7 +10798,7 @@
       {
        "name": "Maestría de Guerra",
        "cat": [
-        "utility"
+        "support"
        ],
        "lvl": 2,
        "pvp": 3,
@@ -10872,7 +10862,7 @@
       {
        "name": "Protección Divina",
        "cat": [
-        "healer",
+        "healer_ally",
         "tank"
        ],
        "lvl": 1,
@@ -11201,8 +11191,8 @@
       {
        "name": "Plaga de insectos",
        "cat": [
-        "cc",
-        "dps"
+        "dps",
+        "cc"
        ],
        "lvl": 2,
        "pvp": 2,
@@ -11438,8 +11428,7 @@
       {
        "name": "Hiedra espinosa",
        "cat": [
-        "cc",
-        "dps"
+        "cc"
        ],
        "lvl": 1,
        "pvp": 3,
@@ -11831,7 +11820,8 @@
       {
        "name": "Masa devoradora de Sultar",
        "cat": [
-        "dps"
+        "dps",
+        "cc"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -11951,8 +11941,7 @@
       {
        "name": "Barrera de energía",
        "cat": [
-        "tank",
-        "dps"
+        "tank"
        ],
        "lvl": 2,
        "pvp": 2,
@@ -12029,7 +12018,6 @@
       {
        "name": "Ignición de maná",
        "cat": [
-        "tank",
         "dps"
        ],
        "lvl": 2,
@@ -12103,7 +12091,7 @@
       {
        "name": "Unión sinérgica",
        "cat": [
-        "utility"
+        "support"
        ],
        "lvl": 1,
        "pvp": 1,
@@ -12174,7 +12162,7 @@
       {
        "name": "Sangre de dragón",
        "cat": [
-        "buffer"
+        "support"
        ],
        "lvl": 2,
        "pvp": 1,
@@ -12303,7 +12291,8 @@
       {
        "name": "Sacrificio ambicioso",
        "cat": [
-        "dps"
+        "dps",
+        "healer_self"
        ],
        "lvl": 2,
        "pvp": 1,
@@ -12380,7 +12369,7 @@
       {
        "name": "Devoción arcana",
        "cat": [
-        "dps"
+        "support"
        ],
        "lvl": 2,
        "pvp": 1,
@@ -12449,7 +12438,7 @@
       {
        "name": "Laguna de maná",
        "cat": [
-        "utility"
+        "support"
        ],
        "lvl": 2,
        "pvp": 1,
@@ -12514,7 +12503,7 @@
       {
        "name": "Comunión de mana",
        "cat": [
-        "utility"
+        "support"
        ],
        "lvl": 1,
        "pvp": 1,
@@ -12586,7 +12575,8 @@
       {
        "name": "Pilón de mana",
        "cat": [
-        "tank"
+        "tank",
+        "support"
        ],
        "lvl": 1,
        "pvp": 1,
@@ -12842,7 +12832,7 @@
       {
        "name": "Proyección arcana",
        "cat": [
-        "dps"
+        "support"
        ],
        "lvl": 2,
        "pvp": 2,
@@ -12976,7 +12966,8 @@
       {
        "name": "Campo estático",
        "cat": [
-        "dps"
+        "dps",
+        "cc"
        ],
        "lvl": 1,
        "pvp": 3,
@@ -13161,8 +13152,7 @@
       {
        "name": "Cúpula de protección",
        "cat": [
-        "tank",
-        "dps"
+        "tank"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -13498,7 +13488,7 @@
       {
        "name": "Maldición",
        "cat": [
-        "dps"
+        "cc"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -13579,7 +13569,7 @@
       {
        "name": "Destreza felina",
        "cat": [
-        "buffer"
+        "support"
        ],
        "lvl": 2,
        "pvp": 1,
@@ -13737,7 +13727,7 @@
       {
        "name": "Bendición",
        "cat": [
-        "buffer"
+        "support"
        ],
        "lvl": 0,
        "pvp": 0,
@@ -13822,7 +13812,7 @@
       {
        "name": "Fuerza de oso",
        "cat": [
-        "buffer"
+        "support"
        ],
        "lvl": 2,
        "pvp": 1,
@@ -13893,6 +13883,7 @@
       {
        "name": "Bendecir arma",
        "cat": [
+        "support",
         "dps"
        ],
        "lvl": 2,
@@ -13968,7 +13959,7 @@
       {
        "name": "Disipar magia",
        "cat": [
-        "utility"
+        "support"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -14040,7 +14031,7 @@
       {
        "name": "Astucia de zorro",
        "cat": [
-        "buffer"
+        "support"
        ],
        "lvl": 2,
        "pvp": 1,
@@ -14188,7 +14179,7 @@
       {
        "name": "Disipar magia en masa",
        "cat": [
-        "utility"
+        "support"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -14346,7 +14337,7 @@
       {
        "name": "Lentitud",
        "cat": [
-        "utility"
+        "cc"
        ],
        "lvl": 1,
        "pvp": 3,
@@ -14416,8 +14407,7 @@
       {
        "name": "Petrificar manos",
        "cat": [
-        "cc",
-        "dps"
+        "cc"
        ],
        "lvl": 1,
        "pvp": 3,
@@ -14584,7 +14574,8 @@
       {
        "name": "Meteorito",
        "cat": [
-        "dps"
+        "dps",
+        "cc"
        ],
        "lvl": 3,
        "pvp": 2,
@@ -14824,7 +14815,8 @@
       {
        "name": "Fragilidad",
        "cat": [
-        "dps"
+        "dps",
+        "cc"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -15081,7 +15073,8 @@
       {
        "name": "Vampirismo",
        "cat": [
-        "dps"
+        "dps",
+        "healer_self"
        ],
        "lvl": 3,
        "pvp": 2,
@@ -15295,7 +15288,8 @@
       {
        "name": "Absorción vital",
        "cat": [
-        "dps"
+        "dps",
+        "healer_self"
        ],
        "lvl": 2,
        "pvp": 2,
@@ -15448,7 +15442,7 @@
       {
        "name": "Sirvientes sádicos",
        "cat": [
-        "utility"
+        "cc"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -15515,7 +15509,8 @@
       {
        "name": "Guardián de almas",
        "cat": [
-        "dps"
+        "dps",
+        "cc"
        ],
        "lvl": 0,
        "pvp": 3,
@@ -15733,7 +15728,8 @@
       {
        "name": "Maestro de la destrucción",
        "cat": [
-        "utility"
+        "cc",
+        "dps"
        ],
        "lvl": 1,
        "pvp": 3,
@@ -15898,7 +15894,8 @@
       {
        "name": "Explosión de hielo",
        "cat": [
-        "dps"
+        "dps",
+        "cc"
        ],
        "lvl": 2,
        "pvp": 2,
@@ -16053,8 +16050,7 @@
       {
        "name": "Comunión elemental",
        "cat": [
-        "tank",
-        "dps"
+        "tank"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -16565,7 +16561,8 @@
       {
        "name": "Invocar rayos",
        "cat": [
-        "dps"
+        "dps",
+        "cc"
        ],
        "lvl": 2,
        "pvp": 2,
@@ -16650,7 +16647,7 @@
       {
        "name": "Concilio de Guerra",
        "cat": [
-        "buffer"
+        "support"
        ],
        "lvl": 3,
        "pvp": 3,
@@ -16702,7 +16699,7 @@
       {
        "name": "Portal Offensivo",
        "cat": [
-        "utility"
+        "support"
        ],
        "lvl": 1,
        "pvp": 3,
@@ -16751,7 +16748,7 @@
       {
        "name": "Maestría de Guerra",
        "cat": [
-        "utility"
+        "support"
        ],
        "lvl": 2,
        "pvp": 3,
@@ -17327,7 +17324,8 @@
       {
        "name": "Ligereza",
        "cat": [
-        "buffer"
+        "dps",
+        "mobility"
        ],
        "lvl": 2,
        "pvp": 1,
@@ -17393,7 +17391,7 @@
       {
        "name": "Meditación",
        "cat": [
-        "buffer"
+        "support"
        ],
        "lvl": 2,
        "pvp": 1,
@@ -17855,7 +17853,6 @@
       {
        "name": "Penetra escudos",
        "cat": [
-        "tank",
         "dps"
        ],
        "lvl": 2,
@@ -17929,7 +17926,7 @@
       {
        "name": "Tiro parabólico",
        "cat": [
-        "dps"
+        "support"
        ],
        "lvl": 2,
        "pvp": 2,
@@ -18006,7 +18003,7 @@
       {
        "name": "Maniobrabilidad",
        "cat": [
-        "utility"
+        "dps"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -18079,7 +18076,7 @@
       {
        "name": "Ojo de águila",
        "cat": [
-        "dps"
+        "support"
        ],
        "lvl": 0,
        "pvp": 0,
@@ -18768,8 +18765,7 @@
       {
        "name": "Puño aturdidor",
        "cat": [
-        "cc",
-        "dps"
+        "cc"
        ],
        "lvl": 1,
        "pvp": 3,
@@ -19147,7 +19143,7 @@
       {
        "name": "Centinela",
        "cat": [
-        "buffer"
+        "support"
        ],
        "lvl": 1,
        "pvp": 1,
@@ -19294,7 +19290,7 @@
       {
        "name": "Flecha con abrojos",
        "cat": [
-        "utility"
+        "cc"
        ],
        "lvl": 1,
        "pvp": 3,
@@ -19376,7 +19372,7 @@
       {
        "name": "Esquivar",
        "cat": [
-        "utility"
+        "tank"
        ],
        "lvl": 1,
        "pvp": 3,
@@ -19441,7 +19437,7 @@
       {
        "name": "Movilidad",
        "cat": [
-        "utility"
+        "mobility"
        ],
        "lvl": 2,
        "pvp": 2,
@@ -19741,8 +19737,7 @@
       {
        "name": "Eludir conjuros",
        "cat": [
-        "tank",
-        "dps"
+        "tank"
        ],
        "lvl": 1,
        "pvp": 3,
@@ -19893,7 +19888,7 @@
       {
        "name": "Astucia",
        "cat": [
-        "buffer"
+        "support"
        ],
        "lvl": 1,
        "pvp": 1,
@@ -19959,7 +19954,6 @@
       {
        "name": "Perfil bajo",
        "cat": [
-        "cc",
         "tank"
        ],
        "lvl": 1,
@@ -20213,8 +20207,7 @@
       {
        "name": "Ola invernal",
        "cat": [
-        "cc",
-        "dps"
+        "cc"
        ],
        "lvl": 1,
        "pvp": 3,
@@ -21018,7 +21011,7 @@
       {
        "name": "Enfocar",
        "cat": [
-        "dps"
+        "support"
        ],
        "lvl": 2,
        "pvp": 2,
@@ -21411,7 +21404,8 @@
       {
        "name": "Posición estratégica",
        "cat": [
-        "dps"
+        "dps",
+        "tank"
        ],
        "lvl": 2,
        "pvp": 2,
@@ -21712,7 +21706,7 @@
       {
        "name": "Concilio de Guerra",
        "cat": [
-        "buffer"
+        "support"
        ],
        "lvl": 3,
        "pvp": 3,
@@ -21764,7 +21758,7 @@
       {
        "name": "Flecha de fuego",
        "cat": [
-        "utility"
+        "healer_ally"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -22312,8 +22306,7 @@
       {
        "name": "Incapacitar",
        "cat": [
-        "cc",
-        "dps"
+        "cc"
        ],
        "lvl": 1,
        "pvp": 3,
@@ -22388,7 +22381,8 @@
       {
        "name": "Atlético",
        "cat": [
-        "dps"
+        "dps",
+        "support"
        ],
        "lvl": 2,
        "pvp": 1,
@@ -22716,8 +22710,7 @@
       {
        "name": "Piel de hierro",
        "cat": [
-        "tank",
-        "dps"
+        "tank"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -22784,7 +22777,8 @@
       {
        "name": "Ataque fatal",
        "cat": [
-        "dps"
+        "dps",
+        "cc"
        ],
        "lvl": 0,
        "pvp": 0,
@@ -23108,8 +23102,7 @@
       {
        "name": "Rompe costillas",
        "cat": [
-        "cc",
-        "dps"
+        "cc"
        ],
        "lvl": 1,
        "pvp": 3,
@@ -23255,7 +23248,8 @@
       {
        "name": "Triturador",
        "cat": [
-        "dps"
+        "dps",
+        "cc"
        ],
        "lvl": 2,
        "pvp": 2,
@@ -23412,7 +23406,8 @@
       {
        "name": "Aplasta mentes",
        "cat": [
-        "dps"
+        "dps",
+        "cc"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -23497,8 +23492,7 @@
       {
        "name": "Temple de acero",
        "cat": [
-        "tank",
-        "dps"
+        "tank"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -23565,8 +23559,7 @@
       {
        "name": "Rompe quijadas",
        "cat": [
-        "cc",
-        "dps"
+        "cc"
        ],
        "lvl": 1,
        "pvp": 3,
@@ -23891,8 +23884,7 @@
       {
        "name": "Balestra",
        "cat": [
-        "cc",
-        "dps"
+        "cc"
        ],
        "lvl": 2,
        "pvp": 2,
@@ -23975,7 +23967,8 @@
       {
        "name": "Versatilidad",
        "cat": [
-        "dps"
+        "dps",
+        "healer_self"
        ],
        "lvl": 2,
        "pvp": 1,
@@ -24131,7 +24124,8 @@
       {
        "name": "Empalamiento",
        "cat": [
-        "dps"
+        "dps",
+        "cc"
        ],
        "lvl": 2,
        "pvp": 2,
@@ -24227,7 +24221,8 @@
       {
        "name": "Perfora cerebros",
        "cat": [
-        "dps"
+        "dps",
+        "cc"
        ],
        "lvl": 1,
        "pvp": 3,
@@ -24316,8 +24311,7 @@
       {
        "name": "Flexibilidad",
        "cat": [
-        "tank",
-        "dps"
+        "tank"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -24468,7 +24462,8 @@
       {
        "name": "Golpe relámpago",
        "cat": [
-        "dps"
+        "dps",
+        "cc"
        ],
        "lvl": 2,
        "pvp": 2,
@@ -24570,8 +24565,7 @@
       {
        "name": "Puntapié",
        "cat": [
-        "cc",
-        "dps"
+        "cc"
        ],
        "lvl": 1,
        "pvp": 3,
@@ -24785,7 +24779,7 @@
       {
        "name": "Defensa marcial",
        "cat": [
-        "dps"
+        "tank"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -24917,7 +24911,8 @@
       {
        "name": "Revés",
        "cat": [
-        "dps"
+        "dps",
+        "cc"
        ],
        "lvl": 1,
        "pvp": 3,
@@ -24998,7 +24993,8 @@
       {
        "name": "Embestida",
        "cat": [
-        "dps"
+        "support",
+        "mobility"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -25157,7 +25153,7 @@
       {
        "name": "Inhabilitar",
        "cat": [
-        "dps"
+        "cc"
        ],
        "lvl": 1,
        "pvp": 3,
@@ -25237,8 +25233,8 @@
       {
        "name": "Reflejos marciales",
        "cat": [
-        "tank",
-        "dps"
+        "dps",
+        "tank"
        ],
        "lvl": 2,
        "pvp": 2,
@@ -25411,8 +25407,7 @@
       {
        "name": "Frenesí",
        "cat": [
-        "tank",
-        "dps"
+        "tank"
        ],
        "lvl": 2,
        "pvp": 2,
@@ -25486,7 +25481,7 @@
       {
        "name": "¡¡Corten sus cabezas!!",
        "cat": [
-        "dps"
+        "support"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -25557,7 +25552,7 @@
       {
        "name": "Sed de sangre",
        "cat": [
-        "utility"
+        "dps"
        ],
        "lvl": 3,
        "pvp": 2,
@@ -25647,7 +25642,8 @@
       {
        "name": "Rugido desafiante",
        "cat": [
-        "tank"
+        "tank",
+        "support"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -25955,7 +25951,7 @@
       {
        "name": "Retorno",
        "cat": [
-        "buffer"
+        "mobility"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -26169,8 +26165,8 @@
       {
        "name": "Amenaza",
        "cat": [
-        "cc",
-        "tank"
+        "tank",
+        "cc"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -26250,7 +26246,8 @@
       {
        "name": "Golpe espiritual",
        "cat": [
-        "dps"
+        "dps",
+        "cc"
        ],
        "lvl": 2,
        "pvp": 2,
@@ -26332,7 +26329,8 @@
       {
        "name": "Despedazar",
        "cat": [
-        "dps"
+        "dps",
+        "cc"
        ],
        "lvl": 0,
        "pvp": 0,
@@ -26976,7 +26974,7 @@
       {
        "name": "Concilio de Guerra",
        "cat": [
-        "buffer"
+        "support"
        ],
        "lvl": 3,
        "pvp": 3,
@@ -27144,7 +27142,8 @@
       {
        "name": "Bandera de Warmaster",
        "cat": [
-        "healer"
+        "support",
+        "healer_ally"
        ],
        "lvl": 1,
        "pvp": 3,
@@ -27589,8 +27588,7 @@
       {
        "name": "Incapacitar",
        "cat": [
-        "cc",
-        "dps"
+        "cc"
        ],
        "lvl": 1,
        "pvp": 3,
@@ -27665,7 +27663,8 @@
       {
        "name": "Atlético",
        "cat": [
-        "dps"
+        "dps",
+        "support"
        ],
        "lvl": 2,
        "pvp": 1,
@@ -27993,8 +27992,7 @@
       {
        "name": "Piel de hierro",
        "cat": [
-        "tank",
-        "dps"
+        "tank"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -28061,7 +28059,8 @@
       {
        "name": "Ataque fatal",
        "cat": [
-        "dps"
+        "dps",
+        "cc"
        ],
        "lvl": 0,
        "pvp": 0,
@@ -28385,8 +28384,7 @@
       {
        "name": "Rompe costillas",
        "cat": [
-        "cc",
-        "dps"
+        "cc"
        ],
        "lvl": 1,
        "pvp": 3,
@@ -28532,7 +28530,8 @@
       {
        "name": "Triturador",
        "cat": [
-        "dps"
+        "dps",
+        "cc"
        ],
        "lvl": 0,
        "pvp": 0,
@@ -28689,7 +28688,8 @@
       {
        "name": "Aplasta mentes",
        "cat": [
-        "dps"
+        "dps",
+        "cc"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -28774,8 +28774,7 @@
       {
        "name": "Temple de acero",
        "cat": [
-        "tank",
-        "dps"
+        "tank"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -28842,8 +28841,7 @@
       {
        "name": "Rompe quijadas",
        "cat": [
-        "cc",
-        "dps"
+        "cc"
        ],
        "lvl": 1,
        "pvp": 3,
@@ -29168,8 +29166,7 @@
       {
        "name": "Balestra",
        "cat": [
-        "cc",
-        "dps"
+        "cc"
        ],
        "lvl": 2,
        "pvp": 2,
@@ -29252,7 +29249,8 @@
       {
        "name": "Versatilidad",
        "cat": [
-        "dps"
+        "dps",
+        "healer_self"
        ],
        "lvl": 2,
        "pvp": 1,
@@ -29408,7 +29406,8 @@
       {
        "name": "Empalamiento",
        "cat": [
-        "dps"
+        "dps",
+        "cc"
        ],
        "lvl": 2,
        "pvp": 2,
@@ -29504,7 +29503,8 @@
       {
        "name": "Perfora cerebros",
        "cat": [
-        "dps"
+        "dps",
+        "cc"
        ],
        "lvl": 1,
        "pvp": 3,
@@ -29593,8 +29593,7 @@
       {
        "name": "Flexibilidad",
        "cat": [
-        "tank",
-        "dps"
+        "tank"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -29745,7 +29744,8 @@
       {
        "name": "Golpe relámpago",
        "cat": [
-        "dps"
+        "dps",
+        "cc"
        ],
        "lvl": 2,
        "pvp": 2,
@@ -29847,8 +29847,7 @@
       {
        "name": "Puntapié",
        "cat": [
-        "cc",
-        "dps"
+        "cc"
        ],
        "lvl": 1,
        "pvp": 3,
@@ -30062,7 +30061,7 @@
       {
        "name": "Defensa marcial",
        "cat": [
-        "dps"
+        "tank"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -30194,7 +30193,8 @@
       {
        "name": "Revés",
        "cat": [
-        "dps"
+        "dps",
+        "cc"
        ],
        "lvl": 1,
        "pvp": 3,
@@ -30275,7 +30275,8 @@
       {
        "name": "Embestida",
        "cat": [
-        "dps"
+        "support",
+        "mobility"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -30434,7 +30435,7 @@
       {
        "name": "Inhabilitar",
        "cat": [
-        "dps"
+        "cc"
        ],
        "lvl": 1,
        "pvp": 3,
@@ -30514,8 +30515,8 @@
       {
        "name": "Reflejos marciales",
        "cat": [
-        "tank",
-        "dps"
+        "dps",
+        "tank"
        ],
        "lvl": 0,
        "pvp": 0,
@@ -30609,7 +30610,7 @@
       {
        "name": "Retar",
        "cat": [
-        "tank"
+        "cc"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -30861,8 +30862,7 @@
       {
        "name": "Temple de protector",
        "cat": [
-        "tank",
-        "dps"
+        "tank"
        ],
        "lvl": 2,
        "pvp": 2,
@@ -31025,7 +31025,6 @@
       {
        "name": "Soporte defensivo",
        "cat": [
-        "cc",
         "tank"
        ],
        "lvl": 1,
@@ -31206,7 +31205,7 @@
       {
        "name": "Furor del caballero",
        "cat": [
-        "buffer"
+        "mobility"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -31278,7 +31277,8 @@
       {
        "name": "Presencia heroica",
        "cat": [
-        "tank"
+        "tank",
+        "support"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -31351,8 +31351,7 @@
       {
        "name": "Ejército de uno",
        "cat": [
-        "tank",
-        "dps"
+        "tank"
        ],
        "lvl": 1,
        "pvp": 3,
@@ -31515,7 +31514,7 @@
       {
        "name": "Avasallar",
        "cat": [
-        "tank",
+        "cc",
         "dps"
        ],
        "lvl": 2,
@@ -31599,7 +31598,7 @@
       {
        "name": "Proteger aliado",
        "cat": [
-        "utility"
+        "healer_ally"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -31682,7 +31681,6 @@
       {
        "name": "Bloqueo preciso",
        "cat": [
-        "cc",
         "tank"
        ],
        "lvl": 2,
@@ -31767,8 +31765,7 @@
       {
        "name": "Instancia defensiva",
        "cat": [
-        "tank",
-        "dps"
+        "tank"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -31846,7 +31843,7 @@
        "name": "Manto etéreo",
        "cat": [
         "tank",
-        "dps"
+        "healer_ally"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -31931,7 +31928,7 @@
        "name": "Muro protector",
        "cat": [
         "tank",
-        "dps"
+        "healer_ally"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -32072,7 +32069,8 @@
       {
        "name": "Escudo estelar",
        "cat": [
-        "tank"
+        "tank",
+        "healer_ally"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -32154,7 +32152,7 @@
        "name": "Barrera deflectora",
        "cat": [
         "tank",
-        "dps"
+        "healer_ally"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -32243,7 +32241,7 @@
       {
        "name": "Concilio de Guerra",
        "cat": [
-        "buffer"
+        "support"
        ],
        "lvl": 3,
        "pvp": 3,
@@ -32412,7 +32410,8 @@
       {
        "name": "Asistencia del Paladín",
        "cat": [
-        "tank"
+        "tank",
+        "healer_ally"
        ],
        "lvl": 1,
        "pvp": 3,
@@ -32473,7 +32472,8 @@
       {
        "name": "Bendecido",
        "cat": [
-        "tank"
+        "tank",
+        "healer_self"
        ],
        "lvl": 1,
        "pvp": 2,

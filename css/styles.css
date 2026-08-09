@@ -113,11 +113,12 @@
   .tag{font-family:var(--font-mono);font-size:9.5px;text-transform:uppercase;letter-spacing:.05em;padding:2px 7px;border-radius:10px;flex-shrink:0;white-space:nowrap;align-self:center;}
   .tag.dps{background:rgba(168,60,60,0.15);color:#d68080;}
   .tag.tank{background:rgba(70,110,190,0.15);color:#8fa8e0;}
-  .tag.healer{background:rgba(90,180,120,0.15);color:#8fd6a8;}
-  .tag.buffer{background:rgba(210,170,60,0.15);color:#e8c878;}
-  .tag.debuffer{background:rgba(150,90,190,0.15);color:#c090e0;}
+  .tag.healer_ally{background:rgba(90,180,120,0.15);color:#8fd6a8;}
+  .tag.healer_self{background:rgba(120,200,160,0.15);color:#a8e0c0;}
+  .tag.healer_pet{background:rgba(150,180,90,0.15);color:#b8d68f;}
+  .tag.support{background:rgba(210,170,60,0.15);color:#e8c878;}
+  .tag.mobility{background:rgba(150,90,190,0.15);color:#c090e0;}
   .tag.cc{background:rgba(90,147,168,0.15);color:#8fc2d6;}
-  .tag.utility{background:rgba(201,161,90,0.15);color:var(--bronze);}
   .diff-tags{display:flex;gap:4px;flex-shrink:0;align-self:center;}
   .diff-item.disc-up{border-left:3px solid var(--moss);}
   .diff-item.new{border-left:3px solid var(--bronze);}

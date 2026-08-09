@@ -23,7 +23,7 @@ function iconStyle(discKey, spellpos, boxSize){
   return `background-image:url(${ICONS_BASE_PATH}/${discKey}.webp);background-size:${sheetW}px ${sheetH}px;background-position:${off}px 0px;background-repeat:no-repeat;`;
 }
 
-function tagLabel(role){ return {dps:"DPS", tank:"Tanque", healer:"Curador", buffer:"Buffer", debuffer:"Debuffer", cc:"Control", utility:"Utilidad"}[role] || role; }
+function tagLabel(role){ return {dps:"DPS", tank:"Tanque", healer_self:"Curador (Personal)", healer_ally:"Curador (Aliado)", healer_pet:"Curador (Mascota)", support:"Soporte", cc:"Control", mobility:"Movilidad"}[role] || role; }
 function roleTags(sp){
   return (sp.cat||[]).map(r=> `<span class="tag ${r}">${tagLabel(r)}</span>`).join('');
 }
