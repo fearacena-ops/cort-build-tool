@@ -120,11 +120,19 @@ function computeBuild(level, ctx, prevBuild, useNaturalDepth){
   // across everything just because early levels in any tree are cheap.
   const openScores = DISC_NAMES.filter(n=>!locked.has(n)).map(n=>discScore[n]);
   const maxScore = openScores.length ? Math.max(...openScores) : 0;
-  const PRUNE_RATIO = 0.45;
+  const PRUNE_RATIO = 0.25; // was 0.45 — too aggressive, could drop a whole
+  // discipline (e.g. Trucos, Evasión for Hunter) even when it holds a spell
+  // clearly worth taking on its own.
+  const MIN_INDIVIDUAL_SCORE = 4.5; // ~90th percentile of real individual
+  // spell scores — high enough to mean "genuinely strong on its own", not
+  // the flat 8 first suggested, which sits above the highest score any
+  // spell reaches without an explicit priority bonus and would never fire.
   const pruned = new Set(locked);
   DISC_NAMES.forEach(n=>{
     if(locked.has(n)) return;
     if(ctx.priorityDiscipline === n) return; // never prune an explicitly prioritized discipline
+    const hasHighValueSpell = CLASS.disciplines[n].spells.some(sp=> spellScore(n, sp, ctx) >= MIN_INDIVIDUAL_SCORE);
+    if(hasHighValueSpell) return;
     if(discScore[n] < maxScore*PRUNE_RATIO) pruned.add(n);
   });
   runGreedy(pruned);
