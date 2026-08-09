@@ -276,7 +276,7 @@ function buildExportCardFromBuild(buildLike, level, titleSub, customName){
       html += `<div class="export-spell${isPassive ? ' is-passive' : ''}">
         <div class="export-spell-icon" style="${iconStyle(d.icon, idx+1, 24)}"></div>
         <div class="export-spell-name">${sp.name}</div>
-        <div class="export-spell-rank">${isPassive ? 'Pasiva' : `Nv.${rank}/5`}</div>
+        <div class="export-spell-rank">${isPassive ? `Pasiva · Nv.${rank}/5` : `Nv.${rank}/5`}</div>
         ${manaTag}
       </div>`;
     });
