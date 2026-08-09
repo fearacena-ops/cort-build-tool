@@ -222,6 +222,10 @@
   .export-disc-lvl{font-family:var(--font-mono);font-size:11px;color:var(--bronze);}
   .export-spells{display:flex;flex-wrap:wrap;gap:8px;}
   .export-spell{display:flex;align-items:center;gap:7px;background:var(--bg-1);border:1px solid var(--line);border-radius:20px;padding:4px 12px 4px 4px;}
+  .export-spell.is-passive{border-color:#33d6ff;background:rgba(51,214,255,0.08);}
+  .export-spell.is-passive .export-spell-name{color:#33d6ff;}
+  .export-spell.is-passive .export-spell-rank{color:#33d6ff;font-weight:600;}
+  .export-spell-mana{font-family:var(--font-mono);font-size:10px;color:var(--ink-faint);white-space:nowrap;}
   .export-spell-icon{width:24px;height:24px;border-radius:5px;background-repeat:no-repeat;flex-shrink:0;}
   .export-spell-name{font-size:12px;color:var(--ink-dim);}
   .export-spell-rank{font-family:var(--font-mono);font-size:10.5px;color:var(--bronze);}

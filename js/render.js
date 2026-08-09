@@ -266,10 +266,18 @@ function buildExportCardFromBuild(buildLike, level, titleSub, customName){
       html += `<div class="export-empty">Sin puntos de poder asignados todavía</div>`;
     }
     spentSpells.forEach(({sp, idx, rank})=>{
-      html += `<div class="export-spell">
+      const isPassive = sp.type === 'Passive';
+      let manaTag = '';
+      if(!isPassive && sp.mana != null){
+        const manaArr = Array.isArray(sp.mana) ? sp.mana : [sp.mana];
+        const manaVal = manaArr[Math.min(rank, manaArr.length) - 1];
+        manaTag = `<div class="export-spell-mana">${manaVal} maná</div>`;
+      }
+      html += `<div class="export-spell${isPassive ? ' is-passive' : ''}">
         <div class="export-spell-icon" style="${iconStyle(d.icon, idx+1, 24)}"></div>
         <div class="export-spell-name">${sp.name}</div>
-        <div class="export-spell-rank">Nv.${rank}/5</div>
+        <div class="export-spell-rank">${isPassive ? 'Pasiva' : `Nv.${rank}/5`}</div>
+        ${manaTag}
       </div>`;
     });
     html += `</div></div>`;
