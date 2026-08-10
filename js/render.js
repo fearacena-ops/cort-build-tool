@@ -23,11 +23,11 @@ function iconStyle(discKey, spellpos, boxSize){
   return `background-image:url(${ICONS_BASE_PATH}/${discKey}.webp);background-size:${sheetW}px ${sheetH}px;background-position:${off}px 0px;background-repeat:no-repeat;`;
 }
 
-function tagLabel(role){ return {dps:"DPS", tank:"Tanque", healer_self:"Curador (Personal)", healer_ally:"Curador (Aliado)", healer_pet:"Curador (Mascota)", support:"Soporte", cc:"Control", mobility:"Movilidad"}[role] || role; }
+function tagLabel(role){ return VOCAB.rolGrande[role] || role; }
 function roleTags(sp){
   return (sp.cat||[]).map(r=> `<span class="tag ${r}">${tagLabel(r)}</span>`).join('');
 }
-const ROLE_LABEL = {dps:"DPS", tank:"Tanque", healer:"Curador", support:"Buffer / Debuffer", cc:"Control de masas", offtank:"Off-Tank", offhealer:"Off-Healer"};
+const ROLE_LABEL = VOCAB.rolSeleccionableLabel;
 
 const TYPE_LABEL = {Passive:"Pasivo", Constant:"Constante", Direct:"Directo", Activable:"Activable", Aura:"Aura"};
 const GCD_LABEL = {"Very Short":"Muy corto", "Short":"Corto", "Normal":"Normal", "Long":"Largo", "Very Long":"Muy largo"};
@@ -152,15 +152,10 @@ function renderTabbedDiscs(build){
   panes += `</div>`;
   return `<div class="tabframe">${rail}${panes}</div>`;
 }
-const CONTENIDO_ABBR = {
-  'PvP':'PVP', 'PvE':'PVE', 'RvR':'RVR',
-  'Grupo PvE':'GPVE', 'Grupo PvP':'GPVP',
-  'Leveo PvE':'LPVE', 'Leveo grupo PvE':'LGPVE',
-};
 function flagChips(sp){
   const cont = sp.contenidoPrincipal || [];
   if(!cont.length) return '';
-  const out = cont.map(c=> `<span class="flagchip" title="${c}">${CONTENIDO_ABBR[c] || c}</span>`).join('');
+  const out = cont.map(c=> `<span class="flagchip" title="${c}">${VOCAB.contenidoAbreviaturas[c] || c}</span>`).join('');
   return `<div class="flagchips">${out}</div>`;
 }
 function selectDiscTab(btn, uid, idx){

@@ -48,27 +48,20 @@ function lockedByWeapon(weaponChoice){
 }
 
 /* =================== SCORING ENGINE (Tabs A & B) =================== */
-// Whether a spell fits a selectable role — mostly a direct check against
-// its own cat, plus a couple of broader "assists the main tank/healer" nets
-// for Off-Tank/Off-Healer that also catch support/control spells whose
-// primary tag is something else, as long as their actual effect (mitigation,
-// cleanse, crowd control) protects or backs up teammates.
+// Whether a spell fits a selectable role — interpreta las reglas de
+// VOCAB.reglasRolSeleccionable (ver vocabulario.js). Agregar o ajustar un
+// rol es cuestión de editar esas reglas, no esta función.
 function roleMatches(sp, role){
   if(!role) return false;
+  const rules = VOCAB.reglasRolSeleccionable[role];
+  if(!rules) return false;
   const cat = sp.cat || [];
   const funcs = sp.funciones || [];
-  switch(role){
-    case 'dps': return cat.includes('dps');
-    case 'tank': return cat.includes('tank');
-    case 'healer': return cat.includes('healer_self') || cat.includes('healer_ally') || cat.includes('healer_pet');
-    case 'support': return cat.includes('support');
-    case 'cc': return cat.includes('cc');
-    case 'offtank': return cat.includes('cc') ||
-      (cat.includes('support') && funcs.some(f=> ['Mitigación / absorción','Anti-control','Amenaza / agro'].includes(f)));
-    case 'offhealer': return cat.includes('healer_ally') ||
-      (cat.includes('support') && funcs.includes('Disipación / limpieza'));
-    default: return false;
-  }
+  return rules.some(rule=>{
+    if(!rule.cat.some(c=> cat.includes(c))) return false;
+    if(rule.funciones) return funcs.some(f=> rule.funciones.includes(f));
+    return true;
+  });
 }
 function spellScore(name, sp, ctx){
   let s = ctx.base(sp);
