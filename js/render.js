@@ -68,9 +68,12 @@ function buildSpellDetailHTML(name, sp, idx, dlvl, rank){
     const isPrimary = tag === '+'+CLASS.primaryAttribute;
     html += `<div class="sd-attr${isPrimary?' sd-attr-primary':''}">Atributo ${tag}</div>`;
   });
-  if(sp.blockable100) html += `<div class="sd-warn">Bloqueable 100%</div>`;
-  if(sp.resistible100) html += `<div class="sd-warn">Resistible 100%</div>`;
   html += `</div>`;
+  const notes = [];
+  if(sp.weaponInterval) notes.push('Afectado por intervalo de arma');
+  if(sp.blockable100) notes.push('Sólo bloqueable al 100%');
+  if(sp.resistible100) notes.push('Sólo resistible al 100%');
+  if(notes.length) html += `<div class="sd-notes">${notes.map(n=>`<div>${n}</div>`).join('')}</div>`;
   if((sp.funciones||[]).length) html += `<div class="sd-funcs">${sp.funciones.map(f=>`<span class="sd-func">${f}</span>`).join('')}</div>`;
   if(sp.commonRank) html += `<div class="sd-community">La comunidad suele dejarla en rango ${sp.commonRank}/5</div>`;
   const fixed = [];
