@@ -33,12 +33,12 @@ const TYPE_LABEL = {Passive:"Pasivo", Constant:"Constante", Direct:"Directo", Ac
 const GCD_LABEL = {"Very Short":"Muy corto", "Short":"Corto", "Normal":"Normal", "Long":"Largo", "Very Long":"Muy largo"};
 function buildDetailTable(sp, rank, cap){
   const rows = [];
-  if(sp.mana != null) rows.push({label:'Maná', value:sp.mana});
-  if(sp.duration != null) rows.push({label:'Duración (s)', value:sp.duration});
-  (sp.damage||[]).forEach(e=> rows.push({label:e.label, value:e.value}));
-  (sp.debuffs||[]).forEach(e=> rows.push({label:e.label, value:e.value}));
-  (sp.buffs||[]).forEach(e=> rows.push({label:e.label, value:e.value}));
-  const tabular = rows.filter(r=> Array.isArray(r.value) || typeof r.value === 'number');
+  if(sp.mana != null) rows.push({label:'Maná', value:sp.mana, kind:'neutral'});
+  if(sp.duration != null) rows.push({label:'Duración (s)', value:sp.duration, kind:'neutral'});
+  (sp.damage||[]).forEach(e=> rows.push({label:e.label, value:e.value, kind:'damage'}));
+  (sp.debuffs||[]).forEach(e=> rows.push({label:e.label, value:e.value, kind:'debuff'}));
+  (sp.buffs||[]).forEach(e=> rows.push({label:e.label, value:e.value, kind:'buff'}));
+  const tabular = rows.filter(r=> r.value !== null && r.value !== undefined);
   if(tabular.length===0) return '';
   let html = `<table class="detail-table"><thead><tr><th style="width:34%"></th>`;
   for(let r=1;r<=MAXPLEVEL;r++){
@@ -48,10 +48,11 @@ function buildDetailTable(sp, rank, cap){
   html += `</tr></thead><tbody>`;
   tabular.forEach(row=>{
     const arr = Array.isArray(row.value) ? row.value : [row.value,row.value,row.value,row.value,row.value];
-    html += `<tr><th class="rowlabel">${row.label}</th>`;
+    html += `<tr class="row-${row.kind}"><th class="rowlabel">${row.label}</th>`;
     for(let r=1;r<=MAXPLEVEL;r++){
       const cls = r===rank ? 'cur' : (r>cap ? 'locked' : '');
-      html += `<td class="${cls}">${arr[Math.min(r,arr.length)-1]}</td>`;
+      const val = arr[Math.min(r,arr.length)-1];
+      html += `<td class="${cls}">${val === true ? 'Sí' : val}</td>`;
     }
     html += `</tr>`;
   });
@@ -69,7 +70,6 @@ function buildSpellDetailHTML(name, sp, idx, dlvl, rank){
   });
   if(sp.blockable100) html += `<div class="sd-warn">Bloqueable 100%</div>`;
   if(sp.resistible100) html += `<div class="sd-warn">Resistible 100%</div>`;
-  if(sp.selfDebuff) html += `<div class="sd-cost">Tiene costo propio</div>`;
   html += `</div>`;
   if((sp.funciones||[]).length) html += `<div class="sd-funcs">${sp.funciones.map(f=>`<span class="sd-func">${f}</span>`).join('')}</div>`;
   if(sp.commonRank) html += `<div class="sd-community">La comunidad suele dejarla en rango ${sp.commonRank}/5</div>`;
