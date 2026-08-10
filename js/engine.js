@@ -48,13 +48,33 @@ function lockedByWeapon(weaponChoice){
 }
 
 /* =================== SCORING ENGINE (Tabs A & B) =================== */
+// Whether a spell fits a selectable role — mostly a direct check against
+// its own cat, plus a couple of broader "assists the main tank/healer" nets
+// for Off-Tank/Off-Healer that also catch support/control spells whose
+// primary tag is something else, as long as their actual effect (mitigation,
+// cleanse, crowd control) protects or backs up teammates.
+function roleMatches(sp, role){
+  if(!role) return false;
+  const cat = sp.cat || [];
+  const funcs = sp.funciones || [];
+  switch(role){
+    case 'dps': return cat.includes('dps');
+    case 'tank': return cat.includes('tank');
+    case 'healer': return cat.includes('healer_self') || cat.includes('healer_ally') || cat.includes('healer_pet');
+    case 'support': return cat.includes('support');
+    case 'cc': return cat.includes('cc');
+    case 'offtank': return cat.includes('cc') ||
+      (cat.includes('support') && funcs.some(f=> ['Mitigación / absorción','Anti-control','Amenaza / agro'].includes(f)));
+    case 'offhealer': return cat.includes('healer_ally') ||
+      (cat.includes('support') && funcs.includes('Disipación / limpieza'));
+    default: return false;
+  }
+}
 function spellScore(name, sp, ctx){
   let s = ctx.base(sp);
   if(sp.aoe) s += ctx.aoeBonus||0;
   if(sp.group) s += ctx.groupBonus||0;
   if(sp.rvr) s += ctx.rvrBonus||0;
-  if(ctx.role && sp.roles && sp.roles.includes(ctx.role)) s += ctx.roleBonus||1.4;
-  if(ctx.priorityDiscipline && name === ctx.priorityDiscipline) s += ctx.priorityBonus||1.5;
   const sig = CLASS.signatureSoloSpell;
   if(ctx.petBoost && sig && name === sig.discipline && sp.name === sig.spellName) s += ctx.petBoost;
   if(ctx.soloSustainBonus && sp.soloSustain) s += ctx.soloSustainBonus;
@@ -72,6 +92,17 @@ function spellScore(name, sp, ctx){
   // free than an equivalent skill without that cost — a flat, always-on
   // penalty, since the trade-off exists regardless of context.
   if(sp.selfDebuff) s -= 0.3;
+
+  // The chosen role scales the spell's intrinsic quality computed so far —
+  // clearly fitting spells become much more attractive, everything else
+  // takes a soft discount rather than being written off. Applied surgically:
+  // this happens BEFORE the priority-discipline bonus below, so choosing a
+  // discipline to focus on stays an independent, unamplified nudge instead
+  // of being multiplied along with the role match.
+  if(ctx.role){
+    s *= roleMatches(sp, ctx.role) ? (ctx.roleMultiplier||1.8) : (ctx.rolePenalty||0.9);
+  }
+  if(ctx.priorityDiscipline && name === ctx.priorityDiscipline) s += ctx.priorityBonus||1.5;
   return Math.max(0, s);
 }
 function discScoreOf(name, ctx){
@@ -260,7 +291,8 @@ function ctxCustom(opts){
     base: sp=> baseMap[opts.context](sp) + contenidoBonus(sp, wantedContent),
     ...bonusMap[opts.context],
     role: opts.role || null,
-    roleBonus: 1.4,
+    roleMultiplier: 1.8,
+    rolePenalty: 0.9,
     priorityDiscipline: opts.priorityDiscipline || null,
     priorityBonus: 1.5,
     weaponChoice: opts.weaponChoice,

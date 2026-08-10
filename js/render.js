@@ -27,7 +27,7 @@ function tagLabel(role){ return {dps:"DPS", tank:"Tanque", healer_self:"Curador 
 function roleTags(sp){
   return (sp.cat||[]).map(r=> `<span class="tag ${r}">${tagLabel(r)}</span>`).join('');
 }
-const ROLE_LABEL = {dps:"DPS", cc:"Control", support:"Apoyo", tank:"Tanque", flanker:"Flanqueador"};
+const ROLE_LABEL = {dps:"DPS", tank:"Tanque", healer:"Curador", support:"Buffer / Debuffer", cc:"Control de masas", offtank:"Off-Tank", offhealer:"Off-Healer"};
 
 const TYPE_LABEL = {Passive:"Pasivo", Constant:"Constante", Direct:"Directo", Activable:"Activable", Aura:"Aura"};
 const GCD_LABEL = {"Very Short":"Muy corto", "Short":"Corto", "Normal":"Normal", "Long":"Largo", "Very Long":"Muy largo"};
