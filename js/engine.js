@@ -54,7 +54,7 @@ function spellScore(name, sp, ctx){
   if(sp.group) s += ctx.groupBonus||0;
   if(sp.rvr) s += ctx.rvrBonus||0;
   if(ctx.role && sp.roles && sp.roles.includes(ctx.role)) s += ctx.roleBonus||1.4;
-  if(ctx.priorityDiscipline && name === ctx.priorityDiscipline) s += ctx.priorityBonus||3;
+  if(ctx.priorityDiscipline && name === ctx.priorityDiscipline) s += ctx.priorityBonus||1.5;
   const sig = CLASS.signatureSoloSpell;
   if(ctx.petBoost && sig && name === sig.discipline && sp.name === sig.spellName) s += ctx.petBoost;
   if(ctx.soloSustainBonus && sp.soloSustain) s += ctx.soloSustainBonus;
@@ -262,7 +262,7 @@ function ctxCustom(opts){
     role: opts.role || null,
     roleBonus: 1.4,
     priorityDiscipline: opts.priorityDiscipline || null,
-    priorityBonus: 3,
+    priorityBonus: 1.5,
     weaponChoice: opts.weaponChoice,
   };
 }
