@@ -80,6 +80,7 @@ function spellScore(name, sp, ctx){
   if(ctx.soloSustainBonus && sp.soloSustain) s += ctx.soloSustainBonus;
   if(ctx.soloPersonalBonus && sp.soloPersonal) s += ctx.soloPersonalBonus;
   if(ctx.soloDefenseBonus && sp.cat && sp.cat.includes('tank')) s += ctx.soloDefenseBonus;
+  if(ctx.auraBonus && sp.type === 'Aura') s += ctx.auraBonus;
   // A modest, context-independent bump for spells that buff the class's own
   // primary attribute (Destreza for Archer, Fuerza for Barbarian, etc.) —
   // that stat compounds into everything the character does, so it's worth
@@ -109,7 +110,7 @@ function discScoreOf(name, ctx){
   return CLASS.disciplines[name].spells.reduce((sum,sp)=> sum + spellScore(name, sp, ctx), 0);
 }
 function computeBuild(level, ctx, prevBuild, useNaturalDepth){
-  if(useNaturalDepth === undefined) useNaturalDepth = true;
+  if(useNaturalDepth === undefined) useNaturalDepth = false;
   const dpBudget = totalDP(level);
   const ppBudget = totalPP(level);
   const wmUnlocked = level >= MAXCHARLEVEL;
@@ -267,6 +268,11 @@ function ctxLeveling(mode, weaponChoice){
     soloSustainBonus: solo ? 1.5 : 0,
     soloPersonalBonus: solo ? 1 : 0,
     soloDefenseBonus: solo ? 0.6 : 0,
+    // Auras keep granting passive assist-XP just by fighting near an ally,
+    // even solo — but they shine more once there's an actual group around
+    // to stand in them, which is exactly the setup War Zone quests (from
+    // level 40 on) reward. Worth a real push in group, a smaller one solo.
+    auraBonus: mode==='group' ? 2 : 2,
     weaponChoice
   };
 }

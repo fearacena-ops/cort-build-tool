@@ -254,7 +254,7 @@ function renderCustomBuild(scroll){
   const context = getChoiceValue('pb-context');
   const role = getChoiceValue('pb-role');
   const priorityDiscipline = prioritySelect.value || null;
-  const build = computeBuild(level, ctxCustom({weaponChoice, context, role, priorityDiscipline}));
+  const build = computeBuild(level, ctxCustom({weaponChoice, context, role, priorityDiscipline}), null, true);
   lastCustomBuild = build;
   const out = document.getElementById('pb-output');
   out.innerHTML = '';
@@ -314,7 +314,7 @@ function renderArchetypeSuggestions(){
 function applyArchetypeToManual(preset){
   const build = computeBuild(manualState.level, ctxCustom({
     context: preset.context, role: preset.role, priorityDiscipline: preset.priorityDiscipline
-  }));
+  }), null, true);
   manualState.dlvl = {...build.dlvl};
   manualState.ranks = {...build.ranks};
   expandedManualKeys.clear();
