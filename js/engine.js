@@ -86,13 +86,13 @@ function spellScore(name, sp, ctx){
   // that stat compounds into everything the character does, so it's worth
   // a little extra regardless of playstyle.
   if(CLASS.primaryAttribute && sp.attrTags && sp.attrTags.includes('+'+CLASS.primaryAttribute)){
-    s += 1.2;
+    s += WEIGHTS.atributoPrincipal;
   }
   // A skill that costs you something to use it (self-debuff trade-off, like
   // "Instancia ofensiva" trading protection for damage) is objectively less
   // free than an equivalent skill without that cost — a flat, always-on
   // penalty, since the trade-off exists regardless of context.
-  if(sp.selfDebuff) s -= 0.3;
+  if(sp.selfDebuff) s += WEIGHTS.costoPropio;
 
   // The chosen role scales the spell's intrinsic quality computed so far —
   // clearly fitting spells become much more attractive, everything else
@@ -101,9 +101,9 @@ function spellScore(name, sp, ctx){
   // discipline to focus on stays an independent, unamplified nudge instead
   // of being multiplied along with the role match.
   if(ctx.role){
-    s *= roleMatches(sp, ctx.role) ? (ctx.roleMultiplier||1.8) : (ctx.rolePenalty||0.9);
+    s *= roleMatches(sp, ctx.role) ? (ctx.roleMultiplier||WEIGHTS.rolElegido.multiplicadorCoincide) : (ctx.rolePenalty||WEIGHTS.rolElegido.multiplicadorNoCoincide);
   }
-  if(ctx.priorityDiscipline && name === ctx.priorityDiscipline) s += ctx.priorityBonus||1.5;
+  if(ctx.priorityDiscipline && name === ctx.priorityDiscipline) s += ctx.priorityBonus||WEIGHTS.disciplinaPrioritaria;
   return Math.max(0, s);
 }
 function discScoreOf(name, ctx){
@@ -152,13 +152,8 @@ function computeBuild(level, ctx, prevBuild, useNaturalDepth){
   // across everything just because early levels in any tree are cheap.
   const openScores = DISC_NAMES.filter(n=>!locked.has(n)).map(n=>discScore[n]);
   const maxScore = openScores.length ? Math.max(...openScores) : 0;
-  const PRUNE_RATIO = 0.25; // was 0.45 — too aggressive, could drop a whole
-  // discipline (e.g. Trucos, Evasión for Hunter) even when it holds a spell
-  // clearly worth taking on its own.
-  const MIN_INDIVIDUAL_SCORE = 4.5; // ~90th percentile of real individual
-  // spell scores — high enough to mean "genuinely strong on its own", not
-  // the flat 8 first suggested, which sits above the highest score any
-  // spell reaches without an explicit priority bonus and would never fire.
+  const PRUNE_RATIO = WEIGHTS.seleccionDisciplinas.ratioPoda;
+  const MIN_INDIVIDUAL_SCORE = WEIGHTS.seleccionDisciplinas.puntajeMinimoIndividual;
   const pruned = new Set(locked);
   DISC_NAMES.forEach(n=>{
     if(locked.has(n)) return;
@@ -254,27 +249,28 @@ function computeBuild(level, ctx, prevBuild, useNaturalDepth){
 // covers gaps that a 0-3 scale is too coarse to capture on its own.
 function contenidoBonus(sp, wantedTags){
   if(!wantedTags || !wantedTags.length) return 0;
-  if((sp.contenidoPrincipal||[]).some(t=> wantedTags.includes(t))) return 1.2;
-  if((sp.contenidoSecundario||[]).some(t=> wantedTags.includes(t))) return 0.5;
+  if((sp.contenidoPrincipal||[]).some(t=> wantedTags.includes(t))) return WEIGHTS.contenido.principal;
+  if((sp.contenidoSecundario||[]).some(t=> wantedTags.includes(t))) return WEIGHTS.contenido.secundario;
   return 0;
 }
 function ctxLeveling(mode, weaponChoice){
   const solo = mode==='solo';
   const wantedContent = solo ? ['Leveo PvE'] : ['Leveo grupo PvE', 'Leveo PvE'];
+  const w = WEIGHTS.leveo;
   return {
     base: sp=> sp.lvl + contenidoBonus(sp, wantedContent),
-    aoeBonus: mode==='group' ? 1.5 : 0,
-    groupBonus: mode==='group' ? 0.5 : 0,
+    aoeBonus: mode==='group' ? w.aoeEnGrupo : 0,
+    groupBonus: mode==='group' ? w.utilidadGrupal : 0,
     rvrBonus: 0,
     petBoost: (solo && CLASS.signatureSoloSpell) ? CLASS.signatureSoloSpell.boost : 0,
-    soloSustainBonus: solo ? 1.5 : 0,
-    soloPersonalBonus: solo ? 1 : 0,
-    soloDefenseBonus: solo ? 0.6 : 0,
+    soloSustainBonus: solo ? w.sostenSolo : 0,
+    soloPersonalBonus: solo ? w.personalSolo : 0,
+    soloDefenseBonus: solo ? w.defensaSolo : 0,
     // Auras keep granting passive assist-XP just by fighting near an ally,
     // even solo — but they shine more once there's an actual group around
     // to stand in them, which is exactly the setup War Zone quests (from
     // level 40 on) reward. Worth a real push in group, a smaller one solo.
-    auraBonus: mode==='group' ? 2 : 2,
+    auraBonus: w.aura,
     weaponChoice
   };
 }
@@ -287,22 +283,23 @@ function ctxCustom(opts){
     group_pve: ['Grupo PvE'], solo_pve: ['PvE'],
     group_pvp: ['Grupo PvP'], solo_pvp: ['PvP'], rvr: ['RvR'],
   };
+  const bm = WEIGHTS.buildAMedida;
   const bonusMap = {
-    group_pve: {aoeBonus:1.5, groupBonus:1, rvrBonus:0},
-    solo_pve: {aoeBonus:0, groupBonus:0, rvrBonus:0},
-    group_pvp: {aoeBonus:1, groupBonus:1.5, rvrBonus:0},
-    solo_pvp: {aoeBonus:0, groupBonus:0, rvrBonus:0},
-    rvr: {aoeBonus:1, groupBonus:1, rvrBonus:2},
+    group_pve: {aoeBonus:bm.grupo_pve.area, groupBonus:bm.grupo_pve.grupo, rvrBonus:bm.grupo_pve.rvr},
+    solo_pve: {aoeBonus:bm.solo_pve.area, groupBonus:bm.solo_pve.grupo, rvrBonus:bm.solo_pve.rvr},
+    group_pvp: {aoeBonus:bm.grupo_pvp.area, groupBonus:bm.grupo_pvp.grupo, rvrBonus:bm.grupo_pvp.rvr},
+    solo_pvp: {aoeBonus:bm.solo_pvp.area, groupBonus:bm.solo_pvp.grupo, rvrBonus:bm.solo_pvp.rvr},
+    rvr: {aoeBonus:bm.rvr.area, groupBonus:bm.rvr.grupo, rvrBonus:bm.rvr.rvr},
   };
   const wantedContent = contentMap[opts.context];
   return {
     base: sp=> baseMap[opts.context](sp) + contenidoBonus(sp, wantedContent),
     ...bonusMap[opts.context],
     role: opts.role || null,
-    roleMultiplier: 1.8,
-    rolePenalty: 0.9,
+    roleMultiplier: WEIGHTS.rolElegido.multiplicadorCoincide,
+    rolePenalty: WEIGHTS.rolElegido.multiplicadorNoCoincide,
     priorityDiscipline: opts.priorityDiscipline || null,
-    priorityBonus: 1.5,
+    priorityBonus: WEIGHTS.disciplinaPrioritaria,
     weaponChoice: opts.weaponChoice,
   };
 }
