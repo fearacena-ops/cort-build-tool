@@ -110,7 +110,7 @@ function discScoreOf(name, ctx){
   return CLASS.disciplines[name].spells.reduce((sum,sp)=> sum + spellScore(name, sp, ctx), 0);
 }
 function computeBuild(level, ctx, prevBuild, useNaturalDepth){
-  if(useNaturalDepth === undefined) useNaturalDepth = false;
+  if(useNaturalDepth === undefined) useNaturalDepth = true;
   const dpBudget = totalDP(level);
   const ppBudget = totalPP(level);
   const wmUnlocked = level >= MAXCHARLEVEL;
@@ -211,16 +211,18 @@ function computeBuild(level, ctx, prevBuild, useNaturalDepth){
   // "typical" investment depth the community converges on (commonRank, from
   // real level-60 setups). Bring each spell up to that depth first, in score
   // order, before pushing anything further toward its hard cap.
-  // Only applied for one-shot snapshot builds (Build a medida, archetypes):
-  // applying it at every step of an incremental leveling sequence causes
-  // budget to trickle into low-priority spells far too early, since top
-  // spells' modest "typical" targets get satisfied almost immediately and
-  // every subsequent level's small increment then flows further down the
-  // list instead of continuing to push the spells that actually matter.
+  // One deliberate exception: the class's signature solo spell (e.g. Dominio
+  // natural for Hunter) targets its real cap here instead of commonRank —
+  // it's the one skill worth maxing ahead of "typical" community depth, not
+  // an excuse to max out everything else in its discipline at the expense
+  // of the rest (that's what broke Cólera bestial's usual modest investment
+  // the last time this got tuned too bluntly).
   if(useNaturalDepth){
+    const sig = ctx.petBoost && CLASS.signatureSoloSpell;
     for(const entry of spellPool){
       if(ppLeft<=0) break;
-      const target = Math.min(entry.cap, entry.sp.commonRank || entry.cap);
+      const isSignature = sig && entry.disc===sig.discipline && entry.sp.name===sig.spellName;
+      const target = isSignature ? entry.cap : Math.min(entry.cap, entry.sp.commonRank || entry.cap);
       if(entry.rank >= target) continue;
       const fill = Math.min(target - entry.rank, ppLeft);
       entry.rank += fill;
