@@ -240,8 +240,8 @@
        "duration": null,
        "type": "Direct",
        "aoe": false,
-       "group": false,
-       "rvr": false,
+       "group": true,
+       "rvr": true,
        "roles": [
         "dps"
        ],
@@ -282,24 +282,25 @@
         "Leveo PvE",
         "Grupo PvP",
         "Grupo PvE",
-        "Leveo grupo PvE"
+        "Leveo grupo PvE",
+        "RvR"
        ],
        "funciones": [
-        "Buff",
-        "DPS"
+        "Self_buffer",
+        "DPS_cortante"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "PvP",
         "PvE",
-        "Leveo PvE"
-       ],
-       "contenidoSecundario": [
+        "Leveo PvE",
         "Grupo PvP",
         "Grupo PvE",
-        "Leveo grupo PvE"
+        "Leveo grupo PvE",
+        "RvR"
        ],
+       "contenidoSecundario": [],
        "selfDebuff": false,
        "weaponInterval": false
       },
@@ -360,12 +361,12 @@
         "PvE",
         "Leveo PvE",
         "Grupo PvP",
-        "Grupo PvE"
+        "Grupo PvE",
+        "RvR",
+        "Leveo grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Crítico / burst",
-        "Debuff"
+        "Self_debuff"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -376,7 +377,9 @@
        ],
        "contenidoSecundario": [
         "Grupo PvP",
-        "Grupo PvE"
+        "Grupo PvE",
+        "RvR",
+        "Leveo grupo PvE"
        ],
        "selfDebuff": true,
        "weaponInterval": false
@@ -411,7 +414,7 @@
        "type": "Constant",
        "aoe": false,
        "group": true,
-       "rvr": false,
+       "rvr": true,
        "roles": [
         "cc"
        ],
@@ -445,23 +448,25 @@
         "Grupo PvP",
         "PvE",
         "Grupo PvE",
+        "RvR",
+        "Leveo grupo PvE",
         "Leveo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Control",
-        "Control de masas",
+        "Self_buffer",
         "Debuff"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "PvP",
-        "Grupo PvP"
-       ],
-       "contenidoSecundario": [
+        "Grupo PvP",
         "PvE",
         "Grupo PvE",
+        "RvR"
+       ],
+       "contenidoSecundario": [
+        "Leveo grupo PvE",
         "Leveo PvE"
        ],
        "selfDebuff": false,
@@ -470,8 +475,7 @@
       {
        "name": "Ligereza",
        "cat": [
-        "dps",
-        "mobility"
+        "dps"
        ],
        "lvl": 2,
        "pvp": 1,
@@ -484,8 +488,8 @@
        "duration": null,
        "type": "Passive",
        "aoe": false,
-       "group": false,
-       "rvr": false,
+       "group": true,
+       "rvr": true,
        "roles": [
         "flanker"
        ],
@@ -516,22 +520,25 @@
         "PvE",
         "Leveo PvE",
         "Grupo PvP",
-        "Grupo PvE"
+        "Grupo PvE",
+        "Leveo grupo PvE",
+        "RvR"
        ],
        "funciones": [
-        "Buff"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "PvP",
         "PvE",
-        "Leveo PvE"
-       ],
-       "contenidoSecundario": [
+        "Leveo PvE",
         "Grupo PvP",
-        "Grupo PvE"
+        "Grupo PvE",
+        "Leveo grupo PvE",
+        "RvR"
        ],
+       "contenidoSecundario": [],
        "selfDebuff": false,
        "weaponInterval": false
       },
@@ -596,10 +603,11 @@
         "RvR",
         "Grupo PvE",
         "PvE",
-        "Leveo PvE"
+        "Leveo PvE",
+        "Leveo grupo PvE"
        ],
        "funciones": [
-        "Buff"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -607,11 +615,12 @@
         "PvP",
         "Grupo PvP",
         "RvR",
-        "Grupo PvE"
+        "Grupo PvE",
+        "PvE"
        ],
        "contenidoSecundario": [
-        "PvE",
-        "Leveo PvE"
+        "Leveo PvE",
+        "Leveo grupo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -644,8 +653,8 @@
        ],
        "type": "Constant",
        "aoe": false,
-       "group": false,
-       "rvr": false,
+       "group": true,
+       "rvr": true,
        "roles": [
         "flanker"
        ],
@@ -666,25 +675,24 @@
        "contenido": [
         "PvP",
         "PvE",
-        "Leveo PvE",
+        "Grupo PvE",
         "Grupo PvP",
-        "Grupo PvE"
+        "RvR"
        ],
        "funciones": [
-        "Buff",
-        "Crítico / burst"
+        "Self_buffer",
+        "Burst"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "PvP",
         "PvE",
-        "Leveo PvE"
-       ],
-       "contenidoSecundario": [
+        "Grupo PvE",
         "Grupo PvP",
-        "Grupo PvE"
+        "RvR"
        ],
+       "contenidoSecundario": [],
        "selfDebuff": false,
        "weaponInterval": false
       },
@@ -716,8 +724,8 @@
        ],
        "type": "Constant",
        "aoe": false,
-       "group": false,
-       "rvr": false,
+       "group": true,
+       "rvr": true,
        "roles": [
         "dps"
        ],
@@ -744,25 +752,23 @@
        "contenido": [
         "PvP",
         "PvE",
-        "Leveo PvE",
+        "Grupo PvE",
         "Grupo PvP",
-        "Grupo PvE"
+        "RvR"
        ],
        "funciones": [
-        "DPS",
-        "Daño prolongado"
+        "DoT"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "PvP",
         "PvE",
-        "Leveo PvE"
-       ],
-       "contenidoSecundario": [
+        "Grupo PvE",
         "Grupo PvP",
-        "Grupo PvE"
+        "RvR"
        ],
+       "contenidoSecundario": [],
        "selfDebuff": false,
        "weaponInterval": false
       },
@@ -812,11 +818,12 @@
         "PvE",
         "Leveo PvE",
         "Grupo PvP",
-        "Grupo PvE"
+        "Grupo PvE",
+        "RvR",
+        "Leveo grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Crítico / burst"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -827,7 +834,9 @@
        ],
        "contenidoSecundario": [
         "Grupo PvP",
-        "Grupo PvE"
+        "Grupo PvE",
+        "RvR",
+        "Leveo grupo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -893,15 +902,13 @@
         "Grupo PvP",
         "RvR",
         "Grupo PvE",
-        "Leveo grupo PvE",
         "PvP",
-        "PvE"
+        "PvE",
+        "Leveo grupo PvE"
        ],
        "funciones": [
-        "Control",
-        "Control de masas",
         "Debuff",
-        "Área / AoE"
+        "Area/AoE"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -909,11 +916,11 @@
         "Grupo PvP",
         "RvR",
         "Grupo PvE",
-        "Leveo grupo PvE"
-       ],
-       "contenidoSecundario": [
         "PvP",
         "PvE"
+       ],
+       "contenidoSecundario": [
+        "Leveo grupo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -973,25 +980,26 @@
         "Grupo PvP",
         "RvR",
         "Grupo PvE",
-        "Leveo grupo PvE",
         "PvP",
-        "PvE"
+        "PvE",
+        "Leveo grupo PvE"
        ],
        "funciones": [
-        "DPS",
-        "Área / AoE"
+        "Self_buffer",
+        "Area/AoE",
+        "DPS_punzante"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "Grupo PvP",
         "RvR",
-        "Grupo PvE",
-        "Leveo grupo PvE"
+        "Grupo PvE"
        ],
        "contenidoSecundario": [
         "PvP",
-        "PvE"
+        "PvE",
+        "Leveo grupo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -1026,7 +1034,7 @@
        "type": "Direct",
        "aoe": false,
        "group": true,
-       "rvr": false,
+       "rvr": true,
        "roles": [
         "dps"
        ],
@@ -1052,35 +1060,35 @@
        "attrTags": [],
        "contenido": [
         "PvP",
-        "Grupo PvP",
         "PvE",
-        "Grupo PvE",
         "Leveo PvE",
-        "Leveo grupo PvE"
+        "Grupo PvP",
+        "Grupo PvE",
+        "Leveo grupo PvE",
+        "RvR"
        ],
        "funciones": [
-        "DPS",
-        "Defensa"
+        "Self_buffer"
        ],
        "blockable100": true,
        "resistible100": false,
        "contenidoPrincipal": [
         "PvP",
-        "Grupo PvP",
         "PvE",
-        "Grupo PvE"
-       ],
-       "contenidoSecundario": [
         "Leveo PvE",
-        "Leveo grupo PvE"
+        "Grupo PvP",
+        "Grupo PvE",
+        "Leveo grupo PvE",
+        "RvR"
        ],
+       "contenidoSecundario": [],
        "selfDebuff": false,
        "weaponInterval": false
       },
       {
        "name": "Tiro parabólico",
        "cat": [
-        "support"
+        "dps"
        ],
        "lvl": 2,
        "pvp": 2,
@@ -1105,8 +1113,8 @@
        ],
        "type": "Constant",
        "aoe": false,
-       "group": false,
-       "rvr": false,
+       "group": true,
+       "rvr": true,
        "roles": [
         "dps",
         "support"
@@ -1135,22 +1143,26 @@
         "PvP",
         "PvE",
         "Leveo PvE",
+        "RvR",
         "Grupo PvP",
-        "Grupo PvE"
+        "Leveo grupo PvE"
        ],
        "funciones": [
-        "Buff"
+        "DPS_ranged",
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "PvP",
         "PvE",
-        "Leveo PvE"
+        "Leveo PvE",
+        "RvR",
+        "Grupo PvP",
+        "Grupo PvP"
        ],
        "contenidoSecundario": [
-        "Grupo PvP",
-        "Grupo PvE"
+        "Leveo grupo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -1209,11 +1221,12 @@
         "PvE",
         "Leveo PvE",
         "Grupo PvP",
-        "Grupo PvE"
+        "Grupo PvE",
+        "RvR",
+        "Leveo grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Movilidad"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -1224,7 +1237,9 @@
        ],
        "contenidoSecundario": [
         "Grupo PvP",
-        "Grupo PvE"
+        "Grupo PvE",
+        "RvR",
+        "Leveo grupo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -1281,7 +1296,8 @@
         "Grupo PvP",
         "RvR",
         "PvE",
-        "Grupo PvE"
+        "Grupo PvE",
+        "Leveo grupo PvE"
        ],
        "funciones": [
         "Debuff"
@@ -1291,11 +1307,12 @@
        "contenidoPrincipal": [
         "PvP",
         "Grupo PvP",
-        "RvR"
-       ],
-       "contenidoSecundario": [
+        "RvR",
         "PvE",
         "Grupo PvE"
+       ],
+       "contenidoSecundario": [
+        "Leveo grupo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -1322,7 +1339,7 @@
        "duration": 20.0,
        "type": "Constant",
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "roles": [
         "dps"
@@ -1359,27 +1376,25 @@
        "commonRank": 4,
        "attrTags": [],
        "contenido": [
-        "PvP",
         "PvE",
-        "Leveo PvE",
+        "Grupo PvE",
+        "PvP",
         "Grupo PvP",
-        "Grupo PvE"
+        "RvR"
        ],
        "funciones": [
-        "Buff",
-        "Crítico / burst",
-        "Debuff"
+        "Self_debuff"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
-        "PvP",
         "PvE",
-        "Leveo PvE"
+        "Grupo PvE"
        ],
        "contenidoSecundario": [
+        "PvP",
         "Grupo PvP",
-        "Grupo PvE"
+        "RvR"
        ],
        "selfDebuff": true,
        "weaponInterval": false
@@ -1387,7 +1402,7 @@
       {
        "name": "Omnipresencia",
        "cat": [
-        "dps"
+        "support"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -1400,8 +1415,8 @@
        "duration": null,
        "type": "Passive",
        "aoe": false,
-       "group": false,
-       "rvr": false,
+       "group": true,
+       "rvr": true,
        "roles": [
         "dps"
        ],
@@ -1429,24 +1444,28 @@
        ],
        "contenido": [
         "PvP",
+        "Grupo PvP",
+        "RvR",
+        "Grupo PvE",
         "PvE",
         "Leveo PvE",
-        "Grupo PvP",
-        "Grupo PvE"
+        "Leveo grupo PvE"
        ],
        "funciones": [
-        "Buff"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "PvP",
-        "PvE",
-        "Leveo PvE"
+        "Grupo PvP",
+        "RvR",
+        "Grupo PvE",
+        "PvE"
        ],
        "contenidoSecundario": [
-        "Grupo PvP",
-        "Grupo PvE"
+        "Leveo PvE",
+        "Leveo grupo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -1473,8 +1492,8 @@
        "duration": 15.0,
        "type": "Constant",
        "aoe": false,
-       "group": false,
-       "rvr": false,
+       "group": true,
+       "rvr": true,
        "roles": [
         "dps"
        ],
@@ -1506,26 +1525,23 @@
        "contenido": [
         "PvP",
         "PvE",
-        "Leveo PvE",
         "Grupo PvP",
-        "Grupo PvE"
+        "Grupo PvE",
+        "RvR"
        ],
        "funciones": [
-        "DPS",
-        "Daño prolongado",
-        "Debuff"
+        "DoT"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "PvP",
         "PvE",
-        "Leveo PvE"
-       ],
-       "contenidoSecundario": [
         "Grupo PvP",
-        "Grupo PvE"
+        "Grupo PvE",
+        "RvR"
        ],
+       "contenidoSecundario": [],
        "selfDebuff": false,
        "weaponInterval": false
       },
@@ -1545,8 +1561,8 @@
        "duration": null,
        "type": "Passive",
        "aoe": false,
-       "group": false,
-       "rvr": false,
+       "group": true,
+       "rvr": true,
        "roles": [
         "dps"
        ],
@@ -1575,22 +1591,25 @@
         "PvE",
         "Leveo PvE",
         "Grupo PvP",
-        "Grupo PvE"
+        "Grupo PvE",
+        "Leveo grupo PvE",
+        "RvR"
        ],
        "funciones": [
-        "Buff"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "PvP",
         "PvE",
-        "Leveo PvE"
-       ],
-       "contenidoSecundario": [
+        "Leveo PvE",
         "Grupo PvP",
-        "Grupo PvE"
+        "Grupo PvE",
+        "Leveo grupo PvE",
+        "RvR"
        ],
+       "contenidoSecundario": [],
        "selfDebuff": false,
        "weaponInterval": false
       },
@@ -1617,7 +1636,7 @@
        "type": "Constant",
        "aoe": false,
        "group": true,
-       "rvr": false,
+       "rvr": true,
        "roles": [
         "cc"
        ],
@@ -1675,25 +1694,22 @@
         "PvP",
         "Grupo PvP",
         "PvE",
-        "Grupo PvE"
+        "Grupo PvE",
+        "RvR"
        ],
        "funciones": [
-        "Control",
-        "Control de masas",
-        "Debuff",
-        "Sigilo",
-        "Utilidad"
+        "Debuff"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "PvP",
-        "Grupo PvP"
-       ],
-       "contenidoSecundario": [
+        "Grupo PvP",
         "PvE",
-        "Grupo PvE"
+        "Grupo PvE",
+        "RvR"
        ],
+       "contenidoSecundario": [],
        "selfDebuff": false,
        "weaponInterval": false
       },
@@ -1752,26 +1768,25 @@
        "contenido": [
         "Grupo PvP",
         "RvR",
-        "Grupo PvE",
-        "Leveo grupo PvE",
         "PvP",
-        "PvE"
+        "PvE",
+        "Grupo PvE"
        ],
        "funciones": [
-        "DPS",
-        "Área / AoE"
+        "Area/AoE",
+        "DPS_punzante",
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "Grupo PvP",
-        "RvR",
-        "Grupo PvE",
-        "Leveo grupo PvE"
+        "RvR"
        ],
        "contenidoSecundario": [
         "PvP",
-        "PvE"
+        "PvE",
+        "Grupo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -1835,22 +1850,26 @@
         "Grupo PvP",
         "PvP",
         "PvE",
-        "Grupo PvE"
+        "Grupo PvE",
+        "Leveo PvE",
+        "Leveo grupo PvE",
+        "RvR"
        ],
        "funciones": [
-        "Control",
-        "Control de masas",
         "Debuff"
        ],
        "blockable100": true,
        "resistible100": false,
        "contenidoPrincipal": [
         "Grupo PvP",
-        "PvP"
-       ],
-       "contenidoSecundario": [
+        "PvP",
         "PvE",
         "Grupo PvE"
+       ],
+       "contenidoSecundario": [
+        "Leveo PvE",
+        "Leveo grupo PvE",
+        "RvR"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -1908,7 +1927,9 @@
         "Grupo PvP",
         "RvR",
         "PvE",
-        "Grupo PvE"
+        "Grupo PvE",
+        "Leveo PvE",
+        "Leveo grupo PvE"
        ],
        "funciones": [
         "Debuff"
@@ -1918,11 +1939,13 @@
        "contenidoPrincipal": [
         "PvP",
         "Grupo PvP",
-        "RvR"
-       ],
-       "contenidoSecundario": [
+        "RvR",
         "PvE",
         "Grupo PvE"
+       ],
+       "contenidoSecundario": [
+        "Leveo PvE",
+        "Leveo grupo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -1930,6 +1953,7 @@
       {
        "name": "Puño aturdidor",
        "cat": [
+        "dps",
         "cc"
        ],
        "lvl": 1,
@@ -1991,13 +2015,13 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE",
-        "Leveo grupo PvE"
+        "Leveo grupo PvE",
+        "RvR"
        ],
        "funciones": [
-        "Control",
-        "Control de masas",
-        "DPS",
-        "Debuff"
+        "DPS_melee",
+        "Debuff",
+        "DPS_aplastante"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -2005,11 +2029,12 @@
         "PvP",
         "Grupo PvP",
         "PvE",
-        "Grupo PvE"
+        "Grupo PvE",
+        "Leveo PvE"
        ],
        "contenidoSecundario": [
-        "Leveo PvE",
-        "Leveo grupo PvE"
+        "Leveo grupo PvE",
+        "RvR"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -2017,6 +2042,7 @@
       {
        "name": "Represalia",
        "cat": [
+        "tank",
         "dps"
        ],
        "lvl": 1,
@@ -2036,8 +2062,8 @@
        "duration": 15.0,
        "type": "Constant",
        "aoe": false,
-       "group": false,
-       "rvr": false,
+       "group": true,
+       "rvr": true,
        "roles": [
         "flanker"
        ],
@@ -2063,24 +2089,26 @@
        "attrTags": [],
        "contenido": [
         "PvP",
-        "PvE",
-        "Leveo PvE",
         "Grupo PvP",
-        "Grupo PvE"
+        "RvR",
+        "Grupo PvE",
+        "PvE"
        ],
        "funciones": [
-        "DPS"
+        "DPS_return",
+        "Debuff",
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "PvP",
-        "PvE",
-        "Leveo PvE"
+        "Grupo PvP",
+        "RvR"
        ],
        "contenidoSecundario": [
-        "Grupo PvP",
-        "Grupo PvE"
+        "Grupo PvE",
+        "PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -2108,7 +2136,7 @@
        "type": "Constant",
        "aoe": false,
        "group": true,
-       "rvr": false,
+       "rvr": true,
        "roles": [
         "cc"
        ],
@@ -2135,9 +2163,11 @@
        "contenido": [
         "PvP",
         "Grupo PvP",
+        "RvR",
         "PvE",
         "Grupo PvE",
-        "Leveo PvE"
+        "Leveo PvE",
+        "Leveo grupo PvE"
        ],
        "funciones": [
         "Debuff"
@@ -2146,12 +2176,14 @@
        "resistible100": false,
        "contenidoPrincipal": [
         "PvP",
-        "Grupo PvP"
+        "Grupo PvP",
+        "RvR",
+        "PvE",
+        "Grupo PvE"
        ],
        "contenidoSecundario": [
-        "PvE",
-        "Grupo PvE",
-        "Leveo PvE"
+        "Leveo PvE",
+        "Leveo grupo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -2184,7 +2216,7 @@
        ],
        "type": "Constant",
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "roles": [
         "dps",
@@ -2210,26 +2242,25 @@
        "commonRank": 1,
        "attrTags": [],
        "contenido": [
-        "PvP",
         "PvE",
-        "Leveo PvE",
+        "Grupo PvE",
         "Grupo PvP",
-        "Grupo PvE"
+        "PvP",
+        "RvR"
        ],
        "funciones": [
-        "Buff",
-        "Debuff"
+        "Self_debuff"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
-        "PvP",
         "PvE",
-        "Leveo PvE"
+        "Grupo PvE"
        ],
        "contenidoSecundario": [
         "Grupo PvP",
-        "Grupo PvE"
+        "PvP",
+        "RvR"
        ],
        "selfDebuff": true,
        "weaponInterval": false
@@ -2237,7 +2268,7 @@
       {
        "name": "Fineza",
        "cat": [
-        "dps"
+        "cc"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -2263,7 +2294,7 @@
        "type": "Constant",
        "aoe": false,
        "group": true,
-       "rvr": false,
+       "rvr": true,
        "roles": [
         "flanker"
        ],
@@ -2290,18 +2321,19 @@
        "contenido": [
         "PvP",
         "Grupo PvP",
+        "RvR",
         "PvE",
         "Grupo PvE"
        ],
        "funciones": [
-        "Crítico / burst",
         "Debuff"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "PvP",
-        "Grupo PvP"
+        "Grupo PvP",
+        "RvR"
        ],
        "contenidoSecundario": [
         "PvE",
@@ -2313,7 +2345,7 @@
       {
        "name": "Centinela",
        "cat": [
-        "support"
+        "dps"
        ],
        "lvl": 1,
        "pvp": 1,
@@ -2326,8 +2358,8 @@
        "duration": null,
        "type": "Passive",
        "aoe": false,
-       "group": false,
-       "rvr": false,
+       "group": true,
+       "rvr": true,
        "roles": [
         "support"
        ],
@@ -2369,22 +2401,25 @@
         "PvE",
         "Leveo PvE",
         "Grupo PvP",
-        "Grupo PvE"
+        "Grupo PvE",
+        "Leveo grupo PvE",
+        "RvR"
        ],
        "funciones": [
-        "Buff"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "PvP",
         "PvE",
-        "Leveo PvE"
-       ],
-       "contenidoSecundario": [
+        "Leveo PvE",
         "Grupo PvP",
-        "Grupo PvE"
+        "Grupo PvE",
+        "Leveo grupo PvE",
+        "RvR"
        ],
+       "contenidoSecundario": [],
        "selfDebuff": false,
        "weaponInterval": false
       },
@@ -2417,7 +2452,7 @@
        "type": "Constant",
        "aoe": false,
        "group": true,
-       "rvr": false,
+       "rvr": true,
        "roles": [
         "cc"
        ],
@@ -2439,22 +2474,26 @@
         "PvP",
         "Grupo PvP",
         "PvE",
-        "Grupo PvE"
+        "Grupo PvE",
+        "RvR",
+        "Leveo PvE",
+        "Leveo grupo PvE"
        ],
        "funciones": [
-        "Control",
-        "Control de masas",
         "Debuff"
        ],
        "blockable100": true,
        "resistible100": false,
        "contenidoPrincipal": [
         "PvP",
-        "Grupo PvP"
+        "Grupo PvP",
+        "PvE",
+        "Grupo PvE",
+        "RvR"
        ],
        "contenidoSecundario": [
-        "PvE",
-        "Grupo PvE"
+        "Leveo PvE",
+        "Leveo grupo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -2510,27 +2549,24 @@
        "contenido": [
         "Grupo PvP",
         "RvR",
-        "Grupo PvE",
-        "Leveo grupo PvE",
         "PvP",
-        "PvE"
+        "PvE",
+        "Grupo PvE"
        ],
        "funciones": [
         "Debuff",
-        "Movilidad",
-        "Área / AoE"
+        "Area/AoE"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "Grupo PvP",
-        "RvR",
-        "Grupo PvE",
-        "Leveo grupo PvE"
+        "RvR"
        ],
        "contenidoSecundario": [
         "PvP",
-        "PvE"
+        "PvE",
+        "Grupo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -2592,7 +2628,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Utilidad"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -2611,7 +2647,7 @@
       {
        "name": "Movilidad",
        "cat": [
-        "mobility"
+        "support"
        ],
        "lvl": 2,
        "pvp": 2,
@@ -2630,8 +2666,8 @@
        "duration": 20.0,
        "type": "Constant",
        "aoe": false,
-       "group": false,
-       "rvr": false,
+       "group": true,
+       "rvr": true,
        "roles": [
         "flanker"
        ],
@@ -2658,24 +2694,27 @@
        "contenido": [
         "PvP",
         "PvE",
-        "Leveo PvE",
         "Grupo PvP",
-        "Grupo PvE"
+        "Grupo PvE",
+        "RvR",
+        "Leveo PvE",
+        "Leveo grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Movilidad"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "PvP",
         "PvE",
-        "Leveo PvE"
+        "Grupo PvP",
+        "Grupo PvE",
+        "RvR"
        ],
        "contenidoSecundario": [
-        "Grupo PvP",
-        "Grupo PvE"
+        "Leveo PvE",
+        "Leveo grupo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -2703,7 +2742,7 @@
        "type": "Constant",
        "aoe": false,
        "group": true,
-       "rvr": false,
+       "rvr": true,
        "roles": [
         "flanker"
        ],
@@ -2743,25 +2782,21 @@
         "Grupo PvP",
         "PvE",
         "Grupo PvE",
-        "Leveo PvE"
+        "RvR"
        ],
        "funciones": [
-        "Buff",
-        "Debuff",
-        "Defensa",
-        "Mitigación / absorción"
+        "Self_debuff"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "PvP",
-        "Grupo PvP"
-       ],
-       "contenidoSecundario": [
+        "Grupo PvP",
         "PvE",
         "Grupo PvE",
-        "Leveo PvE"
+        "RvR"
        ],
+       "contenidoSecundario": [],
        "selfDebuff": true,
        "weaponInterval": false
       },
@@ -2811,22 +2846,25 @@
         "PvP",
         "RvR",
         "PvE",
-        "Grupo PvE"
+        "Grupo PvE",
+        "Leveo PvE",
+        "Leveo grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Defensa"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "Grupo PvP",
         "PvP",
-        "RvR"
-       ],
-       "contenidoSecundario": [
+        "RvR",
         "PvE",
         "Grupo PvE"
+       ],
+       "contenidoSecundario": [
+        "Leveo PvE",
+        "Leveo grupo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -2890,24 +2928,24 @@
         "RvR",
         "PvE",
         "Grupo PvE",
-        "Leveo PvE"
+        "Leveo PvE",
+        "Leveo grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Defensa",
-        "Movilidad"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "Grupo PvP",
         "PvP",
-        "RvR"
+        "RvR",
+        "PvE",
+        "Grupo PvE"
        ],
        "contenidoSecundario": [
-        "PvE",
-        "Grupo PvE",
-        "Leveo PvE"
+        "Leveo PvE",
+        "Leveo grupo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -2941,7 +2979,7 @@
        "type": "Constant",
        "aoe": false,
        "group": true,
-       "rvr": false,
+       "rvr": true,
        "roles": [
         "flanker"
        ],
@@ -2966,27 +3004,29 @@
        "commonRank": 5,
        "attrTags": [],
        "contenido": [
-        "PvP",
         "Grupo PvP",
+        "PvP",
+        "RvR",
         "PvE",
         "Grupo PvE",
-        "Leveo PvE"
+        "Leveo PvE",
+        "Leveo grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "DPS",
-        "Defensa"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
+        "Grupo PvP",
         "PvP",
-        "Grupo PvP"
+        "RvR",
+        "PvE",
+        "Grupo PvE"
        ],
        "contenidoSecundario": [
-        "PvE",
-        "Grupo PvE",
-        "Leveo PvE"
+        "Leveo PvE",
+        "Leveo grupo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -3043,24 +3083,25 @@
         "PvP",
         "RvR",
         "PvE",
-        "Grupo PvE"
+        "Grupo PvE",
+        "Leveo PvE",
+        "Leveo grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Defensa",
-        "Movilidad",
-        "Área / AoE"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "Grupo PvP",
         "PvP",
-        "RvR"
-       ],
-       "contenidoSecundario": [
+        "RvR",
         "PvE",
         "Grupo PvE"
+       ],
+       "contenidoSecundario": [
+        "Leveo PvE",
+        "Leveo grupo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -3081,8 +3122,8 @@
        "duration": null,
        "type": "Passive",
        "aoe": false,
-       "group": false,
-       "rvr": false,
+       "group": true,
+       "rvr": true,
        "roles": [
         "flanker"
        ],
@@ -3113,22 +3154,25 @@
         "PvE",
         "Leveo PvE",
         "Grupo PvP",
-        "Grupo PvE"
+        "Grupo PvE",
+        "Leveo grupo PvE",
+        "RvR"
        ],
        "funciones": [
-        "Buff"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "PvP",
         "PvE",
-        "Leveo PvE"
-       ],
-       "contenidoSecundario": [
+        "Leveo PvE",
         "Grupo PvP",
-        "Grupo PvE"
+        "Grupo PvE",
+        "Leveo grupo PvE",
+        "RvR"
        ],
+       "contenidoSecundario": [],
        "selfDebuff": false,
        "weaponInterval": false
       },
@@ -3161,7 +3205,7 @@
        "type": "Constant",
        "aoe": false,
        "group": true,
-       "rvr": false,
+       "rvr": true,
        "roles": [
         "flanker"
        ],
@@ -3180,24 +3224,21 @@
        "commonRank": 2,
        "attrTags": [],
        "contenido": [
-        "PvP",
         "Grupo PvP",
+        "PvP",
+        "RvR",
         "PvE",
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Control",
-        "Control de masas",
-        "Defensa",
-        "Sigilo",
-        "Utilidad"
+        "Self_debuff"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
+        "Grupo PvP",
         "PvP",
-        "Grupo PvP"
+        "RvR"
        ],
        "contenidoSecundario": [
         "PvE",
@@ -3266,10 +3307,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Debuff",
-        "Defensa",
-        "Área / AoE"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -3314,8 +3352,8 @@
        "duration": 7.0,
        "type": "Constant",
        "aoe": false,
-       "group": false,
-       "rvr": false,
+       "group": true,
+       "rvr": true,
        "roles": [
         "cc",
         "dps"
@@ -3364,32 +3402,32 @@
        "contenido": [
         "PvP",
         "PvE",
-        "Leveo PvE",
         "Grupo PvP",
-        "Grupo PvE"
+        "Grupo PvE",
+        "RvR"
        ],
        "funciones": [
-        "DPS",
-        "Debuff"
+        "Self_buffer",
+        "Debuff",
+        "DPS_punzante"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "PvP",
         "PvE",
-        "Leveo PvE"
-       ],
-       "contenidoSecundario": [
         "Grupo PvP",
-        "Grupo PvE"
+        "Grupo PvE",
+        "RvR"
        ],
+       "contenidoSecundario": [],
        "selfDebuff": false,
        "weaponInterval": false
       },
       {
        "name": "Sentencia a muerte",
        "cat": [
-        "cc"
+        "support"
        ],
        "lvl": 2,
        "pvp": 3,
@@ -3434,29 +3472,27 @@
        "commonRank": 4,
        "attrTags": [],
        "contenido": [
+        "Grupo PvE",
+        "PvP",
+        "PvE",
         "Grupo PvP",
         "RvR",
-        "Grupo PvE",
-        "Leveo grupo PvE",
-        "PvP",
-        "PvE"
+        "Leveo grupo PvE"
        ],
        "funciones": [
-        "DPS",
-        "Debuff",
-        "Área / AoE"
+        "Debuff"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
-        "Grupo PvP",
-        "RvR",
         "Grupo PvE",
-        "Leveo grupo PvE"
+        "PvP",
+        "PvE",
+        "Grupo PvP",
+        "RvR"
        ],
        "contenidoSecundario": [
-        "PvP",
-        "PvE"
+        "Leveo grupo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -3516,9 +3552,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Sigilo",
-        "Utilidad"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -3537,7 +3571,7 @@
       {
        "name": "Espíritu salvaje",
        "cat": [
-        "mobility"
+        "support"
        ],
        "lvl": 2,
        "pvp": 1,
@@ -3550,8 +3584,8 @@
        "duration": null,
        "type": "Passive",
        "aoe": false,
-       "group": false,
-       "rvr": false,
+       "group": true,
+       "rvr": true,
        "roles": [
         "flanker"
        ],
@@ -3578,23 +3612,27 @@
        "contenido": [
         "PvP",
         "PvE",
-        "Leveo PvE",
         "Grupo PvP",
-        "Grupo PvE"
+        "Grupo PvE",
+        "RvR",
+        "Leveo PvE",
+        "Leveo grupo PvE"
        ],
        "funciones": [
-        "Buff"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "PvP",
         "PvE",
-        "Leveo PvE"
+        "Grupo PvP",
+        "Grupo PvE",
+        "RvR"
        ],
        "contenidoSecundario": [
-        "Grupo PvP",
-        "Grupo PvE"
+        "Leveo PvE",
+        "Leveo grupo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -3667,18 +3705,11 @@
         "Grupo PvP",
         "RvR",
         "PvE",
-        "Grupo PvE",
-        "Leveo PvE"
+        "Grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Control",
-        "Control de masas",
-        "DPS",
-        "Debuff",
-        "Invocación / mascota",
-        "Sigilo",
-        "Utilidad"
+        "Self_debuff",
+        "DPS_punzante"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -3689,8 +3720,7 @@
        ],
        "contenidoSecundario": [
         "PvE",
-        "Grupo PvE",
-        "Leveo PvE"
+        "Grupo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -3758,13 +3788,12 @@
         "Grupo PvP",
         "RvR",
         "Grupo PvE",
-        "PvP",
-        "PvE"
+        "Leveo PvE",
+        "Leveo grupo PvE"
        ],
        "funciones": [
         "Buff",
-        "Gestión de recursos",
-        "Utilidad"
+        "Area/AoE"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -3774,8 +3803,8 @@
         "Grupo PvE"
        ],
        "contenidoSecundario": [
-        "PvP",
-        "PvE"
+        "Leveo PvE",
+        "Leveo grupo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -3802,8 +3831,8 @@
        "duration": 6,
        "type": "Constant",
        "aoe": false,
-       "group": false,
-       "rvr": false,
+       "group": true,
+       "rvr": true,
        "roles": [
         "dps"
        ],
@@ -3830,24 +3859,25 @@
        "contenido": [
         "PvP",
         "PvE",
-        "Leveo PvE",
         "Grupo PvP",
-        "Grupo PvE"
+        "RvR",
+        "Leveo grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "DPS"
+        "Self_buffer",
+        "Burst"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "PvP",
         "PvE",
-        "Leveo PvE"
+        "Grupo PvP",
+        "RvR",
+        "Grupo PvP"
        ],
        "contenidoSecundario": [
-        "Grupo PvP",
-        "Grupo PvE"
+        "Leveo grupo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -3907,11 +3937,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Detección / exploración",
-        "Disipación / limpieza",
-        "Sigilo",
-        "Utilidad"
+        "Debuff"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -3956,7 +3982,7 @@
        "type": "Constant",
        "aoe": false,
        "group": true,
-       "rvr": false,
+       "rvr": true,
        "roles": [
         "cc"
        ],
@@ -3978,24 +4004,22 @@
         "PvP",
         "Grupo PvP",
         "PvE",
-        "Grupo PvE"
+        "Grupo PvE",
+        "RvR"
        ],
        "funciones": [
-        "Control",
-        "Control de masas",
-        "DPS",
         "Debuff"
        ],
        "blockable100": true,
        "resistible100": false,
        "contenidoPrincipal": [
         "PvP",
-        "Grupo PvP"
-       ],
-       "contenidoSecundario": [
+        "Grupo PvP",
         "PvE",
-        "Grupo PvE"
+        "Grupo PvE",
+        "RvR"
        ],
+       "contenidoSecundario": [],
        "selfDebuff": false,
        "weaponInterval": false
       },
@@ -4061,17 +4085,13 @@
        "contenido": [
         "Grupo PvP",
         "RvR",
-        "Grupo PvE",
-        "PvP",
-        "PvE"
+        "Grupo PvE"
        ],
        "funciones": [
         "Buff",
         "Debuff",
-        "Movilidad",
-        "Sigilo",
-        "Utilidad",
-        "Área / AoE"
+        "Self_debuff",
+        "Area/AoE"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -4080,10 +4100,7 @@
         "RvR",
         "Grupo PvE"
        ],
-       "contenidoSecundario": [
-        "PvP",
-        "PvE"
-       ],
+       "contenidoSecundario": [],
        "selfDebuff": true,
        "weaponInterval": false
       }
@@ -4097,7 +4114,7 @@
       {
        "name": "Dominio natural",
        "cat": [
-        "dps"
+        "support"
        ],
        "lvl": 3,
        "pvp": 1,
@@ -4116,7 +4133,7 @@
        "duration": null,
        "type": "Direct",
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "roles": [
         "dps",
@@ -4146,20 +4163,26 @@
         "PvE",
         "Leveo PvE",
         "PvP",
-        "Grupo PvP"
+        "Grupo PvE",
+        "RvR",
+        "Grupo PvP",
+        "Leveo grupo PvE"
        ],
        "funciones": [
-        "Buff"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "PvE",
-        "Leveo PvE"
+        "Leveo PvE",
+        "PvP",
+        "Grupo PvE"
        ],
        "contenidoSecundario": [
-        "PvP",
-        "Grupo PvP"
+        "RvR",
+        "Grupo PvP",
+        "Leveo grupo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -4167,7 +4190,7 @@
       {
        "name": "Curar mascota",
        "cat": [
-        "healer_pet"
+        "support"
        ],
        "lvl": 2,
        "pvp": 0,
@@ -4213,29 +4236,29 @@
        "commonRank": 3,
        "attrTags": [],
        "contenido": [
-        "Grupo PvE",
-        "Leveo grupo PvE",
         "PvE",
         "Leveo PvE",
         "PvP",
-        "Grupo PvP"
+        "Grupo PvE",
+        "RvR",
+        "Grupo PvP",
+        "Leveo grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Curación",
-        "Invocación / mascota"
+        "Heal_pet"
        ],
        "blockable100": false,
        "resistible100": true,
        "contenidoPrincipal": [
-        "Grupo PvE",
-        "Leveo grupo PvE",
         "PvE",
-        "Leveo PvE"
+        "Leveo PvE",
+        "PvP",
+        "Grupo PvE"
        ],
        "contenidoSecundario": [
-        "PvP",
-        "Grupo PvP"
+        "RvR",
+        "Grupo PvP",
+        "Leveo grupo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -4290,28 +4313,26 @@
        "contenido": [
         "PvE",
         "Leveo PvE",
-        "Grupo PvE",
         "Leveo grupo PvE",
         "PvP",
+        "Grupo PvE",
+        "RvR",
         "Grupo PvP"
        ],
        "funciones": [
-        "Buff",
-        "DPS",
-        "Defensa",
-        "Invocación / mascota",
-        "Mitigación / absorción"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "PvE",
         "Leveo PvE",
-        "Grupo PvE",
-        "Leveo grupo PvE"
+        "Leveo grupo PvE",
+        "PvP",
+        "Grupo PvE"
        ],
        "contenidoSecundario": [
-        "PvP",
+        "RvR",
         "Grupo PvP"
        ],
        "selfDebuff": false,
@@ -4320,7 +4341,7 @@
       {
        "name": "Vista prominente",
        "cat": [
-        "support"
+        "dps"
        ],
        "lvl": 1,
        "pvp": 1,
@@ -4339,8 +4360,8 @@
        "duration": null,
        "type": "Activable",
        "aoe": false,
-       "group": false,
-       "rvr": false,
+       "group": true,
+       "rvr": true,
        "roles": [
         "support"
        ],
@@ -4372,26 +4393,24 @@
        "contenido": [
         "PvP",
         "PvE",
-        "Leveo PvE",
         "Grupo PvP",
-        "Grupo PvE"
+        "Grupo PvE",
+        "RvR"
        ],
        "funciones": [
-        "Buff",
-        "Debuff",
-        "Invocación / mascota"
+        "DPS_ranged",
+        "Self_debuff"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "PvP",
         "PvE",
-        "Leveo PvE"
-       ],
-       "contenidoSecundario": [
         "Grupo PvP",
-        "Grupo PvE"
+        "Grupo PvE",
+        "RvR"
        ],
+       "contenidoSecundario": [],
        "selfDebuff": true,
        "weaponInterval": false
       },
@@ -4439,26 +4458,27 @@
        "contenido": [
         "PvE",
         "Leveo PvE",
-        "Grupo PvE",
-        "Leveo grupo PvE",
         "PvP",
-        "Grupo PvP"
+        "Grupo PvE",
+        "RvR",
+        "Grupo PvP",
+        "Leveo grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Invocación / mascota"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "PvE",
         "Leveo PvE",
-        "Grupo PvE",
-        "Leveo grupo PvE"
+        "PvP",
+        "Grupo PvE"
        ],
        "contenidoSecundario": [
-        "PvP",
-        "Grupo PvP"
+        "RvR",
+        "Grupo PvP",
+        "Leveo grupo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -4466,7 +4486,7 @@
       {
        "name": "Revivir mascota",
        "cat": [
-        "healer_pet"
+        "support"
        ],
        "lvl": 2,
        "pvp": 0,
@@ -4511,30 +4531,29 @@
        "commonRank": 1,
        "attrTags": [],
        "contenido": [
-        "Grupo PvE",
-        "Leveo grupo PvE",
         "PvE",
         "Leveo PvE",
         "PvP",
-        "Grupo PvP"
+        "Grupo PvE",
+        "RvR",
+        "Grupo PvP",
+        "Leveo grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Curación",
-        "Invocación / mascota",
-        "Resurrección"
+        "Heal_pet"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
-        "Grupo PvE",
-        "Leveo grupo PvE",
         "PvE",
-        "Leveo PvE"
+        "Leveo PvE",
+        "PvP",
+        "Grupo PvE"
        ],
        "contenidoSecundario": [
-        "PvP",
-        "Grupo PvP"
+        "RvR",
+        "Grupo PvP",
+        "Leveo grupo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -4561,7 +4580,7 @@
        "duration": 60.0,
        "type": "Direct",
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "roles": [
         "dps"
@@ -4592,28 +4611,29 @@
        "commonRank": 5,
        "attrTags": [],
        "contenido": [
-        "PvP",
         "PvE",
         "Leveo PvE",
+        "Grupo PvE",
+        "RvR",
         "Grupo PvP",
-        "Grupo PvE"
+        "Leveo grupo PvE",
+        "PvP"
        ],
        "funciones": [
-        "Buff",
-        "DPS",
-        "Debuff",
-        "Invocación / mascota"
+        "Self_debuff"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
-        "PvP",
         "PvE",
-        "Leveo PvE"
+        "Leveo PvE",
+        "Grupo PvE"
        ],
        "contenidoSecundario": [
+        "RvR",
         "Grupo PvP",
-        "Grupo PvE"
+        "Leveo grupo PvE",
+        "PvP"
        ],
        "selfDebuff": true,
        "weaponInterval": false
@@ -4635,7 +4655,7 @@
        "type": "Passive",
        "aoe": false,
        "group": true,
-       "rvr": true,
+       "rvr": false,
        "roles": [
         "tank"
        ],
@@ -4660,30 +4680,29 @@
        "commonRank": 4,
        "attrTags": [],
        "contenido": [
-        "Grupo PvP",
-        "RvR",
-        "Grupo PvE",
-        "Leveo grupo PvE",
+        "PvE",
+        "Leveo PvE",
         "PvP",
-        "PvE"
+        "Grupo PvE",
+        "RvR",
+        "Grupo PvP",
+        "Leveo grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "DPS",
-        "Defensa",
-        "Mitigación / absorción"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
-        "Grupo PvP",
-        "RvR",
-        "Grupo PvE",
-        "Leveo grupo PvE"
+        "PvE",
+        "Leveo PvE",
+        "PvP",
+        "Grupo PvE"
        ],
        "contenidoSecundario": [
-        "PvP",
-        "PvE"
+        "RvR",
+        "Grupo PvP",
+        "Leveo grupo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -4691,7 +4710,8 @@
       {
        "name": "Furia natural",
        "cat": [
-        "dps"
+        "dps",
+        "cc"
        ],
        "lvl": 2,
        "pvp": 0,
@@ -4754,25 +4774,21 @@
         "Grupo PvP",
         "RvR",
         "Grupo PvE",
-        "Leveo grupo PvE",
         "PvP",
         "PvE"
        ],
        "funciones": [
-        "Control",
-        "Control de masas",
-        "DPS",
         "Debuff",
-        "Invocación / mascota",
-        "Área / AoE"
+        "Area/AoE",
+        "DPS_fuego",
+        "DPS_punzante"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "Grupo PvP",
         "RvR",
-        "Grupo PvE",
-        "Leveo grupo PvE"
+        "Grupo PvE"
        ],
        "contenidoSecundario": [
         "PvP",
@@ -4829,30 +4845,29 @@
        "commonRank": 2,
        "attrTags": [],
        "contenido": [
-        "PvP",
         "PvE",
         "Leveo PvE",
+        "PvP",
         "Grupo PvE",
-        "Leveo grupo PvE",
-        "Grupo PvP"
+        "RvR",
+        "Grupo PvP",
+        "Leveo grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "DPS",
-        "Defensa",
-        "Invocación / mascota"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
-        "PvP",
         "PvE",
         "Leveo PvE",
-        "Grupo PvE",
-        "Leveo grupo PvE"
+        "PvP",
+        "Grupo PvE"
        ],
        "contenidoSecundario": [
-        "Grupo PvP"
+        "RvR",
+        "Grupo PvP",
+        "Leveo grupo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -4900,21 +4915,22 @@
        "commonRank": 5,
        "attrTags": [],
        "contenido": [
-        "RvR",
         "Grupo PvP",
+        "RvR",
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
-        "RvR",
         "Grupo PvP",
+        "RvR"
+       ],
+       "contenidoSecundario": [
         "Grupo PvE"
        ],
-       "contenidoSecundario": [],
        "selfDebuff": false,
        "weaponInterval": false
       },
@@ -4956,23 +4972,21 @@
        "contenido": [
         "Grupo PvP",
         "RvR",
-        "Grupo PvE",
-        "Leveo grupo PvE"
+        "Grupo PvE"
        ],
        "funciones": [
         "Buff",
-        "Movilidad",
-        "Área / AoE"
+        "Area/AoE"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "Grupo PvP",
-        "RvR",
-        "Grupo PvE",
-        "Leveo grupo PvE"
+        "RvR"
        ],
-       "contenidoSecundario": [],
+       "contenidoSecundario": [
+        "Grupo PvE"
+       ],
        "selfDebuff": false,
        "weaponInterval": true
       },
@@ -4992,8 +5006,8 @@
        "duration": null,
        "type": "Passive",
        "aoe": false,
-       "group": false,
-       "rvr": false,
+       "group": true,
+       "rvr": true,
        "roles": [
         "dps"
        ],
@@ -5014,26 +5028,21 @@
         "+Destreza"
        ],
        "contenido": [
-        "PvP",
-        "PvE",
-        "Leveo PvE",
         "Grupo PvP",
+        "RvR",
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
-        "PvP",
-        "PvE",
-        "Leveo PvE"
-       ],
-       "contenidoSecundario": [
         "Grupo PvP",
+        "RvR",
         "Grupo PvE"
        ],
+       "contenidoSecundario": [],
        "selfDebuff": false,
        "weaponInterval": false
       },
@@ -5075,28 +5084,19 @@
        "contenido": [
         "Grupo PvP",
         "RvR",
-        "Grupo PvE",
-        "Leveo grupo PvE",
-        "PvP",
-        "PvE"
+        "Grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "DPS",
-        "Área / AoE"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "Grupo PvP",
         "RvR",
-        "Grupo PvE",
-        "Leveo grupo PvE"
+        "Grupo PvE"
        ],
-       "contenidoSecundario": [
-        "PvP",
-        "PvE"
-       ],
+       "contenidoSecundario": [],
        "selfDebuff": false,
        "weaponInterval": false
       },
@@ -5116,8 +5116,8 @@
        "duration": null,
        "type": "Passive",
        "aoe": false,
-       "group": false,
-       "rvr": false,
+       "group": true,
+       "rvr": true,
        "roles": [
         "flanker"
        ],
@@ -5136,26 +5136,21 @@
        "commonRank": 5,
        "attrTags": [],
        "contenido": [
-        "PvP",
-        "PvE",
-        "Leveo PvE",
         "Grupo PvP",
+        "RvR",
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
-        "PvP",
-        "PvE",
-        "Leveo PvE"
-       ],
-       "contenidoSecundario": [
         "Grupo PvP",
+        "RvR",
         "Grupo PvE"
        ],
+       "contenidoSecundario": [],
        "selfDebuff": false,
        "weaponInterval": false
       }
@@ -5374,7 +5369,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "DPS"
+        "DPS_fuego"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -5456,10 +5451,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Control",
-        "Control de masas",
-        "DPS",
-        "Daño prolongado",
+        "DPS_punzante",
         "Debuff"
        ],
        "blockable100": false,
@@ -5532,8 +5524,8 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "DPS",
-        "Área / AoE"
+        "DPS_fuego",
+        "Area/AoE"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -5613,7 +5605,7 @@
        ],
        "funciones": [
         "Debuff",
-        "Área / AoE"
+        "Area/AoE"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -5633,6 +5625,7 @@
       {
        "name": "Hiedra espinosa",
        "cat": [
+        "dps",
         "cc"
        ],
        "lvl": 1,
@@ -5695,9 +5688,7 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Control",
-        "Control de masas",
-        "DPS",
+        "DPS_punzante",
         "Debuff"
        ],
        "blockable100": false,
@@ -5767,8 +5758,6 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Control",
-        "Control de masas",
         "Debuff"
        ],
        "blockable100": true,
@@ -5838,10 +5827,7 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Control",
-        "Control de masas",
-        "Debuff",
-        "Invocación / mascota"
+        "Debuff"
        ],
        "blockable100": true,
        "resistible100": false,
@@ -5913,9 +5899,8 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "DPS",
-        "Daño prolongado",
-        "Área / AoE"
+        "DPS_punzante",
+        "Area/AoE"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -6010,7 +5995,7 @@
        ],
        "funciones": [
         "Debuff",
-        "Área / AoE"
+        "Area/AoE"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -6030,8 +6015,7 @@
       {
        "name": "Masa devoradora de Sultar",
        "cat": [
-        "dps",
-        "cc"
+        "dps"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -6124,8 +6108,10 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "DPS",
-        "Daño prolongado",
+        "DoT",
+        "DPS_punzante",
+        "DPS_cortante",
+        "DPS_aplastante",
         "Debuff"
        ],
        "blockable100": false,
@@ -6205,12 +6191,7 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Buff",
-        "DPS",
-        "Defensa",
-        "Gestión de recursos",
-        "Mitigación / absorción",
-        "Utilidad"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -6281,11 +6262,7 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "DPS",
-        "Debuff",
-        "Gestión de recursos",
-        "Mitigación / absorción",
-        "Utilidad"
+        "Debuff"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -6355,9 +6332,7 @@
         "PvE"
        ],
        "funciones": [
-        "Buff",
-        "Gestión de recursos",
-        "Utilidad"
+        "Buff"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -6423,7 +6398,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -6442,7 +6417,7 @@
       {
        "name": "Préstamo de energía",
        "cat": [
-        "cc"
+        "support"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -6487,9 +6462,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Gestión de recursos",
-        "Utilidad"
+        "Debuff"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -6507,8 +6480,7 @@
       {
        "name": "Sacrificio ambicioso",
        "cat": [
-        "dps",
-        "healer_self"
+        "support"
        ],
        "lvl": 2,
        "pvp": 1,
@@ -6564,10 +6536,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Debuff",
-        "Gestión de recursos",
-        "Utilidad"
+        "Self_debuff"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -6637,7 +6606,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -6701,9 +6670,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Gestión de recursos",
-        "Utilidad"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -6774,9 +6741,7 @@
        ],
        "funciones": [
         "Buff",
-        "Gestión de recursos",
-        "Utilidad",
-        "Área / AoE"
+        "Area/AoE"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -6795,7 +6760,6 @@
       {
        "name": "Pilón de mana",
        "cat": [
-        "tank",
         "support"
        ],
        "lvl": 1,
@@ -6854,12 +6818,7 @@
        ],
        "funciones": [
         "Buff",
-        "Debuff",
-        "Defensa",
-        "Gestión de recursos",
-        "Mitigación / absorción",
-        "Utilidad",
-        "Área / AoE"
+        "Area/AoE"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -6962,9 +6921,8 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Buff",
-        "DPS",
-        "Debuff"
+        "Self_debuff",
+        "DPS_fuego"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -7035,8 +6993,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Área / AoE"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -7055,7 +7012,7 @@
       {
        "name": "Proyección arcana",
        "cat": [
-        "support"
+        "dps"
        ],
        "lvl": 2,
        "pvp": 2,
@@ -7107,7 +7064,8 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff"
+        "Self_buffer",
+        "DPS_ranged"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -7171,8 +7129,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "DPS"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -7191,8 +7148,7 @@
       {
        "name": "Campo estático",
        "cat": [
-        "dps",
-        "cc"
+        "dps"
        ],
        "lvl": 1,
        "pvp": 3,
@@ -7256,10 +7212,10 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "DPS",
-        "Daño prolongado",
+        "DoT",
+        "DPS_eléctrico",
         "Debuff",
-        "Área / AoE"
+        "Area/AoE"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -7357,9 +7313,8 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Buff",
-        "DPS",
-        "Debuff"
+        "Self_debuff",
+        "DPS_hielo"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -7379,7 +7334,7 @@
       {
        "name": "Cúpula de protección",
        "cat": [
-        "tank"
+        "support"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -7437,11 +7392,7 @@
        ],
        "funciones": [
         "Buff",
-        "DPS",
-        "Debuff",
-        "Defensa",
-        "Mitigación / absorción",
-        "Área / AoE"
+        "Area/AoE"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -7516,11 +7467,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "DPS",
-        "Debuff",
-        "Gestión de recursos",
-        "Utilidad"
+        "Self_debuff"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -7616,9 +7563,8 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Buff",
-        "DPS",
-        "Debuff"
+        "Self_debuff",
+        "DPS_eléctrico"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -7689,11 +7635,8 @@
         "PvE"
        ],
        "funciones": [
-        "DPS",
         "Debuff",
-        "Gestión de recursos",
-        "Utilidad",
-        "Área / AoE"
+        "Area/AoE"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -7719,6 +7662,7 @@
       {
        "name": "Maldición",
        "cat": [
+        "support",
         "cc"
        ],
        "lvl": 1,
@@ -7780,8 +7724,6 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Crítico / burst",
-        "DPS",
         "Debuff"
        ],
        "blockable100": true,
@@ -7940,8 +7882,6 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Control",
-        "Control de masas",
         "Debuff"
        ],
        "blockable100": false,
@@ -8119,8 +8059,7 @@
       {
        "name": "Bendecir arma",
        "cat": [
-        "support",
-        "dps"
+        "support"
        ],
        "lvl": 2,
        "pvp": 1,
@@ -8174,8 +8113,7 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Buff",
-        "DPS"
+        "Buff"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -8247,10 +8185,7 @@
         "PvE"
        ],
        "funciones": [
-        "Buff",
-        "Disipación / limpieza",
-        "Utilidad",
-        "Área / AoE"
+        "Buff"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -8471,9 +8406,7 @@
        ],
        "funciones": [
         "Buff",
-        "Disipación / limpieza",
-        "Utilidad",
-        "Área / AoE"
+        "Area/AoE"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -8499,7 +8432,8 @@
       {
        "name": "Curar aliado",
        "cat": [
-        "healer_ally"
+        "healer",
+        "support"
        ],
        "lvl": 2,
        "pvp": 2,
@@ -8562,8 +8496,7 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Curación"
+        "Buff"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -8584,7 +8517,8 @@
       {
        "name": "Curarse",
        "cat": [
-        "healer_self"
+        "healer",
+        "support"
        ],
        "lvl": 3,
        "pvp": 3,
@@ -8636,8 +8570,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Curación"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -8656,7 +8589,8 @@
       {
        "name": "Revivir",
        "cat": [
-        "healer_ally"
+        "healer",
+        "support"
        ],
        "lvl": 3,
        "pvp": 3,
@@ -8732,11 +8666,7 @@
         "PvE"
        ],
        "funciones": [
-        "Buff",
-        "Curación",
-        "Gestión de recursos",
-        "Resurrección",
-        "Utilidad"
+        "Buff"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -8756,7 +8686,8 @@
       {
        "name": "Regenerar aliado",
        "cat": [
-        "healer_ally"
+        "healer",
+        "support"
        ],
        "lvl": 2,
        "pvp": 2,
@@ -8809,7 +8740,7 @@
        ],
        "funciones": [
         "Buff",
-        "Curación"
+        "HoT"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -8829,7 +8760,8 @@
       {
        "name": "Regenerarse",
        "cat": [
-        "healer_self"
+        "healer",
+        "support"
        ],
        "lvl": 3,
        "pvp": 2,
@@ -8880,8 +8812,8 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Curación"
+        "Self_buffer",
+        "HoT"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -8900,8 +8832,7 @@
       {
        "name": "Intervención divina",
        "cat": [
-        "tank",
-        "healer_ally"
+        "support"
        ],
        "lvl": 1,
        "pvp": 3,
@@ -8953,9 +8884,7 @@
         "PvE"
        ],
        "funciones": [
-        "Anti-control",
-        "Buff",
-        "Defensa"
+        "Buff"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -8974,7 +8903,8 @@
       {
        "name": "Salvador",
        "cat": [
-        "healer_ally"
+        "healer",
+        "support"
        ],
        "lvl": 2,
        "pvp": 3,
@@ -9044,7 +8974,8 @@
       {
        "name": "Regeneración mayor",
        "cat": [
-        "healer_ally"
+        "healer",
+        "support"
        ],
        "lvl": 2,
        "pvp": 2,
@@ -9108,9 +9039,8 @@
        ],
        "funciones": [
         "Buff",
-        "Curación",
-        "Daño prolongado",
-        "Área / AoE"
+        "HoT",
+        "Area/AoE"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -9131,7 +9061,8 @@
       {
        "name": "Curación mayor",
        "cat": [
-        "healer_ally"
+        "healer",
+        "support"
        ],
        "lvl": 2,
        "pvp": 3,
@@ -9184,8 +9115,7 @@
        ],
        "funciones": [
         "Buff",
-        "Curación",
-        "Área / AoE"
+        "Area/AoE"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -9205,7 +9135,8 @@
       {
        "name": "Revivir en masa",
        "cat": [
-        "healer_ally"
+        "healer",
+        "support"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -9275,9 +9206,7 @@
        ],
        "funciones": [
         "Buff",
-        "Curación",
-        "Resurrección",
-        "Área / AoE"
+        "Area/AoE"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -9303,7 +9232,7 @@
       {
        "name": "Invocar diablillos",
        "cat": [
-        "dps"
+        "support"
        ],
        "lvl": 3,
        "pvp": 1,
@@ -9355,8 +9284,7 @@
         "Grupo PvP"
        ],
        "funciones": [
-        "Buff",
-        "Invocación / mascota"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -9420,9 +9348,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "DPS",
-        "Debuff",
-        "Mitigación / absorción"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -9441,7 +9367,7 @@
       {
        "name": "invocar demonio",
        "cat": [
-        "dps"
+        "support"
        ],
        "lvl": 2,
        "pvp": 1,
@@ -9499,8 +9425,7 @@
         "Grupo PvP"
        ],
        "funciones": [
-        "Buff",
-        "Invocación / mascota"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -9564,7 +9489,7 @@
         "Grupo PvP"
        ],
        "funciones": [
-        "Buff"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -9583,7 +9508,7 @@
       {
        "name": "Invocar zombis",
        "cat": [
-        "dps"
+        "support"
        ],
        "lvl": 2,
        "pvp": 1,
@@ -9635,8 +9560,7 @@
         "Grupo PvP"
        ],
        "funciones": [
-        "Buff",
-        "Invocación / mascota"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -9711,9 +9635,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "DPS",
-        "Debuff"
+        "Self_debuff"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -9732,7 +9654,7 @@
       {
        "name": "Invocar golem",
        "cat": [
-        "dps"
+        "support"
        ],
        "lvl": 2,
        "pvp": 1,
@@ -9784,8 +9706,7 @@
         "Grupo PvP"
        ],
        "funciones": [
-        "Buff",
-        "Invocación / mascota"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -9850,10 +9771,7 @@
         "Grupo PvP"
        ],
        "funciones": [
-        "Buff",
-        "DPS",
-        "Defensa",
-        "Mitigación / absorción"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -9924,8 +9842,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "DPS"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -9944,7 +9861,7 @@
       {
        "name": "Invocar lich",
        "cat": [
-        "dps"
+        "support"
        ],
        "lvl": 2,
        "pvp": 1,
@@ -10012,8 +9929,7 @@
         "Grupo PvP"
        ],
        "funciones": [
-        "Buff",
-        "Invocación / mascota"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -10091,11 +10007,7 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Defensa",
-        "Gestión de recursos",
-        "Mitigación / absorción",
-        "Utilidad"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -10115,7 +10027,8 @@
       {
        "name": "Silueta cambiante",
        "cat": [
-        "tank"
+        "tank",
+        "cc"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -10187,10 +10100,7 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Debuff",
-        "Sigilo",
-        "Utilidad"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -10209,8 +10119,7 @@
       {
        "name": "Escudar compañero",
        "cat": [
-        "tank",
-        "healer_ally"
+        "support"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -10262,9 +10171,7 @@
         "PvE"
        ],
        "funciones": [
-        "Buff",
-        "Defensa",
-        "Mitigación / absorción"
+        "Buff"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -10283,7 +10190,7 @@
       {
        "name": "Mente en blanco",
        "cat": [
-        "tank"
+        "support"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -10368,8 +10275,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Defensa"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -10388,8 +10294,8 @@
       {
        "name": "Espejo del karma",
        "cat": [
-        "dps",
-        "tank"
+        "tank",
+        "dps"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -10444,9 +10350,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "DPS",
-        "Debuff"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -10464,7 +10368,7 @@
       {
        "name": "Barrera mágica",
        "cat": [
-        "tank"
+        "support"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -10516,9 +10420,7 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Defensa",
-        "Mitigación / absorción"
+        "Buff"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -10538,7 +10440,7 @@
       {
        "name": "Muralla material",
        "cat": [
-        "tank"
+        "support"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -10590,8 +10492,7 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Defensa"
+        "Buff"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -10663,8 +10564,7 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Defensa"
+        "Self_debuff"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -10728,8 +10628,7 @@
         "PvE"
        ],
        "funciones": [
-        "Buff",
-        "Área / AoE"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -10805,9 +10704,7 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Buff",
-        "DPS",
-        "Defensa"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -10870,7 +10767,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -10918,9 +10815,8 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Movilidad",
-        "Transporte",
-        "Utilidad"
+        "Buff",
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -10981,8 +10877,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Invocación / mascota"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -11001,8 +10896,7 @@
       {
        "name": "Protección Divina",
        "cat": [
-        "healer_ally",
-        "tank"
+        "support"
        ],
        "lvl": 1,
        "pvp": 3,
@@ -11042,9 +10936,7 @@
         "PvE"
        ],
        "funciones": [
-        "Buff",
-        "Curación",
-        "Mitigación / absorción"
+        "Buff"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -11103,7 +10995,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -11314,7 +11206,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "DPS"
+        "DPS_fuego"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -11396,10 +11288,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Control",
-        "Control de masas",
-        "DPS",
-        "Daño prolongado",
+        "DPS_punzante",
         "Debuff"
        ],
        "blockable100": false,
@@ -11472,8 +11361,8 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "DPS",
-        "Área / AoE"
+        "DPS_fuego",
+        "Area/AoE"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -11553,7 +11442,7 @@
        ],
        "funciones": [
         "Debuff",
-        "Área / AoE"
+        "Area/AoE"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -11573,6 +11462,7 @@
       {
        "name": "Hiedra espinosa",
        "cat": [
+        "dps",
         "cc"
        ],
        "lvl": 1,
@@ -11635,9 +11525,7 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Control",
-        "Control de masas",
-        "DPS",
+        "DPS_punzante",
         "Debuff"
        ],
        "blockable100": false,
@@ -11707,8 +11595,6 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Control",
-        "Control de masas",
         "Debuff"
        ],
        "blockable100": true,
@@ -11778,10 +11664,7 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Control",
-        "Control de masas",
-        "Debuff",
-        "Invocación / mascota"
+        "Debuff"
        ],
        "blockable100": true,
        "resistible100": false,
@@ -11853,9 +11736,8 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "DPS",
-        "Daño prolongado",
-        "Área / AoE"
+        "DPS_punzante",
+        "Area/AoE"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -11950,7 +11832,7 @@
        ],
        "funciones": [
         "Debuff",
-        "Área / AoE"
+        "Area/AoE"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -11970,8 +11852,7 @@
       {
        "name": "Masa devoradora de Sultar",
        "cat": [
-        "dps",
-        "cc"
+        "dps"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -12064,8 +11945,10 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "DPS",
-        "Daño prolongado",
+        "DoT",
+        "DPS_punzante",
+        "DPS_cortante",
+        "DPS_aplastante",
         "Debuff"
        ],
        "blockable100": false,
@@ -12145,12 +12028,7 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Buff",
-        "DPS",
-        "Defensa",
-        "Gestión de recursos",
-        "Mitigación / absorción",
-        "Utilidad"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -12221,11 +12099,7 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "DPS",
-        "Debuff",
-        "Gestión de recursos",
-        "Mitigación / absorción",
-        "Utilidad"
+        "Debuff"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -12295,9 +12169,7 @@
         "PvE"
        ],
        "funciones": [
-        "Buff",
-        "Gestión de recursos",
-        "Utilidad"
+        "Buff"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -12363,7 +12235,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -12382,7 +12254,7 @@
       {
        "name": "Préstamo de energía",
        "cat": [
-        "cc"
+        "support"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -12427,9 +12299,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Gestión de recursos",
-        "Utilidad"
+        "Debuff"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -12447,8 +12317,7 @@
       {
        "name": "Sacrificio ambicioso",
        "cat": [
-        "dps",
-        "healer_self"
+        "support"
        ],
        "lvl": 2,
        "pvp": 1,
@@ -12504,10 +12373,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Debuff",
-        "Gestión de recursos",
-        "Utilidad"
+        "Self_debuff"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -12577,7 +12443,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -12641,9 +12507,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Gestión de recursos",
-        "Utilidad"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -12714,9 +12578,7 @@
        ],
        "funciones": [
         "Buff",
-        "Gestión de recursos",
-        "Utilidad",
-        "Área / AoE"
+        "Area/AoE"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -12735,7 +12597,6 @@
       {
        "name": "Pilón de mana",
        "cat": [
-        "tank",
         "support"
        ],
        "lvl": 1,
@@ -12794,12 +12655,7 @@
        ],
        "funciones": [
         "Buff",
-        "Debuff",
-        "Defensa",
-        "Gestión de recursos",
-        "Mitigación / absorción",
-        "Utilidad",
-        "Área / AoE"
+        "Area/AoE"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -12902,9 +12758,8 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Buff",
-        "DPS",
-        "Debuff"
+        "Self_debuff",
+        "DPS_fuego"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -12975,8 +12830,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Área / AoE"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -12995,7 +12849,7 @@
       {
        "name": "Proyección arcana",
        "cat": [
-        "support"
+        "dps"
        ],
        "lvl": 2,
        "pvp": 2,
@@ -13047,7 +12901,8 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff"
+        "Self_buffer",
+        "DPS_ranged"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -13111,8 +12966,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "DPS"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -13131,8 +12985,7 @@
       {
        "name": "Campo estático",
        "cat": [
-        "dps",
-        "cc"
+        "dps"
        ],
        "lvl": 1,
        "pvp": 3,
@@ -13196,10 +13049,10 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "DPS",
-        "Daño prolongado",
+        "DoT",
+        "DPS_eléctrico",
         "Debuff",
-        "Área / AoE"
+        "Area/AoE"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -13297,9 +13150,8 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Buff",
-        "DPS",
-        "Debuff"
+        "Self_debuff",
+        "DPS_hielo"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -13319,7 +13171,7 @@
       {
        "name": "Cúpula de protección",
        "cat": [
-        "tank"
+        "support"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -13377,11 +13229,7 @@
        ],
        "funciones": [
         "Buff",
-        "DPS",
-        "Debuff",
-        "Defensa",
-        "Mitigación / absorción",
-        "Área / AoE"
+        "Area/AoE"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -13456,11 +13304,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "DPS",
-        "Debuff",
-        "Gestión de recursos",
-        "Utilidad"
+        "Self_debuff"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -13556,9 +13400,8 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Buff",
-        "DPS",
-        "Debuff"
+        "Self_debuff",
+        "DPS_eléctrico"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -13629,11 +13472,8 @@
         "PvE"
        ],
        "funciones": [
-        "DPS",
         "Debuff",
-        "Gestión de recursos",
-        "Utilidad",
-        "Área / AoE"
+        "Area/AoE"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -13659,6 +13499,7 @@
       {
        "name": "Maldición",
        "cat": [
+        "support",
         "cc"
        ],
        "lvl": 1,
@@ -13720,8 +13561,6 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Crítico / burst",
-        "DPS",
         "Debuff"
        ],
        "blockable100": true,
@@ -13880,8 +13719,6 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Control",
-        "Control de masas",
         "Debuff"
        ],
        "blockable100": false,
@@ -14059,8 +13896,7 @@
       {
        "name": "Bendecir arma",
        "cat": [
-        "support",
-        "dps"
+        "support"
        ],
        "lvl": 2,
        "pvp": 1,
@@ -14114,8 +13950,7 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Buff",
-        "DPS"
+        "Buff"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -14187,10 +14022,7 @@
         "PvE"
        ],
        "funciones": [
-        "Buff",
-        "Disipación / limpieza",
-        "Utilidad",
-        "Área / AoE"
+        "Buff"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -14411,9 +14243,7 @@
        ],
        "funciones": [
         "Buff",
-        "Disipación / limpieza",
-        "Utilidad",
-        "Área / AoE"
+        "Area/AoE"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -14500,7 +14330,8 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "DPS"
+        "DPS_punzante",
+        "DPS_hielo"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -14570,8 +14401,7 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Debuff",
-        "Movilidad"
+        "Debuff"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -14657,9 +14487,6 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Control",
-        "Control de masas",
-        "Crítico / burst",
         "Debuff"
        ],
        "blockable100": false,
@@ -14739,8 +14566,6 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Control",
-        "Control de masas",
         "Debuff"
        ],
        "blockable100": true,
@@ -14832,7 +14657,8 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "DPS",
+        "DPS_aplastante",
+        "DPS_fuego",
         "Debuff"
        ],
        "blockable100": false,
@@ -14909,7 +14735,7 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Buff"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -14981,8 +14807,8 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "DPS",
-        "Área / AoE"
+        "DPS_punzante",
+        "Area/AoE"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -15003,7 +14829,6 @@
       {
        "name": "Fragilidad",
        "cat": [
-        "dps",
         "cc"
        ],
        "lvl": 1,
@@ -15056,7 +14881,6 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "DPS",
         "Debuff"
        ],
        "blockable100": true,
@@ -15128,8 +14952,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "DPS",
-        "Invocación / mascota"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -15148,8 +14971,8 @@
       {
        "name": "Terror de Sultar",
        "cat": [
-        "cc",
-        "dps"
+        "dps",
+        "cc"
        ],
        "lvl": 1,
        "pvp": 3,
@@ -15233,11 +15056,11 @@
         "PvE"
        ],
        "funciones": [
-        "Control",
-        "Control de masas",
-        "DPS",
+        "DPS_aplastante",
+        "DPS_punzante",
+        "DPS_cortante",
         "Debuff",
-        "Área / AoE"
+        "Area/AoE"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -15265,7 +15088,7 @@
        "name": "Vampirismo",
        "cat": [
         "dps",
-        "healer_self"
+        "support"
        ],
        "lvl": 3,
        "pvp": 2,
@@ -15316,8 +15139,8 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Sostenimiento / robo"
+        "Self_buffer",
+        "Debuff"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -15483,7 +15306,7 @@
        "name": "Absorción vital",
        "cat": [
         "dps",
-        "healer_self"
+        "support"
        ],
        "lvl": 2,
        "pvp": 2,
@@ -15529,9 +15352,8 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "DPS",
-        "Sostenimiento / robo"
+        "Self_buffer",
+        "Debuff"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -15617,8 +15439,6 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Control",
-        "Control de masas",
         "Debuff"
        ],
        "blockable100": true,
@@ -15684,10 +15504,7 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Gestión de recursos",
-        "Invocación / mascota",
-        "Utilidad"
+        "Debuff"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -15764,16 +15581,12 @@
        "contenido": [
         "PvP",
         "Grupo PvP",
-        "RvR",
-        "PvE",
-        "Grupo PvE"
+        "RvR"
        ],
        "funciones": [
-        "Buff",
-        "Daño prolongado",
-        "Debuff",
-        "Invocación / mascota",
-        "Sostenimiento / robo"
+        "Self_buffer",
+        "DoT",
+        "Debuff"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -15782,17 +15595,14 @@
         "Grupo PvP",
         "RvR"
        ],
-       "contenidoSecundario": [
-        "PvE",
-        "Grupo PvE"
-       ],
+       "contenidoSecundario": [],
        "selfDebuff": false,
        "weaponInterval": false
       },
       {
        "name": "Cremación",
        "cat": [
-        "dps"
+        "support"
        ],
        "lvl": 2,
        "pvp": 3,
@@ -15842,7 +15652,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff"
+        "Self_buffer"
        ],
        "blockable100": true,
        "resistible100": true,
@@ -15860,7 +15670,7 @@
       {
        "name": "Poseer invocación",
        "cat": [
-        "cc"
+        "support"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -15910,7 +15720,8 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff"
+        "Self_buffer",
+        "Debuff"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -15928,8 +15739,7 @@
       {
        "name": "Maestro de la destrucción",
        "cat": [
-        "cc",
-        "dps"
+        "cc"
        ],
        "lvl": 1,
        "pvp": 3,
@@ -15993,8 +15803,7 @@
        ],
        "funciones": [
         "Debuff",
-        "Invocación / mascota",
-        "Área / AoE"
+        "Area/AoE"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -16074,8 +15883,8 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "DPS",
-        "Área / AoE"
+        "DPS_fuego",
+        "Area/AoE"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -16164,7 +15973,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "DPS",
+        "DPS_hielo",
         "Debuff"
        ],
        "blockable100": false,
@@ -16235,7 +16044,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "DPS"
+        "DPS_eléctrico"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -16254,7 +16063,8 @@
       {
        "name": "Comunión elemental",
        "cat": [
-        "tank"
+        "tank",
+        "support"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -16320,9 +16130,7 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Buff",
-        "DPS",
-        "Defensa"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -16392,8 +16200,6 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Control",
-        "Control de masas",
         "Debuff"
        ],
        "blockable100": false,
@@ -16412,8 +16218,8 @@
       {
        "name": "Tormenta helada",
        "cat": [
-        "cc",
-        "dps"
+        "dps",
+        "cc"
        ],
        "lvl": 1,
        "pvp": 3,
@@ -16477,11 +16283,9 @@
         "PvE"
        ],
        "funciones": [
-        "Control",
-        "Control de masas",
-        "DPS",
+        "DPS_hielo",
         "Debuff",
-        "Área / AoE"
+        "Area/AoE"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -16662,8 +16466,9 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "DPS",
-        "Daño prolongado"
+        "DPS_fuego",
+        "Burst",
+        "DoT"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -16682,8 +16487,8 @@
       {
        "name": "Tornado",
        "cat": [
-        "cc",
-        "dps"
+        "dps",
+        "cc"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -16747,11 +16552,9 @@
         "PvE"
        ],
        "funciones": [
-        "Control",
-        "Control de masas",
-        "DPS",
+        "DPS_aplastante",
         "Debuff",
-        "Área / AoE"
+        "Area/AoE"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -16829,9 +16632,9 @@
         "PvE"
        ],
        "funciones": [
-        "DPS",
+        "DPS_eléctrico",
         "Debuff",
-        "Área / AoE"
+        "Area/AoE"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -16895,7 +16698,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -16943,9 +16746,8 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Movilidad",
-        "Transporte",
-        "Utilidad"
+        "Buff",
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -17006,8 +16808,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Invocación / mascota"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -17026,8 +16827,8 @@
       {
        "name": "Hiedra espinosa en masa",
        "cat": [
-        "cc",
-        "dps"
+        "dps",
+        "cc"
        ],
        "lvl": 1,
        "pvp": 3,
@@ -17072,11 +16873,9 @@
         "PvE"
        ],
        "funciones": [
-        "Control",
-        "Control de masas",
-        "DPS",
-        "Debuff",
-        "Área / AoE"
+        "Burst",
+        "DPS_punzante",
+        "Debuff"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -17135,7 +16934,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -17314,8 +17113,8 @@
        "duration": null,
        "type": "Direct",
        "aoe": false,
-       "group": false,
-       "rvr": false,
+       "group": true,
+       "rvr": true,
        "roles": [
         "dps"
        ],
@@ -17356,24 +17155,25 @@
         "Leveo PvE",
         "Grupo PvP",
         "Grupo PvE",
-        "Leveo grupo PvE"
+        "Leveo grupo PvE",
+        "RvR"
        ],
        "funciones": [
-        "Buff",
-        "DPS"
+        "Self_buffer",
+        "DPS_cortante"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "PvP",
         "PvE",
-        "Leveo PvE"
-       ],
-       "contenidoSecundario": [
+        "Leveo PvE",
         "Grupo PvP",
         "Grupo PvE",
-        "Leveo grupo PvE"
+        "Leveo grupo PvE",
+        "RvR"
        ],
+       "contenidoSecundario": [],
        "selfDebuff": false,
        "weaponInterval": false
       },
@@ -17434,12 +17234,12 @@
         "PvE",
         "Leveo PvE",
         "Grupo PvP",
-        "Grupo PvE"
+        "Grupo PvE",
+        "RvR",
+        "Leveo grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Crítico / burst",
-        "Debuff"
+        "Self_debuff"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -17450,7 +17250,9 @@
        ],
        "contenidoSecundario": [
         "Grupo PvP",
-        "Grupo PvE"
+        "Grupo PvE",
+        "RvR",
+        "Leveo grupo PvE"
        ],
        "selfDebuff": true,
        "weaponInterval": false
@@ -17485,7 +17287,7 @@
        "type": "Constant",
        "aoe": false,
        "group": true,
-       "rvr": false,
+       "rvr": true,
        "roles": [
         "cc"
        ],
@@ -17519,23 +17321,25 @@
         "Grupo PvP",
         "PvE",
         "Grupo PvE",
+        "RvR",
+        "Leveo grupo PvE",
         "Leveo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Control",
-        "Control de masas",
+        "Self_buffer",
         "Debuff"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "PvP",
-        "Grupo PvP"
-       ],
-       "contenidoSecundario": [
+        "Grupo PvP",
         "PvE",
         "Grupo PvE",
+        "RvR"
+       ],
+       "contenidoSecundario": [
+        "Leveo grupo PvE",
         "Leveo PvE"
        ],
        "selfDebuff": false,
@@ -17544,8 +17348,7 @@
       {
        "name": "Ligereza",
        "cat": [
-        "dps",
-        "mobility"
+        "dps"
        ],
        "lvl": 2,
        "pvp": 1,
@@ -17558,8 +17361,8 @@
        "duration": null,
        "type": "Passive",
        "aoe": false,
-       "group": false,
-       "rvr": false,
+       "group": true,
+       "rvr": true,
        "roles": [
         "flanker"
        ],
@@ -17590,22 +17393,25 @@
         "PvE",
         "Leveo PvE",
         "Grupo PvP",
-        "Grupo PvE"
+        "Grupo PvE",
+        "Leveo grupo PvE",
+        "RvR"
        ],
        "funciones": [
-        "Buff"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "PvP",
         "PvE",
-        "Leveo PvE"
-       ],
-       "contenidoSecundario": [
+        "Leveo PvE",
         "Grupo PvP",
-        "Grupo PvE"
+        "Grupo PvE",
+        "Leveo grupo PvE",
+        "RvR"
        ],
+       "contenidoSecundario": [],
        "selfDebuff": false,
        "weaponInterval": false
       },
@@ -17670,10 +17476,11 @@
         "RvR",
         "Grupo PvE",
         "PvE",
-        "Leveo PvE"
+        "Leveo PvE",
+        "Leveo grupo PvE"
        ],
        "funciones": [
-        "Buff"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -17681,11 +17488,12 @@
         "PvP",
         "Grupo PvP",
         "RvR",
-        "Grupo PvE"
+        "Grupo PvE",
+        "PvE"
        ],
        "contenidoSecundario": [
-        "PvE",
-        "Leveo PvE"
+        "Leveo PvE",
+        "Leveo grupo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -17718,8 +17526,8 @@
        ],
        "type": "Constant",
        "aoe": false,
-       "group": false,
-       "rvr": false,
+       "group": true,
+       "rvr": true,
        "roles": [
         "flanker"
        ],
@@ -17740,25 +17548,24 @@
        "contenido": [
         "PvP",
         "PvE",
-        "Leveo PvE",
+        "Grupo PvE",
         "Grupo PvP",
-        "Grupo PvE"
+        "RvR"
        ],
        "funciones": [
-        "Buff",
-        "Crítico / burst"
+        "Self_buffer",
+        "Burst"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "PvP",
         "PvE",
-        "Leveo PvE"
-       ],
-       "contenidoSecundario": [
+        "Grupo PvE",
         "Grupo PvP",
-        "Grupo PvE"
+        "RvR"
        ],
+       "contenidoSecundario": [],
        "selfDebuff": false,
        "weaponInterval": false
       },
@@ -17790,8 +17597,8 @@
        ],
        "type": "Constant",
        "aoe": false,
-       "group": false,
-       "rvr": false,
+       "group": true,
+       "rvr": true,
        "roles": [
         "dps"
        ],
@@ -17818,25 +17625,23 @@
        "contenido": [
         "PvP",
         "PvE",
-        "Leveo PvE",
+        "Grupo PvE",
         "Grupo PvP",
-        "Grupo PvE"
+        "RvR"
        ],
        "funciones": [
-        "DPS",
-        "Daño prolongado"
+        "DoT"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "PvP",
         "PvE",
-        "Leveo PvE"
-       ],
-       "contenidoSecundario": [
+        "Grupo PvE",
         "Grupo PvP",
-        "Grupo PvE"
+        "RvR"
        ],
+       "contenidoSecundario": [],
        "selfDebuff": false,
        "weaponInterval": false
       },
@@ -17886,11 +17691,12 @@
         "PvE",
         "Leveo PvE",
         "Grupo PvP",
-        "Grupo PvE"
+        "Grupo PvE",
+        "RvR",
+        "Leveo grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Crítico / burst"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -17901,7 +17707,9 @@
        ],
        "contenidoSecundario": [
         "Grupo PvP",
-        "Grupo PvE"
+        "Grupo PvE",
+        "RvR",
+        "Leveo grupo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -17967,15 +17775,13 @@
         "Grupo PvP",
         "RvR",
         "Grupo PvE",
-        "Leveo grupo PvE",
         "PvP",
-        "PvE"
+        "PvE",
+        "Leveo grupo PvE"
        ],
        "funciones": [
-        "Control",
-        "Control de masas",
         "Debuff",
-        "Área / AoE"
+        "Area/AoE"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -17983,11 +17789,11 @@
         "Grupo PvP",
         "RvR",
         "Grupo PvE",
-        "Leveo grupo PvE"
-       ],
-       "contenidoSecundario": [
         "PvP",
         "PvE"
+       ],
+       "contenidoSecundario": [
+        "Leveo grupo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -18047,25 +17853,26 @@
         "Grupo PvP",
         "RvR",
         "Grupo PvE",
-        "Leveo grupo PvE",
         "PvP",
-        "PvE"
+        "PvE",
+        "Leveo grupo PvE"
        ],
        "funciones": [
-        "DPS",
-        "Área / AoE"
+        "Self_buffer",
+        "Area/AoE",
+        "DPS_punzante"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "Grupo PvP",
         "RvR",
-        "Grupo PvE",
-        "Leveo grupo PvE"
+        "Grupo PvE"
        ],
        "contenidoSecundario": [
         "PvP",
-        "PvE"
+        "PvE",
+        "Leveo grupo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -18100,7 +17907,7 @@
        "type": "Direct",
        "aoe": false,
        "group": true,
-       "rvr": false,
+       "rvr": true,
        "roles": [
         "dps"
        ],
@@ -18126,35 +17933,35 @@
        "attrTags": [],
        "contenido": [
         "PvP",
-        "Grupo PvP",
         "PvE",
-        "Grupo PvE",
         "Leveo PvE",
-        "Leveo grupo PvE"
+        "Grupo PvP",
+        "Grupo PvE",
+        "Leveo grupo PvE",
+        "RvR"
        ],
        "funciones": [
-        "DPS",
-        "Defensa"
+        "Self_buffer"
        ],
        "blockable100": true,
        "resistible100": false,
        "contenidoPrincipal": [
         "PvP",
-        "Grupo PvP",
         "PvE",
-        "Grupo PvE"
-       ],
-       "contenidoSecundario": [
         "Leveo PvE",
-        "Leveo grupo PvE"
+        "Grupo PvP",
+        "Grupo PvE",
+        "Leveo grupo PvE",
+        "RvR"
        ],
+       "contenidoSecundario": [],
        "selfDebuff": false,
        "weaponInterval": false
       },
       {
        "name": "Tiro parabólico",
        "cat": [
-        "support"
+        "dps"
        ],
        "lvl": 2,
        "pvp": 2,
@@ -18179,8 +17986,8 @@
        ],
        "type": "Constant",
        "aoe": false,
-       "group": false,
-       "rvr": false,
+       "group": true,
+       "rvr": true,
        "roles": [
         "dps",
         "support"
@@ -18209,22 +18016,26 @@
         "PvP",
         "PvE",
         "Leveo PvE",
+        "RvR",
         "Grupo PvP",
-        "Grupo PvE"
+        "Leveo grupo PvE"
        ],
        "funciones": [
-        "Buff"
+        "DPS_ranged",
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "PvP",
         "PvE",
-        "Leveo PvE"
+        "Leveo PvE",
+        "RvR",
+        "Grupo PvP",
+        "Grupo PvP"
        ],
        "contenidoSecundario": [
-        "Grupo PvP",
-        "Grupo PvE"
+        "Leveo grupo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -18283,11 +18094,12 @@
         "PvE",
         "Leveo PvE",
         "Grupo PvP",
-        "Grupo PvE"
+        "Grupo PvE",
+        "RvR",
+        "Leveo grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Movilidad"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -18298,7 +18110,9 @@
        ],
        "contenidoSecundario": [
         "Grupo PvP",
-        "Grupo PvE"
+        "Grupo PvE",
+        "RvR",
+        "Leveo grupo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -18355,7 +18169,8 @@
         "Grupo PvP",
         "RvR",
         "PvE",
-        "Grupo PvE"
+        "Grupo PvE",
+        "Leveo grupo PvE"
        ],
        "funciones": [
         "Debuff"
@@ -18365,11 +18180,12 @@
        "contenidoPrincipal": [
         "PvP",
         "Grupo PvP",
-        "RvR"
-       ],
-       "contenidoSecundario": [
+        "RvR",
         "PvE",
         "Grupo PvE"
+       ],
+       "contenidoSecundario": [
+        "Leveo grupo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -18396,7 +18212,7 @@
        "duration": 20.0,
        "type": "Constant",
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "roles": [
         "dps"
@@ -18433,27 +18249,25 @@
        "commonRank": 5,
        "attrTags": [],
        "contenido": [
-        "PvP",
         "PvE",
-        "Leveo PvE",
+        "Grupo PvE",
+        "PvP",
         "Grupo PvP",
-        "Grupo PvE"
+        "RvR"
        ],
        "funciones": [
-        "Buff",
-        "Crítico / burst",
-        "Debuff"
+        "Self_debuff"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
-        "PvP",
         "PvE",
-        "Leveo PvE"
+        "Grupo PvE"
        ],
        "contenidoSecundario": [
+        "PvP",
         "Grupo PvP",
-        "Grupo PvE"
+        "RvR"
        ],
        "selfDebuff": true,
        "weaponInterval": false
@@ -18461,7 +18275,7 @@
       {
        "name": "Omnipresencia",
        "cat": [
-        "dps"
+        "support"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -18474,8 +18288,8 @@
        "duration": null,
        "type": "Passive",
        "aoe": false,
-       "group": false,
-       "rvr": false,
+       "group": true,
+       "rvr": true,
        "roles": [
         "dps"
        ],
@@ -18503,24 +18317,28 @@
        ],
        "contenido": [
         "PvP",
+        "Grupo PvP",
+        "RvR",
+        "Grupo PvE",
         "PvE",
         "Leveo PvE",
-        "Grupo PvP",
-        "Grupo PvE"
+        "Leveo grupo PvE"
        ],
        "funciones": [
-        "Buff"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "PvP",
-        "PvE",
-        "Leveo PvE"
+        "Grupo PvP",
+        "RvR",
+        "Grupo PvE",
+        "PvE"
        ],
        "contenidoSecundario": [
-        "Grupo PvP",
-        "Grupo PvE"
+        "Leveo PvE",
+        "Leveo grupo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -18547,8 +18365,8 @@
        "duration": 15.0,
        "type": "Constant",
        "aoe": false,
-       "group": false,
-       "rvr": false,
+       "group": true,
+       "rvr": true,
        "roles": [
         "dps"
        ],
@@ -18580,26 +18398,23 @@
        "contenido": [
         "PvP",
         "PvE",
-        "Leveo PvE",
         "Grupo PvP",
-        "Grupo PvE"
+        "Grupo PvE",
+        "RvR"
        ],
        "funciones": [
-        "DPS",
-        "Daño prolongado",
-        "Debuff"
+        "DoT"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "PvP",
         "PvE",
-        "Leveo PvE"
-       ],
-       "contenidoSecundario": [
         "Grupo PvP",
-        "Grupo PvE"
+        "Grupo PvE",
+        "RvR"
        ],
+       "contenidoSecundario": [],
        "selfDebuff": false,
        "weaponInterval": false
       },
@@ -18619,8 +18434,8 @@
        "duration": null,
        "type": "Passive",
        "aoe": false,
-       "group": false,
-       "rvr": false,
+       "group": true,
+       "rvr": true,
        "roles": [
         "dps"
        ],
@@ -18649,22 +18464,25 @@
         "PvE",
         "Leveo PvE",
         "Grupo PvP",
-        "Grupo PvE"
+        "Grupo PvE",
+        "Leveo grupo PvE",
+        "RvR"
        ],
        "funciones": [
-        "Buff"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "PvP",
         "PvE",
-        "Leveo PvE"
-       ],
-       "contenidoSecundario": [
+        "Leveo PvE",
         "Grupo PvP",
-        "Grupo PvE"
+        "Grupo PvE",
+        "Leveo grupo PvE",
+        "RvR"
        ],
+       "contenidoSecundario": [],
        "selfDebuff": false,
        "weaponInterval": false
       },
@@ -18691,7 +18509,7 @@
        "type": "Constant",
        "aoe": false,
        "group": true,
-       "rvr": false,
+       "rvr": true,
        "roles": [
         "cc"
        ],
@@ -18749,25 +18567,22 @@
         "PvP",
         "Grupo PvP",
         "PvE",
-        "Grupo PvE"
+        "Grupo PvE",
+        "RvR"
        ],
        "funciones": [
-        "Control",
-        "Control de masas",
-        "Debuff",
-        "Sigilo",
-        "Utilidad"
+        "Debuff"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "PvP",
-        "Grupo PvP"
-       ],
-       "contenidoSecundario": [
+        "Grupo PvP",
         "PvE",
-        "Grupo PvE"
+        "Grupo PvE",
+        "RvR"
        ],
+       "contenidoSecundario": [],
        "selfDebuff": false,
        "weaponInterval": false
       },
@@ -18826,26 +18641,25 @@
        "contenido": [
         "Grupo PvP",
         "RvR",
-        "Grupo PvE",
-        "Leveo grupo PvE",
         "PvP",
-        "PvE"
+        "PvE",
+        "Grupo PvE"
        ],
        "funciones": [
-        "DPS",
-        "Área / AoE"
+        "Area/AoE",
+        "DPS_punzante",
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "Grupo PvP",
-        "RvR",
-        "Grupo PvE",
-        "Leveo grupo PvE"
+        "RvR"
        ],
        "contenidoSecundario": [
         "PvP",
-        "PvE"
+        "PvE",
+        "Grupo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -18909,22 +18723,26 @@
         "Grupo PvP",
         "PvP",
         "PvE",
-        "Grupo PvE"
+        "Grupo PvE",
+        "Leveo PvE",
+        "Leveo grupo PvE",
+        "RvR"
        ],
        "funciones": [
-        "Control",
-        "Control de masas",
         "Debuff"
        ],
        "blockable100": true,
        "resistible100": false,
        "contenidoPrincipal": [
         "Grupo PvP",
-        "PvP"
-       ],
-       "contenidoSecundario": [
+        "PvP",
         "PvE",
         "Grupo PvE"
+       ],
+       "contenidoSecundario": [
+        "Leveo PvE",
+        "Leveo grupo PvE",
+        "RvR"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -18982,7 +18800,9 @@
         "Grupo PvP",
         "RvR",
         "PvE",
-        "Grupo PvE"
+        "Grupo PvE",
+        "Leveo PvE",
+        "Leveo grupo PvE"
        ],
        "funciones": [
         "Debuff"
@@ -18992,11 +18812,13 @@
        "contenidoPrincipal": [
         "PvP",
         "Grupo PvP",
-        "RvR"
-       ],
-       "contenidoSecundario": [
+        "RvR",
         "PvE",
         "Grupo PvE"
+       ],
+       "contenidoSecundario": [
+        "Leveo PvE",
+        "Leveo grupo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -19004,6 +18826,7 @@
       {
        "name": "Puño aturdidor",
        "cat": [
+        "dps",
         "cc"
        ],
        "lvl": 1,
@@ -19065,13 +18888,13 @@
         "PvE",
         "Grupo PvE",
         "Leveo PvE",
-        "Leveo grupo PvE"
+        "Leveo grupo PvE",
+        "RvR"
        ],
        "funciones": [
-        "Control",
-        "Control de masas",
-        "DPS",
-        "Debuff"
+        "DPS_melee",
+        "Debuff",
+        "DPS_aplastante"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -19079,11 +18902,12 @@
         "PvP",
         "Grupo PvP",
         "PvE",
-        "Grupo PvE"
+        "Grupo PvE",
+        "Leveo PvE"
        ],
        "contenidoSecundario": [
-        "Leveo PvE",
-        "Leveo grupo PvE"
+        "Leveo grupo PvE",
+        "RvR"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -19091,6 +18915,7 @@
       {
        "name": "Represalia",
        "cat": [
+        "tank",
         "dps"
        ],
        "lvl": 1,
@@ -19110,8 +18935,8 @@
        "duration": 15.0,
        "type": "Constant",
        "aoe": false,
-       "group": false,
-       "rvr": false,
+       "group": true,
+       "rvr": true,
        "roles": [
         "flanker"
        ],
@@ -19137,24 +18962,26 @@
        "attrTags": [],
        "contenido": [
         "PvP",
-        "PvE",
-        "Leveo PvE",
         "Grupo PvP",
-        "Grupo PvE"
+        "RvR",
+        "Grupo PvE",
+        "PvE"
        ],
        "funciones": [
-        "DPS"
+        "DPS_return",
+        "Debuff",
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "PvP",
-        "PvE",
-        "Leveo PvE"
+        "Grupo PvP",
+        "RvR"
        ],
        "contenidoSecundario": [
-        "Grupo PvP",
-        "Grupo PvE"
+        "Grupo PvE",
+        "PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -19182,7 +19009,7 @@
        "type": "Constant",
        "aoe": false,
        "group": true,
-       "rvr": false,
+       "rvr": true,
        "roles": [
         "cc"
        ],
@@ -19209,9 +19036,11 @@
        "contenido": [
         "PvP",
         "Grupo PvP",
+        "RvR",
         "PvE",
         "Grupo PvE",
-        "Leveo PvE"
+        "Leveo PvE",
+        "Leveo grupo PvE"
        ],
        "funciones": [
         "Debuff"
@@ -19220,12 +19049,14 @@
        "resistible100": false,
        "contenidoPrincipal": [
         "PvP",
-        "Grupo PvP"
+        "Grupo PvP",
+        "RvR",
+        "PvE",
+        "Grupo PvE"
        ],
        "contenidoSecundario": [
-        "PvE",
-        "Grupo PvE",
-        "Leveo PvE"
+        "Leveo PvE",
+        "Leveo grupo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -19258,7 +19089,7 @@
        ],
        "type": "Constant",
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "roles": [
         "dps",
@@ -19284,26 +19115,25 @@
        "commonRank": 1,
        "attrTags": [],
        "contenido": [
-        "PvP",
         "PvE",
-        "Leveo PvE",
+        "Grupo PvE",
         "Grupo PvP",
-        "Grupo PvE"
+        "PvP",
+        "RvR"
        ],
        "funciones": [
-        "Buff",
-        "Debuff"
+        "Self_debuff"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
-        "PvP",
         "PvE",
-        "Leveo PvE"
+        "Grupo PvE"
        ],
        "contenidoSecundario": [
         "Grupo PvP",
-        "Grupo PvE"
+        "PvP",
+        "RvR"
        ],
        "selfDebuff": true,
        "weaponInterval": false
@@ -19311,7 +19141,7 @@
       {
        "name": "Fineza",
        "cat": [
-        "dps"
+        "cc"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -19337,7 +19167,7 @@
        "type": "Constant",
        "aoe": false,
        "group": true,
-       "rvr": false,
+       "rvr": true,
        "roles": [
         "flanker"
        ],
@@ -19364,18 +19194,19 @@
        "contenido": [
         "PvP",
         "Grupo PvP",
+        "RvR",
         "PvE",
         "Grupo PvE"
        ],
        "funciones": [
-        "Crítico / burst",
         "Debuff"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "PvP",
-        "Grupo PvP"
+        "Grupo PvP",
+        "RvR"
        ],
        "contenidoSecundario": [
         "PvE",
@@ -19387,7 +19218,7 @@
       {
        "name": "Centinela",
        "cat": [
-        "support"
+        "dps"
        ],
        "lvl": 1,
        "pvp": 1,
@@ -19400,8 +19231,8 @@
        "duration": null,
        "type": "Passive",
        "aoe": false,
-       "group": false,
-       "rvr": false,
+       "group": true,
+       "rvr": true,
        "roles": [
         "support"
        ],
@@ -19443,22 +19274,25 @@
         "PvE",
         "Leveo PvE",
         "Grupo PvP",
-        "Grupo PvE"
+        "Grupo PvE",
+        "Leveo grupo PvE",
+        "RvR"
        ],
        "funciones": [
-        "Buff"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "PvP",
         "PvE",
-        "Leveo PvE"
-       ],
-       "contenidoSecundario": [
+        "Leveo PvE",
         "Grupo PvP",
-        "Grupo PvE"
+        "Grupo PvE",
+        "Leveo grupo PvE",
+        "RvR"
        ],
+       "contenidoSecundario": [],
        "selfDebuff": false,
        "weaponInterval": false
       },
@@ -19491,7 +19325,7 @@
        "type": "Constant",
        "aoe": false,
        "group": true,
-       "rvr": false,
+       "rvr": true,
        "roles": [
         "cc"
        ],
@@ -19513,22 +19347,26 @@
         "PvP",
         "Grupo PvP",
         "PvE",
-        "Grupo PvE"
+        "Grupo PvE",
+        "RvR",
+        "Leveo PvE",
+        "Leveo grupo PvE"
        ],
        "funciones": [
-        "Control",
-        "Control de masas",
         "Debuff"
        ],
        "blockable100": true,
        "resistible100": false,
        "contenidoPrincipal": [
         "PvP",
-        "Grupo PvP"
+        "Grupo PvP",
+        "PvE",
+        "Grupo PvE",
+        "RvR"
        ],
        "contenidoSecundario": [
-        "PvE",
-        "Grupo PvE"
+        "Leveo PvE",
+        "Leveo grupo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -19584,27 +19422,24 @@
        "contenido": [
         "Grupo PvP",
         "RvR",
-        "Grupo PvE",
-        "Leveo grupo PvE",
         "PvP",
-        "PvE"
+        "PvE",
+        "Grupo PvE"
        ],
        "funciones": [
         "Debuff",
-        "Movilidad",
-        "Área / AoE"
+        "Area/AoE"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "Grupo PvP",
-        "RvR",
-        "Grupo PvE",
-        "Leveo grupo PvE"
+        "RvR"
        ],
        "contenidoSecundario": [
         "PvP",
-        "PvE"
+        "PvE",
+        "Grupo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -19666,7 +19501,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Utilidad"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -19685,7 +19520,7 @@
       {
        "name": "Movilidad",
        "cat": [
-        "mobility"
+        "support"
        ],
        "lvl": 2,
        "pvp": 2,
@@ -19704,8 +19539,8 @@
        "duration": 20.0,
        "type": "Constant",
        "aoe": false,
-       "group": false,
-       "rvr": false,
+       "group": true,
+       "rvr": true,
        "roles": [
         "flanker"
        ],
@@ -19732,24 +19567,27 @@
        "contenido": [
         "PvP",
         "PvE",
-        "Leveo PvE",
         "Grupo PvP",
-        "Grupo PvE"
+        "Grupo PvE",
+        "RvR",
+        "Leveo PvE",
+        "Leveo grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Movilidad"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "PvP",
         "PvE",
-        "Leveo PvE"
+        "Grupo PvP",
+        "Grupo PvE",
+        "RvR"
        ],
        "contenidoSecundario": [
-        "Grupo PvP",
-        "Grupo PvE"
+        "Leveo PvE",
+        "Leveo grupo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -19777,7 +19615,7 @@
        "type": "Constant",
        "aoe": false,
        "group": true,
-       "rvr": false,
+       "rvr": true,
        "roles": [
         "flanker"
        ],
@@ -19817,25 +19655,21 @@
         "Grupo PvP",
         "PvE",
         "Grupo PvE",
-        "Leveo PvE"
+        "RvR"
        ],
        "funciones": [
-        "Buff",
-        "Debuff",
-        "Defensa",
-        "Mitigación / absorción"
+        "Self_debuff"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "PvP",
-        "Grupo PvP"
-       ],
-       "contenidoSecundario": [
+        "Grupo PvP",
         "PvE",
         "Grupo PvE",
-        "Leveo PvE"
+        "RvR"
        ],
+       "contenidoSecundario": [],
        "selfDebuff": true,
        "weaponInterval": false
       },
@@ -19885,22 +19719,25 @@
         "PvP",
         "RvR",
         "PvE",
-        "Grupo PvE"
+        "Grupo PvE",
+        "Leveo PvE",
+        "Leveo grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Defensa"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "Grupo PvP",
         "PvP",
-        "RvR"
-       ],
-       "contenidoSecundario": [
+        "RvR",
         "PvE",
         "Grupo PvE"
+       ],
+       "contenidoSecundario": [
+        "Leveo PvE",
+        "Leveo grupo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -19964,24 +19801,24 @@
         "RvR",
         "PvE",
         "Grupo PvE",
-        "Leveo PvE"
+        "Leveo PvE",
+        "Leveo grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Defensa",
-        "Movilidad"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "Grupo PvP",
         "PvP",
-        "RvR"
+        "RvR",
+        "PvE",
+        "Grupo PvE"
        ],
        "contenidoSecundario": [
-        "PvE",
-        "Grupo PvE",
-        "Leveo PvE"
+        "Leveo PvE",
+        "Leveo grupo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -20015,7 +19852,7 @@
        "type": "Constant",
        "aoe": false,
        "group": true,
-       "rvr": false,
+       "rvr": true,
        "roles": [
         "flanker"
        ],
@@ -20040,27 +19877,29 @@
        "commonRank": 4,
        "attrTags": [],
        "contenido": [
-        "PvP",
         "Grupo PvP",
+        "PvP",
+        "RvR",
         "PvE",
         "Grupo PvE",
-        "Leveo PvE"
+        "Leveo PvE",
+        "Leveo grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "DPS",
-        "Defensa"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
+        "Grupo PvP",
         "PvP",
-        "Grupo PvP"
+        "RvR",
+        "PvE",
+        "Grupo PvE"
        ],
        "contenidoSecundario": [
-        "PvE",
-        "Grupo PvE",
-        "Leveo PvE"
+        "Leveo PvE",
+        "Leveo grupo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -20117,24 +19956,25 @@
         "PvP",
         "RvR",
         "PvE",
-        "Grupo PvE"
+        "Grupo PvE",
+        "Leveo PvE",
+        "Leveo grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Defensa",
-        "Movilidad",
-        "Área / AoE"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "Grupo PvP",
         "PvP",
-        "RvR"
-       ],
-       "contenidoSecundario": [
+        "RvR",
         "PvE",
         "Grupo PvE"
+       ],
+       "contenidoSecundario": [
+        "Leveo PvE",
+        "Leveo grupo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -20155,8 +19995,8 @@
        "duration": null,
        "type": "Passive",
        "aoe": false,
-       "group": false,
-       "rvr": false,
+       "group": true,
+       "rvr": true,
        "roles": [
         "flanker"
        ],
@@ -20187,22 +20027,25 @@
         "PvE",
         "Leveo PvE",
         "Grupo PvP",
-        "Grupo PvE"
+        "Grupo PvE",
+        "Leveo grupo PvE",
+        "RvR"
        ],
        "funciones": [
-        "Buff"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "PvP",
         "PvE",
-        "Leveo PvE"
-       ],
-       "contenidoSecundario": [
+        "Leveo PvE",
         "Grupo PvP",
-        "Grupo PvE"
+        "Grupo PvE",
+        "Leveo grupo PvE",
+        "RvR"
        ],
+       "contenidoSecundario": [],
        "selfDebuff": false,
        "weaponInterval": false
       },
@@ -20235,7 +20078,7 @@
        "type": "Constant",
        "aoe": false,
        "group": true,
-       "rvr": false,
+       "rvr": true,
        "roles": [
         "flanker"
        ],
@@ -20254,24 +20097,21 @@
        "commonRank": 2,
        "attrTags": [],
        "contenido": [
-        "PvP",
         "Grupo PvP",
+        "PvP",
+        "RvR",
         "PvE",
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Control",
-        "Control de masas",
-        "Defensa",
-        "Sigilo",
-        "Utilidad"
+        "Self_debuff"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
+        "Grupo PvP",
         "PvP",
-        "Grupo PvP"
+        "RvR"
        ],
        "contenidoSecundario": [
         "PvE",
@@ -20340,10 +20180,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Debuff",
-        "Defensa",
-        "Área / AoE"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -20441,12 +20278,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "DPS",
-        "Debuff",
-        "Gestión de recursos",
-        "Movilidad",
-        "Utilidad"
+        "Self_debuff"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -20465,7 +20297,9 @@
       {
        "name": "Ola invernal",
        "cat": [
-        "cc"
+        "dps",
+        "cc",
+        "support"
        ],
        "lvl": 1,
        "pvp": 3,
@@ -20528,10 +20362,8 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Control",
-        "Control de masas",
-        "DPS",
-        "Debuff"
+        "Debuff",
+        "DPS_hielo"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -20679,8 +20511,8 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "DPS",
-        "Daño prolongado"
+        "DoT",
+        "DPS_punzante"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -20768,9 +20600,9 @@
         "Leveo grupo PvE"
        ],
        "funciones": [
-        "DPS",
         "Debuff",
-        "Área / AoE"
+        "Area/AoE",
+        "DPS_fuego"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -20841,7 +20673,7 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "DPS"
+        "Burst"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -20916,8 +20748,9 @@
         "PvE"
        ],
        "funciones": [
-        "DPS",
-        "Área / AoE"
+        "Area/AoE",
+        "DPS_cortante",
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -21008,7 +20841,9 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "DPS"
+        "DPS_fuego",
+        "DPS_hielo",
+        "DPS_eléctrico"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -21083,8 +20918,9 @@
         "PvE"
        ],
        "funciones": [
-        "DPS",
-        "Área / AoE"
+        "Area/AoE",
+        "Self_buffer",
+        "DPS_fuego"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -21167,9 +21003,9 @@
         "PvE"
        ],
        "funciones": [
-        "DPS",
         "Debuff",
-        "Área / AoE"
+        "Area/AoE",
+        "DPS_eléctrico"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -21258,9 +21094,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "DPS",
-        "Debuff"
+        "Self_debuff"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -21279,7 +21113,7 @@
       {
        "name": "Enfocar",
        "cat": [
-        "support"
+        "dps"
        ],
        "lvl": 2,
        "pvp": 2,
@@ -21335,8 +21169,8 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Debuff"
+        "Self_debuff",
+        "DPS_ranged"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -21423,7 +21257,7 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "DPS",
+        "DPS_punzante",
         "Debuff"
        ],
        "blockable100": true,
@@ -21489,7 +21323,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -21573,8 +21407,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Crítico / burst",
-        "DPS",
+        "Self_buffer",
         "Debuff"
        ],
        "blockable100": false,
@@ -21658,7 +21491,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "DPS"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -21677,7 +21510,6 @@
       {
        "name": "Posición estratégica",
        "cat": [
-        "dps",
         "tank"
        ],
        "lvl": 2,
@@ -21730,7 +21562,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -21794,8 +21626,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Crítico / burst"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -21814,7 +21645,7 @@
       {
        "name": "Tiro buscador",
        "cat": [
-        "dps"
+        "cc"
        ],
        "lvl": 0,
        "pvp": 0,
@@ -21956,7 +21787,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff",
+        "Self_buffer",
         "Debuff"
        ],
        "blockable100": false,
@@ -22020,7 +21851,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -22036,7 +21867,7 @@
       {
        "name": "Flecha de fuego",
        "cat": [
-        "healer_ally"
+        "support"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -22076,9 +21907,7 @@
         "PvE"
        ],
        "funciones": [
-        "Buff",
-        "Disipación / limpieza",
-        "Utilidad"
+        "Buff"
        ],
        "blockable100": true,
        "resistible100": true,
@@ -22139,7 +21968,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -22207,9 +22036,9 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Debuff",
-        "Área / AoE"
+        "Self_debuff",
+        "DPS_ranged",
+        "Debuff"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -22268,7 +22097,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -22452,8 +22281,8 @@
         "dps"
        ],
        "aoe": false,
-       "group": false,
-       "rvr": false,
+       "group": true,
+       "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "Incrementa la efectividad de ataque y el daño.",
@@ -22495,23 +22324,27 @@
         "PvP",
         "PvE",
         "Leveo PvE",
+        "Grupo PvE",
         "Grupo PvP",
-        "Grupo PvE"
+        "RvR",
+        "Leveo grupo PvE"
        ],
        "funciones": [
-        "DPS",
-        "Movilidad"
+        "Self_buffer",
+        "DPS_cortante"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "PvP",
         "PvE",
-        "Leveo PvE"
+        "Leveo PvE",
+        "Grupo PvE",
+        "Grupo PvP",
+        "RvR"
        ],
        "contenidoSecundario": [
-        "Grupo PvP",
-        "Grupo PvE"
+        "Leveo grupo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": true
@@ -22527,8 +22360,8 @@
         "dps"
        ],
        "aoe": false,
-       "group": false,
-       "rvr": false,
+       "group": true,
+       "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "Incrementa el daño cortante mientras esté activo.",
@@ -22566,24 +22399,27 @@
         "PvP",
         "PvE",
         "Leveo PvE",
+        "Grupo PvE",
         "Grupo PvP",
-        "Grupo PvE"
+        "RvR",
+        "Leveo grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "DPS"
+        "Self_buffer",
+        "DPS_cortante"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "PvP",
         "PvE",
-        "Leveo PvE"
-       ],
-       "contenidoSecundario": [
+        "Leveo PvE",
+        "Grupo PvE",
         "Grupo PvP",
-        "Grupo PvE"
+        "RvR",
+        "Leveo grupo PvE"
        ],
+       "contenidoSecundario": [],
        "selfDebuff": false,
        "weaponInterval": false
       },
@@ -22599,7 +22435,7 @@
        ],
        "aoe": false,
        "group": true,
-       "rvr": true,
+       "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "Golpe a los miembros que quita movilidad.",
@@ -22636,24 +22472,18 @@
        "contenido": [
         "PvP",
         "Grupo PvP",
-        "RvR",
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
        ],
        "funciones": [
-        "Control",
-        "Control de masas",
-        "DPS",
-        "Debuff",
-        "Movilidad"
+        "Debuff"
        ],
        "blockable100": true,
        "resistible100": false,
        "contenidoPrincipal": [
         "PvP",
-        "Grupo PvP",
-        "RvR"
+        "Grupo PvP"
        ],
        "contenidoSecundario": [
         "PvE",
@@ -22675,8 +22505,8 @@
         "dps"
        ],
        "aoe": false,
-       "group": false,
-       "rvr": false,
+       "group": true,
+       "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "Una mejorada agilidad y superior estado físico le permiten al guerrero ser más efectivo al blandir su arma, mejorando los cortes que hace en su enemigo y con menos esfuerzo, recuperando mana en cada golpe.",
@@ -22718,26 +22548,27 @@
         "PvP",
         "PvE",
         "Leveo PvE",
+        "Grupo PvE",
         "Grupo PvP",
-        "Grupo PvE"
+        "RvR",
+        "Leveo grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "DPS",
-        "Gestión de recursos",
-        "Utilidad"
+        "Self_buffer",
+        "DPS_cortante"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "PvP",
         "PvE",
-        "Leveo PvE"
-       ],
-       "contenidoSecundario": [
+        "Leveo PvE",
+        "Grupo PvE",
         "Grupo PvP",
-        "Grupo PvE"
+        "RvR",
+        "Leveo grupo PvE"
        ],
+       "contenidoSecundario": [],
        "selfDebuff": false,
        "weaponInterval": false
       },
@@ -22752,8 +22583,8 @@
         "dps"
        ],
        "aoe": false,
-       "group": false,
-       "rvr": false,
+       "group": true,
+       "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "Se ejecuta un corte doble en cruz.",
@@ -22795,22 +22626,26 @@
         "PvP",
         "PvE",
         "Leveo PvE",
+        "Grupo PvE",
         "Grupo PvP",
-        "Grupo PvE"
+        "RvR",
+        "Leveo grupo PvE"
        ],
        "funciones": [
-        "DPS"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "PvP",
         "PvE",
-        "Leveo PvE"
+        "Leveo PvE",
+        "Grupo PvE",
+        "Grupo PvP",
+        "RvR"
        ],
        "contenidoSecundario": [
-        "Grupo PvP",
-        "Grupo PvE"
+        "Leveo grupo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": true
@@ -22818,7 +22653,6 @@
       {
        "name": "Choque",
        "cat": [
-        "cc",
         "dps"
        ],
        "lvl": 1,
@@ -22892,10 +22726,8 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Control",
-        "Control de masas",
-        "DPS",
-        "Debuff"
+        "Debuff",
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": true,
@@ -22973,12 +22805,12 @@
         "Grupo PvE",
         "Leveo grupo PvE",
         "PvP",
-        "PvE",
-        "Leveo PvE"
+        "PvE"
        ],
        "funciones": [
-        "DPS",
-        "Área / AoE"
+        "Self_buffer",
+        "Area/AoE",
+        "DPS_cortante"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -22990,8 +22822,7 @@
        ],
        "contenidoSecundario": [
         "PvP",
-        "PvE",
-        "Leveo PvE"
+        "PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": true
@@ -23045,9 +22876,7 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Buff",
-        "DPS",
-        "Defensa"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -23067,8 +22896,7 @@
       {
        "name": "Ataque fatal",
        "cat": [
-        "dps",
-        "cc"
+        "dps"
        ],
        "lvl": 0,
        "pvp": 0,
@@ -23125,8 +22953,8 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "DPS",
-        "Debuff"
+        "Debuff",
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -23145,8 +22973,8 @@
       {
        "name": "Tifón",
        "cat": [
-        "cc",
-        "dps"
+        "dps",
+        "cc"
        ],
        "lvl": 2,
        "pvp": 2,
@@ -23220,11 +23048,10 @@
         "PvE"
        ],
        "funciones": [
-        "Control",
-        "Control de masas",
-        "DPS",
         "Debuff",
-        "Área / AoE"
+        "Self_buffer",
+        "Area/AoE",
+        "DPS_cortante"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -23306,7 +23133,8 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "DPS"
+        "Self_buffer",
+        "DPS_aplastante"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -23376,8 +23204,8 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "DPS"
+        "Self_buffer",
+        "DPS_aplastante"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -23396,6 +23224,7 @@
       {
        "name": "Rompe costillas",
        "cat": [
+        "dps",
         "cc"
        ],
        "lvl": 1,
@@ -23458,9 +23287,7 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Control",
-        "Control de masas",
-        "DPS",
+        "DPS_aplastante",
         "Debuff"
        ],
        "blockable100": false,
@@ -23525,7 +23352,8 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff"
+        "Self_buffer",
+        "DPS_aplastante"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -23544,8 +23372,7 @@
       {
        "name": "Triturador",
        "cat": [
-        "dps",
-        "cc"
+        "dps"
        ],
        "lvl": 2,
        "pvp": 2,
@@ -23607,7 +23434,7 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "DPS",
+        "Self_buffer",
         "Debuff"
        ],
        "blockable100": false,
@@ -23684,8 +23511,8 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Crítico / burst"
+        "Self_buffer",
+        "Burst"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -23767,13 +23594,12 @@
         "PvP",
         "Grupo PvP",
         "PvE",
-        "Grupo PvE"
+        "Grupo PvE",
+        "Leveo PvE"
        ],
        "funciones": [
-        "DPS",
-        "Debuff",
-        "Disipación / limpieza",
-        "Utilidad"
+        "Self_buffer",
+        "Debuff"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -23783,7 +23609,8 @@
        ],
        "contenidoSecundario": [
         "PvE",
-        "Grupo PvE"
+        "Grupo PvE",
+        "Leveo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": true
@@ -23837,9 +23664,7 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Buff",
-        "DPS",
-        "Defensa"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -23859,6 +23684,7 @@
       {
        "name": "Rompe quijadas",
        "cat": [
+        "dps",
         "cc"
        ],
        "lvl": 1,
@@ -23915,9 +23741,7 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Control",
-        "Control de masas",
-        "DPS",
+        "Self_buffer",
         "Debuff"
        ],
        "blockable100": false,
@@ -23937,8 +23761,8 @@
       {
        "name": "Golpe de trueno",
        "cat": [
-        "cc",
-        "dps"
+        "dps",
+        "cc"
        ],
        "lvl": 2,
        "pvp": 2,
@@ -24012,11 +23836,10 @@
         "PvE"
        ],
        "funciones": [
-        "Control",
-        "Control de masas",
-        "DPS",
+        "Self_buffer",
         "Debuff",
-        "Área / AoE"
+        "DPS_aplastante",
+        "Area/AoE"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -24098,7 +23921,8 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "DPS"
+        "Self_buffer",
+        "DPS_punzante"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -24168,8 +23992,8 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "DPS"
+        "Self_buffer",
+        "DPS_punzante"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -24188,6 +24012,7 @@
       {
        "name": "Balestra",
        "cat": [
+        "dps",
         "cc"
        ],
        "lvl": 2,
@@ -24250,10 +24075,8 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Control",
-        "Control de masas",
-        "DPS",
-        "Debuff"
+        "Debuff",
+        "DPS_punzante"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -24273,7 +24096,7 @@
        "name": "Versatilidad",
        "cat": [
         "dps",
-        "healer_self"
+        "support"
        ],
        "lvl": 2,
        "pvp": 1,
@@ -24328,7 +24151,8 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff"
+        "Self_buffer",
+        "DPS_punzante"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -24355,7 +24179,7 @@
         "dps"
        ],
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
@@ -24403,27 +24227,25 @@
        "attrTags": [],
        "contenido": [
         "PvP",
-        "PvE",
-        "Leveo PvE",
         "Grupo PvP",
-        "Grupo PvE"
+        "PvE",
+        "Grupo PvE",
+        "Leveo PvE"
        ],
        "funciones": [
-        "DPS",
-        "Debuff",
-        "Gestión de recursos",
-        "Utilidad"
+        "Self_buffer",
+        "Debuff"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "PvP",
-        "PvE",
-        "Leveo PvE"
+        "Grupo PvP"
        ],
        "contenidoSecundario": [
-        "Grupo PvP",
-        "Grupo PvE"
+        "PvE",
+        "Grupo PvE",
+        "Leveo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": true
@@ -24431,8 +24253,7 @@
       {
        "name": "Empalamiento",
        "cat": [
-        "dps",
-        "cc"
+        "dps"
        ],
        "lvl": 2,
        "pvp": 2,
@@ -24508,9 +24329,10 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "DPS",
-        "Daño prolongado",
-        "Debuff"
+        "Self_buffer",
+        "Debuff",
+        "DoT",
+        "DPS_punzante"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -24598,10 +24420,11 @@
         "PvP",
         "Grupo PvP",
         "PvE",
-        "Grupo PvE"
+        "Grupo PvE",
+        "Leveo PvE"
        ],
        "funciones": [
-        "DPS",
+        "Self_buffer",
         "Debuff"
        ],
        "blockable100": false,
@@ -24612,7 +24435,8 @@
        ],
        "contenidoSecundario": [
         "PvE",
-        "Grupo PvE"
+        "Grupo PvE",
+        "Leveo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": true
@@ -24666,9 +24490,7 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Buff",
-        "DPS",
-        "Defensa"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -24747,12 +24569,12 @@
         "Grupo PvE",
         "Leveo grupo PvE",
         "PvP",
-        "PvE",
-        "Leveo PvE"
+        "PvE"
        ],
        "funciones": [
-        "DPS",
-        "Área / AoE"
+        "Self_buffer",
+        "DPS_punzante",
+        "Area/AoE"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -24764,8 +24586,7 @@
        ],
        "contenidoSecundario": [
         "PvP",
-        "PvE",
-        "Leveo PvE"
+        "PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": true
@@ -24848,9 +24669,10 @@
         "PvE"
        ],
        "funciones": [
-        "DPS",
+        "Self_buffer",
         "Debuff",
-        "Área / AoE"
+        "DPS_punzante",
+        "Area/AoE"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -24877,6 +24699,7 @@
       {
        "name": "Puntapié",
        "cat": [
+        "dps",
         "cc"
        ],
        "lvl": 1,
@@ -24939,9 +24762,7 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Control",
-        "Control de masas",
-        "DPS",
+        "DPS_aplastante",
         "Debuff"
        ],
        "blockable100": false,
@@ -25005,28 +24826,26 @@
        "commonRank": 2,
        "attrTags": [],
        "contenido": [
+        "PvP",
         "Grupo PvP",
         "RvR",
-        "Grupo PvE",
-        "PvP",
         "PvE",
+        "Grupo PvE",
         "Leveo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Defensa",
-        "Mitigación / absorción"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
+        "PvP",
         "Grupo PvP",
-        "RvR",
-        "Grupo PvE"
+        "RvR"
        ],
        "contenidoSecundario": [
-        "PvP",
         "PvE",
+        "Grupo PvE",
         "Leveo PvE"
        ],
        "selfDebuff": false,
@@ -25071,11 +24890,10 @@
         "PvP",
         "Grupo PvP",
         "PvE",
-        "Grupo PvE",
         "Leveo PvE"
        ],
        "funciones": [
-        "Utilidad"
+        "Burst"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -25085,7 +24903,6 @@
        ],
        "contenidoSecundario": [
         "PvE",
-        "Grupo PvE",
         "Leveo PvE"
        ],
        "selfDebuff": false,
@@ -25103,7 +24920,7 @@
        ],
        "aoe": false,
        "group": true,
-       "rvr": false,
+       "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "El guerrero está entrenado en tácticas de evasivas. Reduce las chances de recibir ataques críticos.",
@@ -25134,22 +24951,25 @@
        "contenido": [
         "PvP",
         "Grupo PvP",
+        "RvR",
         "PvE",
-        "Grupo PvE"
+        "Grupo PvE",
+        "Leveo PvE"
        ],
        "funciones": [
-        "Crítico / burst",
         "Debuff"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "PvP",
-        "Grupo PvP"
+        "Grupo PvP",
+        "RvR"
        ],
        "contenidoSecundario": [
         "PvE",
-        "Grupo PvE"
+        "Grupo PvE",
+        "Leveo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -25205,11 +25025,11 @@
         "Grupo PvP",
         "RvR",
         "PvE",
-        "Grupo PvE"
+        "Grupo PvE",
+        "Leveo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Defensa"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -25220,7 +25040,8 @@
        ],
        "contenidoSecundario": [
         "PvE",
-        "Grupo PvE"
+        "Grupo PvE",
+        "Leveo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -25228,8 +25049,7 @@
       {
        "name": "Revés",
        "cat": [
-        "dps",
-        "cc"
+        "dps"
        ],
        "lvl": 1,
        "pvp": 3,
@@ -25291,8 +25111,8 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "DPS",
-        "Debuff"
+        "Debuff",
+        "DPS_aplastante"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -25312,7 +25132,7 @@
        "name": "Embestida",
        "cat": [
         "support",
-        "mobility"
+        "dps"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -25370,13 +25190,14 @@
         "RvR",
         "Grupo PvE",
         "PvP",
-        "PvE"
+        "PvE",
+        "Leveo PvE"
        ],
        "funciones": [
+        "Self_buffer",
+        "DPS_aplastante",
         "Buff",
-        "DPS",
-        "Movilidad",
-        "Área / AoE"
+        "Area/AoE"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -25387,7 +25208,8 @@
        ],
        "contenidoSecundario": [
         "PvP",
-        "PvE"
+        "PvE",
+        "Leveo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -25452,8 +25274,6 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Control",
-        "Control de masas",
         "Debuff"
        ],
        "blockable100": false,
@@ -25482,7 +25302,7 @@
        ],
        "aoe": false,
        "group": true,
-       "rvr": true,
+       "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "Golpe a la piema del oponente, que queda con dificultades para moverse.",
@@ -25529,24 +25349,23 @@
        "contenido": [
         "PvP",
         "Grupo PvP",
-        "RvR",
         "PvE",
-        "Grupo PvE"
+        "Grupo PvE",
+        "Leveo PvE"
        ],
        "funciones": [
-        "DPS",
         "Debuff"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "PvP",
-        "Grupo PvP",
-        "RvR"
+        "Grupo PvP"
        ],
        "contenidoSecundario": [
         "PvE",
-        "Grupo PvE"
+        "Grupo PvE",
+        "Leveo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": true
@@ -25622,9 +25441,8 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Crítico / burst",
-        "Defensa"
+        "Self_buffer",
+        "Burst"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -25708,10 +25526,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Debuff",
-        "Gestión de recursos",
-        "Utilidad"
+        "Self_debuff"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -25783,9 +25598,7 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Buff",
-        "DPS",
-        "Defensa"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -25852,20 +25665,21 @@
         "Grupo PvP",
         "RvR",
         "Grupo PvE",
+        "Leveo grupo PvE",
         "PvP",
         "PvE"
        ],
        "funciones": [
         "Buff",
-        "DPS",
-        "Área / AoE"
+        "Area/AoE"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "Grupo PvP",
         "RvR",
-        "Grupo PvE"
+        "Grupo PvE",
+        "Leveo grupo PvE"
        ],
        "contenidoSecundario": [
         "PvP",
@@ -25948,8 +25762,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Movilidad"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -25968,8 +25781,7 @@
       {
        "name": "Rugido desafiante",
        "cat": [
-        "tank",
-        "support"
+        "tank"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -26030,10 +25842,7 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Amenaza / agro",
-        "Anti-control",
-        "Buff",
-        "Defensa"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -26104,10 +25913,8 @@
         "PvE"
        ],
        "funciones": [
-        "Control",
-        "Control de masas",
         "Debuff",
-        "Área / AoE"
+        "Area/AoE"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -26193,10 +26000,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Debuff",
-        "Gestión de recursos",
-        "Utilidad"
+        "Self_debuff"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -26260,9 +26064,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "DPS",
-        "Área / AoE"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -26281,7 +26083,8 @@
       {
        "name": "Retorno",
        "cat": [
-        "mobility"
+        "support",
+        "tank"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -26342,7 +26145,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -26469,8 +26272,7 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Defensa"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -26497,8 +26299,7 @@
       {
        "name": "Amenaza",
        "cat": [
-        "tank",
-        "cc"
+        "dps"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -26507,8 +26308,8 @@
         "support"
        ],
        "aoe": false,
-       "group": true,
-       "rvr": true,
+       "group": false,
+       "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "Todo quien esté cerca del bárbaro será intimidado y los golpes críticos que reciban serán más fuertes.",
@@ -26549,29 +26350,26 @@
        "commonRank": 5,
        "attrTags": [],
        "contenido": [
-        "Grupo PvP",
-        "RvR",
-        "Grupo PvE",
         "PvP",
-        "PvE"
+        "PvE",
+        "Leveo PvE",
+        "Grupo PvP",
+        "Grupo PvE"
        ],
        "funciones": [
-        "Amenaza / agro",
-        "Buff",
-        "Control",
-        "Control de masas",
-        "Crítico / burst"
+        "Self_buffer",
+        "Area/AoE"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
-        "Grupo PvP",
-        "RvR",
-        "Grupo PvE"
+        "PvP",
+        "PvE",
+        "Leveo PvE"
        ],
        "contenidoSecundario": [
-        "PvP",
-        "PvE"
+        "Grupo PvP",
+        "Grupo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -26579,8 +26377,7 @@
       {
        "name": "Golpe espiritual",
        "cat": [
-        "dps",
-        "cc"
+        "dps"
        ],
        "lvl": 2,
        "pvp": 2,
@@ -26642,8 +26439,7 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Buff",
-        "DPS",
+        "Self_buffer",
         "Debuff"
        ],
        "blockable100": false,
@@ -26663,8 +26459,7 @@
       {
        "name": "Despedazar",
        "cat": [
-        "dps",
-        "cc"
+        "dps"
        ],
        "lvl": 0,
        "pvp": 0,
@@ -26720,11 +26515,8 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "DPS",
-        "Daño prolongado",
-        "Debuff",
-        "Gestión de recursos",
-        "Utilidad"
+        "Self_buffer",
+        "Debuff"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -26743,8 +26535,8 @@
       {
        "name": "Ataque bestial",
        "cat": [
-        "cc",
-        "dps"
+        "dps",
+        "cc"
        ],
        "lvl": 3,
        "pvp": 2,
@@ -26807,9 +26599,7 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Control",
-        "Control de masas",
-        "DPS",
+        "Self_buffer",
         "Debuff"
        ],
        "blockable100": false,
@@ -26882,7 +26672,7 @@
        ],
        "funciones": [
         "Debuff",
-        "Área / AoE"
+        "Area/AoE"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -26961,14 +26751,12 @@
         "Grupo PvE",
         "Leveo grupo PvE",
         "PvP",
-        "PvE",
-        "Leveo PvE"
+        "PvE"
        ],
        "funciones": [
-        "DPS",
-        "Gestión de recursos",
-        "Utilidad",
-        "Área / AoE"
+        "Self_buffer",
+        "DPS_aplastante",
+        "Area/AoE"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -26980,8 +26768,7 @@
        ],
        "contenidoSecundario": [
         "PvP",
-        "PvE",
-        "Leveo PvE"
+        "PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": true
@@ -26989,7 +26776,6 @@
       {
        "name": "Desestabilizador",
        "cat": [
-        "cc",
         "dps"
        ],
        "lvl": 1,
@@ -27046,9 +26832,7 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Control",
-        "Control de masas",
-        "DPS",
+        "Self_buffer",
         "Debuff"
        ],
        "blockable100": false,
@@ -27124,9 +26908,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "DPS",
-        "Debuff"
+        "Self_debuff"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -27200,8 +26982,8 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "DPS"
+        "Self_buffer",
+        "DPS_ranged"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -27220,8 +27002,8 @@
       {
        "name": "Furia de la tierra",
        "cat": [
-        "cc",
-        "dps"
+        "dps",
+        "cc"
        ],
        "lvl": 0,
        "pvp": 0,
@@ -27285,11 +27067,8 @@
         "PvE"
        ],
        "funciones": [
-        "Control",
-        "Control de masas",
-        "DPS",
         "Debuff",
-        "Área / AoE"
+        "Area/AoE"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -27348,18 +27127,18 @@
        "commonRank": 5,
        "attrTags": [],
        "contenido": [
-        "RvR",
         "Grupo PvP",
+        "RvR",
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
-        "RvR",
         "Grupo PvP",
+        "RvR",
         "Grupo PvE"
        ],
        "contenidoSecundario": [],
@@ -27410,7 +27189,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -27468,7 +27247,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -27487,8 +27266,7 @@
       {
        "name": "Bandera de Warmaster",
        "cat": [
-        "support",
-        "healer_ally"
+        "support"
        ],
        "lvl": 1,
        "pvp": 3,
@@ -27529,7 +27307,7 @@
        ],
        "funciones": [
         "Buff",
-        "Curación"
+        "Area/AoE"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -27590,11 +27368,8 @@
         "PvE"
        ],
        "funciones": [
-        "Buff",
-        "Control",
-        "Control de masas",
-        "Movilidad",
-        "Área / AoE"
+        "Debuff",
+        "Area/AoE"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -27799,8 +27574,8 @@
         "dps"
        ],
        "aoe": false,
-       "group": false,
-       "rvr": false,
+       "group": true,
+       "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "Incrementa la efectividad de ataque y el daño.",
@@ -27842,23 +27617,27 @@
         "PvP",
         "PvE",
         "Leveo PvE",
+        "Grupo PvE",
         "Grupo PvP",
-        "Grupo PvE"
+        "RvR",
+        "Leveo grupo PvE"
        ],
        "funciones": [
-        "DPS",
-        "Movilidad"
+        "Self_buffer",
+        "DPS_cortante"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "PvP",
         "PvE",
-        "Leveo PvE"
+        "Leveo PvE",
+        "Grupo PvE",
+        "Grupo PvP",
+        "RvR"
        ],
        "contenidoSecundario": [
-        "Grupo PvP",
-        "Grupo PvE"
+        "Leveo grupo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": true
@@ -27874,8 +27653,8 @@
         "dps"
        ],
        "aoe": false,
-       "group": false,
-       "rvr": false,
+       "group": true,
+       "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "Incrementa el daño cortante mientras esté activo.",
@@ -27913,24 +27692,27 @@
         "PvP",
         "PvE",
         "Leveo PvE",
+        "Grupo PvE",
         "Grupo PvP",
-        "Grupo PvE"
+        "RvR",
+        "Leveo grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "DPS"
+        "Self_buffer",
+        "DPS_cortante"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "PvP",
         "PvE",
-        "Leveo PvE"
-       ],
-       "contenidoSecundario": [
+        "Leveo PvE",
+        "Grupo PvE",
         "Grupo PvP",
-        "Grupo PvE"
+        "RvR",
+        "Leveo grupo PvE"
        ],
+       "contenidoSecundario": [],
        "selfDebuff": false,
        "weaponInterval": false
       },
@@ -27946,7 +27728,7 @@
        ],
        "aoe": false,
        "group": true,
-       "rvr": true,
+       "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "Golpe a los miembros que quita movilidad.",
@@ -27983,24 +27765,18 @@
        "contenido": [
         "PvP",
         "Grupo PvP",
-        "RvR",
         "PvE",
         "Grupo PvE",
         "Leveo PvE"
        ],
        "funciones": [
-        "Control",
-        "Control de masas",
-        "DPS",
-        "Debuff",
-        "Movilidad"
+        "Debuff"
        ],
        "blockable100": true,
        "resistible100": false,
        "contenidoPrincipal": [
         "PvP",
-        "Grupo PvP",
-        "RvR"
+        "Grupo PvP"
        ],
        "contenidoSecundario": [
         "PvE",
@@ -28022,8 +27798,8 @@
         "dps"
        ],
        "aoe": false,
-       "group": false,
-       "rvr": false,
+       "group": true,
+       "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "Una mejorada agilidad y superior estado físico le permiten al guerrero ser más efectivo al blandir su arma, mejorando los cortes que hace en su enemigo y con menos esfuerzo, recuperando mana en cada golpe.",
@@ -28065,26 +27841,27 @@
         "PvP",
         "PvE",
         "Leveo PvE",
+        "Grupo PvE",
         "Grupo PvP",
-        "Grupo PvE"
+        "RvR",
+        "Leveo grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "DPS",
-        "Gestión de recursos",
-        "Utilidad"
+        "Self_buffer",
+        "DPS_cortante"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "PvP",
         "PvE",
-        "Leveo PvE"
-       ],
-       "contenidoSecundario": [
+        "Leveo PvE",
+        "Grupo PvE",
         "Grupo PvP",
-        "Grupo PvE"
+        "RvR",
+        "Leveo grupo PvE"
        ],
+       "contenidoSecundario": [],
        "selfDebuff": false,
        "weaponInterval": false
       },
@@ -28099,8 +27876,8 @@
         "dps"
        ],
        "aoe": false,
-       "group": false,
-       "rvr": false,
+       "group": true,
+       "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "Se ejecuta un corte doble en cruz.",
@@ -28142,22 +27919,26 @@
         "PvP",
         "PvE",
         "Leveo PvE",
+        "Grupo PvE",
         "Grupo PvP",
-        "Grupo PvE"
+        "RvR",
+        "Leveo grupo PvE"
        ],
        "funciones": [
-        "DPS"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "PvP",
         "PvE",
-        "Leveo PvE"
+        "Leveo PvE",
+        "Grupo PvE",
+        "Grupo PvP",
+        "RvR"
        ],
        "contenidoSecundario": [
-        "Grupo PvP",
-        "Grupo PvE"
+        "Leveo grupo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": true
@@ -28165,7 +27946,6 @@
       {
        "name": "Choque",
        "cat": [
-        "cc",
         "dps"
        ],
        "lvl": 1,
@@ -28239,10 +28019,8 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Control",
-        "Control de masas",
-        "DPS",
-        "Debuff"
+        "Debuff",
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": true,
@@ -28320,12 +28098,12 @@
         "Grupo PvE",
         "Leveo grupo PvE",
         "PvP",
-        "PvE",
-        "Leveo PvE"
+        "PvE"
        ],
        "funciones": [
-        "DPS",
-        "Área / AoE"
+        "Self_buffer",
+        "Area/AoE",
+        "DPS_cortante"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -28337,8 +28115,7 @@
        ],
        "contenidoSecundario": [
         "PvP",
-        "PvE",
-        "Leveo PvE"
+        "PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": true
@@ -28392,9 +28169,7 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Buff",
-        "DPS",
-        "Defensa"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -28414,8 +28189,7 @@
       {
        "name": "Ataque fatal",
        "cat": [
-        "dps",
-        "cc"
+        "dps"
        ],
        "lvl": 0,
        "pvp": 0,
@@ -28472,8 +28246,8 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "DPS",
-        "Debuff"
+        "Debuff",
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -28492,8 +28266,8 @@
       {
        "name": "Tifón",
        "cat": [
-        "cc",
-        "dps"
+        "dps",
+        "cc"
        ],
        "lvl": 2,
        "pvp": 2,
@@ -28567,11 +28341,10 @@
         "PvE"
        ],
        "funciones": [
-        "Control",
-        "Control de masas",
-        "DPS",
         "Debuff",
-        "Área / AoE"
+        "Self_buffer",
+        "Area/AoE",
+        "DPS_cortante"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -28653,7 +28426,8 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "DPS"
+        "Self_buffer",
+        "DPS_aplastante"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -28723,8 +28497,8 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "DPS"
+        "Self_buffer",
+        "DPS_aplastante"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -28743,6 +28517,7 @@
       {
        "name": "Rompe costillas",
        "cat": [
+        "dps",
         "cc"
        ],
        "lvl": 1,
@@ -28805,9 +28580,7 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Control",
-        "Control de masas",
-        "DPS",
+        "DPS_aplastante",
         "Debuff"
        ],
        "blockable100": false,
@@ -28872,7 +28645,8 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff"
+        "Self_buffer",
+        "DPS_aplastante"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -28891,8 +28665,7 @@
       {
        "name": "Triturador",
        "cat": [
-        "dps",
-        "cc"
+        "dps"
        ],
        "lvl": 0,
        "pvp": 0,
@@ -28954,7 +28727,7 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "DPS",
+        "Self_buffer",
         "Debuff"
        ],
        "blockable100": false,
@@ -29031,8 +28804,8 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Crítico / burst"
+        "Self_buffer",
+        "Burst"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -29114,13 +28887,12 @@
         "PvP",
         "Grupo PvP",
         "PvE",
-        "Grupo PvE"
+        "Grupo PvE",
+        "Leveo PvE"
        ],
        "funciones": [
-        "DPS",
-        "Debuff",
-        "Disipación / limpieza",
-        "Utilidad"
+        "Self_buffer",
+        "Debuff"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -29130,7 +28902,8 @@
        ],
        "contenidoSecundario": [
         "PvE",
-        "Grupo PvE"
+        "Grupo PvE",
+        "Leveo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": true
@@ -29184,9 +28957,7 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Buff",
-        "DPS",
-        "Defensa"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -29206,6 +28977,7 @@
       {
        "name": "Rompe quijadas",
        "cat": [
+        "dps",
         "cc"
        ],
        "lvl": 1,
@@ -29262,9 +29034,7 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Control",
-        "Control de masas",
-        "DPS",
+        "Self_buffer",
         "Debuff"
        ],
        "blockable100": false,
@@ -29284,8 +29054,8 @@
       {
        "name": "Golpe de trueno",
        "cat": [
-        "cc",
-        "dps"
+        "dps",
+        "cc"
        ],
        "lvl": 2,
        "pvp": 2,
@@ -29359,11 +29129,10 @@
         "PvE"
        ],
        "funciones": [
-        "Control",
-        "Control de masas",
-        "DPS",
+        "Self_buffer",
         "Debuff",
-        "Área / AoE"
+        "DPS_aplastante",
+        "Area/AoE"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -29445,7 +29214,8 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "DPS"
+        "Self_buffer",
+        "DPS_punzante"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -29515,8 +29285,8 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "DPS"
+        "Self_buffer",
+        "DPS_punzante"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -29535,6 +29305,7 @@
       {
        "name": "Balestra",
        "cat": [
+        "dps",
         "cc"
        ],
        "lvl": 2,
@@ -29597,10 +29368,8 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Control",
-        "Control de masas",
-        "DPS",
-        "Debuff"
+        "Debuff",
+        "DPS_punzante"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -29620,7 +29389,7 @@
        "name": "Versatilidad",
        "cat": [
         "dps",
-        "healer_self"
+        "support"
        ],
        "lvl": 2,
        "pvp": 1,
@@ -29675,7 +29444,8 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff"
+        "Self_buffer",
+        "DPS_punzante"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -29702,7 +29472,7 @@
         "dps"
        ],
        "aoe": false,
-       "group": false,
+       "group": true,
        "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
@@ -29750,27 +29520,25 @@
        "attrTags": [],
        "contenido": [
         "PvP",
-        "PvE",
-        "Leveo PvE",
         "Grupo PvP",
-        "Grupo PvE"
+        "PvE",
+        "Grupo PvE",
+        "Leveo PvE"
        ],
        "funciones": [
-        "DPS",
-        "Debuff",
-        "Gestión de recursos",
-        "Utilidad"
+        "Self_buffer",
+        "Debuff"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "PvP",
-        "PvE",
-        "Leveo PvE"
+        "Grupo PvP"
        ],
        "contenidoSecundario": [
-        "Grupo PvP",
-        "Grupo PvE"
+        "PvE",
+        "Grupo PvE",
+        "Leveo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": true
@@ -29778,8 +29546,7 @@
       {
        "name": "Empalamiento",
        "cat": [
-        "dps",
-        "cc"
+        "dps"
        ],
        "lvl": 2,
        "pvp": 2,
@@ -29855,9 +29622,10 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "DPS",
-        "Daño prolongado",
-        "Debuff"
+        "Self_buffer",
+        "Debuff",
+        "DoT",
+        "DPS_punzante"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -29945,10 +29713,11 @@
         "PvP",
         "Grupo PvP",
         "PvE",
-        "Grupo PvE"
+        "Grupo PvE",
+        "Leveo PvE"
        ],
        "funciones": [
-        "DPS",
+        "Self_buffer",
         "Debuff"
        ],
        "blockable100": false,
@@ -29959,7 +29728,8 @@
        ],
        "contenidoSecundario": [
         "PvE",
-        "Grupo PvE"
+        "Grupo PvE",
+        "Leveo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": true
@@ -30013,9 +29783,7 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Buff",
-        "DPS",
-        "Defensa"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -30094,12 +29862,12 @@
         "Grupo PvE",
         "Leveo grupo PvE",
         "PvP",
-        "PvE",
-        "Leveo PvE"
+        "PvE"
        ],
        "funciones": [
-        "DPS",
-        "Área / AoE"
+        "Self_buffer",
+        "DPS_punzante",
+        "Area/AoE"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -30111,8 +29879,7 @@
        ],
        "contenidoSecundario": [
         "PvP",
-        "PvE",
-        "Leveo PvE"
+        "PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": true
@@ -30195,9 +29962,10 @@
         "PvE"
        ],
        "funciones": [
-        "DPS",
+        "Self_buffer",
         "Debuff",
-        "Área / AoE"
+        "DPS_punzante",
+        "Area/AoE"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -30224,6 +29992,7 @@
       {
        "name": "Puntapié",
        "cat": [
+        "dps",
         "cc"
        ],
        "lvl": 1,
@@ -30286,9 +30055,7 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Control",
-        "Control de masas",
-        "DPS",
+        "DPS_aplastante",
         "Debuff"
        ],
        "blockable100": false,
@@ -30352,28 +30119,26 @@
        "commonRank": 3,
        "attrTags": [],
        "contenido": [
+        "PvP",
         "Grupo PvP",
         "RvR",
-        "Grupo PvE",
-        "PvP",
         "PvE",
+        "Grupo PvE",
         "Leveo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Defensa",
-        "Mitigación / absorción"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
+        "PvP",
         "Grupo PvP",
-        "RvR",
-        "Grupo PvE"
+        "RvR"
        ],
        "contenidoSecundario": [
-        "PvP",
         "PvE",
+        "Grupo PvE",
         "Leveo PvE"
        ],
        "selfDebuff": false,
@@ -30418,11 +30183,10 @@
         "PvP",
         "Grupo PvP",
         "PvE",
-        "Grupo PvE",
         "Leveo PvE"
        ],
        "funciones": [
-        "Utilidad"
+        "Burst"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -30432,7 +30196,6 @@
        ],
        "contenidoSecundario": [
         "PvE",
-        "Grupo PvE",
         "Leveo PvE"
        ],
        "selfDebuff": false,
@@ -30450,7 +30213,7 @@
        ],
        "aoe": false,
        "group": true,
-       "rvr": false,
+       "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "El guerrero está entrenado en tácticas de evasivas. Reduce las chances de recibir ataques críticos.",
@@ -30481,22 +30244,25 @@
        "contenido": [
         "PvP",
         "Grupo PvP",
+        "RvR",
         "PvE",
-        "Grupo PvE"
+        "Grupo PvE",
+        "Leveo PvE"
        ],
        "funciones": [
-        "Crítico / burst",
         "Debuff"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "PvP",
-        "Grupo PvP"
+        "Grupo PvP",
+        "RvR"
        ],
        "contenidoSecundario": [
         "PvE",
-        "Grupo PvE"
+        "Grupo PvE",
+        "Leveo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -30552,11 +30318,11 @@
         "Grupo PvP",
         "RvR",
         "PvE",
-        "Grupo PvE"
+        "Grupo PvE",
+        "Leveo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Defensa"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -30567,7 +30333,8 @@
        ],
        "contenidoSecundario": [
         "PvE",
-        "Grupo PvE"
+        "Grupo PvE",
+        "Leveo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -30575,8 +30342,7 @@
       {
        "name": "Revés",
        "cat": [
-        "dps",
-        "cc"
+        "dps"
        ],
        "lvl": 1,
        "pvp": 3,
@@ -30638,8 +30404,8 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "DPS",
-        "Debuff"
+        "Debuff",
+        "DPS_aplastante"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -30659,7 +30425,7 @@
        "name": "Embestida",
        "cat": [
         "support",
-        "mobility"
+        "dps"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -30717,13 +30483,14 @@
         "RvR",
         "Grupo PvE",
         "PvP",
-        "PvE"
+        "PvE",
+        "Leveo PvE"
        ],
        "funciones": [
+        "Self_buffer",
+        "DPS_aplastante",
         "Buff",
-        "DPS",
-        "Movilidad",
-        "Área / AoE"
+        "Area/AoE"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -30734,7 +30501,8 @@
        ],
        "contenidoSecundario": [
         "PvP",
-        "PvE"
+        "PvE",
+        "Leveo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -30799,8 +30567,6 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Control",
-        "Control de masas",
         "Debuff"
        ],
        "blockable100": false,
@@ -30829,7 +30595,7 @@
        ],
        "aoe": false,
        "group": true,
-       "rvr": true,
+       "rvr": false,
        "soloSustain": false,
        "soloPersonal": false,
        "desc": "Golpe a la piema del oponente, que queda con dificultades para moverse.",
@@ -30876,24 +30642,23 @@
        "contenido": [
         "PvP",
         "Grupo PvP",
-        "RvR",
         "PvE",
-        "Grupo PvE"
+        "Grupo PvE",
+        "Leveo PvE"
        ],
        "funciones": [
-        "DPS",
         "Debuff"
        ],
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
         "PvP",
-        "Grupo PvP",
-        "RvR"
+        "Grupo PvP"
        ],
        "contenidoSecundario": [
         "PvE",
-        "Grupo PvE"
+        "Grupo PvE",
+        "Leveo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": true
@@ -30969,9 +30734,8 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Crítico / burst",
-        "Defensa"
+        "Self_buffer",
+        "Burst"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -31064,7 +30828,6 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Amenaza / agro",
         "Debuff"
        ],
        "blockable100": true,
@@ -31159,12 +30922,8 @@
         "Grupo PvP"
        ],
        "funciones": [
-        "Amenaza / agro",
-        "Debuff",
-        "Disipación / limpieza",
-        "Invocación / mascota",
-        "Mitigación / absorción",
-        "Utilidad"
+        "Self_debuff",
+        "Debuff"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -31232,8 +30991,6 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Control",
-        "Control de masas",
         "Debuff"
        ],
        "blockable100": true,
@@ -31252,7 +31009,8 @@
       {
        "name": "Temple de protector",
        "cat": [
-        "tank"
+        "tank",
+        "support"
        ],
        "lvl": 2,
        "pvp": 2,
@@ -31320,9 +31078,7 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Buff",
-        "DPS",
-        "Defensa"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -31396,8 +31152,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "DPS",
+        "Self_debuff",
         "Debuff"
        ],
        "blockable100": false,
@@ -31503,11 +31258,7 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Control",
-        "Control de masas",
-        "Debuff",
-        "Defensa"
+        "Self_debuff"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -31578,8 +31329,7 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Defensa"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -31599,7 +31349,7 @@
       {
        "name": "Furor del caballero",
        "cat": [
-        "mobility"
+        "support"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -31652,7 +31402,7 @@
         "PvE"
        ],
        "funciones": [
-        "Buff"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -31672,7 +31422,6 @@
       {
        "name": "Presencia heroica",
        "cat": [
-        "tank",
         "support"
        ],
        "lvl": 1,
@@ -31726,9 +31475,7 @@
        ],
        "funciones": [
         "Buff",
-        "Defensa",
-        "Mitigación / absorción",
-        "Área / AoE"
+        "Area/AoE"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -31809,9 +31556,7 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Buff",
-        "DPS",
-        "Defensa"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -31890,9 +31635,7 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Defensa",
-        "Mitigación / absorción"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -31912,8 +31655,8 @@
       {
        "name": "Avasallar",
        "cat": [
-        "cc",
-        "dps"
+        "dps",
+        "cc"
        ],
        "lvl": 2,
        "pvp": 2,
@@ -31976,9 +31719,8 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "DPS",
-        "Debuff",
-        "Defensa"
+        "DPS_aplastante",
+        "Debuff"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -31997,7 +31739,7 @@
       {
        "name": "Proteger aliado",
        "cat": [
-        "healer_ally"
+        "support"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -32059,9 +31801,7 @@
         "PvE"
        ],
        "funciones": [
-        "Buff",
-        "Disipación / limpieza",
-        "Utilidad"
+        "Buff"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -32141,13 +31881,7 @@
         "PvE"
        ],
        "funciones": [
-        "Buff",
-        "Control",
-        "Control de masas",
-        "Debuff",
-        "Defensa",
-        "Mitigación / absorción",
-        "Área / AoE"
+        "Self_debuff"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -32221,10 +31955,7 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Buff",
-        "DPS",
-        "Debuff",
-        "Defensa"
+        "Self_debuff"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -32244,8 +31975,7 @@
       {
        "name": "Manto etéreo",
        "cat": [
-        "tank",
-        "healer_ally"
+        "support"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -32308,9 +32038,7 @@
         "PvE"
        ],
        "funciones": [
-        "Buff",
-        "DPS",
-        "Defensa"
+        "Buff"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -32330,8 +32058,7 @@
       {
        "name": "Muro protector",
        "cat": [
-        "tank",
-        "healer_ally"
+        "support"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -32385,9 +32112,7 @@
        ],
        "funciones": [
         "Buff",
-        "DPS",
-        "Defensa",
-        "Área / AoE"
+        "Area/AoE"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -32453,8 +32178,7 @@
         "Leveo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Defensa"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -32474,8 +32198,7 @@
       {
        "name": "Escudo estelar",
        "cat": [
-        "tank",
-        "healer_ally"
+        "support"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -32534,10 +32257,7 @@
        ],
        "funciones": [
         "Buff",
-        "Debuff",
-        "Defensa",
-        "Mitigación / absorción",
-        "Área / AoE"
+        "Area/AoE"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -32557,8 +32277,7 @@
       {
        "name": "Barrera deflectora",
        "cat": [
-        "tank",
-        "healer_ally"
+        "support"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -32617,11 +32336,7 @@
        ],
        "funciones": [
         "Buff",
-        "DPS",
-        "Debuff",
-        "Defensa",
-        "Mitigación / absorción",
-        "Área / AoE"
+        "Area/AoE"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -32685,7 +32400,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -32742,8 +32457,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff",
-        "Defensa"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -32801,7 +32515,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -32821,7 +32535,7 @@
        "name": "Asistencia del Paladín",
        "cat": [
         "tank",
-        "healer_ally"
+        "support"
        ],
        "lvl": 1,
        "pvp": 3,
@@ -32861,10 +32575,8 @@
         "PvE"
        ],
        "funciones": [
-        "Buff",
-        "Defensa",
-        "Mitigación / absorción",
-        "Área / AoE"
+        "Self_buffer",
+        "Buff"
        ],
        "blockable100": false,
        "resistible100": false,
@@ -32883,8 +32595,7 @@
       {
        "name": "Bendecido",
        "cat": [
-        "tank",
-        "healer_self"
+        "tank"
        ],
        "lvl": 1,
        "pvp": 2,
@@ -32924,7 +32635,7 @@
         "Grupo PvE"
        ],
        "funciones": [
-        "Buff"
+        "Self_buffer"
        ],
        "blockable100": false,
        "resistible100": false,

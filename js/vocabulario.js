@@ -25,52 +25,30 @@ const VOCAB = {
   rolGrande: {
     dps: "DPS",
     tank: "Tanque",
-    healer_self: "Curador (Personal)",
-    healer_ally: "Curador (Aliado)",
-    healer_pet: "Curador (Mascota)",
+    healer: "Curador",
     support: "Soporte",
     cc: "Control",
-    mobility: "Movilidad",
   },
 
-  // Nombres de los botones de rol en "Build a medida". Vocabulario propio,
-  // más amplio que el de arriba porque incluye combinaciones (Off-Tank,
-  // Off-Healer) que agrupan varios roles finos a la vez — ver
-  // "reglasRolSeleccionable" más abajo para cómo se arma cada uno.
+  // Nombres de los botones de rol en "Build a medida" — mismo vocabulario
+  // que el de arriba, ya no hace falta un set separado ni reglas compuestas
+  // (Off-Tank/Off-Healer quedaron retirados en la recategorización).
   rolSeleccionableLabel: {
     dps: "DPS",
     tank: "Tanque",
     healer: "Curador",
-    support: "Buffer / Debuffer",
-    cc: "Control de masas",
-    offtank: "Off-Tank",
-    offhealer: "Off-Healer",
+    support: "Soporte",
+    cc: "Control",
   },
 
-  // Reglas que definen cuándo una habilidad cuenta para cada rol
-  // seleccionable. Cada rol es una lista de "condiciones" — con que cumpla
-  // UNA le alcanza. Una condición puede pedir solo "cat" (alguno de estos
-  // roles grandes), o "cat" + "funciones" (alguno de estos roles grandes,
-  // Y ADEMÁS alguna de estas funciones específicas).
-  //
-  // Ejemplo de cómo leer "offtank": cuenta si tiene rol Control (cat: cc),
-  // O SI ADEMÁS de tener rol Soporte también tiene alguna de esas tres
-  // funciones de mitigación/anti-control/agro — es decir, apoyo que
-  // protege o controla en vez de apoyo que solo cura o bufea.
+  // Con el vocabulario simplificado, cada rol seleccionable coincide
+  // directamente con el mismo valor en "cat" — sin reglas compuestas.
   reglasRolSeleccionable: {
     dps: [{ cat: ['dps'] }],
     tank: [{ cat: ['tank'] }],
-    healer: [{ cat: ['healer_self', 'healer_ally', 'healer_pet'] }],
+    healer: [{ cat: ['healer'] }],
     support: [{ cat: ['support'] }],
     cc: [{ cat: ['cc'] }],
-    offtank: [
-      { cat: ['cc'] },
-      { cat: ['support'], funciones: ['Mitigación / absorción', 'Anti-control', 'Amenaza / agro'] },
-    ],
-    offhealer: [
-      { cat: ['healer_ally'] },
-      { cat: ['support'], funciones: ['Disipación / limpieza'] },
-    ],
   },
 
   // Abreviaturas de los tags de Contenido que se ven sin desplegar la
