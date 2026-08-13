@@ -384,6 +384,7 @@
       {
        "name": "Flecha paralizadora",
        "cat": [
+        "dps",
         "cc"
        ],
        "lvl": 1,
@@ -537,7 +538,7 @@
       {
        "name": "Meditación",
        "cat": [
-        "support"
+        "dps"
        ],
        "lvl": 2,
        "pvp": 1,
@@ -1231,7 +1232,7 @@
       {
        "name": "Ojo de águila",
        "cat": [
-        "support"
+        "cc"
        ],
        "lvl": 0,
        "pvp": 0,
@@ -17457,6 +17458,7 @@
       {
        "name": "Flecha paralizadora",
        "cat": [
+        "dps",
         "cc"
        ],
        "lvl": 1,
@@ -17610,7 +17612,7 @@
       {
        "name": "Meditación",
        "cat": [
-        "support"
+        "dps"
        ],
        "lvl": 2,
        "pvp": 1,
@@ -18304,7 +18306,7 @@
       {
        "name": "Ojo de águila",
        "cat": [
-        "support"
+        "cc"
        ],
        "lvl": 0,
        "pvp": 0,
@@ -21114,7 +21116,7 @@
        "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
-       "desc": "El tirador dispara una flecha que explota en el aire y cae en forma de una lluvia de fuego.",
+       "desc": "Flecha que transporta energía eléctrica daña a un objetivo y a quienes se hallen cerca.",
        "type": "Constant",
        "mana": [
         260,
@@ -21712,7 +21714,7 @@
           "-7%",
           "-9%",
           "-12%",
-          "15%"
+          "-15%"
          ]
         }
        ],
@@ -25167,7 +25169,7 @@
        "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
-       "desc": "Mejora la evasión del arquero permitiendo evadir el próximo intento de control.",
+       "desc": "Tras un momento de concentración, el guerrero tiene más conciencia de cuáles son sus puntos débiles y puede resistir el próximo intento de control.",
        "type": "Constant",
        "mana": [
         100,
@@ -30514,7 +30516,7 @@
        "rvr": true,
        "soloSustain": false,
        "soloPersonal": false,
-       "desc": "Mejora la evasión del arquero permitiendo evadir el próximo intento de control.",
+       "desc": "Tras un momento de concentración, el guerrero tiene más conciencia de cuáles son sus puntos débiles y puede resistir el próximo intento de control.",
        "type": "Constant",
        "mana": [
         100,
