@@ -254,7 +254,8 @@ function renderCustomBuild(scroll){
   const context = getChoiceValue('pb-context');
   const role = getChoiceValue('pb-role');
   const priorityDiscipline = prioritySelect.value || null;
-  const build = computeBuild(level, ctxCustom({weaponChoice, context, role, priorityDiscipline}), null, true);
+  const excludeWM = !document.getElementById('pb-include-wm').checked;
+  const build = computeBuild(level, ctxCustom({weaponChoice, context, role, priorityDiscipline, excludeWM}), null, true);
   lastCustomBuild = build;
   const out = document.getElementById('pb-output');
   out.innerHTML = '';

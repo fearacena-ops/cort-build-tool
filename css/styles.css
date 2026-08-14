@@ -65,6 +65,8 @@
   .field input[type=text]{width:100%;background:var(--bg-0);border:1px solid var(--line);color:var(--ink);font-family:var(--font-body);font-size:14px;padding:9px 12px;border-radius:3px;box-sizing:border-box;}
   .field input[type=text]:focus{outline:none;border-color:var(--moss);}
   .hint{font-size:11.5px;color:var(--ink-faint);margin-top:8px;}
+  .check-row{display:flex;align-items:center;gap:9px;font-size:14px;color:var(--ink);cursor:pointer;}
+  .check-row input[type=checkbox]{width:17px;height:17px;accent-color:var(--moss);cursor:pointer;}
 
   .choice-group{display:flex;gap:8px;flex-wrap:wrap;}
   .choice-btn{background:var(--bg-0);border:1px solid var(--line);color:var(--ink-dim);font-family:var(--font-body);font-size:13px;padding:9px 16px;border-radius:20px;cursor:pointer;transition:all .15s;}

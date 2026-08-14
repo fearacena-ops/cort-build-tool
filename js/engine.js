@@ -106,7 +106,7 @@ function computeBuild(level, ctx, prevBuild, useNaturalDepth){
   if(useNaturalDepth === undefined) useNaturalDepth = true;
   const dpBudget = totalDP(level);
   const ppBudget = totalPP(level);
-  const wmUnlocked = level >= MAXCHARLEVEL;
+  const wmUnlocked = level >= MAXCHARLEVEL && !ctx.excludeWM;
   const locked = lockedByWeapon(ctx.weaponChoice);
   if(!wmUnlocked) locked.add(WM_NAME);
 
@@ -294,6 +294,7 @@ function ctxCustom(opts){
     priorityDiscipline: opts.priorityDiscipline || null,
     priorityBonus: WEIGHTS.disciplinaPrioritaria,
     weaponChoice: opts.weaponChoice,
+    excludeWM: !!opts.excludeWM,
   };
 }
 function getCheckpoints(current, goal){
