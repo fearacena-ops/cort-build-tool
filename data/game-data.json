@@ -4158,7 +4158,7 @@
        ],
        "debuffs": [],
        "damage": [],
-       "commonRank": 4,
+       "commonRank": 5,
        "attrTags": [],
        "contenido": [
         "PvE",
@@ -5179,11 +5179,6 @@
      ]
     }
    ],
-   "signatureSoloSpell": {
-    "discipline": "Pets",
-    "spellName": "Dominio natural",
-    "boost": 3
-   },
    "soloCallout": "Vas solo: se prioriza <b>Dominio natural</b> al mayor rango posible para que tu mascota vaya a la par de tu nivel, y también su kit de sustento — <b>Curar mascota</b>, <b>Revivir mascota</b>, <b>Defensa salvaje</b> y su armadura — para que aguante mientras limpias mobs. El resto se reparte equilibrado entre daño y supervivencia propia, para matar la mayor cantidad posible antes de descansar.",
    "groupCallout": "Levéas en grupo: se priorizan las habilidades de área para limpiar oleadas de monstruos más rápido. Consejo de la comunidad: si levean en grupo organizado (no solo cerca uno del otro), usar poderes en vez de golpes normales puede anular la XP de tus compañeros en ese kill — para maximizar XP de grupo, considera golpear con ataques normales y reservar los poderes para cuando realmente los necesites.",
    "primaryAttribute": "Destreza"
@@ -11020,7 +11015,6 @@
     }
    },
    "weaponGroups": [],
-   "signatureSoloSpell": null,
    "soloCallout": "Vas solo: se prioriza tu propio sustento — <b>Curarse</b>, <b>Regenerarse</b> y tus escudos personales — para encadenar peleas sin volver a rezar cada dos mobs. El resto se reparte entre daño y control para acortar cada combate. Nota: a diferencia del Cazador, no valido esta prioridad contra una mecánica de invocación específica — ajústala si notas que tu invocación se queda corta.",
    "groupCallout": "Levéas en grupo: se priorizan curaciones y protecciones grupales además del daño en área, para rendir como apoyo del equipo. Consejo de la comunidad: en grupo, tu XP depende de haber lanzado suficientes hechizos sobre quien remata al monstruo — no dudes en curar, buffar o disipar aunque no sea estrictamente necesario, es lo que te da crédito de la muerte.",
    "primaryAttribute": "Inteligencia"
@@ -16959,7 +16953,6 @@
     }
    },
    "weaponGroups": [],
-   "signatureSoloSpell": null,
    "soloCallout": "Vas solo: se prioriza tu propio sustento — <b>Vampirismo</b> y <b>Absorción vital</b> (que te devuelven salud con cada golpe) además de tus escudos personales — para encadenar peleas sin descansar. El resto se reparte entre daño y control para acortar cada combate.",
    "groupCallout": "Levéas en grupo: se priorizan las habilidades de daño en área y control en área, ya que en grupo no dependes tanto de tu propio drenaje de vida. Consejo de la comunidad: tus hechizos de control (raíz, aturdimiento) ayudan al grupo a sostener el kill, pero no abuses de poderes ofensivos completos si no es tu turno de rematar — pueden anular la XP de otros.",
    "primaryAttribute": "Inteligencia"
@@ -22138,7 +22131,6 @@
      ]
     }
    ],
-   "signatureSoloSpell": null,
    "soloCallout": "Vas solo: sin mascota que te ayude, se prioriza tu propio control y evasión (Trucos, Evasión) para no dejarte alcanzar por los mobs, combinado con el daño más alto posible de Maestría en flechas y Puntería para acortar cada pelea.",
    "groupCallout": "Levéas en grupo: se priorizan las habilidades de área para limpiar oleadas de monstruos más rápido — el Tirador brilla como daño a distancia sostenido para el grupo. Consejo de la comunidad: si levean en grupo organizado (no solo cerca uno del otro), usar poderes en vez de golpes normales puede anular la XP de tus compañeros en ese kill — para maximizar XP de grupo, considera golpear con ataques normales y reservar los poderes para cuando realmente los necesites.",
    "primaryAttribute": "Destreza"
@@ -27431,7 +27423,6 @@
      ]
     }
    ],
-   "signatureSoloSpell": null,
    "soloCallout": "Vas solo: sin autocuración, se prioriza control (aturdimientos, miedo) para reducir el daño que recibes mientras rematas rápido con Gritos de guerra y tu tipo de arma. Confirmado por la wiki: si eliges dos armas de una mano, Armas a dos manos no se usa — el árbol de tipo de arma lo determina tu arma principal.",
    "groupCallout": "Levéas en grupo: se priorizan los golpes en área y los gritos que apoyan al equipo, para limpiar oleadas rápido como daño cuerpo a cuerpo del grupo. Consejo de la comunidad: si levean en grupo organizado (no solo cerca uno del otro), usar poderes en vez de golpes normales puede anular la XP de tus compañeros en ese kill — para maximizar XP de grupo, considera golpear con ataques normales y reservar los poderes para cuando realmente los necesites.",
    "primaryAttribute": "Fuerza"
@@ -32681,7 +32672,6 @@
      ]
     }
    ],
-   "signatureSoloSpell": null,
    "soloCallout": "Vas solo: como no tienes autocuración, se prioriza todo lo defensivo de Vanguardia y Escudos (bloqueo, resistencia, provocar) para aguantar peleas largas sin caer, complementado con tu tipo de arma para no eternizar cada combate. El Caballero siempre usa arma de una mano + escudo — es la única clase que puede equipar escudos.",
    "groupCallout": "Levéas en grupo: se priorizan las habilidades que protegen aliados y controlan al enemigo, el rol natural del Caballero como tanque del grupo. Consejo de la comunidad: si levean en grupo organizado (no solo cerca uno del otro), usar poderes en vez de golpes normales puede anular la XP de tus compañeros en ese kill — para maximizar XP de grupo, considera golpear con ataques normales y reservar los poderes para cuando realmente los necesites.",
    "primaryAttribute": "Constitución"

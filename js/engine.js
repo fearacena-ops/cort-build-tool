@@ -68,8 +68,6 @@ function spellScore(name, sp, ctx){
   if(sp.aoe) s += ctx.aoeBonus||0;
   if(sp.group) s += ctx.groupBonus||0;
   if(sp.rvr) s += ctx.rvrBonus||0;
-  const sig = CLASS.signatureSoloSpell;
-  if(ctx.petBoost && sig && name === sig.discipline && sp.name === sig.spellName) s += ctx.petBoost;
   if(ctx.soloSustainBonus && sp.soloSustain) s += ctx.soloSustainBonus;
   if(ctx.soloPersonalBonus && sp.soloPersonal) s += ctx.soloPersonalBonus;
   if(ctx.soloDefenseBonus && sp.cat && sp.cat.includes('tank')) s += ctx.soloDefenseBonus;
@@ -199,18 +197,10 @@ function computeBuild(level, ctx, prevBuild, useNaturalDepth){
   // "typical" investment depth the community converges on (commonRank, from
   // real level-60 setups). Bring each spell up to that depth first, in score
   // order, before pushing anything further toward its hard cap.
-  // One deliberate exception: the class's signature solo spell (e.g. Dominio
-  // natural for Hunter) targets its real cap here instead of commonRank —
-  // it's the one skill worth maxing ahead of "typical" community depth, not
-  // an excuse to max out everything else in its discipline at the expense
-  // of the rest (that's what broke Cólera bestial's usual modest investment
-  // the last time this got tuned too bluntly).
   if(useNaturalDepth){
-    const sig = ctx.petBoost && CLASS.signatureSoloSpell;
     for(const entry of spellPool){
       if(ppLeft<=0) break;
-      const isSignature = sig && entry.disc===sig.discipline && entry.sp.name===sig.spellName;
-      const target = isSignature ? entry.cap : Math.min(entry.cap, entry.sp.commonRank || entry.cap);
+      const target = Math.min(entry.cap, entry.sp.commonRank || entry.cap);
       if(entry.rank >= target) continue;
       const fill = Math.min(target - entry.rank, ppLeft);
       entry.rank += fill;
@@ -258,7 +248,6 @@ function ctxLeveling(mode, weaponChoice){
     aoeBonus: mode==='group' ? w.aoeEnGrupo : 0,
     groupBonus: mode==='group' ? w.utilidadGrupal : 0,
     rvrBonus: 0,
-    petBoost: (solo && CLASS.signatureSoloSpell) ? CLASS.signatureSoloSpell.boost : 0,
     soloSustainBonus: solo ? w.sostenSolo : 0,
     soloPersonalBonus: solo ? w.personalSolo : 0,
     soloDefenseBonus: solo ? w.defensaSolo : 0,
@@ -356,6 +345,21 @@ function replayPowerOrder(powerPurchaseOrder, ppBudget, dlvl){
   }
   return {ranks, ppLeft};
 }
+// How many points can safely be trimmed from `key` without leaving its
+// discipline with zero invested spells (the same protection ensureCoverageStep
+// already applies to its own trims) — used by the foundational/synergy passes
+// below, which can need to trim more than 1 point at once.
+function trimmableAmount(key, ranks, wanted){
+  const cur = ranks[key] || 0;
+  if(cur <= 0) return 0;
+  const [dname] = key.split('|');
+  const isSoleCoverage = !CLASS.disciplines[dname].spells.some((sp,idx)=>{
+    const k = dname+'|'+idx;
+    return k !== key && (ranks[k]||0) > 0;
+  });
+  const floor = isSoleCoverage ? 1 : 0;
+  return Math.max(0, Math.min(wanted, cur - floor));
+}
 // Grupos de sinergia: dos o más habilidades que "van juntas" según el
 // criterio del jugador, marcadas con el mismo sp.synergyGroup en los datos
 // (columna "Sinergia" en el catálogo). Si el motor ya invirtió puntos reales
@@ -397,10 +401,9 @@ function ensureSynergyStep(build, finalBuild){
   for(let i = finalBuild.spellOrder.length - 1; i >= 0 && toTrim > 0; i--){
     const key = finalBuild.spellOrder[i];
     if(addedKeys.includes(key)) continue;
-    const cur = ranks[key] || 0;
-    if(cur <= 0) continue;
-    const take = Math.min(cur, toTrim);
-    ranks[key] = cur - take;
+    const take = trimmableAmount(key, ranks, toTrim);
+    if(take <= 0) continue;
+    ranks[key] = (ranks[key]||0) - take;
     toTrim -= take;
   }
   let ppSpent = 0;
@@ -442,10 +445,9 @@ function ensureFoundationalStep(build, finalBuild){
   for(let i = finalBuild.spellOrder.length - 1; i >= 0 && toTrim > 0; i--){
     const key = finalBuild.spellOrder[i];
     if(addedKeys.includes(key)) continue;
-    const cur = ranks[key] || 0;
-    if(cur <= 0) continue;
-    const take = Math.min(cur, toTrim);
-    ranks[key] = cur - take;
+    const take = trimmableAmount(key, ranks, toTrim);
+    if(take <= 0) continue;
+    ranks[key] = (ranks[key]||0) - take;
     toTrim -= take;
   }
   let ppSpent = 0;
