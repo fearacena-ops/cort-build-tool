@@ -234,6 +234,7 @@ function computeBuild(level, ctx, prevBuild, useNaturalDepth){
   const spellOrder = spellPool.map(e=> e.disc+'|'+e.idx);
   let result = {level, dpBudget, ppBudget, dpLeft, ppLeft, dlvl, ranks, spellOrder, discPurchaseOrder, powerPurchaseOrder, discScore, wmUnlocked, locked, ctx};
   result = ensureFoundationalStep(result, result);
+  result = ensureSynergyStep(result, result);
   return result;
 }
 
@@ -354,6 +355,57 @@ function replayPowerOrder(powerPurchaseOrder, ppBudget, dlvl){
     if(fill > 0){ ranks[key] = cur + fill; ppLeft -= fill; }
   }
   return {ranks, ppLeft};
+}
+// Grupos de sinergia: dos o más habilidades que "van juntas" según el
+// criterio del jugador, marcadas con el mismo sp.synergyGroup en los datos
+// (columna "Sinergia" en el catálogo). Si el motor ya invirtió puntos reales
+// en CUALQUIERA del grupo, las demás del mismo grupo se empujan a SU PROPIO
+// nivel típico de comunidad — no al mismo rango de la que las activó, y sin
+// encadenar: si eso hace que una habilidad de OTRO grupo distinto reciba
+// puntos por primera vez, ese segundo grupo no se vuelve a evaluar en esta
+// misma pasada.
+function ensureSynergyStep(build, finalBuild){
+  const ranks = {...build.ranks};
+  const grupos = {};
+  DISC_NAMES.forEach(name=>{
+    CLASS.disciplines[name].spells.forEach((sp,idx)=>{
+      if(sp.synergyGroup){
+        (grupos[sp.synergyGroup] = grupos[sp.synergyGroup] || []).push({disc:name, idx, sp});
+      }
+    });
+  });
+
+  const additions = [];
+  Object.values(grupos).forEach(miembros=>{
+    const activado = miembros.some(m=> (ranks[m.disc+'|'+m.idx]||0) > 0);
+    if(!activado) return;
+    miembros.forEach(m=>{
+      const key = m.disc+'|'+m.idx;
+      const cap = spellCap(m.disc, m.idx, build.dlvl[m.disc]);
+      if(cap<=0) return;
+      const target = Math.min(cap, m.sp.commonRank || cap);
+      const cur = ranks[key] || 0;
+      if(cur >= target) return;
+      ranks[key] = target;
+      additions.push({key, added: target-cur});
+    });
+  });
+  if(additions.length === 0) return build;
+
+  let toTrim = additions.reduce((sum,a)=> sum+a.added, 0);
+  const addedKeys = additions.map(a=>a.key);
+  for(let i = finalBuild.spellOrder.length - 1; i >= 0 && toTrim > 0; i--){
+    const key = finalBuild.spellOrder[i];
+    if(addedKeys.includes(key)) continue;
+    const cur = ranks[key] || 0;
+    if(cur <= 0) continue;
+    const take = Math.min(cur, toTrim);
+    ranks[key] = cur - take;
+    toTrim -= take;
+  }
+  let ppSpent = 0;
+  Object.values(ranks).forEach(r=> ppSpent += r);
+  return {...build, ranks, ppLeft: Math.max(0, build.ppBudget - ppSpent)};
 }
 // Some disciplines have one spell that everything else in the tree depends
 // on to matter at all — taming a pet before pet-care spells have anyone to
@@ -547,6 +599,7 @@ function buildLevelSequence(current, goal, ctxFn){
     };
     build = ensureCoverageStep(build, finalBuild);
     build = ensureFoundationalStep(build, finalBuild);
+    build = ensureSynergyStep(build, finalBuild);
     build = clampSequenceStep(build, prev, finalBuild);
     seq[lvl] = build;
     prev = build;

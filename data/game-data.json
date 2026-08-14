@@ -3495,7 +3495,8 @@
         "Leveo grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "synergyGroup": "PRUEBA_mascotas_1"
       },
       {
        "name": "Vigilancia enemiga",
@@ -4336,7 +4337,8 @@
         "Grupo PvP"
        ],
        "selfDebuff": false,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "synergyGroup": "PRUEBA_mascotas_2"
       },
       {
        "name": "Vista prominente",
@@ -4481,7 +4483,8 @@
         "Leveo grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "synergyGroup": "PRUEBA_mascotas_2"
       },
       {
        "name": "Revivir mascota",
@@ -4636,7 +4639,8 @@
         "PvP"
        ],
        "selfDebuff": true,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "synergyGroup": "PRUEBA_mascotas_1"
       },
       {
        "name": "Armadura natural",
