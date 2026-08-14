@@ -232,7 +232,9 @@ function computeBuild(level, ctx, prevBuild, useNaturalDepth){
   const ranks = {};
   spellPool.forEach(e=>{ ranks[e.disc+'|'+e.idx] = e.rank; });
   const spellOrder = spellPool.map(e=> e.disc+'|'+e.idx);
-  return {level, dpBudget, ppBudget, dpLeft, ppLeft, dlvl, ranks, spellOrder, discPurchaseOrder, powerPurchaseOrder, discScore, wmUnlocked, locked, ctx};
+  let result = {level, dpBudget, ppBudget, dpLeft, ppLeft, dlvl, ranks, spellOrder, discPurchaseOrder, powerPurchaseOrder, discScore, wmUnlocked, locked, ctx};
+  result = ensureFoundationalStep(result, result);
+  return result;
 }
 
 // Modest bonus layered on top of the hand-calibrated sp.lvl/sp.pvp heuristic
@@ -353,7 +355,51 @@ function replayPowerOrder(powerPurchaseOrder, ppBudget, dlvl){
   }
   return {ranks, ppLeft};
 }
-// Safety net: the replay above is monotonic in spirit (fixed shopping list,
+// Some disciplines have one spell that everything else in the tree depends
+// on to matter at all — taming a pet before pet-care spells have anyone to
+// help, for example. If real points are going into that discipline's other
+// spells, its foundational spell (marked per-discipline in the data, not
+// hardcoded per class) gets bumped to its usual community depth too, paid
+// for by trimming the lowest-priority spells elsewhere. Skipped entirely
+// for disciplines with no foundationalSpell set — most have none.
+function ensureFoundationalStep(build, finalBuild){
+  const ranks = {...build.ranks};
+  const additions = [];
+  DISC_NAMES.forEach(name=>{
+    const disc = CLASS.disciplines[name];
+    const foundational = disc.foundationalSpell;
+    if(!foundational) return;
+    const idx = disc.spells.findIndex(sp=> sp.name === foundational);
+    if(idx < 0) return;
+    const key = name+'|'+idx;
+    const hasOtherInvestment = disc.spells.some((sp,i)=> i!==idx && (ranks[name+'|'+i]||0) > 0);
+    if(!hasOtherInvestment) return;
+    const cap = spellCap(name, idx, build.dlvl[name]);
+    if(cap<=0) return;
+    const sp = disc.spells[idx];
+    const target = Math.min(cap, sp.commonRank || cap);
+    const cur = ranks[key] || 0;
+    if(cur >= target) return;
+    ranks[key] = target;
+    additions.push({key, added: target - cur});
+  });
+  if(additions.length === 0) return build;
+
+  let toTrim = additions.reduce((sum,a)=> sum+a.added, 0);
+  const addedKeys = additions.map(a=>a.key);
+  for(let i = finalBuild.spellOrder.length - 1; i >= 0 && toTrim > 0; i--){
+    const key = finalBuild.spellOrder[i];
+    if(addedKeys.includes(key)) continue;
+    const cur = ranks[key] || 0;
+    if(cur <= 0) continue;
+    const take = Math.min(cur, toTrim);
+    ranks[key] = cur - take;
+    toTrim -= take;
+  }
+  let ppSpent = 0;
+  Object.values(ranks).forEach(r=> ppSpent += r);
+  return {...build, ranks, ppLeft: Math.max(0, build.ppBudget - ppSpent)};
+}
 // growing budget) but character-level *eligibility* gating can occasionally
 // let a lower checkpoint buy something a higher one skipped past while
 // waiting on a prerequisite level, which can — rarely — dip below the
@@ -500,6 +546,7 @@ function buildLevelSequence(current, goal, ctxFn){
       locked: lockedNow, ctx: ctxFn
     };
     build = ensureCoverageStep(build, finalBuild);
+    build = ensureFoundationalStep(build, finalBuild);
     build = clampSequenceStep(build, prev, finalBuild);
     seq[lvl] = build;
     prev = build;
