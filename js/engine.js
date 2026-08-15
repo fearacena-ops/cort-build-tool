@@ -244,7 +244,7 @@ function ctxLeveling(mode, weaponChoice){
   const wantedContent = solo ? ['Leveo PvE'] : ['Leveo grupo PvE', 'Leveo PvE'];
   const w = WEIGHTS.leveo;
   return {
-    base: sp=> sp.lvl + contenidoBonus(sp, wantedContent),
+    base: sp=> sp.lvl * WEIGHTS.pesoPopularidad + contenidoBonus(sp, wantedContent),
     aoeBonus: mode==='group' ? w.aoeEnGrupo : 0,
     groupBonus: mode==='group' ? w.utilidadGrupal : 0,
     rvrBonus: 0,
@@ -261,8 +261,8 @@ function ctxLeveling(mode, weaponChoice){
 }
 function ctxCustom(opts){
   const baseMap = {
-    group_pve: sp=>sp.lvl, solo_pve: sp=>sp.lvl,
-    group_pvp: sp=>sp.pvp, solo_pvp: sp=>sp.pvp, rvr: sp=>sp.pvp
+    group_pve: sp=>sp.lvl*WEIGHTS.pesoPopularidad, solo_pve: sp=>sp.lvl*WEIGHTS.pesoPopularidad,
+    group_pvp: sp=>sp.pvp*WEIGHTS.pesoPopularidad, solo_pvp: sp=>sp.pvp*WEIGHTS.pesoPopularidad, rvr: sp=>sp.pvp*WEIGHTS.pesoPopularidad
   };
   const contentMap = {
     group_pve: ['Grupo PvE'], solo_pve: ['PvE'],

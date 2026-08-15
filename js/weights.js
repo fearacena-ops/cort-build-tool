@@ -14,6 +14,14 @@
    ========================================================================= */
 const WEIGHTS = {
 
+  // Cuánto pesa el puntaje de popularidad real (sp.lvl / sp.pvp, calibrado
+  // con estadísticas de uso de la comunidad) frente a todo lo demás
+  // (Contenido, Rol, atributo, etc). En 1.0 pesa lo mismo que siempre pesó.
+  // Bajarlo deja que las demás señales — sobre todo Contenido, que sí sabe
+  // distinguir "para qué sirve" en vez de solo "qué tan popular es" — tengan
+  // más peso relativo en la decisión final.
+  pesoPopularidad: 0.5,
+
   // Cuánto más vale una habilidad cuando su "Contenido" (para qué contexto
   // sirve, según tu propia clasificación) coincide con lo que se está
   // buscando. Principal pesa más que Secundario porque es el uso que vos
