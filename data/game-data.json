@@ -3495,8 +3495,7 @@
         "Leveo grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false,
-       "synergyGroup": "PRUEBA_mascotas_1"
+       "weaponInterval": false
       },
       {
        "name": "Vigilancia enemiga",
@@ -4337,8 +4336,7 @@
         "Grupo PvP"
        ],
        "selfDebuff": false,
-       "weaponInterval": true,
-       "synergyGroup": "PRUEBA_mascotas_2"
+       "weaponInterval": true
       },
       {
        "name": "Vista prominente",
@@ -4483,8 +4481,7 @@
         "Leveo grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false,
-       "synergyGroup": "PRUEBA_mascotas_2"
+       "weaponInterval": false
       },
       {
        "name": "Revivir mascota",
@@ -4639,8 +4636,7 @@
         "PvP"
        ],
        "selfDebuff": true,
-       "weaponInterval": false,
-       "synergyGroup": "PRUEBA_mascotas_1"
+       "weaponInterval": false
       },
       {
        "name": "Armadura natural",
@@ -4876,8 +4872,7 @@
        "selfDebuff": false,
        "weaponInterval": false
       }
-     ],
-     "foundationalSpell": "Dominio natural"
+     ]
     },
     "Hunter WM": {
      "es": "Cazador · Maestría en Guerra",
