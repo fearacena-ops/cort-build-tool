@@ -281,7 +281,10 @@ let manualState = { level: 60, dlvl: {}, ranks: {} };
 let expandedManualKeys = new Set();
 function resetManualState(level){
   manualState = { level: level, dlvl: {}, ranks: {} };
-  DISC_NAMES.forEach(n=> manualState.dlvl[n]=0);
+  // Every discipline's first level costs 0 discipline points in the game —
+  // it's effectively free and always available, so a fresh character starts
+  // with it already there, not at an untouched 0.
+  DISC_NAMES.forEach(n=> manualState.dlvl[n]=1);
   expandedManualKeys.clear();
 }
 resetManualState(60);
@@ -333,7 +336,7 @@ function clearArchetypeActive(){
 function manualChangeDlvl(name, delta){
   const cur = manualState.dlvl[name];
   const next = cur + delta;
-  if(next < 0 || next > MAXDLEVEL) return;
+  if(next < 1 || next > MAXDLEVEL) return;
   if(delta > 0){
     if(charLevelReq(next) > manualState.level) return;
     const cost = costForDlvl(next) - costForDlvl(cur);
@@ -376,7 +379,7 @@ function renderManualPanel(){
   const warnBox = document.getElementById('pc-warning');
   let warnHtml = '';
   (CLASS.weaponGroups||[]).forEach(group=>{
-    const investedOpts = group.options.filter(o=> manualState.dlvl[o.discipline] > 0);
+    const investedOpts = group.options.filter(o=> manualState.dlvl[o.discipline] > 1);
     if(investedOpts.length > 1){
       const names = investedOpts.map(o=>`<b>${CLASS.disciplines[o.discipline].es}</b>`).join(' y ');
       warnHtml += `<div class="callout warn"><div class="mark">!</div><div>Tienes puntos en ${names} a la vez. En combate solo puedes tener un ${group.label.toLowerCase()} equipado — repártelos así solo si quieres tener ambos disponibles para cambiar de equipo.</div></div>`;
@@ -575,7 +578,8 @@ function initApp(){
     let lines = [`${CLASS.label} — Build manual — Nivel ${manualState.level}`, ''];
     DISC_NAMES.forEach(name=>{
       const lvl = manualState.dlvl[name];
-      if(lvl<=0) return;
+      const hasPowerPoints = CLASS.disciplines[name].spells.some((sp, idx)=> (manualState.ranks[name+'|'+idx]||0) > 0);
+      if(lvl<=1 && !hasPowerPoints) return;
       lines.push(`${CLASS.disciplines[name].es}: disciplina ${lvl}/${MAXDLEVEL}`);
       CLASS.disciplines[name].spells.forEach((sp, idx)=>{
         const rank = manualState.ranks[name+'|'+idx] || 0;
