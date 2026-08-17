@@ -105,7 +105,12 @@ function computeBuild(level, ctx, prevBuild, useNaturalDepth){
   const dpBudget = totalDP(level);
   const ppBudget = totalPP(level);
   const wmUnlocked = level >= MAXCHARLEVEL && !ctx.excludeWM;
-  const locked = lockedByWeapon(ctx.weaponChoice);
+  // The non-chosen weapon's discipline normally stays fully locked — you
+  // picked a weapon, that tree gets nothing. Build a medida can opt out of
+  // that (softWeaponLock) so a secondary weapon competes like any other
+  // discipline instead of leaving its share of the budget going somewhere
+  // that doesn't even fit the chosen content (like Pets in a pure-PvP build).
+  const locked = ctx.softWeaponLock ? new Set() : lockedByWeapon(ctx.weaponChoice);
   if(!wmUnlocked) locked.add(WM_NAME);
 
   const discScore = {};
@@ -287,6 +292,7 @@ function ctxCustom(opts){
     priorityBonus: WEIGHTS.disciplinaPrioritaria,
     weaponChoice: opts.weaponChoice,
     excludeWM: !!opts.excludeWM,
+    softWeaponLock: true,
   };
 }
 function getCheckpoints(current, goal){
