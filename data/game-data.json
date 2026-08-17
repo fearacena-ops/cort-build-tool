@@ -3447,7 +3447,7 @@
        "type": "Constant",
        "aoe": true,
        "group": true,
-       "rvr": true,
+       "rvr": false,
        "roles": [
         "dps"
        ],
@@ -3473,11 +3473,11 @@
        "attrTags": [],
        "contenido": [
         "Grupo PvE",
-        "PvP",
         "PvE",
         "Grupo PvP",
-        "RvR",
-        "Leveo grupo PvE"
+        "Leveo grupo PvE",
+        "PvP",
+        "RvR"
        ],
        "funciones": [
         "Debuff"
@@ -3486,13 +3486,13 @@
        "resistible100": false,
        "contenidoPrincipal": [
         "Grupo PvE",
-        "PvP",
         "PvE",
-        "Grupo PvP",
-        "RvR"
+        "Grupo PvP"
        ],
        "contenidoSecundario": [
-        "Leveo grupo PvE"
+        "Leveo grupo PvE",
+        "PvP",
+        "RvR"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -4162,11 +4162,11 @@
        "contenido": [
         "PvE",
         "Leveo PvE",
-        "PvP",
         "Grupo PvE",
         "RvR",
         "Grupo PvP",
-        "Leveo grupo PvE"
+        "Leveo grupo PvE",
+        "PvP"
        ],
        "funciones": [
         "Self_buffer"
@@ -4176,13 +4176,13 @@
        "contenidoPrincipal": [
         "PvE",
         "Leveo PvE",
-        "PvP",
         "Grupo PvE"
        ],
        "contenidoSecundario": [
         "RvR",
         "Grupo PvP",
-        "Leveo grupo PvE"
+        "Leveo grupo PvE",
+        "PvP"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -4238,11 +4238,11 @@
        "contenido": [
         "PvE",
         "Leveo PvE",
-        "PvP",
         "Grupo PvE",
         "RvR",
         "Grupo PvP",
-        "Leveo grupo PvE"
+        "Leveo grupo PvE",
+        "PvP"
        ],
        "funciones": [
         "Heal_pet"
@@ -4252,13 +4252,13 @@
        "contenidoPrincipal": [
         "PvE",
         "Leveo PvE",
-        "PvP",
         "Grupo PvE"
        ],
        "contenidoSecundario": [
         "RvR",
         "Grupo PvP",
-        "Leveo grupo PvE"
+        "Leveo grupo PvE",
+        "PvP"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -4313,11 +4313,11 @@
        "contenido": [
         "PvE",
         "Leveo PvE",
-        "Leveo grupo PvE",
-        "PvP",
         "Grupo PvE",
         "RvR",
-        "Grupo PvP"
+        "Grupo PvP",
+        "PvP",
+        "Leveo grupo PvE"
        ],
        "funciones": [
         "Self_buffer"
@@ -4327,13 +4327,13 @@
        "contenidoPrincipal": [
         "PvE",
         "Leveo PvE",
-        "Leveo grupo PvE",
-        "PvP",
         "Grupo PvE"
        ],
        "contenidoSecundario": [
         "RvR",
-        "Grupo PvP"
+        "Grupo PvP",
+        "PvP",
+        "Leveo grupo PvE"
        ],
        "selfDebuff": false,
        "weaponInterval": true
@@ -4361,7 +4361,7 @@
        "type": "Activable",
        "aoe": false,
        "group": true,
-       "rvr": true,
+       "rvr": false,
        "roles": [
         "support"
        ],
@@ -4391,11 +4391,11 @@
        "commonRank": 5,
        "attrTags": [],
        "contenido": [
-        "PvP",
         "PvE",
-        "Grupo PvP",
         "Grupo PvE",
-        "RvR"
+        "RvR",
+        "Grupo PvP",
+        "PvP"
        ],
        "funciones": [
         "DPS_ranged",
@@ -4404,13 +4404,14 @@
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
-        "PvP",
         "PvE",
-        "Grupo PvP",
-        "Grupo PvE",
-        "RvR"
+        "Grupo PvE"
        ],
-       "contenidoSecundario": [],
+       "contenidoSecundario": [
+        "RvR",
+        "Grupo PvP",
+        "PvP"
+       ],
        "selfDebuff": true,
        "weaponInterval": false
       },
@@ -4458,11 +4459,11 @@
        "contenido": [
         "PvE",
         "Leveo PvE",
-        "PvP",
         "Grupo PvE",
         "RvR",
         "Grupo PvP",
-        "Leveo grupo PvE"
+        "Leveo grupo PvE",
+        "PvP"
        ],
        "funciones": [
         "Self_buffer"
@@ -4472,13 +4473,13 @@
        "contenidoPrincipal": [
         "PvE",
         "Leveo PvE",
-        "PvP",
         "Grupo PvE"
        ],
        "contenidoSecundario": [
         "RvR",
         "Grupo PvP",
-        "Leveo grupo PvE"
+        "Leveo grupo PvE",
+        "PvP"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -4533,11 +4534,11 @@
        "contenido": [
         "PvE",
         "Leveo PvE",
-        "PvP",
         "Grupo PvE",
         "RvR",
         "Grupo PvP",
-        "Leveo grupo PvE"
+        "Leveo grupo PvE",
+        "PvP"
        ],
        "funciones": [
         "Heal_pet"
@@ -4547,13 +4548,13 @@
        "contenidoPrincipal": [
         "PvE",
         "Leveo PvE",
-        "PvP",
         "Grupo PvE"
        ],
        "contenidoSecundario": [
         "RvR",
         "Grupo PvP",
-        "Leveo grupo PvE"
+        "Leveo grupo PvE",
+        "PvP"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -4682,11 +4683,11 @@
        "contenido": [
         "PvE",
         "Leveo PvE",
-        "PvP",
         "Grupo PvE",
         "RvR",
         "Grupo PvP",
-        "Leveo grupo PvE"
+        "Leveo grupo PvE",
+        "PvP"
        ],
        "funciones": [
         "Self_buffer"
@@ -4696,13 +4697,13 @@
        "contenidoPrincipal": [
         "PvE",
         "Leveo PvE",
-        "PvP",
         "Grupo PvE"
        ],
        "contenidoSecundario": [
         "RvR",
         "Grupo PvP",
-        "Leveo grupo PvE"
+        "Leveo grupo PvE",
+        "PvP"
        ],
        "selfDebuff": false,
        "weaponInterval": false
@@ -4731,7 +4732,7 @@
        "type": "Direct",
        "aoe": true,
        "group": true,
-       "rvr": true,
+       "rvr": false,
        "roles": [
         "dps"
        ],
@@ -4771,11 +4772,11 @@
        "commonRank": 4,
        "attrTags": [],
        "contenido": [
-        "Grupo PvP",
-        "RvR",
         "Grupo PvE",
+        "PvE",
         "PvP",
-        "PvE"
+        "RvR",
+        "Grupo PvP"
        ],
        "funciones": [
         "Debuff",
@@ -4786,13 +4787,13 @@
        "blockable100": false,
        "resistible100": false,
        "contenidoPrincipal": [
-        "Grupo PvP",
-        "RvR",
-        "Grupo PvE"
+        "Grupo PvE",
+        "PvE"
        ],
        "contenidoSecundario": [
         "PvP",
-        "PvE"
+        "RvR",
+        "Grupo PvP"
        ],
        "selfDebuff": false,
        "weaponInterval": true
@@ -4847,11 +4848,11 @@
        "contenido": [
         "PvE",
         "Leveo PvE",
-        "PvP",
         "Grupo PvE",
         "RvR",
         "Grupo PvP",
-        "Leveo grupo PvE"
+        "Leveo grupo PvE",
+        "PvP"
        ],
        "funciones": [
         "Self_buffer"
@@ -4861,13 +4862,13 @@
        "contenidoPrincipal": [
         "PvE",
         "Leveo PvE",
-        "PvP",
         "Grupo PvE"
        ],
        "contenidoSecundario": [
         "RvR",
         "Grupo PvP",
-        "Leveo grupo PvE"
+        "Leveo grupo PvE",
+        "PvP"
        ],
        "selfDebuff": false,
        "weaponInterval": false
