@@ -428,7 +428,7 @@ function renderManualPanel(){
       const isLocked = cap===0;
       const isExpanded = expandedManualKeys.has(key);
       panes += `<div class="spell-row${isLocked?' row-locked':''}${isExpanded?' expanded':''}">
-        <div class="sicon${rank===0?' dim':''}" style="${iconStyle(d.icon, idx+1, 38)}"></div>
+        <div class="sicon${rank===0?' dim':''}" style="${iconStyle(d.icon, sp.spriteIdx, 38)}"></div>
         <div class="rank-pips">${pips}</div>
         <div class="spell-info">
           <div class="spell-name">${sp.name} <span class="rk">Nv.${rank}/${MAXPLEVEL}</span> ${roleTags(sp)}${flagChips(sp)}</div>
@@ -513,7 +513,7 @@ function switchClass(newClass){
   WM_NAME = DISC_NAMES.find(n=> CLASS.disciplines[n].group === "wm");
 
   document.getElementById('current-class-label').textContent = CLASS.label;
-  document.getElementById('hero-meta-class').textContent = `Prototipo · clase ${CLASS.label}`;
+  document.getElementById('hero-meta-class').textContent = `Prototipo · subclase ${CLASS.label}`;
 
   renderWeaponPanel('pa-weapon-panel');
   renderWeaponPanel('pb-bow', 'pb-weapon-section');

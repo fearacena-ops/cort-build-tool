@@ -136,7 +136,7 @@ function renderTabbedDiscs(build){
         else pips += '<div class="pip locked"></div>';
       }
       panes += `<div class="spell-row" onclick="toggleSpellDetail(this)">
-        <div class="sicon${rank===0?' dim':''}" style="${iconStyle(d.icon, idx+1, 38)}"></div>
+        <div class="sicon${rank===0?' dim':''}" style="${iconStyle(d.icon, sp.spriteIdx, 38)}"></div>
         <div class="rank-pips">${pips}</div>
         <div class="spell-info">
           <div class="spell-name">${sp.name} <span class="rk">Nv.${rank}/${MAXPLEVEL}</span> ${roleTags(sp)}${flagChips(sp)}</div>
@@ -190,7 +190,7 @@ function renderDiff(items){
   spellItems.forEach(it=>{
     const d = CLASS.disciplines[it.name];
     html += `<div class="diff-item${it.isNew?' new':''}">
-      <div class="picon" style="${iconStyle(d.icon, it.idx+1, 34)}"></div>
+      <div class="picon" style="${iconStyle(d.icon, it.sp.spriteIdx, 34)}"></div>
       <div class="txt">
         <div class="h">${it.isNew?'Agrega':'Sube'} <b>${it.sp.name}</b> ${it.isNew?`(nuevo, rango ${it.after})`:`rango ${it.before} → ${it.after}`} <span style="color:var(--ink-faint);font-size:12px;font-style:normal">· ${d.es}</span></div>
         <div class="s">${it.sp.desc}</div>
@@ -273,7 +273,7 @@ function buildExportCardFromBuild(buildLike, level, titleSub, customName){
         manaTag = `<div class="export-spell-mana">${manaVal} maná</div>`;
       }
       html += `<div class="export-spell${isPassive ? ' is-passive' : ''}">
-        <div class="export-spell-icon" style="${iconStyle(d.icon, idx+1, 24)}"></div>
+        <div class="export-spell-icon" style="${iconStyle(d.icon, sp.spriteIdx, 24)}"></div>
         <div class="export-spell-name">${sp.name}</div>
         <div class="export-spell-rank">${isPassive ? `Pasiva · Nv.${rank}/5` : `Nv.${rank}/5`}</div>
         ${manaTag}

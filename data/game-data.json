@@ -302,7 +302,8 @@
        ],
        "contenidoSecundario": [],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 1
       },
       {
        "name": "Disparo rápido",
@@ -382,7 +383,8 @@
         "Leveo grupo PvE"
        ],
        "selfDebuff": true,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 2
       },
       {
        "name": "Flecha paralizadora",
@@ -470,7 +472,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 3
       },
       {
        "name": "Ligereza",
@@ -540,7 +543,8 @@
        ],
        "contenidoSecundario": [],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 4
       },
       {
        "name": "Meditación",
@@ -623,7 +627,8 @@
         "Leveo grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 5
       },
       {
        "name": "Adaptabilidad",
@@ -694,7 +699,8 @@
        ],
        "contenidoSecundario": [],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 6
       },
       {
        "name": "Desgarrar",
@@ -770,7 +776,8 @@
        ],
        "contenidoSecundario": [],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 7
       },
       {
        "name": "Duelista",
@@ -839,7 +846,8 @@
         "Leveo grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 8
       },
       {
        "name": "Ralentizar",
@@ -923,7 +931,8 @@
         "Leveo grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 9
       },
       {
        "name": "Tiro de repetición",
@@ -1002,7 +1011,8 @@
         "Leveo grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 10
       }
      ]
     },
@@ -1083,7 +1093,8 @@
        ],
        "contenidoSecundario": [],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 1
       },
       {
        "name": "Tiro parabólico",
@@ -1165,7 +1176,8 @@
         "Leveo grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 2
       },
       {
        "name": "Maniobrabilidad",
@@ -1242,7 +1254,8 @@
         "Leveo grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 3
       },
       {
        "name": "Ojo de águila",
@@ -1315,7 +1328,8 @@
         "Leveo grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 4
       },
       {
        "name": "Tiro al blanco",
@@ -1397,7 +1411,8 @@
         "RvR"
        ],
        "selfDebuff": true,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 5
       },
       {
        "name": "Omnipresencia",
@@ -1468,7 +1483,8 @@
         "Leveo grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 6
       },
       {
        "name": "Despedazar",
@@ -1543,7 +1559,8 @@
        ],
        "contenidoSecundario": [],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 7
       },
       {
        "name": "Especialista",
@@ -1611,7 +1628,8 @@
        ],
        "contenidoSecundario": [],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 8
       },
       {
        "name": "Ofuscar",
@@ -1711,7 +1729,8 @@
        ],
        "contenidoSecundario": [],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 9
       },
       {
        "name": "Lluvia de proyectiles",
@@ -1789,7 +1808,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 10
       }
      ]
     },
@@ -1872,7 +1892,8 @@
         "RvR"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 1
       },
       {
        "name": "Ataque sorpresivo",
@@ -1948,7 +1969,8 @@
         "Leveo grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 2
       },
       {
        "name": "Puño aturdidor",
@@ -2037,7 +2059,8 @@
         "RvR"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 3
       },
       {
        "name": "Represalia",
@@ -2111,7 +2134,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 4
       },
       {
        "name": "Toque pegajoso",
@@ -2186,7 +2210,8 @@
         "Leveo grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 5
       },
       {
        "name": "Pelea sucia",
@@ -2263,7 +2288,8 @@
         "RvR"
        ],
        "selfDebuff": true,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 6
       },
       {
        "name": "Fineza",
@@ -2340,7 +2366,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 7
       },
       {
        "name": "Centinela",
@@ -2421,7 +2448,8 @@
        ],
        "contenidoSecundario": [],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 8
       },
       {
        "name": "Tiro de distración",
@@ -2496,7 +2524,8 @@
         "Leveo grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 9
       },
       {
        "name": "Flecha con abrojos",
@@ -2569,7 +2598,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 10
       }
      ]
     },
@@ -2642,7 +2672,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 1
       },
       {
        "name": "Movilidad",
@@ -2717,7 +2748,8 @@
         "Leveo grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 2
       },
       {
        "name": "Tácticas evasivas",
@@ -2798,7 +2830,8 @@
        ],
        "contenidoSecundario": [],
        "selfDebuff": true,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 3
       },
       {
        "name": "Reflejos felinos",
@@ -2867,7 +2900,8 @@
         "Leveo grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 4
       },
       {
        "name": "Acrobático",
@@ -2948,7 +2982,8 @@
         "Leveo grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 5
       },
       {
        "name": "Eludir conjuros",
@@ -3029,7 +3064,8 @@
         "Leveo grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 6
       },
       {
        "name": "Escapista",
@@ -3104,7 +3140,8 @@
         "Leveo grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 7
       },
       {
        "name": "Astucia",
@@ -3174,7 +3211,8 @@
        ],
        "contenidoSecundario": [],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 8
       },
       {
        "name": "Perfil bajo",
@@ -3245,7 +3283,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 9
       },
       {
        "name": "Hijo del viento",
@@ -3321,7 +3360,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 10
       }
      ]
     },
@@ -3422,7 +3462,8 @@
        ],
        "contenidoSecundario": [],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 1
       },
       {
        "name": "Sentencia a muerte",
@@ -3495,7 +3536,8 @@
         "RvR"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 2
       },
       {
        "name": "Vigilancia enemiga",
@@ -3566,7 +3608,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 3
       },
       {
        "name": "Espíritu salvaje",
@@ -3635,7 +3678,8 @@
         "Leveo grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 4
       },
       {
        "name": "Camuflaje",
@@ -3723,7 +3767,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 5
       },
       {
        "name": "Ligereza heredada",
@@ -3807,7 +3852,8 @@
         "Leveo grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 6
       },
       {
        "name": "Sangre fria",
@@ -3880,7 +3926,8 @@
         "Leveo grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 7
       },
       {
        "name": "Revelar",
@@ -3951,7 +3998,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "spriteIdx": 8
       },
       {
        "name": "Confundir",
@@ -4021,7 +4069,8 @@
        ],
        "contenidoSecundario": [],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 9
       },
       {
        "name": "Entorno acechador",
@@ -4102,7 +4151,8 @@
        ],
        "contenidoSecundario": [],
        "selfDebuff": true,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 10
       }
      ]
     },
@@ -4185,7 +4235,8 @@
         "PvP"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 1
       },
       {
        "name": "Curar mascota",
@@ -4261,7 +4312,8 @@
         "PvP"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 2
       },
       {
        "name": "Defensa salvaje",
@@ -4336,7 +4388,8 @@
         "Leveo grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "spriteIdx": 3
       },
       {
        "name": "Vista prominente",
@@ -4413,7 +4466,8 @@
         "PvP"
        ],
        "selfDebuff": true,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 4
       },
       {
        "name": "Adiestramiento",
@@ -4482,7 +4536,8 @@
         "PvP"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 5
       },
       {
        "name": "Revivir mascota",
@@ -4557,7 +4612,8 @@
         "PvP"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 6
       },
       {
        "name": "Cólera bestial",
@@ -4637,7 +4693,8 @@
         "PvP"
        ],
        "selfDebuff": true,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 7
       },
       {
        "name": "Armadura natural",
@@ -4706,7 +4763,8 @@
         "PvP"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 8
       },
       {
        "name": "Furia natural",
@@ -4796,7 +4854,8 @@
         "Grupo PvP"
        ],
        "selfDebuff": false,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "spriteIdx": 9
       },
       {
        "name": "Coraza de la bestia",
@@ -4871,7 +4930,8 @@
         "PvP"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 10
       }
      ]
     },
@@ -4933,7 +4993,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 2
       },
       {
        "name": "Cuerno del viento",
@@ -4989,7 +5050,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "spriteIdx": 4
       },
       {
        "name": "Maestría de Guerra",
@@ -5045,7 +5107,8 @@
        ],
        "contenidoSecundario": [],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 6
       },
       {
        "name": "Head of the Pack",
@@ -5099,7 +5162,8 @@
        ],
        "contenidoSecundario": [],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 8
       },
       {
        "name": "Sangre de Warmaster",
@@ -5153,7 +5217,8 @@
        ],
        "contenidoSecundario": [],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 10
       }
      ]
     }
@@ -5379,7 +5444,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 1
       },
       {
        "name": "Plaga de insectos",
@@ -5462,7 +5528,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 2
       },
       {
        "name": "Llamarada",
@@ -5537,7 +5604,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 3
       },
       {
        "name": "Empuje mental",
@@ -5616,7 +5684,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 4
       },
       {
        "name": "Hiedra espinosa",
@@ -5699,7 +5768,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 5
       },
       {
        "name": "Dominio de la voluntad",
@@ -5767,7 +5837,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 6
       },
       {
        "name": "Silenciar",
@@ -5837,7 +5908,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 7
       },
       {
        "name": "Muro de agujas",
@@ -5912,7 +5984,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 8
       },
       {
        "name": "Maestro del tiempo",
@@ -6006,7 +6079,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 9
       },
       {
        "name": "Masa devoradora de Sultar",
@@ -6122,7 +6196,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 10
       }
      ]
     },
@@ -6202,7 +6277,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 1
       },
       {
        "name": "Ignición de maná",
@@ -6272,7 +6348,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 2
       },
       {
        "name": "Unión sinérgica",
@@ -6342,7 +6419,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 3
       },
       {
        "name": "Sangre de dragón",
@@ -6408,7 +6486,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 4
       },
       {
        "name": "Préstamo de energía",
@@ -6471,7 +6550,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 5
       },
       {
        "name": "Sacrificio ambicioso",
@@ -6546,7 +6626,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": true,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 6
       },
       {
        "name": "Devoción arcana",
@@ -6616,7 +6697,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 7
       },
       {
        "name": "Laguna de maná",
@@ -6680,7 +6762,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 8
       },
       {
        "name": "Comunión de mana",
@@ -6751,7 +6834,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 9
       },
       {
        "name": "Pilón de mana",
@@ -6828,7 +6912,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 10
       }
      ]
     },
@@ -6933,7 +7018,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": true,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 1
       },
       {
        "name": "Aceleración arcana",
@@ -7003,7 +7089,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 2
       },
       {
        "name": "Proyección arcana",
@@ -7075,7 +7162,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 3
       },
       {
        "name": "Magia de combate",
@@ -7139,7 +7227,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 4
       },
       {
        "name": "Campo estático",
@@ -7227,7 +7316,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 5
       },
       {
        "name": "Magnificación de hielo",
@@ -7325,7 +7415,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": true,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 6
       },
       {
        "name": "Cúpula de protección",
@@ -7402,7 +7493,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 7
       },
       {
        "name": "Control metabólico",
@@ -7477,7 +7569,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": true,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 8
       },
       {
        "name": "Magnificación de electricidad",
@@ -7575,7 +7668,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": true,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 9
       },
       {
        "name": "Furia de Evendim",
@@ -7646,7 +7740,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 10
       }
      ]
     },
@@ -7734,7 +7829,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 1
       },
       {
        "name": "Destreza felina",
@@ -7806,7 +7902,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 2
       },
       {
        "name": "Ceguera",
@@ -7892,7 +7989,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 3
       },
       {
        "name": "Bendición",
@@ -7978,7 +8076,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 4
       },
       {
        "name": "Fuerza de oso",
@@ -8050,7 +8149,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 5
       },
       {
        "name": "Bendecir arma",
@@ -8125,7 +8225,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 6
       },
       {
        "name": "Disipar magia",
@@ -8195,7 +8296,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 7
       },
       {
        "name": "Astucia de zorro",
@@ -8267,7 +8369,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 8
       },
       {
        "name": "Torpeza",
@@ -8345,7 +8448,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 9
       },
       {
        "name": "Disipar magia en masa",
@@ -8416,7 +8520,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 10
       }
      ]
     },
@@ -8508,7 +8613,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 1
       },
       {
        "name": "Curarse",
@@ -8580,7 +8686,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 2
       },
       {
        "name": "Revivir",
@@ -8677,7 +8784,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 3
       },
       {
        "name": "Regenerar aliado",
@@ -8751,7 +8859,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 4
       },
       {
        "name": "Regenerarse",
@@ -8823,7 +8932,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 5
       },
       {
        "name": "Intervención divina",
@@ -8894,7 +9004,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 6
       },
       {
        "name": "Salvador",
@@ -8965,7 +9076,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 7
       },
       {
        "name": "Regeneración mayor",
@@ -9052,7 +9164,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 8
       },
       {
        "name": "Curación mayor",
@@ -9126,7 +9239,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 9
       },
       {
        "name": "Revivir en masa",
@@ -9216,7 +9330,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 10
       }
      ]
     },
@@ -9294,7 +9409,8 @@
         "Grupo PvP"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 1
       },
       {
        "name": "Lazo extraplanar",
@@ -9358,7 +9474,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 2
       },
       {
        "name": "invocar demonio",
@@ -9435,7 +9552,8 @@
         "Grupo PvP"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 3
       },
       {
        "name": "Lazo material",
@@ -9499,7 +9617,8 @@
         "Grupo PvP"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 4
       },
       {
        "name": "Invocar zombis",
@@ -9570,7 +9689,8 @@
         "Grupo PvP"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 5
       },
       {
        "name": "Furia demoníaca",
@@ -9645,7 +9765,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": true,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "spriteIdx": 6
       },
       {
        "name": "Invocar golem",
@@ -9716,7 +9837,8 @@
         "Grupo PvP"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 7
       },
       {
        "name": "Armadura mágica",
@@ -9782,7 +9904,8 @@
         "Grupo PvP"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 8
       },
       {
        "name": "Bebedor de sangre",
@@ -9852,7 +9975,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 9
       },
       {
        "name": "Invocar lich",
@@ -9939,7 +10063,8 @@
         "Grupo PvP"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 10
       }
      ]
     },
@@ -10018,7 +10143,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 1
       },
       {
        "name": "Silueta cambiante",
@@ -10110,7 +10236,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 2
       },
       {
        "name": "Escudar compañero",
@@ -10181,7 +10308,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 3
       },
       {
        "name": "Mente en blanco",
@@ -10285,7 +10413,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 4
       },
       {
        "name": "Espejo del karma",
@@ -10359,7 +10488,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 5
       },
       {
        "name": "Barrera mágica",
@@ -10431,7 +10561,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 6
       },
       {
        "name": "Muralla material",
@@ -10503,7 +10634,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 7
       },
       {
        "name": "Santuario",
@@ -10574,7 +10706,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 8
       },
       {
        "name": "Introspectiva",
@@ -10638,7 +10771,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 9
       },
       {
        "name": "Piel de acero",
@@ -10714,7 +10848,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 10
       }
      ]
     },
@@ -10774,7 +10909,8 @@
        ],
        "contenidoSecundario": [],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 2
       },
       {
        "name": "Portal Defensivo",
@@ -10823,7 +10959,8 @@
        ],
        "contenidoSecundario": [],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 4
       },
       {
        "name": "Maestría de Guerra",
@@ -10887,7 +11024,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 6
       },
       {
        "name": "Protección Divina",
@@ -10947,7 +11085,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 8
       },
       {
        "name": "Sangre de Warmaster",
@@ -11005,7 +11144,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 10
       }
      ]
     }
@@ -11215,7 +11355,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 1
       },
       {
        "name": "Plaga de insectos",
@@ -11298,7 +11439,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 2
       },
       {
        "name": "Llamarada",
@@ -11373,7 +11515,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 3
       },
       {
        "name": "Empuje mental",
@@ -11452,7 +11595,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 4
       },
       {
        "name": "Hiedra espinosa",
@@ -11535,7 +11679,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 5
       },
       {
        "name": "Dominio de la voluntad",
@@ -11603,7 +11748,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 6
       },
       {
        "name": "Silenciar",
@@ -11673,7 +11819,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 7
       },
       {
        "name": "Muro de agujas",
@@ -11748,7 +11895,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 8
       },
       {
        "name": "Maestro del tiempo",
@@ -11842,7 +11990,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 9
       },
       {
        "name": "Masa devoradora de Sultar",
@@ -11958,7 +12107,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 10
       }
      ]
     },
@@ -12038,7 +12188,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 1
       },
       {
        "name": "Ignición de maná",
@@ -12108,7 +12259,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 2
       },
       {
        "name": "Unión sinérgica",
@@ -12178,7 +12330,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 3
       },
       {
        "name": "Sangre de dragón",
@@ -12244,7 +12397,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 4
       },
       {
        "name": "Préstamo de energía",
@@ -12307,7 +12461,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 5
       },
       {
        "name": "Sacrificio ambicioso",
@@ -12382,7 +12537,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": true,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 6
       },
       {
        "name": "Devoción arcana",
@@ -12452,7 +12608,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 7
       },
       {
        "name": "Laguna de maná",
@@ -12516,7 +12673,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 8
       },
       {
        "name": "Comunión de mana",
@@ -12587,7 +12745,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 9
       },
       {
        "name": "Pilón de mana",
@@ -12664,7 +12823,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 10
       }
      ]
     },
@@ -12769,7 +12929,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": true,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 1
       },
       {
        "name": "Aceleración arcana",
@@ -12839,7 +13000,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 2
       },
       {
        "name": "Proyección arcana",
@@ -12911,7 +13073,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 3
       },
       {
        "name": "Magia de combate",
@@ -12975,7 +13138,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 4
       },
       {
        "name": "Campo estático",
@@ -13063,7 +13227,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 5
       },
       {
        "name": "Magnificación de hielo",
@@ -13161,7 +13326,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": true,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 6
       },
       {
        "name": "Cúpula de protección",
@@ -13238,7 +13404,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 7
       },
       {
        "name": "Control metabólico",
@@ -13313,7 +13480,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": true,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 8
       },
       {
        "name": "Magnificación de electricidad",
@@ -13411,7 +13579,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": true,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 9
       },
       {
        "name": "Furia de Evendim",
@@ -13482,7 +13651,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 10
       }
      ]
     },
@@ -13570,7 +13740,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 1
       },
       {
        "name": "Destreza felina",
@@ -13642,7 +13813,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 2
       },
       {
        "name": "Ceguera",
@@ -13728,7 +13900,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 3
       },
       {
        "name": "Bendición",
@@ -13814,7 +13987,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 4
       },
       {
        "name": "Fuerza de oso",
@@ -13886,7 +14060,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 5
       },
       {
        "name": "Bendecir arma",
@@ -13961,7 +14136,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 6
       },
       {
        "name": "Disipar magia",
@@ -14031,7 +14207,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 7
       },
       {
        "name": "Astucia de zorro",
@@ -14103,7 +14280,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 8
       },
       {
        "name": "Torpeza",
@@ -14181,7 +14359,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 9
       },
       {
        "name": "Disipar magia en masa",
@@ -14252,7 +14431,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 10
       }
      ]
     },
@@ -14340,7 +14520,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 1
       },
       {
        "name": "Lentitud",
@@ -14410,7 +14591,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 2
       },
       {
        "name": "Petrificar manos",
@@ -14496,7 +14678,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 3
       },
       {
        "name": "Pereza",
@@ -14574,7 +14757,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 4
       },
       {
        "name": "Meteorito",
@@ -14668,7 +14852,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 5
       },
       {
        "name": "Muro de viento",
@@ -14744,7 +14929,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 6
       },
       {
        "name": "Estallido de cristales",
@@ -14819,7 +15005,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 7
       },
       {
        "name": "Fragilidad",
@@ -14891,7 +15078,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 8
       },
       {
        "name": "Puño de golem",
@@ -14961,7 +15149,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 9
       },
       {
        "name": "Terror de Sultar",
@@ -15070,7 +15259,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 10
       }
      ]
     },
@@ -15149,7 +15339,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 1
       },
       {
        "name": "Oscuridad",
@@ -15217,7 +15408,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 2
       },
       {
        "name": "Enfurecer",
@@ -15295,7 +15487,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 3
       },
       {
        "name": "Absorción vital",
@@ -15362,7 +15555,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 4
       },
       {
        "name": "Guardias sádicos",
@@ -15448,7 +15642,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 5
       },
       {
        "name": "Sirvientes sádicos",
@@ -15513,7 +15708,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 6
       },
       {
        "name": "Guardián de almas",
@@ -15592,7 +15788,8 @@
        ],
        "contenidoSecundario": [],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 7
       },
       {
        "name": "Cremación",
@@ -15660,7 +15857,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 8
       },
       {
        "name": "Poseer invocación",
@@ -15729,7 +15927,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 9
       },
       {
        "name": "Maestro de la destrucción",
@@ -15813,7 +16012,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 10
       }
      ]
     },
@@ -15895,7 +16095,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 1
       },
       {
        "name": "Explosión de hielo",
@@ -15983,7 +16184,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 2
       },
       {
        "name": "Relámpago",
@@ -16053,7 +16255,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 3
       },
       {
        "name": "Comunión elemental",
@@ -16140,7 +16343,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 4
       },
       {
        "name": "Paralizar",
@@ -16208,7 +16412,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 5
       },
       {
        "name": "Tormenta helada",
@@ -16295,7 +16500,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 6
       },
       {
        "name": "Exposición alos elementos",
@@ -16395,7 +16601,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 7
       },
       {
        "name": "Explosión de magma",
@@ -16477,7 +16684,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 8
       },
       {
        "name": "Tornado",
@@ -16564,7 +16772,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 9
       },
       {
        "name": "Invocar rayos",
@@ -16644,7 +16853,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 10
       }
      ]
     },
@@ -16704,7 +16914,8 @@
        ],
        "contenidoSecundario": [],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 2
       },
       {
        "name": "Portal Offensivo",
@@ -16753,7 +16964,8 @@
        ],
        "contenidoSecundario": [],
        "selfDebuff": false,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "spriteIdx": 4
       },
       {
        "name": "Maestría de Guerra",
@@ -16817,7 +17029,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 6
       },
       {
        "name": "Hiedra espinosa en masa",
@@ -16885,7 +17098,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 8
       },
       {
        "name": "Sangre de Warmaster",
@@ -16943,7 +17157,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 10
       }
      ]
     }
@@ -17169,7 +17384,8 @@
        ],
        "contenidoSecundario": [],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 1
       },
       {
        "name": "Disparo rápido",
@@ -17249,7 +17465,8 @@
         "Leveo grupo PvE"
        ],
        "selfDebuff": true,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 2
       },
       {
        "name": "Flecha paralizadora",
@@ -17337,7 +17554,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 3
       },
       {
        "name": "Ligereza",
@@ -17407,7 +17625,8 @@
        ],
        "contenidoSecundario": [],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 4
       },
       {
        "name": "Meditación",
@@ -17490,7 +17709,8 @@
         "Leveo grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 5
       },
       {
        "name": "Adaptabilidad",
@@ -17561,7 +17781,8 @@
        ],
        "contenidoSecundario": [],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 6
       },
       {
        "name": "Desgarrar",
@@ -17637,7 +17858,8 @@
        ],
        "contenidoSecundario": [],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 7
       },
       {
        "name": "Duelista",
@@ -17706,7 +17928,8 @@
         "Leveo grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 8
       },
       {
        "name": "Ralentizar",
@@ -17790,7 +18013,8 @@
         "Leveo grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 9
       },
       {
        "name": "Tiro de repetición",
@@ -17869,7 +18093,8 @@
         "Leveo grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 10
       }
      ]
     },
@@ -17950,7 +18175,8 @@
        ],
        "contenidoSecundario": [],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 1
       },
       {
        "name": "Tiro parabólico",
@@ -18032,7 +18258,8 @@
         "Leveo grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 2
       },
       {
        "name": "Maniobrabilidad",
@@ -18109,7 +18336,8 @@
         "Leveo grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 3
       },
       {
        "name": "Ojo de águila",
@@ -18182,7 +18410,8 @@
         "Leveo grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 4
       },
       {
        "name": "Tiro al blanco",
@@ -18264,7 +18493,8 @@
         "RvR"
        ],
        "selfDebuff": true,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 5
       },
       {
        "name": "Omnipresencia",
@@ -18335,7 +18565,8 @@
         "Leveo grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 6
       },
       {
        "name": "Despedazar",
@@ -18410,7 +18641,8 @@
        ],
        "contenidoSecundario": [],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 7
       },
       {
        "name": "Especialista",
@@ -18478,7 +18710,8 @@
        ],
        "contenidoSecundario": [],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 8
       },
       {
        "name": "Ofuscar",
@@ -18578,7 +18811,8 @@
        ],
        "contenidoSecundario": [],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 9
       },
       {
        "name": "Lluvia de proyectiles",
@@ -18656,7 +18890,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 10
       }
      ]
     },
@@ -18739,7 +18974,8 @@
         "RvR"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 1
       },
       {
        "name": "Ataque sorpresivo",
@@ -18815,7 +19051,8 @@
         "Leveo grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 2
       },
       {
        "name": "Puño aturdidor",
@@ -18904,7 +19141,8 @@
         "RvR"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 3
       },
       {
        "name": "Represalia",
@@ -18978,7 +19216,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 4
       },
       {
        "name": "Toque pegajoso",
@@ -19053,7 +19292,8 @@
         "Leveo grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 5
       },
       {
        "name": "Pelea sucia",
@@ -19130,7 +19370,8 @@
         "RvR"
        ],
        "selfDebuff": true,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 6
       },
       {
        "name": "Fineza",
@@ -19207,7 +19448,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 7
       },
       {
        "name": "Centinela",
@@ -19288,7 +19530,8 @@
        ],
        "contenidoSecundario": [],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 8
       },
       {
        "name": "Tiro de distración",
@@ -19363,7 +19606,8 @@
         "Leveo grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 9
       },
       {
        "name": "Flecha con abrojos",
@@ -19436,7 +19680,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 10
       }
      ]
     },
@@ -19509,7 +19754,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 1
       },
       {
        "name": "Movilidad",
@@ -19584,7 +19830,8 @@
         "Leveo grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 2
       },
       {
        "name": "Tácticas evasivas",
@@ -19665,7 +19912,8 @@
        ],
        "contenidoSecundario": [],
        "selfDebuff": true,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 3
       },
       {
        "name": "Reflejos felinos",
@@ -19734,7 +19982,8 @@
         "Leveo grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 4
       },
       {
        "name": "Acrobático",
@@ -19815,7 +20064,8 @@
         "Leveo grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 5
       },
       {
        "name": "Eludir conjuros",
@@ -19896,7 +20146,8 @@
         "Leveo grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 6
       },
       {
        "name": "Escapista",
@@ -19971,7 +20222,8 @@
         "Leveo grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 7
       },
       {
        "name": "Astucia",
@@ -20041,7 +20293,8 @@
        ],
        "contenidoSecundario": [],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 8
       },
       {
        "name": "Perfil bajo",
@@ -20112,7 +20365,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 9
       },
       {
        "name": "Hijo del viento",
@@ -20188,7 +20442,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 10
       }
      ]
     },
@@ -20286,7 +20541,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": true,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 1
       },
       {
        "name": "Ola invernal",
@@ -20371,7 +20627,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 2
       },
       {
        "name": "Rafaga de viento",
@@ -20439,7 +20696,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 3
       },
       {
        "name": "Mordida de serpiente",
@@ -20520,7 +20778,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 4
       },
       {
        "name": "Fuego de Ignus",
@@ -20611,7 +20870,8 @@
         "Leveo grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 5
       },
       {
        "name": "Flecha etérea",
@@ -20681,7 +20941,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 6
       },
       {
        "name": "Explosión de agujas",
@@ -20759,7 +21020,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 7
       },
       {
        "name": "Proyectil arcano",
@@ -20851,7 +21113,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 8
       },
       {
        "name": "Lluvia de fuego",
@@ -20929,7 +21192,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 9
       },
       {
        "name": "Flecha de rayo",
@@ -21014,7 +21278,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 10
       }
      ]
     },
@@ -21102,7 +21367,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": true,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 1
       },
       {
        "name": "Enfocar",
@@ -21178,7 +21444,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": true,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 2
       },
       {
        "name": "Perforador de piel",
@@ -21266,7 +21533,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 3
       },
       {
        "name": "Previsión",
@@ -21331,7 +21599,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 4
       },
       {
        "name": "Maldición del cíclope",
@@ -21415,7 +21684,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 5
       },
       {
        "name": "Ataque letal",
@@ -21499,7 +21769,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 6
       },
       {
        "name": "Posición estratégica",
@@ -21570,7 +21841,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 7
       },
       {
        "name": "Ojo entrenado",
@@ -21634,7 +21906,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 8
       },
       {
        "name": "Tiro buscador",
@@ -21708,7 +21981,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 9
       },
       {
        "name": "Mirada de halcón",
@@ -21796,7 +22070,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 10
       }
      ]
     },
@@ -21856,7 +22131,8 @@
        ],
        "contenidoSecundario": [],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 2
       },
       {
        "name": "Flecha de fuego",
@@ -21916,7 +22192,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 4
       },
       {
        "name": "Maestría de Guerra",
@@ -21976,7 +22253,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 6
       },
       {
        "name": "Instinto asesino",
@@ -22047,7 +22325,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": true,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "spriteIdx": 8
       },
       {
        "name": "Sangre de Warmaster",
@@ -22105,7 +22384,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 10
       }
      ]
     }
@@ -22340,7 +22620,8 @@
         "Leveo grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "spriteIdx": 1
       },
       {
        "name": "Esgrimes precisos",
@@ -22414,7 +22695,8 @@
        ],
        "contenidoSecundario": [],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 2
       },
       {
        "name": "Incapacitar",
@@ -22484,7 +22766,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "spriteIdx": 3
       },
       {
        "name": "Atlético",
@@ -22563,7 +22846,8 @@
        ],
        "contenidoSecundario": [],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 4
       },
       {
        "name": "Cruz del sur",
@@ -22641,7 +22925,8 @@
         "Leveo grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "spriteIdx": 5
       },
       {
        "name": "Choque",
@@ -22734,7 +23019,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "spriteIdx": 6
       },
       {
        "name": "Arrasador",
@@ -22818,7 +23104,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "spriteIdx": 7
       },
       {
        "name": "Piel de hierro",
@@ -22884,7 +23171,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 8
       },
       {
        "name": "Ataque fatal",
@@ -22961,7 +23249,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "spriteIdx": 9
       },
       {
        "name": "Tifón",
@@ -23059,7 +23348,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "spriteIdx": 10
       }
      ]
     },
@@ -23141,7 +23431,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "spriteIdx": 1
       },
       {
        "name": "Impactos brutales",
@@ -23212,7 +23503,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 2
       },
       {
        "name": "Rompe costillas",
@@ -23295,7 +23587,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "spriteIdx": 3
       },
       {
        "name": "Anatomía letal",
@@ -23360,7 +23653,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 4
       },
       {
        "name": "Triturador",
@@ -23442,7 +23736,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "spriteIdx": 5
       },
       {
        "name": "Ejecución",
@@ -23519,7 +23814,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 6
       },
       {
        "name": "Aplasta mentes",
@@ -23606,7 +23902,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "spriteIdx": 7
       },
       {
        "name": "Temple de acero",
@@ -23672,7 +23969,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 8
       },
       {
        "name": "Rompe quijadas",
@@ -23749,7 +24047,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "spriteIdx": 9
       },
       {
        "name": "Golpe de trueno",
@@ -23847,7 +24146,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "spriteIdx": 10
       }
      ]
     },
@@ -23929,7 +24229,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "spriteIdx": 1
       },
       {
        "name": "Maniobras ágiles",
@@ -24000,7 +24301,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 2
       },
       {
        "name": "Balestra",
@@ -24083,7 +24385,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "spriteIdx": 3
       },
       {
        "name": "Versatilidad",
@@ -24159,7 +24462,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 4
       },
       {
        "name": "Riposte",
@@ -24241,7 +24545,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "spriteIdx": 5
       },
       {
        "name": "Empalamiento",
@@ -24339,7 +24644,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "spriteIdx": 6
       },
       {
        "name": "Perfora cerebros",
@@ -24432,7 +24738,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "spriteIdx": 7
       },
       {
        "name": "Flexibilidad",
@@ -24498,7 +24805,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 8
       },
       {
        "name": "Estocada múltiple",
@@ -24582,7 +24890,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "spriteIdx": 9
       },
       {
        "name": "Golpe relámpago",
@@ -24680,7 +24989,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "spriteIdx": 10
       }
      ]
     },
@@ -24770,7 +25080,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 1
       },
       {
        "name": "Cautela",
@@ -24842,7 +25153,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 2
       },
       {
        "name": "Degollador",
@@ -24899,7 +25211,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "spriteIdx": 3
       },
       {
        "name": "Defensa marcial",
@@ -24965,7 +25278,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 4
       },
       {
        "name": "Preparación rigurosa",
@@ -25037,7 +25351,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 5
       },
       {
        "name": "Revés",
@@ -25119,7 +25434,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "spriteIdx": 6
       },
       {
        "name": "Embestida",
@@ -25205,7 +25521,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 7
       },
       {
        "name": "Intimidar",
@@ -25281,7 +25598,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 8
       },
       {
        "name": "Inhabilitar",
@@ -25361,7 +25679,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "spriteIdx": 9
       },
       {
        "name": "Reflejos marciales",
@@ -25449,7 +25768,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 10
       }
      ]
     },
@@ -25533,7 +25853,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": true,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 1
       },
       {
        "name": "Frenesí",
@@ -25606,7 +25927,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 2
       },
       {
        "name": "¡¡Corten sus cabezas!!",
@@ -25679,7 +26001,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 3
       },
       {
        "name": "Sed de sangre",
@@ -25769,7 +26092,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 4
       },
       {
        "name": "Rugido desafiante",
@@ -25849,7 +26173,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 5
       },
       {
        "name": "Bramido ensordecedor",
@@ -25922,7 +26247,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "spriteIdx": 6
       },
       {
        "name": "Berserk",
@@ -26007,7 +26333,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": true,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 7
       },
       {
        "name": "Fuerza sobrecogedora",
@@ -26071,7 +26398,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 8
       },
       {
        "name": "Retorno",
@@ -26152,7 +26480,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 9
       },
       {
        "name": "Desquiciamiento",
@@ -26280,7 +26609,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 10
       }
      ]
     },
@@ -26365,7 +26695,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 1
       },
       {
        "name": "Golpe espiritual",
@@ -26447,7 +26778,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "spriteIdx": 2
       },
       {
        "name": "Despedazar",
@@ -26523,7 +26855,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "spriteIdx": 3
       },
       {
        "name": "Ataque bestial",
@@ -26607,7 +26940,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "spriteIdx": 4
       },
       {
        "name": "Alarido",
@@ -26680,7 +27014,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 5
       },
       {
        "name": "Onda expansiva",
@@ -26764,7 +27099,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "spriteIdx": 6
       },
       {
        "name": "Desestabilizador",
@@ -26840,7 +27176,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "spriteIdx": 7
       },
       {
        "name": "Fulminante",
@@ -26915,7 +27252,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 8
       },
       {
        "name": "Manos de Acero",
@@ -26990,7 +27328,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 9
       },
       {
        "name": "Furia de la tierra",
@@ -27076,7 +27415,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "spriteIdx": 10
       }
      ]
     },
@@ -27136,7 +27476,8 @@
        ],
        "contenidoSecundario": [],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 2
       },
       {
        "name": "Maestría de Guerra",
@@ -27196,7 +27537,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 6
       },
       {
        "name": "Sangre de Warmaster",
@@ -27254,7 +27596,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 10
       },
       {
        "name": "Bandera de Warmaster",
@@ -27315,7 +27658,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 4
       },
       {
        "name": "Grito Heroico",
@@ -27377,7 +27721,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 8
       }
      ]
     }
@@ -27632,7 +27977,8 @@
         "Leveo grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "spriteIdx": 1
       },
       {
        "name": "Esgrimes precisos",
@@ -27706,7 +28052,8 @@
        ],
        "contenidoSecundario": [],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 2
       },
       {
        "name": "Incapacitar",
@@ -27776,7 +28123,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "spriteIdx": 3
       },
       {
        "name": "Atlético",
@@ -27855,7 +28203,8 @@
        ],
        "contenidoSecundario": [],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 4
       },
       {
        "name": "Cruz del sur",
@@ -27933,7 +28282,8 @@
         "Leveo grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "spriteIdx": 5
       },
       {
        "name": "Choque",
@@ -28026,7 +28376,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "spriteIdx": 6
       },
       {
        "name": "Arrasador",
@@ -28110,7 +28461,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "spriteIdx": 7
       },
       {
        "name": "Piel de hierro",
@@ -28176,7 +28528,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 8
       },
       {
        "name": "Ataque fatal",
@@ -28253,7 +28606,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "spriteIdx": 9
       },
       {
        "name": "Tifón",
@@ -28351,7 +28705,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "spriteIdx": 10
       }
      ]
     },
@@ -28433,7 +28788,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "spriteIdx": 1
       },
       {
        "name": "Impactos brutales",
@@ -28504,7 +28860,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 2
       },
       {
        "name": "Rompe costillas",
@@ -28587,7 +28944,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "spriteIdx": 3
       },
       {
        "name": "Anatomía letal",
@@ -28652,7 +29010,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 4
       },
       {
        "name": "Triturador",
@@ -28734,7 +29093,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "spriteIdx": 5
       },
       {
        "name": "Ejecución",
@@ -28811,7 +29171,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 6
       },
       {
        "name": "Aplasta mentes",
@@ -28898,7 +29259,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "spriteIdx": 7
       },
       {
        "name": "Temple de acero",
@@ -28964,7 +29326,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 8
       },
       {
        "name": "Rompe quijadas",
@@ -29041,7 +29404,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "spriteIdx": 9
       },
       {
        "name": "Golpe de trueno",
@@ -29139,7 +29503,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "spriteIdx": 10
       }
      ]
     },
@@ -29221,7 +29586,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "spriteIdx": 1
       },
       {
        "name": "Maniobras ágiles",
@@ -29292,7 +29658,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 2
       },
       {
        "name": "Balestra",
@@ -29375,7 +29742,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "spriteIdx": 3
       },
       {
        "name": "Versatilidad",
@@ -29451,7 +29819,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 4
       },
       {
        "name": "Riposte",
@@ -29533,7 +29902,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "spriteIdx": 5
       },
       {
        "name": "Empalamiento",
@@ -29631,7 +30001,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "spriteIdx": 6
       },
       {
        "name": "Perfora cerebros",
@@ -29724,7 +30095,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "spriteIdx": 7
       },
       {
        "name": "Flexibilidad",
@@ -29790,7 +30162,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 8
       },
       {
        "name": "Estocada múltiple",
@@ -29874,7 +30247,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "spriteIdx": 9
       },
       {
        "name": "Golpe relámpago",
@@ -29972,7 +30346,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "spriteIdx": 10
       }
      ]
     },
@@ -30062,7 +30437,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 1
       },
       {
        "name": "Cautela",
@@ -30134,7 +30510,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 2
       },
       {
        "name": "Degollador",
@@ -30191,7 +30568,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "spriteIdx": 3
       },
       {
        "name": "Defensa marcial",
@@ -30257,7 +30635,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 4
       },
       {
        "name": "Preparación rigurosa",
@@ -30329,7 +30708,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 5
       },
       {
        "name": "Revés",
@@ -30411,7 +30791,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "spriteIdx": 6
       },
       {
        "name": "Embestida",
@@ -30497,7 +30878,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 7
       },
       {
        "name": "Intimidar",
@@ -30573,7 +30955,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 8
       },
       {
        "name": "Inhabilitar",
@@ -30653,7 +31036,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "spriteIdx": 9
       },
       {
        "name": "Reflejos marciales",
@@ -30741,7 +31125,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 10
       }
      ]
     },
@@ -30833,7 +31218,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 1
       },
       {
        "name": "Provocar",
@@ -30928,7 +31314,8 @@
         "Grupo PvP"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 2
       },
       {
        "name": "Finta",
@@ -30996,7 +31383,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 3
       },
       {
        "name": "Temple de protector",
@@ -31085,7 +31473,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 4
       },
       {
        "name": "Instancia ofensiva",
@@ -31159,7 +31548,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": true,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 5
       },
       {
        "name": "Soporte defensivo",
@@ -31264,7 +31654,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": true,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 6
       },
       {
        "name": "Piel de troll",
@@ -31336,7 +31727,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 7
       },
       {
        "name": "Furor del caballero",
@@ -31409,7 +31801,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 8
       },
       {
        "name": "Presencia heroica",
@@ -31481,7 +31874,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 9
       },
       {
        "name": "Ejército de uno",
@@ -31563,7 +31957,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 10
       }
      ]
     },
@@ -31642,7 +32037,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 1
       },
       {
        "name": "Avasallar",
@@ -31726,7 +32122,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": true
+       "weaponInterval": true,
+       "spriteIdx": 2
       },
       {
        "name": "Proteger aliado",
@@ -31808,7 +32205,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 3
       },
       {
        "name": "Bloqueo preciso",
@@ -31887,7 +32285,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 4
       },
       {
        "name": "Instancia defensiva",
@@ -31962,7 +32361,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": true,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 5
       },
       {
        "name": "Manto etéreo",
@@ -32045,7 +32445,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 6
       },
       {
        "name": "Muro protector",
@@ -32119,7 +32520,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 7
       },
       {
        "name": "Firmeza",
@@ -32185,7 +32587,8 @@
         "Leveo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 8
       },
       {
        "name": "Escudo estelar",
@@ -32264,7 +32667,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 9
       },
       {
        "name": "Barrera deflectora",
@@ -32343,7 +32747,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 10
       }
      ]
     },
@@ -32403,7 +32808,8 @@
        ],
        "contenidoSecundario": [],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 2
       },
       {
        "name": "Maestría de Guerra",
@@ -32463,7 +32869,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 6
       },
       {
        "name": "Sangre de Warmaster",
@@ -32521,7 +32928,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 10
       },
       {
        "name": "Asistencia del Paladín",
@@ -32582,7 +32990,8 @@
         "PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 4
       },
       {
        "name": "Bendecido",
@@ -32641,7 +33050,8 @@
         "Grupo PvE"
        ],
        "selfDebuff": false,
-       "weaponInterval": false
+       "weaponInterval": false,
+       "spriteIdx": 8
       }
      ]
     }
