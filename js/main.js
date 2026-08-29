@@ -512,7 +512,6 @@ function switchClass(newClass){
   DISC_NAMES = Object.keys(CLASS.disciplines);
   WM_NAME = DISC_NAMES.find(n=> CLASS.disciplines[n].group === "wm");
 
-  document.getElementById('current-class-label').textContent = CLASS.label;
   document.getElementById('hero-title-class').textContent = CLASS.label;
 
   renderWeaponPanel('pa-weapon-panel');
