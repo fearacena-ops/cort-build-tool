@@ -513,7 +513,7 @@ function switchClass(newClass){
   WM_NAME = DISC_NAMES.find(n=> CLASS.disciplines[n].group === "wm");
 
   document.getElementById('current-class-label').textContent = CLASS.label;
-  document.getElementById('hero-meta-class').textContent = `Prototipo · subclase ${CLASS.label}`;
+  document.getElementById('hero-title-class').textContent = CLASS.label;
 
   renderWeaponPanel('pa-weapon-panel');
   renderWeaponPanel('pb-bow', 'pb-weapon-section');
