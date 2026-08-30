@@ -509,20 +509,26 @@ function exportBuildAsImage(buildLike, level, titleSub, filenameSuffix, msgElId,
     temp.style.cssText = 'position:fixed;left:-9999px;top:0;width:640px;';
     temp.innerHTML = buildExportCardFromBuild(buildLike, level, titleSub, customName);
     document.body.appendChild(temp);
-    const themeBg = getComputedStyle(document.documentElement).getPropertyValue('--bg-1').trim() || '#161d17';
-    window.html2canvas(temp.firstElementChild, {backgroundColor:themeBg, scale:2}).then(canvas=>{
-      document.body.removeChild(temp);
-      const link = document.createElement('a');
-      const namePart = customName ? '_' + customName.trim().toLowerCase()
-        .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
-        .replace(/[^a-z0-9]+/g,'_').replace(/^_+|_+$/g,'').slice(0,40) : '';
-      link.download = `${currentClass}${namePart}_${filenameSuffix}.png`;
-      link.href = canvas.toDataURL('image/png');
-      link.click();
-      if(msg) msg.textContent = 'Imagen descargada.';
-    }).catch(()=>{
-      document.body.removeChild(temp);
-      if(msg) msg.textContent = 'No se pudo generar la imagen. Prueba "Copiar resumen como texto" si está disponible.';
+    const iconImg = temp.querySelector('.export-class-icon');
+    const waitForIcon = (iconImg && !iconImg.complete)
+      ? new Promise(res=>{ iconImg.onload = res; iconImg.onerror = res; })
+      : Promise.resolve();
+    waitForIcon.then(()=>{
+      const themeBg = getComputedStyle(document.documentElement).getPropertyValue('--bg-1').trim() || '#161d17';
+      window.html2canvas(temp.firstElementChild, {backgroundColor:themeBg, scale:2}).then(canvas=>{
+        document.body.removeChild(temp);
+        const link = document.createElement('a');
+        const namePart = customName ? '_' + customName.trim().toLowerCase()
+          .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+          .replace(/[^a-z0-9]+/g,'_').replace(/^_+|_+$/g,'').slice(0,40) : '';
+        link.download = `${currentClass}${namePart}_${filenameSuffix}.png`;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+        if(msg) msg.textContent = 'Imagen descargada.';
+      }).catch(()=>{
+        document.body.removeChild(temp);
+        if(msg) msg.textContent = 'No se pudo generar la imagen. Prueba "Copiar resumen como texto" si está disponible.';
+      });
     });
   });
 }
@@ -534,6 +540,8 @@ function switchClass(newClass){
   WM_NAME = DISC_NAMES.find(n=> CLASS.disciplines[n].group === "wm");
 
   document.getElementById('hero-title-class').textContent = CLASS.label;
+  document.getElementById('hero-class-icon').src = `${ICONS_BASE_PATH}/class-${currentClass}.webp`;
+  document.getElementById('hero-class-icon').alt = CLASS.label;
 
   renderWeaponPanel('pa-weapon-panel');
   renderWeaponPanel('pb-bow', 'pb-weapon-section');

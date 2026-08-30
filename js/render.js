@@ -271,8 +271,11 @@ function buildExportCardFromBuild(buildLike, level, titleSub, customName){
   const sub = customName ? `${CLASS.label} · ${titleSub}` : titleSub;
   let html = `<div class="export-card">
     <div class="export-header">
-      <div class="export-title">${title}</div>
-      <div class="export-sub">${sub}</div>
+      <img class="export-class-icon" src="${ICONS_BASE_PATH}/class-${currentClass}.webp" alt="${CLASS.label}">
+      <div>
+        <div class="export-title">${title}</div>
+        <div class="export-sub">${sub}</div>
+      </div>
     </div>
     <div class="summary-grid">
       <div class="stat-card"><div class="label">Nivel</div><div class="value">${level}</div></div>

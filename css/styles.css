@@ -37,6 +37,8 @@
   .hero-title{max-width:640px;}
   .eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--moss);margin:0 0 10px;}
   h1{font-family:var(--font-display);font-weight:400;font-size:clamp(28px,4vw,42px);margin:0 0 10px;color:var(--ink);letter-spacing:.01em;}
+  .hero-h1{display:flex;align-items:center;gap:14px;}
+  .hero-class-icon{width:clamp(32px,4.2vw,46px);height:clamp(32px,4.2vw,46px);border-radius:50%;flex-shrink:0;}
   h1 em{color:var(--bronze);font-style:italic;}
   .hero-title p{color:var(--ink-dim);margin:0;max-width:56ch;font-size:14.5px;}
   .hero-subclass{font-family:var(--font-mono);font-size:12.5px;color:var(--bronze)!important;text-transform:uppercase;letter-spacing:.06em;margin:2px 0 10px!important;}
@@ -215,7 +217,8 @@
   .exporting .mbtn{visibility:hidden;}
   .export-row{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;}
   .export-card{padding:28px;font-family:var(--font-body);}
-  .export-header{margin-bottom:18px;border-bottom:1px solid var(--line);padding-bottom:14px;}
+  .export-header{margin-bottom:18px;border-bottom:1px solid var(--line);padding-bottom:14px;display:flex;align-items:center;gap:14px;}
+  .export-class-icon{width:52px;height:52px;border-radius:50%;flex-shrink:0;}
   .export-title{font-family:var(--font-display);font-size:26px;color:var(--ink);}
   .export-sub{font-family:var(--font-mono);font-size:12px;color:var(--bronze);text-transform:uppercase;letter-spacing:.06em;margin-top:3px;}
   .export-disciplines{display:flex;flex-direction:column;gap:16px;margin-top:18px;}
