@@ -67,6 +67,9 @@
   .field input[type=text]{width:100%;background:var(--bg-0);border:1px solid var(--line);color:var(--ink);font-family:var(--font-body);font-size:14px;padding:9px 12px;border-radius:3px;box-sizing:border-box;}
   .field input[type=text]:focus{outline:none;border-color:var(--moss);}
   .hint{font-size:11.5px;color:var(--ink-faint);margin-top:8px;}
+  .toast-container{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:9999;display:flex;flex-direction:column;gap:8px;align-items:center;pointer-events:none;}
+  .toast{background:var(--bg-1);border:1px solid var(--line);color:var(--ink);padding:12px 22px;border-radius:8px;box-shadow:0 6px 20px rgba(0,0,0,.35);opacity:0;transform:translateY(12px);transition:opacity .25s ease,transform .25s ease;font-size:14px;max-width:min(90vw,420px);text-align:center;}
+  .toast.show{opacity:1;transform:translateY(0);}
   .check-row{display:flex;align-items:center;gap:9px;font-size:14px;color:var(--ink);cursor:pointer;}
   .check-row input[type=checkbox]{width:17px;height:17px;accent-color:var(--moss);cursor:pointer;}
 

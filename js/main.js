@@ -346,10 +346,15 @@ function manualChangeDlvl(name, delta){
     if(cost > manualDpLeft()) return;
   }
   manualState.dlvl[name] = next;
+  const isWM = name === WM_NAME;
   CLASS.disciplines[name].spells.forEach((sp, idx)=>{
     const key = name+'|'+idx;
     const cap = spellCap(name, idx, next);
-    if((manualState.ranks[key]||0) > cap) manualState.ranks[key] = cap;
+    // Maestría en Guerra no se "recorta hacia abajo si excede" como el resto
+    // — su rango real ES el tope siempre (0 o 5), así que se sincroniza
+    // exacto en los dos sentidos, no solo cuando el tope baja.
+    if(isWM) manualState.ranks[key] = cap;
+    else if((manualState.ranks[key]||0) > cap) manualState.ranks[key] = cap;
   });
   clearArchetypeActive();
   renderManualPanel();
@@ -502,25 +507,38 @@ function toggleAllManual(){
   else expandAllManual();
 }
 
+// Mensaje flotante que aparece y desaparece solo — reemplaza los textos que
+// antes quedaban pegados en la pantalla hasta reiniciar o refrescar.
+function showToast(message){
+  let container = document.getElementById('toast-container');
+  if(!container){
+    container = document.createElement('div');
+    container.id = 'toast-container';
+    container.className = 'toast-container';
+    document.body.appendChild(container);
+  }
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.textContent = message;
+  container.appendChild(toast);
+  requestAnimationFrame(()=> toast.classList.add('show'));
+  setTimeout(()=>{
+    toast.classList.remove('show');
+    setTimeout(()=> toast.remove(), 300);
+  }, 3200);
+}
+
 function loadHtml2Canvas(cb){
   if(window.html2canvas){ cb(); return; }
   const s = document.createElement('script');
   s.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
   s.onload = cb;
-  s.onerror = ()=>{ msgAllExports('No se pudo cargar el exportador de imágenes (revisa tu conexión). Prueba "Copiar resumen como texto" si está disponible.'); };
+  s.onerror = ()=>{ showToast('No se pudo cargar el exportador de imágenes (revisa tu conexión). Prueba "Copiar resumen como texto" si está disponible.'); };
   document.head.appendChild(s);
-}
-function msgAllExports(text){
-  ['pa-export-msg','pb-export-msg','pc-export-msg'].forEach(id=>{
-    const el = document.getElementById(id);
-    if(el) el.textContent = text;
-  });
 }
 
 // Generic export trigger: given a build-like object + level, renders offscreen and downloads a PNG
-function exportBuildAsImage(buildLike, level, titleSub, filenameSuffix, msgElId, customName){
-  const msg = document.getElementById(msgElId);
-  if(msg) msg.textContent = 'Generando imagen…';
+function exportBuildAsImage(buildLike, level, titleSub, filenameSuffix, customName){
   loadHtml2Canvas(()=>{
     const temp = document.createElement('div');
     temp.style.cssText = 'position:fixed;left:-9999px;top:0;width:640px;';
@@ -541,10 +559,10 @@ function exportBuildAsImage(buildLike, level, titleSub, filenameSuffix, msgElId,
         link.download = `${currentClass}${namePart}_${filenameSuffix}.png`;
         link.href = canvas.toDataURL('image/png');
         link.click();
-        if(msg) msg.textContent = 'Imagen descargada.';
+        showToast('Imagen descargada.');
       }).catch(()=>{
         document.body.removeChild(temp);
-        if(msg) msg.textContent = 'No se pudo generar la imagen. Prueba "Copiar resumen como texto" si está disponible.';
+        showToast('No se pudo generar la imagen. Prueba "Copiar resumen como texto" si está disponible.');
       });
     });
   });
@@ -606,18 +624,18 @@ function initApp(){
     resetManualState(v);
     manualActiveTab = 0;
     clearArchetypeActive();
+    document.getElementById('pc-build-name').value = '';
     renderManualPanel();
-    document.getElementById('pc-export-msg').textContent = '';
   });
   document.getElementById('pc-reset').addEventListener('click', ()=>{
     resetManualState(manualState.level);
     clearArchetypeActive();
+    document.getElementById('pc-build-name').value = '';
     renderManualPanel();
-    document.getElementById('pc-export-msg').textContent = '';
   });
   document.getElementById('pc-export-img').addEventListener('click', ()=>{
     const customName = document.getElementById('pc-build-name').value.trim() || null;
-    exportBuildAsImage(manualState, manualState.level, `Build manual · Nivel ${manualState.level}`, `manual_nv${manualState.level}`, 'pc-export-msg', customName);
+    exportBuildAsImage(manualState, manualState.level, `Build manual · Nivel ${manualState.level}`, `manual_nv${manualState.level}`, customName);
   });
   document.getElementById('pc-export-txt').addEventListener('click', ()=>{
     let lines = [`${CLASS.label} — Build manual — Nivel ${manualState.level}`, ''];
@@ -632,13 +650,12 @@ function initApp(){
       });
     });
     const text = lines.join('\n');
-    const msg = document.getElementById('pc-export-msg');
     if(navigator.clipboard && navigator.clipboard.writeText){
-      navigator.clipboard.writeText(text).then(()=>{ msg.textContent = 'Resumen copiado al portapapeles.'; })
-        .catch(()=>{ msg.textContent = 'No se pudo copiar automáticamente. Build en consola (F12).'; console.log(text); });
+      navigator.clipboard.writeText(text).then(()=>{ showToast('Resumen copiado al portapapeles.'); })
+        .catch(()=>{ showToast('No se pudo copiar automáticamente. Build en consola (F12).'); console.log(text); });
     } else {
       console.log(text);
-      msg.textContent = 'Tu navegador no permite copiar automáticamente. Revisa la consola (F12).';
+      showToast('Tu navegador no permite copiar automáticamente. Revisa la consola (F12).');
     }
   });
 
