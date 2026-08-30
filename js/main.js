@@ -292,7 +292,10 @@ resetManualState(60);
 function manualDpSpent(){ return DISC_NAMES.reduce((s,n)=> s+costForDlvl(manualState.dlvl[n]), 0); }
 function manualPpSpent(){
   let s=0;
-  DISC_NAMES.forEach(n=> CLASS.disciplines[n].spells.forEach((sp,idx)=> s += manualState.ranks[n+'|'+idx]||0));
+  DISC_NAMES.forEach(n=>{
+    if(n === WM_NAME) return; // Maestría en Guerra nunca consume puntos de poder
+    CLASS.disciplines[n].spells.forEach((sp,idx)=> s += manualState.ranks[n+'|'+idx]||0);
+  });
   return s;
 }
 function manualDpLeft(){ return totalDP(manualState.level) - manualDpSpent(); }
@@ -352,6 +355,7 @@ function manualChangeDlvl(name, delta){
   renderManualPanel();
 }
 function manualChangeRank(name, idx, delta){
+  if(name === WM_NAME) return; // se desbloquea sola, nunca a mano
   const key = name+'|'+idx;
   const cur = manualState.ranks[key] || 0;
   const cap = spellCap(name, idx, manualState.dlvl[name]);
@@ -388,10 +392,12 @@ function renderManualPanel(){
   warnBox.innerHTML = warnHtml;
 
   let rail = `<div class="tab-rail">`;
+  const activeDiscName = DISC_NAMES[manualActiveTab];
+  const activeSpellsForToggle = CLASS.disciplines[activeDiscName].spells;
+  const allExpandedNow = activeSpellsForToggle.length>0 && activeSpellsForToggle.every((sp,idx)=> expandedManualKeys.has(activeDiscName+'|'+idx));
   let panes = `<div class="tab-panes">
     <div class="pane-toolbar">
-      <button class="mini-btn" onclick="expandAllManual()">Desplegar todo</button>
-      <button class="mini-btn" onclick="collapseAllManual()">Ocultar todo</button>
+      <button class="mini-btn" onclick="toggleAllManual()">${allExpandedNow ? 'Ocultar todo' : 'Desplegar todo'}</button>
     </div>`;
   DISC_NAMES.forEach((name, i)=>{
     const d = CLASS.disciplines[name];
@@ -413,10 +419,14 @@ function renderManualPanel(){
       </div>
     </div>`;
     panes += `<div class="tab-pane${i===manualActiveTab?' active':''}" data-idx="${i}">`;
+    const isWM = name === WM_NAME;
     d.spells.forEach((sp, idx)=>{
       const key = name+'|'+idx;
-      const rank = manualState.ranks[key] || 0;
       const cap = spellCap(name, idx, lvl);
+      // Maestría en Guerra no se ajusta a mano: cada habilidad se desbloquea
+      // completa (o no) según el nivel de disciplina, nunca con puntos de
+      // poder — así que acá el rango mostrado ES el tope, siempre.
+      const rank = isWM ? cap : (manualState.ranks[key] || 0);
       let pips = '';
       for(let p=1;p<=MAXPLEVEL;p++){
         if(p<=rank) pips += '<div class="pip filled"></div>';
@@ -435,10 +445,10 @@ function renderManualPanel(){
           <div class="spell-desc">${sp.desc}</div>
         </div>
         <button class="spell-expand" onclick="event.stopPropagation();toggleSpellDetailManual('${key}')">▸</button>
-        <div class="mctrl">${isLocked ? '' : `
+        <div class="mctrl">${isWM ? `<span class="hint" style="margin:0">Automático</span>` : (isLocked ? '' : `
           <button class="mbtn" onclick="event.stopPropagation();manualChangeRank('${name}',${idx},-1)" ${canRankDown?'':'disabled'}>−</button>
           <button class="mbtn" onclick="event.stopPropagation();manualChangeRank('${name}',${idx},1)" ${canRankUp?'':'disabled'}>+</button>
-        `}</div>
+        `)}</div>
         <div class="spell-detail">${buildSpellDetailHTML(name, sp, idx, lvl, rank)}</div>
       </div>`;
     });
@@ -483,6 +493,13 @@ function collapseAllManual(){
   const name = DISC_NAMES[manualActiveTab];
   CLASS.disciplines[name].spells.forEach((sp,idx)=> expandedManualKeys.delete(name+'|'+idx));
   renderManualPanel();
+}
+function toggleAllManual(){
+  const name = DISC_NAMES[manualActiveTab];
+  const spells = CLASS.disciplines[name].spells;
+  const allExpanded = spells.length>0 && spells.every((sp,idx)=> expandedManualKeys.has(name+'|'+idx));
+  if(allExpanded) collapseAllManual();
+  else expandAllManual();
 }
 
 function loadHtml2Canvas(cb){

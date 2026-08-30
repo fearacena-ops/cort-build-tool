@@ -27,7 +27,17 @@ function maxRankForDlvl(dlvl){ return dlvl<=0 ? 0 : REQUIRED.power[dlvl-1]; }
 function totalDP(level){ return CLASS.totalDP[level-1]; }
 function totalPP(level){ return CLASS.totalPP[level-1]; }
 function skillsUnlocked(dlvl){ return dlvl<=0 ? 0 : REQUIRED.available[dlvl-1]; }
+// Maestría en Guerra funciona muy distinto al resto de las disciplinas: cada
+// una de sus 5 habilidades se desbloquea COMPLETA (rango 5) de una sola vez,
+// al llegar a un nivel de disciplina específico — nunca gradualmente, y
+// nunca consumiendo puntos de poder. Los umbrales son siempre los mismos,
+// cada 4 niveles: 3, 7, 11, 15, 19 para la 1ª a la 5ª habilidad.
+const WM_RANK5_THRESHOLDS = [3,7,11,15,19];
+function wmEffectiveRank(dlvl, idx){
+  return (dlvl >= (WM_RANK5_THRESHOLDS[idx]||99)) ? MAXPLEVEL : 0;
+}
 function spellCap(name, idx, dlvl){
+  if(name === WM_NAME) return wmEffectiveRank(dlvl, idx);
   if(idx >= skillsUnlocked(dlvl)) return 0; // this skill slot isn't unlocked yet at this discipline level
   let cap = maxRankForDlvl(dlvl);
   if(idx===0 && dlvl===1) cap += 1;
@@ -164,6 +174,7 @@ function computeBuild(level, ctx, prevBuild, useNaturalDepth){
 
   const spellPool = [];
   DISC_NAMES.forEach(name=>{
+    if(name === WM_NAME) return; // WM nunca compite por puntos de poder — se resuelve aparte, por dlvl
     CLASS.disciplines[name].spells.forEach((sp, idx)=>{
       const cap = spellCap(name, idx, dlvl[name]);
       const startRank = 0;
@@ -226,6 +237,11 @@ function computeBuild(level, ctx, prevBuild, useNaturalDepth){
   }
   const ranks = {};
   spellPool.forEach(e=>{ ranks[e.disc+'|'+e.idx] = e.rank; });
+  if(WM_NAME){
+    CLASS.disciplines[WM_NAME].spells.forEach((sp, idx)=>{
+      ranks[WM_NAME+'|'+idx] = wmEffectiveRank(dlvl[WM_NAME], idx);
+    });
+  }
   const spellOrder = spellPool.map(e=> e.disc+'|'+e.idx);
   let result = {level, dpBudget, ppBudget, dpLeft, ppLeft, dlvl, ranks, spellOrder, discPurchaseOrder, powerPurchaseOrder, discScore, wmUnlocked, locked, ctx};
   result = ensureFoundationalStep(result, result);
