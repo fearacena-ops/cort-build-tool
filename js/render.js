@@ -268,13 +268,13 @@ function buildExportCardFromBuild(buildLike, level, titleSub, customName){
   DISC_NAMES.forEach(n=>{ dpSpent += costForDlvl(buildLike.dlvl[n]||0); });
   DISC_NAMES.forEach(n=> CLASS.disciplines[n].spells.forEach((sp,idx)=>{ ppSpent += buildLike.ranks[n+'|'+idx]||0; }));
   const title = customName ? customName : CLASS.label;
-  const sub = customName ? `${CLASS.label} · ${titleSub}` : titleSub;
+  const sub = customName ? CLASS.label : '';
   let html = `<div class="export-card">
     <div class="export-header">
       <img class="export-class-icon" src="${ICONS_BASE_PATH}/class-${currentClass}.webp" alt="${CLASS.label}">
       <div>
         <div class="export-title">${title}</div>
-        <div class="export-sub">${sub}</div>
+        ${sub ? `<div class="export-sub">${sub}</div>` : ''}
       </div>
     </div>
     <div class="summary-grid">
@@ -299,7 +299,7 @@ function buildExportCardFromBuild(buildLike, level, titleSub, customName){
       </div>
       <div class="export-spells">`;
     if(spentSpells.length === 0){
-      html += `<div class="export-empty">Sin puntos de poder asignados todavía</div>`;
+      html += `<div class="export-empty">Sin puntos de poder asignados</div>`;
     }
     spentSpells.forEach(({sp, idx, rank})=>{
       const isPassive = sp.type === 'Passive';
