@@ -427,17 +427,17 @@ function renderManualPanel(){
       const canRankDown = rank>0;
       const isLocked = cap===0;
       const isExpanded = expandedManualKeys.has(key);
-      panes += `<div class="spell-row${isLocked?' row-locked':''}${isExpanded?' expanded':''}">
+      panes += `<div class="spell-row${isLocked?' row-locked':''}${isExpanded?' expanded':''}" onclick="toggleSpellDetailManual('${key}')">
         <div class="sicon${rank===0?' dim':''}" style="${iconStyle(d.icon, sp.spriteIdx, 38)}"></div>
         <div class="rank-pips">${pips}</div>
         <div class="spell-info">
           <div class="spell-name">${sp.name} <span class="rk">Nv.${rank}/${MAXPLEVEL}</span> ${roleTags(sp)}${flagChips(sp)}</div>
           <div class="spell-desc">${sp.desc}</div>
         </div>
-        <button class="spell-expand" onclick="toggleSpellDetailManual('${key}')">▸</button>
+        <button class="spell-expand" onclick="event.stopPropagation();toggleSpellDetailManual('${key}')">▸</button>
         <div class="mctrl">${isLocked ? '' : `
-          <button class="mbtn" onclick="manualChangeRank('${name}',${idx},-1)" ${canRankDown?'':'disabled'}>−</button>
-          <button class="mbtn" onclick="manualChangeRank('${name}',${idx},1)" ${canRankUp?'':'disabled'}>+</button>
+          <button class="mbtn" onclick="event.stopPropagation();manualChangeRank('${name}',${idx},-1)" ${canRankDown?'':'disabled'}>−</button>
+          <button class="mbtn" onclick="event.stopPropagation();manualChangeRank('${name}',${idx},1)" ${canRankUp?'':'disabled'}>+</button>
         `}</div>
         <div class="spell-detail">${buildSpellDetailHTML(name, sp, idx, lvl, rank)}</div>
       </div>`;
@@ -454,6 +454,7 @@ function renderManualPanel(){
     if(hasExpanded && naturalH !== undefined){
       activePane.style.maxHeight = naturalH + 'px';
       activePane.style.overflowY = 'auto';
+      activePane.style.paddingRight = '14px';
     }
   }
 }

@@ -100,9 +100,11 @@ function updatePaneScrollState(pane){
   if(hasExpanded){
     pane.style.maxHeight = pane.dataset.naturalHeight + 'px';
     pane.style.overflowY = 'auto';
+    pane.style.paddingRight = '14px';
   } else {
     pane.style.maxHeight = '';
     pane.style.overflowY = '';
+    pane.style.paddingRight = '';
   }
 }
 function ensureNaturalHeight(pane){
