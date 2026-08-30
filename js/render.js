@@ -88,18 +88,50 @@ function buildSpellDetailHTML(name, sp, idx, dlvl, rank){
   else html += `<div class="sd-fixed">Efecto pasivo sin valores numéricos publicados por el juego.</div>`;
   return html;
 }
+// Cuando se despliega una o más habilidades dentro de una disciplina, en vez
+// de dejar que toda la página crezca sin límite, el panel de habilidades
+// toma su propio scroll interno una vez que supera la altura que tenía
+// "sin desplegar". Esa altura se mide una sola vez, la primera vez que se
+// toca cualquier fila de ese panel — en ese momento todavía nada está
+// expandido, así que el valor medido es fiel al tamaño original.
+function updatePaneScrollState(pane){
+  if(!pane) return;
+  const hasExpanded = pane.querySelector('.spell-row.expanded') !== null;
+  if(hasExpanded){
+    pane.style.maxHeight = pane.dataset.naturalHeight + 'px';
+    pane.style.overflowY = 'auto';
+  } else {
+    pane.style.maxHeight = '';
+    pane.style.overflowY = '';
+  }
+}
+function ensureNaturalHeight(pane){
+  if(pane && pane.dataset.naturalHeight === undefined){
+    pane.dataset.naturalHeight = pane.scrollHeight;
+  }
+}
 function toggleSpellDetail(rowEl){
+  const pane = rowEl.closest('.tab-pane');
+  ensureNaturalHeight(pane);
   rowEl.classList.toggle('expanded');
+  updatePaneScrollState(pane);
 }
 function expandAllInPane(btn){
   const frame = btn.closest('.tabframe');
   const pane = frame.querySelector('.tab-pane.active');
-  if(pane) pane.querySelectorAll('.spell-row').forEach(r=> r.classList.add('expanded'));
+  if(pane){
+    ensureNaturalHeight(pane);
+    pane.querySelectorAll('.spell-row').forEach(r=> r.classList.add('expanded'));
+    updatePaneScrollState(pane);
+  }
 }
 function collapseAllInPane(btn){
   const frame = btn.closest('.tabframe');
   const pane = frame.querySelector('.tab-pane.active');
-  if(pane) pane.querySelectorAll('.spell-row').forEach(r=> r.classList.remove('expanded'));
+  if(pane){
+    pane.querySelectorAll('.spell-row').forEach(r=> r.classList.remove('expanded'));
+    updatePaneScrollState(pane);
+  }
 }
 
 let tabUid = 0;

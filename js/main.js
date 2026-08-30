@@ -446,15 +446,35 @@ function renderManualPanel(){
   });
   rail += `</div>`; panes += `</div>`;
   document.getElementById('pc-build').innerHTML = `<div class="tabframe">${rail}${panes}</div>`;
+  const activeName = DISC_NAMES[manualActiveTab];
+  const activePane = document.querySelector(`#pc-build .tab-pane[data-idx="${manualActiveTab}"]`);
+  if(activePane){
+    const naturalH = manualPaneNaturalHeight[activeName];
+    const hasExpanded = activePane.querySelector('.spell-row.expanded') !== null;
+    if(hasExpanded && naturalH !== undefined){
+      activePane.style.maxHeight = naturalH + 'px';
+      activePane.style.overflowY = 'auto';
+    }
+  }
 }
 function manualSelectTab(i){ manualActiveTab = i; renderManualPanel(); }
+let manualPaneNaturalHeight = {};
+function captureNaturalHeightIfNeeded(discName){
+  if(manualPaneNaturalHeight[discName] !== undefined) return;
+  const hasAnyExpanded = CLASS.disciplines[discName].spells.some((sp,idx)=> expandedManualKeys.has(discName+'|'+idx));
+  if(hasAnyExpanded) return; // ya había algo desplegado antes de empezar a rastrear esta disciplina
+  const pane = document.querySelector(`#pc-build .tab-pane[data-idx="${manualActiveTab}"]`);
+  if(pane) manualPaneNaturalHeight[discName] = pane.scrollHeight;
+}
 function toggleSpellDetailManual(key){
+  captureNaturalHeightIfNeeded(key.split('|')[0]);
   if(expandedManualKeys.has(key)) expandedManualKeys.delete(key);
   else expandedManualKeys.add(key);
   renderManualPanel();
 }
 function expandAllManual(){
   const name = DISC_NAMES[manualActiveTab];
+  captureNaturalHeightIfNeeded(name);
   CLASS.disciplines[name].spells.forEach((sp,idx)=> expandedManualKeys.add(name+'|'+idx));
   renderManualPanel();
 }
