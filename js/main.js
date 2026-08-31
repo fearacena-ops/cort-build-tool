@@ -576,45 +576,52 @@ function exportBuildAsImage(buildLike, level, titleSub, filenameSuffix, customNa
 
 // Links para compartir: toda la build (subclase, nivel, nombre, y cada
 // punto puesto) se codifica dentro del propio link — no hay ningún servidor
-// guardando nada. Quien abre el link, decodifica esos datos localmente en
-// su navegador y ve la build cargada en "Tu build".
+// guardando nada. En vez de JSON completo (con nombres de campo, comillas,
+// corchetes de sobra), cada dato ocupa lo mínimo posible: 1 carácter por
+// clase, 2 por nivel, 1 por nivel de cada disciplina, y 1 por rango de cada
+// habilidad — el resultado es mucho más corto que un JSON codificado entero.
+const SHARE_CLASS_CODE = {hunter:'h', marksman:'m', conjurer:'c', warlock:'w', barbarian:'b', knight:'k'};
+const SHARE_CLASS_CODE_REV = {h:'hunter', m:'marksman', c:'conjurer', w:'warlock', b:'barbarian', k:'knight'};
 function buildShareLink(){
-  const payload = {
-    c: currentClass,
-    l: manualState.level,
-    n: document.getElementById('pc-build-name').value.trim() || undefined,
-    d: DISC_NAMES.map(n=> manualState.dlvl[n]),
-    r: DISC_NAMES.map(n=> CLASS.disciplines[n].spells.map((sp,idx)=> manualState.ranks[n+'|'+idx]||0)),
-  };
-  const json = JSON.stringify(payload);
-  const b64 = btoa(unescape(encodeURIComponent(json))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
-  return `${location.origin}${location.pathname}#build=${b64}`;
+  const classChar = SHARE_CLASS_CODE[currentClass] || 'h';
+  const levelChars = manualState.level.toString(36).padStart(2,'0');
+  const dlvlChars = DISC_NAMES.map(n=> (manualState.dlvl[n]||1).toString(36)).join('');
+  const rankChars = DISC_NAMES.map(n=>
+    CLASS.disciplines[n].spells.map((sp,idx)=> (manualState.ranks[n+'|'+idx]||0).toString()).join('')
+  ).join('');
+  const name = document.getElementById('pc-build-name').value.trim();
+  let code = classChar + levelChars + dlvlChars + rankChars;
+  if(name) code += '~' + encodeURIComponent(name);
+  return `${location.origin}${location.pathname}#b=${code}`;
 }
 function applyShareLinkIfPresent(){
-  const match = location.hash.match(/#build=([^&]+)/);
+  const match = location.hash.match(/#b=([^&]+)/);
   if(!match) return false;
   try {
-    const padded = match[1].replace(/-/g,'+').replace(/_/g,'/');
-    const json = decodeURIComponent(escape(atob(padded)));
-    const payload = JSON.parse(json);
-    if(!ROOT.classes[payload.c]) return false;
-    switchClass(payload.c);
-    document.querySelectorAll('#class-switch .choice-btn').forEach(b=> b.classList.toggle('active', b.dataset.v===payload.c));
-    const level = Math.max(10, Math.min(60, parseInt(payload.l)||60));
+    let code = match[1];
+    let name = '';
+    const tildeIdx = code.indexOf('~');
+    if(tildeIdx >= 0){ name = decodeURIComponent(code.slice(tildeIdx+1)); code = code.slice(0, tildeIdx); }
+    const classKey = SHARE_CLASS_CODE_REV[code[0]];
+    if(!classKey || !ROOT.classes[classKey]) return false;
+    const level = Math.max(10, Math.min(60, parseInt(code.slice(1,3), 36) || 60));
+    switchClass(classKey);
+    document.querySelectorAll('#class-switch .choice-btn').forEach(b=> b.classList.toggle('active', b.dataset.v===classKey));
     resetManualState(level);
     document.getElementById('pc-level').value = level;
-    if(payload.n) document.getElementById('pc-build-name').value = payload.n;
-    (payload.d||[]).forEach((dlvl, i)=>{
-      const name = DISC_NAMES[i];
-      if(!name) return;
-      manualState.dlvl[name] = Math.max(1, Math.min(MAXDLEVEL, parseInt(dlvl)||1));
-    });
-    (payload.r||[]).forEach((ranksArr, i)=>{
-      const name = DISC_NAMES[i];
-      if(!name) return;
-      (ranksArr||[]).forEach((rank, idx)=>{
-        const cap = spellCap(name, idx, manualState.dlvl[name]);
-        manualState.ranks[name+'|'+idx] = Math.max(0, Math.min(cap, parseInt(rank)||0));
+    if(name) document.getElementById('pc-build-name').value = name;
+
+    const discCount = DISC_NAMES.length;
+    const dlvlPart = code.slice(3, 3+discCount);
+    const ranksPart = code.slice(3+discCount);
+    let pos = 0;
+    DISC_NAMES.forEach((discName, i)=>{
+      const dlvl = Math.max(1, Math.min(MAXDLEVEL, parseInt(dlvlPart[i], 36) || 1));
+      manualState.dlvl[discName] = dlvl;
+      CLASS.disciplines[discName].spells.forEach((sp, idx)=>{
+        const rankChar = ranksPart[pos]; pos++;
+        const cap = spellCap(discName, idx, dlvl);
+        manualState.ranks[discName+'|'+idx] = Math.max(0, Math.min(cap, parseInt(rankChar,10) || 0));
       });
     });
     manualActiveTab = 0;
