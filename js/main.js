@@ -318,12 +318,14 @@ function renderArchetypeSuggestions(){
     });
   });
 }
+let manualActiveArchetypeLabel = null;
 function applyArchetypeToManual(preset){
   const build = computeBuild(manualState.level, ctxCustom({
     context: preset.context, role: preset.role, priorityDiscipline: preset.priorityDiscipline
   }), null, true);
   manualState.dlvl = {...build.dlvl};
   manualState.ranks = {...build.ranks};
+  manualActiveArchetypeLabel = preset.label;
   expandedManualKeys.clear();
   renderManualPanel();
 }
@@ -335,6 +337,7 @@ function clearArchetypeActive(){
   if(el) el.querySelectorAll('.choice-btn').forEach(b=>b.classList.remove('active'));
   const blurb = document.getElementById('pc-archetype-blurb');
   if(blurb) blurb.textContent = '';
+  manualActiveArchetypeLabel = null;
 }
 function manualChangeDlvl(name, delta){
   const cur = manualState.dlvl[name];
@@ -541,11 +544,11 @@ function loadHtml2Canvas(cb){
 }
 
 // Generic export trigger: given a build-like object + level, renders offscreen and downloads a PNG
-function exportBuildAsImage(buildLike, level, titleSub, filenameSuffix, customName){
+function exportBuildAsImage(buildLike, level, titleSub, filenameSuffix, customName, archetypeLabel){
   loadHtml2Canvas(()=>{
     const temp = document.createElement('div');
     temp.style.cssText = 'position:fixed;left:-9999px;top:0;width:640px;';
-    temp.innerHTML = buildExportCardFromBuild(buildLike, level, titleSub, customName);
+    temp.innerHTML = buildExportCardFromBuild(buildLike, level, titleSub, customName, archetypeLabel);
     document.body.appendChild(temp);
     const iconImg = temp.querySelector('.export-class-icon');
     const waitForIcon = (iconImg && !iconImg.complete)
@@ -587,6 +590,7 @@ function switchClass(newClass){
   populatePriorityDropdown();
 
   resetManualState(60);
+  manualActiveArchetypeLabel = null;
   document.getElementById('pc-level').value = 60;
   manualActiveTab = 0;
   renderArchetypeSuggestions();
@@ -638,7 +642,7 @@ function initApp(){
   });
   document.getElementById('pc-export-img').addEventListener('click', ()=>{
     const customName = document.getElementById('pc-build-name').value.trim() || null;
-    exportBuildAsImage(manualState, manualState.level, `Build manual · Nivel ${manualState.level}`, `manual_nv${manualState.level}`, customName);
+    exportBuildAsImage(manualState, manualState.level, `Build manual · Nivel ${manualState.level}`, `manual_nv${manualState.level}`, customName, manualActiveArchetypeLabel);
   });
   document.getElementById('pc-export-txt').addEventListener('click', ()=>{
     let lines = [`${CLASS.label} — Build manual — Nivel ${manualState.level}`, ''];

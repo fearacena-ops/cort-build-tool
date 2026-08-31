@@ -260,13 +260,16 @@ function renderLevelByLevel(startLevel, endLevel, sequence){
 }
 
 // Builds the shared export-card HTML from any {dlvl, ranks} build-like object
-function buildExportCardFromBuild(buildLike, level, titleSub, customName){
+function buildExportCardFromBuild(buildLike, level, titleSub, customName, archetypeLabel){
   const dpBudget = totalDP(level);
   const ppBudget = totalPP(level);
   let dpSpent = 0, ppSpent = 0;
   DISC_NAMES.forEach(n=>{ dpSpent += costForDlvl(buildLike.dlvl[n]||0); });
-  DISC_NAMES.forEach(n=> CLASS.disciplines[n].spells.forEach((sp,idx)=>{ ppSpent += buildLike.ranks[n+'|'+idx]||0; }));
-  const title = customName ? customName : CLASS.label;
+  DISC_NAMES.forEach(n=>{
+    if(n === WM_NAME) return; // Maestría en Guerra nunca consume puntos de poder
+    CLASS.disciplines[n].spells.forEach((sp,idx)=>{ ppSpent += buildLike.ranks[n+'|'+idx]||0; });
+  });
+  const title = customName ? customName : (archetypeLabel ? `${CLASS.label} – ${archetypeLabel}` : CLASS.label);
   const sub = customName ? CLASS.label : '';
   let html = `<div class="export-card">
     <div class="export-header">
