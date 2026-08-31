@@ -305,16 +305,18 @@ function buildExportCardFromBuild(buildLike, level, titleSub, customName, archet
     }
     spentSpells.forEach(({sp, idx, rank})=>{
       const isPassive = sp.type === 'Passive';
+      const isWM = name === WM_NAME;
       let manaTag = '';
       if(!isPassive && sp.mana != null){
         const manaArr = Array.isArray(sp.mana) ? sp.mana : [sp.mana];
         const manaVal = manaArr[Math.min(rank, manaArr.length) - 1];
         manaTag = `<div class="export-spell-mana">${manaVal} maná</div>`;
       }
+      const rankText = isWM ? (isPassive ? 'Pasiva' : '') : (isPassive ? `Pasiva · Nv.${rank}/5` : `Nv.${rank}/5`);
       html += `<div class="export-spell${isPassive ? ' is-passive' : ''}">
         <div class="export-spell-icon" style="${iconStyle(d.icon, sp.spriteIdx, 24)}"></div>
         <div class="export-spell-name">${sp.name}</div>
-        <div class="export-spell-rank">${isPassive ? `Pasiva · Nv.${rank}/5` : `Nv.${rank}/5`}</div>
+        ${rankText ? `<div class="export-spell-rank">${rankText}</div>` : ''}
         ${manaTag}
       </div>`;
     });
