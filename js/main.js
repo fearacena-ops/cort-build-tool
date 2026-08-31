@@ -574,6 +574,62 @@ function exportBuildAsImage(buildLike, level, titleSub, filenameSuffix, customNa
   });
 }
 
+// Links para compartir: toda la build (subclase, nivel, nombre, y cada
+// punto puesto) se codifica dentro del propio link — no hay ningún servidor
+// guardando nada. Quien abre el link, decodifica esos datos localmente en
+// su navegador y ve la build cargada en "Tu build".
+function buildShareLink(){
+  const payload = {
+    c: currentClass,
+    l: manualState.level,
+    n: document.getElementById('pc-build-name').value.trim() || undefined,
+    d: DISC_NAMES.map(n=> manualState.dlvl[n]),
+    r: DISC_NAMES.map(n=> CLASS.disciplines[n].spells.map((sp,idx)=> manualState.ranks[n+'|'+idx]||0)),
+  };
+  const json = JSON.stringify(payload);
+  const b64 = btoa(unescape(encodeURIComponent(json))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+  return `${location.origin}${location.pathname}#build=${b64}`;
+}
+function applyShareLinkIfPresent(){
+  const match = location.hash.match(/#build=([^&]+)/);
+  if(!match) return false;
+  try {
+    const padded = match[1].replace(/-/g,'+').replace(/_/g,'/');
+    const json = decodeURIComponent(escape(atob(padded)));
+    const payload = JSON.parse(json);
+    if(!ROOT.classes[payload.c]) return false;
+    switchClass(payload.c);
+    document.querySelectorAll('#class-switch .choice-btn').forEach(b=> b.classList.toggle('active', b.dataset.v===payload.c));
+    const level = Math.max(10, Math.min(60, parseInt(payload.l)||60));
+    resetManualState(level);
+    document.getElementById('pc-level').value = level;
+    if(payload.n) document.getElementById('pc-build-name').value = payload.n;
+    (payload.d||[]).forEach((dlvl, i)=>{
+      const name = DISC_NAMES[i];
+      if(!name) return;
+      manualState.dlvl[name] = Math.max(1, Math.min(MAXDLEVEL, parseInt(dlvl)||1));
+    });
+    (payload.r||[]).forEach((ranksArr, i)=>{
+      const name = DISC_NAMES[i];
+      if(!name) return;
+      (ranksArr||[]).forEach((rank, idx)=>{
+        const cap = spellCap(name, idx, manualState.dlvl[name]);
+        manualState.ranks[name+'|'+idx] = Math.max(0, Math.min(cap, parseInt(rank)||0));
+      });
+    });
+    manualActiveTab = 0;
+    manualActiveArchetypeLabel = null;
+    clearArchetypeActive();
+    renderManualPanel();
+    showToast('Build cargada desde el link compartido.');
+    return true;
+  } catch(e){
+    console.error('No se pudo leer el link compartido', e);
+    showToast('El link compartido no es válido o está dañado.');
+    return false;
+  }
+}
+
 function switchClass(newClass){
   currentClass = newClass;
   CLASS = ROOT.classes[currentClass];
@@ -645,23 +701,12 @@ function initApp(){
     exportBuildAsImage(manualState, manualState.level, `Build manual · Nivel ${manualState.level}`, `manual_nv${manualState.level}`, customName, manualActiveArchetypeLabel);
   });
   document.getElementById('pc-export-txt').addEventListener('click', ()=>{
-    let lines = [`${CLASS.label} — Build manual — Nivel ${manualState.level}`, ''];
-    DISC_NAMES.forEach(name=>{
-      const lvl = manualState.dlvl[name];
-      const hasPowerPoints = CLASS.disciplines[name].spells.some((sp, idx)=> (manualState.ranks[name+'|'+idx]||0) > 0);
-      if(lvl<=1 && !hasPowerPoints) return;
-      lines.push(`${CLASS.disciplines[name].es}: disciplina ${lvl}/${MAXDLEVEL}`);
-      CLASS.disciplines[name].spells.forEach((sp, idx)=>{
-        const rank = manualState.ranks[name+'|'+idx] || 0;
-        if(rank>0) lines.push(`  - ${sp.name}: rango ${rank}/${MAXPLEVEL}`);
-      });
-    });
-    const text = lines.join('\n');
+    const url = buildShareLink();
     if(navigator.clipboard && navigator.clipboard.writeText){
-      navigator.clipboard.writeText(text).then(()=>{ showToast('Resumen copiado al portapapeles.'); })
-        .catch(()=>{ showToast('No se pudo copiar automáticamente. Build en consola (F12).'); console.log(text); });
+      navigator.clipboard.writeText(url).then(()=>{ showToast('Link copiado al portapapeles.'); })
+        .catch(()=>{ showToast('No se pudo copiar automáticamente. Link en consola (F12).'); console.log(url); });
     } else {
-      console.log(text);
+      console.log(url);
       showToast('Tu navegador no permite copiar automáticamente. Revisa la consola (F12).');
     }
   });
@@ -689,4 +734,5 @@ function initApp(){
   renderProgression(false);
   renderCustomBuild(false);
   renderManualPanel();
+  applyShareLinkIfPresent();
   }
