@@ -74,7 +74,6 @@ function buildSpellDetailHTML(name, sp, idx, dlvl, rank){
   if(sp.blockable100) notes.push('Sólo bloqueable al 100%');
   if(sp.resistible100) notes.push('Sólo resistible al 100%');
   if(notes.length) html += `<div class="sd-notes">${notes.map(n=>`<div>${n}</div>`).join('')}</div>`;
-  if((sp.funciones||[]).length) html += `<div class="sd-funcs">${sp.funciones.map(f=>`<span class="sd-func">${f}</span>`).join('')}</div>`;
   if(sp.commonRank) html += `<div class="sd-community">La comunidad suele dejarla en rango ${sp.commonRank}/5</div>`;
   const fixed = [];
   if(sp.cast != null && !Array.isArray(sp.cast)) fixed.push(`<span>Lanz. <b>${sp.cast}s</b></span>`);

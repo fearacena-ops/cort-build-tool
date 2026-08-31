@@ -378,23 +378,17 @@ function renderManualPanel(){
   const level = manualState.level;
   const dpLeft = manualDpLeft(), ppLeft = manualPpLeft();
   const dpBudget = totalDP(level), ppBudget = totalPP(level);
+  // renderManualPanel reconstruye todo el HTML del panel en cada cambio, lo
+  // que resetea el scroll a 0 por defecto — guardamos dónde estaba parado
+  // antes de tocar el DOM, para devolverlo ahí después.
+  const prevActivePane = document.querySelector(`#pc-build .tab-pane[data-idx="${manualActiveTab}"]`);
+  const savedScrollTop = prevActivePane ? prevActivePane.scrollTop : 0;
 
   document.getElementById('pc-summary').innerHTML = `<div class="summary-grid">
     <div class="stat-card"><div class="label">Nivel</div><div class="value">${level}</div></div>
     <div class="stat-card"><div class="label">Disciplina</div><div class="value">${dpBudget-dpLeft}<span style="color:var(--ink-faint);font-size:13px"> / ${dpBudget}</span></div></div>
     <div class="stat-card"><div class="label">Poder</div><div class="value">${ppBudget-ppLeft}<span style="color:var(--ink-faint);font-size:13px"> / ${ppBudget}</span></div></div>
   </div>`;
-
-  const warnBox = document.getElementById('pc-warning');
-  let warnHtml = '';
-  (CLASS.weaponGroups||[]).forEach(group=>{
-    const investedOpts = group.options.filter(o=> manualState.dlvl[o.discipline] > 1);
-    if(investedOpts.length > 1){
-      const names = investedOpts.map(o=>`<b>${CLASS.disciplines[o.discipline].es}</b>`).join(' y ');
-      warnHtml += `<div class="callout warn"><div class="mark">!</div><div>Tienes puntos en ${names} a la vez. En combate solo puedes tener un ${group.label.toLowerCase()} equipado — repártelos así solo si quieres tener ambos disponibles para cambiar de equipo.</div></div>`;
-    }
-  });
-  warnBox.innerHTML = warnHtml;
 
   let rail = `<div class="tab-rail">`;
   const activeDiscName = DISC_NAMES[manualActiveTab];
@@ -461,26 +455,35 @@ function renderManualPanel(){
   });
   rail += `</div>`; panes += `</div>`;
   document.getElementById('pc-build').innerHTML = `<div class="tabframe">${rail}${panes}</div>`;
-  const activeName = DISC_NAMES[manualActiveTab];
+  captureNaturalHeightIfNeeded(DISC_NAMES[manualActiveTab]);
   const activePane = document.querySelector(`#pc-build .tab-pane[data-idx="${manualActiveTab}"]`);
   if(activePane){
-    const naturalH = manualPaneNaturalHeight[activeName];
     const hasExpanded = activePane.querySelector('.spell-row.expanded') !== null;
-    if(hasExpanded && naturalH !== undefined){
-      activePane.style.maxHeight = naturalH + 'px';
+    if(hasExpanded && manualSharedNaturalHeight !== undefined){
+      activePane.style.maxHeight = manualSharedNaturalHeight + 'px';
       activePane.style.overflowY = 'auto';
       activePane.style.paddingRight = '14px';
     }
+    activePane.scrollTop = savedScrollTop;
   }
 }
 function manualSelectTab(i){ manualActiveTab = i; renderManualPanel(); }
-let manualPaneNaturalHeight = {};
+// Las disciplinas no tienen todas la misma cantidad de habilidades — Maestría
+// en Guerra por ejemplo tiene bastante menos que el resto. En vez de que cada
+// panel tenga su propio techo de scroll (lo que hacía ver a Maestría en
+// Guerra recortada con scroll mientras podía haber usado más espacio hacia
+// abajo), se comparte UN SOLO techo entre todas: el más alto que se haya
+// visto hasta ahora, sin desplegar nada, en cualquier disciplina visitada.
+let manualSharedNaturalHeight = undefined;
 function captureNaturalHeightIfNeeded(discName){
-  if(manualPaneNaturalHeight[discName] !== undefined) return;
   const hasAnyExpanded = CLASS.disciplines[discName].spells.some((sp,idx)=> expandedManualKeys.has(discName+'|'+idx));
   if(hasAnyExpanded) return; // ya había algo desplegado antes de empezar a rastrear esta disciplina
   const pane = document.querySelector(`#pc-build .tab-pane[data-idx="${manualActiveTab}"]`);
-  if(pane) manualPaneNaturalHeight[discName] = pane.scrollHeight;
+  if(!pane) return;
+  const h = pane.scrollHeight;
+  if(manualSharedNaturalHeight === undefined || h > manualSharedNaturalHeight){
+    manualSharedNaturalHeight = h;
+  }
 }
 function toggleSpellDetailManual(key){
   captureNaturalHeightIfNeeded(key.split('|')[0]);
