@@ -4,6 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Recomendador de build — Champions of Regnum</title>
+<script>
+// Aplica el reino guardado ANTES de que se pinte cualquier color — evita el
+// parpadeo de "aparece Syrtis y después cambia al que tenías elegido".
+(function(){
+  try {
+    var r = localStorage.getItem('cort-last-realm');
+    if(r === 'alsius' || r === 'ignis') document.documentElement.setAttribute('data-realm', r);
+  } catch(e){}
+})();
+</script>
 <link rel="preload" href="data/game-data.json" as="fetch" crossorigin>
 <link rel="stylesheet" href="css/styles.css">
 </head>
@@ -18,6 +28,17 @@
   <aside class="shield-rail">
     <img id="hero-realm-shield" class="hero-realm-shield" src="" alt="">
   </aside>
+  <script>
+  (function(){
+    try {
+      var r = localStorage.getItem('cort-last-realm') || 'syrtis';
+      var labels = {syrtis:'Syrtis', alsius:'Alsius', ignis:'Ignis'};
+      var img = document.getElementById('hero-realm-shield');
+      img.src = 'data/icons/shield-' + r + '.webp';
+      img.alt = labels[r] || r;
+    } catch(e){}
+  })();
+  </script>
 
   <div class="wrap">
 
@@ -36,6 +57,16 @@
         <button class="choice-btn realm-btn" data-v="ignis"><i class="realm-swatch" style="background:#c9622f"></i>Ignis</button>
         <button class="mute-btn" id="music-mute-btn" title="Silenciar música ambiental">🔊</button>
       </div>
+      <script>
+      (function(){
+        try {
+          var r = localStorage.getItem('cort-last-realm') || 'syrtis';
+          document.querySelectorAll('#realm-switch .choice-btn.realm-btn').forEach(function(b){
+            b.classList.toggle('active', b.dataset.v === r);
+          });
+        } catch(e){}
+      })();
+      </script>
     </div>
   </header>
   <audio id="realm-music" loop></audio>
@@ -174,6 +205,26 @@
           <button class="choice-btn" data-v="hunter">Cazador</button>
           <button class="choice-btn" data-v="knight">Caballero</button>
         </div>
+        <script>
+        // Misma idea que con el reino: aplica la subclase guardada ANTES de
+        // esperar a que termine de cargar el archivo de datos del juego,
+        // para que el título/ícono/botón activo no se vean "corregirse"
+        // un instante después de que la página ya se pintó.
+        (function(){
+          try {
+            var saved = localStorage.getItem('cort-last-class');
+            var labels = {hunter:'Cazador', marksman:'Tirador', conjurer:'Conjurador', warlock:'Brujo', barbarian:'Bárbaro', knight:'Caballero'};
+            if(saved && labels[saved]){
+              document.getElementById('hero-title-class').textContent = labels[saved];
+              document.getElementById('hero-class-icon').src = 'data/icons/class-' + saved + '.webp';
+              document.getElementById('hero-class-icon').alt = labels[saved];
+              document.querySelectorAll('#class-switch .choice-btn').forEach(function(b){
+                b.classList.toggle('active', b.dataset.v === saved);
+              });
+            }
+          } catch(e){}
+        })();
+        </script>
       </div>
       <div class="field" style="margin-top:18px">
         <label>Nivel del personaje</label>
