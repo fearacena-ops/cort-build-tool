@@ -547,7 +547,7 @@ function loadHtml2Canvas(cb){
 function exportBuildAsImage(buildLike, level, titleSub, filenameSuffix, customName, archetypeLabel){
   loadHtml2Canvas(()=>{
     const temp = document.createElement('div');
-    temp.style.cssText = 'position:fixed;left:-9999px;top:0;width:640px;';
+    temp.style.cssText = 'position:fixed;left:-9999px;top:0;width:820px;';
     temp.innerHTML = buildExportCardFromBuild(buildLike, level, titleSub, customName, archetypeLabel);
     document.body.appendChild(temp);
     const imgsToWait = Array.from(temp.querySelectorAll('img')).filter(img=> !img.complete);

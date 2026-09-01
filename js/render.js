@@ -295,6 +295,17 @@ function buildExportCardFromBuild(buildLike, level, titleSub, customName, archet
     const d = CLASS.disciplines[name];
     const lvl = buildLike.dlvl[name];
     const spentSpells = d.spells.map((sp,idx)=>({sp, idx, rank: buildLike.ranks[name+'|'+idx]||0})).filter(e=>e.rank>0);
+    if(spentSpells.length === 0){
+      html += `<div class="export-disc is-empty">
+        <div class="export-disc-head">
+          <div class="export-disc-icon" style="${iconStyle(d.icon,0,30)}"></div>
+          <div class="export-disc-name">${d.es}</div>
+          <div class="export-disc-lvl">Disciplina ${lvl}/${MAXDLEVEL}</div>
+        </div>
+        <div class="export-empty">Sin puntos de poder asignados</div>
+      </div>`;
+      return;
+    }
     html += `<div class="export-disc">
       <div class="export-disc-head">
         <div class="export-disc-icon" style="${iconStyle(d.icon,0,30)}"></div>
@@ -302,9 +313,6 @@ function buildExportCardFromBuild(buildLike, level, titleSub, customName, archet
         <div class="export-disc-lvl">Disciplina ${lvl}/${MAXDLEVEL}</div>
       </div>
       <div class="export-spells">`;
-    if(spentSpells.length === 0){
-      html += `<div class="export-empty">Sin puntos de poder asignados</div>`;
-    }
     spentSpells.forEach(({sp, idx, rank})=>{
       const isPassive = sp.type === 'Passive';
       const isWM = name === WM_NAME;

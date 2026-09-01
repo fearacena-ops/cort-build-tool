@@ -166,6 +166,9 @@
   .stat-card{background:var(--bg-0);border:1px solid var(--line);border-radius:3px;padding:12px 14px;}
   .stat-card .label{font-family:var(--font-mono);font-size:10px;color:var(--ink-faint);text-transform:uppercase;letter-spacing:.06em;}
   .stat-card .value{font-family:var(--font-display);font-size:22px;color:var(--bronze);margin-top:3px;}
+  .export-card .summary-grid{margin-bottom:12px;gap:8px;}
+  .export-card .stat-card{padding:7px 12px;}
+  .export-card .stat-card .value{font-size:16px;margin-top:1px;}
 
   .tabframe{display:flex;gap:16px;align-items:flex-start;}
   .tab-rail{display:flex;flex-direction:column;gap:6px;flex:0 0 200px;}
@@ -242,15 +245,18 @@
   .exporting .mbtn{visibility:hidden;}
   .export-row{display:flex;gap:10px;margin-top:16px;margin-bottom:20px;flex-wrap:wrap;}
   .export-card{padding:28px;font-family:var(--font-body);}
-  .export-header{margin-bottom:18px;border-bottom:1px solid var(--line);padding-bottom:20px;display:flex;align-items:center;gap:14px;position:relative;}
-  .export-realm-shield{position:absolute;top:50%;right:0;transform:translateY(-50%);height:68px;width:auto;object-fit:contain;flex-shrink:0;}
-  .export-header-text{padding-right:76px;}
+  .export-header{margin-bottom:14px;border-bottom:1px solid var(--line);padding-bottom:14px;display:flex;align-items:center;gap:14px;}
+  .export-realm-shield{height:72px;width:auto;object-fit:contain;flex-shrink:0;margin-left:auto;}
+  .export-header-text{flex:1;min-width:0;}
   .export-class-icon{width:52px;height:52px;border-radius:50%;flex-shrink:0;}
   .export-title{font-family:var(--font-display);font-size:26px;color:var(--ink);}
   .export-sub{font-family:var(--font-mono);font-size:12px;color:var(--bronze);text-transform:uppercase;letter-spacing:.06em;margin-top:3px;}
-  .export-disciplines{display:flex;flex-direction:column;gap:16px;margin-top:18px;}
-  .export-disc{background:var(--bg-0);border:1px solid var(--line);border-radius:6px;padding:14px 16px;}
-  .export-disc-head{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+  .export-disciplines{display:flex;flex-direction:column;gap:12px;margin-top:16px;}
+  .export-disc{background:var(--bg-0);border:1px solid var(--line);border-radius:6px;padding:11px 14px;}
+  .export-disc-head{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+  .export-disc.is-empty .export-disc-head{margin-bottom:0;}
+  .export-disc.is-empty{display:flex;align-items:center;justify-content:space-between;padding:9px 14px;}
+  .export-disc.is-empty .export-disc-head{flex:1;}
   .export-disc-icon{width:30px;height:30px;border-radius:6px;background-repeat:no-repeat;border:1px solid var(--line);flex-shrink:0;}
   .export-disc-name{font-family:var(--font-display);font-size:16px;color:var(--ink);flex:1;}
   .export-disc-lvl{font-family:var(--font-mono);font-size:11px;color:var(--bronze);}
@@ -262,7 +268,7 @@
   .export-spell-icon{width:24px;height:24px;border-radius:5px;background-repeat:no-repeat;flex-shrink:0;}
   .export-spell-name{font-size:12px;color:var(--ink-dim);}
   .export-spell-rank{font-family:var(--font-mono);font-size:10.5px;color:var(--bronze);}
-  .export-empty{font-size:12px;color:var(--ink-faint);font-style:italic;}
+  .export-empty{font-size:11.5px;color:var(--ink-faint);font-style:italic;white-space:nowrap;}
   .export-row .go-btn{width:auto;flex:1;min-width:180px;margin-top:0;}
 
   .foot-note{margin-top:30px;padding-top:18px;border-top:1px solid var(--line);font-size:12px;color:var(--ink-faint);display:flex;gap:16px;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;}
