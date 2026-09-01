@@ -667,6 +667,46 @@ function applyResponsiveLayout(isNarrow){
 }
 NARROW_QUERY.addEventListener('change', e => applyResponsiveLayout(e.matches));
 
+const REALM_MUSIC_VOLUME = 0.2; // acompaña de fondo, sin molestar
+let musicMuted = localStorage.getItem('cort-music-muted') === '1';
+function updateRealmMusic(realmKey){
+  const audio = document.getElementById('realm-music');
+  if(!audio) return;
+  const src = `data/audio/${realmKey}.ogg`;
+  if(!audio.src.endsWith(src)){
+    audio.src = src;
+    audio.volume = REALM_MUSIC_VOLUME;
+  }
+  if(!musicMuted) tryPlayMusic();
+}
+function tryPlayMusic(){
+  const audio = document.getElementById('realm-music');
+  if(!audio || !audio.src || musicMuted) return;
+  const p = audio.play();
+  if(p && p.catch){
+    p.catch(()=>{
+      // La mayoría de los navegadores bloquean el sonido automático hasta
+      // que la persona interactúa con la página una vez — apenas lo haga
+      // (en cualquier parte), se reintenta.
+      const retry = ()=>{ if(!musicMuted) audio.play().catch(()=>{}); document.removeEventListener('click', retry); };
+      document.addEventListener('click', retry, {once:true});
+    });
+  }
+}
+function setMusicMuted(muted){
+  musicMuted = muted;
+  localStorage.setItem('cort-music-muted', muted ? '1' : '0');
+  const audio = document.getElementById('realm-music');
+  const btn = document.getElementById('music-mute-btn');
+  if(audio) audio.muted = muted;
+  if(btn){
+    btn.textContent = muted ? '🔇' : '🔊';
+    btn.classList.toggle('is-muted', muted);
+    btn.title = muted ? 'Activar música ambiental' : 'Silenciar música ambiental';
+  }
+  if(!muted) tryPlayMusic();
+}
+
 function updateRealmShield(realmKey){
   const img = document.getElementById('hero-realm-shield');
   if(!img) return;
@@ -788,13 +828,17 @@ function initApp(){
   });
   
   wireChoiceGroup('realm-switch');
-  document.getElementById('realm-switch').querySelectorAll('.choice-btn').forEach(btn=>{
+  document.getElementById('realm-switch').querySelectorAll('.choice-btn.realm-btn').forEach(btn=>{
     btn.addEventListener('click', ()=>{
       document.documentElement.setAttribute('data-realm', btn.dataset.v);
       updateRealmShield(btn.dataset.v);
+      updateRealmMusic(btn.dataset.v);
     });
   });
   updateRealmShield('syrtis');
+  setMusicMuted(musicMuted);
+  updateRealmMusic('syrtis');
+  document.getElementById('music-mute-btn').addEventListener('click', ()=> setMusicMuted(!musicMuted));
 
   // --- Render inicial ---
   document.getElementById('app-version').textContent = `Herramienta v${APP_VERSION}`;

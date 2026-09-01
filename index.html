@@ -34,9 +34,11 @@
         <button class="choice-btn realm-btn active" data-v="syrtis"><i class="realm-swatch" style="background:#7fae5a"></i>Syrtis</button>
         <button class="choice-btn realm-btn" data-v="alsius"><i class="realm-swatch" style="background:#5b9cc9"></i>Alsius</button>
         <button class="choice-btn realm-btn" data-v="ignis"><i class="realm-swatch" style="background:#c9622f"></i>Ignis</button>
+        <button class="mute-btn" id="music-mute-btn" title="Silenciar música ambiental">🔊</button>
       </div>
     </div>
   </header>
+  <audio id="realm-music" loop></audio>
 
   <div class="main-tabs">
     <button class="main-tab active" data-panel="panel-manual">Tu build</button>
@@ -165,11 +167,11 @@
       <div class="field">
         <label>Subclase</label>
         <div class="choice-group" id="class-switch">
-          <button class="choice-btn active" data-v="hunter">Cazador</button>
-          <button class="choice-btn" data-v="marksman">Tirador</button>
-          <button class="choice-btn" data-v="conjurer">Conjurador</button>
           <button class="choice-btn" data-v="warlock">Brujo</button>
+          <button class="choice-btn" data-v="marksman">Tirador</button>
           <button class="choice-btn" data-v="barbarian">Bárbaro</button>
+          <button class="choice-btn" data-v="conjurer">Conjurador</button>
+          <button class="choice-btn active" data-v="hunter">Cazador</button>
           <button class="choice-btn" data-v="knight">Caballero</button>
         </div>
       </div>
