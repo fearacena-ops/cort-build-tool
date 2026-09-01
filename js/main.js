@@ -606,6 +606,7 @@ function applyShareLinkIfPresent(){
     if(!classKey || !ROOT.classes[classKey]) return false;
     const level = Math.max(10, Math.min(60, parseInt(code.slice(1,3), 36) || 60));
     switchClass(classKey);
+    clearTimeout(switchClassRenderTimer); // este flujo arma y renderiza su propio estado final más abajo
     document.querySelectorAll('#class-switch .choice-btn').forEach(b=> b.classList.toggle('active', b.dataset.v===classKey));
     resetManualState(level);
     document.getElementById('pc-level').value = level;
@@ -741,6 +742,7 @@ function updateHeroHeader(){
   document.getElementById('hero-class-icon').src = `${ICONS_BASE_PATH}/class-${currentClass}.webp`;
   document.getElementById('hero-class-icon').alt = CLASS.label;
 }
+let switchClassRenderTimer = null;
 function switchClass(newClass){
   currentClass = newClass;
   localStorage.setItem('cort-last-class', currentClass);
@@ -748,26 +750,36 @@ function switchClass(newClass){
   DISC_NAMES = Object.keys(CLASS.disciplines);
   WM_NAME = DISC_NAMES.find(n=> CLASS.disciplines[n].group === "wm");
 
+  // Lo liviano (título, ícono, qué botón se ve marcado) se actualiza al
+  // instante en cada clic, para que la interfaz se sienta responsiva.
   updateHeroHeader();
 
-  renderWeaponPanel('pa-weapon-panel');
-  renderWeaponPanel('pb-bow', 'pb-weapon-section');
-  renumberPanelsB();
-  populatePriorityDropdown();
+  // Lo pesado (reconstruir todos los paneles, sobre todo el de disciplinas y
+  // habilidades, que puede llegar a ~75 filas de HTML) se agrupa un poco —
+  // si la persona clickea varias subclases seguidas muy rápido, esta parte
+  // corre una sola vez, con la última que quedó elegida, en vez de una vez
+  // por cada clic intermedio en el camino.
+  clearTimeout(switchClassRenderTimer);
+  switchClassRenderTimer = setTimeout(()=>{
+    renderWeaponPanel('pa-weapon-panel');
+    renderWeaponPanel('pb-bow', 'pb-weapon-section');
+    renumberPanelsB();
+    populatePriorityDropdown();
 
-  resetManualState(60);
-  manualActiveArchetypeLabel = null;
-  document.getElementById('pc-level').value = 60;
-  manualActiveTab = 0;
-  renderArchetypeSuggestions();
+    resetManualState(60);
+    manualActiveArchetypeLabel = null;
+    document.getElementById('pc-level').value = 60;
+    manualActiveTab = 0;
+    renderArchetypeSuggestions();
 
-  document.getElementById('pa-output').innerHTML = '';
-  document.getElementById('pb-output').innerHTML = '';
+    document.getElementById('pa-output').innerHTML = '';
+    document.getElementById('pb-output').innerHTML = '';
 
-  renderProgression(false);
-  renderCustomBuild(false);
-  renderManualPanel();
-  scheduleAlignConfigRail();
+    renderProgression(false);
+    renderCustomBuild(false);
+    renderManualPanel();
+    scheduleAlignConfigRail();
+  }, 120);
 }
 /* =========================================================================
    initApp — arranca la aplicación una vez que los datos del juego llegaron
