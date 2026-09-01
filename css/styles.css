@@ -35,17 +35,17 @@
   .top-bar a{color:#fff;text-decoration:underline;font-weight:600;}
 
   .page-flex{display:flex;gap:28px;justify-content:center;max-width:1780px;margin:0 auto;padding:0 22px 80px;}
-  .shield-rail{flex:0 0 240px;display:flex;justify-content:center;align-items:flex-start;padding-top:22px;}
+  .shield-rail{flex:0 0 240px;display:flex;justify-content:center;align-items:flex-start;padding-top:14px;}
   .config-rail{flex:0 0 320px;display:flex;flex-direction:column;gap:20px;padding-top:0;opacity:1;transition:opacity .15s ease;}
   .config-rail.rail-measuring{opacity:0;}
-  .wrap{max-width:1180px;width:100%;padding:22px 0 0;}
+  .wrap{max-width:1180px;width:100%;padding:14px 0 0;}
   @media (max-width:1440px){
     .page-flex{flex-direction:column;max-width:1180px;padding:0 22px 80px;}
     .shield-rail{display:none;}
     .config-rail{flex:0 0 auto;width:100%;padding-top:0;margin-bottom:20px;}
   }
 
-  header.hero{display:flex;flex-wrap:wrap;gap:20px 32px;align-items:center;justify-content:space-between;padding-bottom:12px;margin-bottom:12px;}
+  header.hero{display:flex;flex-wrap:wrap;gap:20px 32px;align-items:center;justify-content:space-between;padding-bottom:8px;margin-bottom:8px;}
   .hero-left{display:flex;align-items:center;gap:20px;}
   .hero-realm-shield{width:220px;height:220px;object-fit:contain;object-position:top center;filter:drop-shadow(0 4px 14px rgba(0,0,0,.4));}
   .hero-realm-shield.hero-realm-shield-small{width:52px;height:52px;filter:drop-shadow(0 2px 6px rgba(0,0,0,.4));}

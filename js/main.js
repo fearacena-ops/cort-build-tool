@@ -396,10 +396,10 @@ function renderManualPanel(){
   let rail = `<div class="tab-rail">`;
   const activeDiscName = DISC_NAMES[manualActiveTab];
   const activeSpellsForToggle = CLASS.disciplines[activeDiscName].spells;
-  const allExpandedNow = activeSpellsForToggle.length>0 && activeSpellsForToggle.every((sp,idx)=> expandedManualKeys.has(activeDiscName+'|'+idx));
+  const anyExpandedNow = activeSpellsForToggle.some((sp,idx)=> expandedManualKeys.has(activeDiscName+'|'+idx));
   let panes = `<div class="tab-panes">
     <div class="pane-toolbar">
-      <button class="mini-btn" onclick="toggleAllManual()">${allExpandedNow ? 'Ocultar todo' : 'Desplegar todo'}</button>
+      <button class="mini-btn" onclick="toggleAllManual()">${anyExpandedNow ? 'Ocultar todo' : 'Desplegar todo'}</button>
     </div>`;
   DISC_NAMES.forEach((name, i)=>{
     const d = CLASS.disciplines[name];
@@ -439,17 +439,17 @@ function renderManualPanel(){
       const canRankDown = rank>0;
       const isLocked = cap===0;
       const isExpanded = expandedManualKeys.has(key);
-      panes += `<div class="spell-row${isLocked?' row-locked':''}${isExpanded?' expanded':''}" onclick="toggleSpellDetailManual('${key}')">
+      panes += `<div class="spell-row${isLocked?' row-locked':''}${isExpanded?' expanded':''}">
         <div class="sicon${rank===0?' dim':''}" style="${iconStyle(d.icon, sp.spriteIdx, 38)}"></div>
         <div class="rank-pips"${isWM?' style="visibility:hidden"':''}>${pips}</div>
         <div class="spell-info">
           <div class="spell-name">${sp.name} <span class="rk">Nv.${rank}/${MAXPLEVEL}</span> ${roleTags(sp)}${flagChips(sp)}</div>
           <div class="spell-desc">${sp.desc}</div>
         </div>
-        <button class="spell-expand" onclick="event.stopPropagation();toggleSpellDetailManual('${key}')">▸</button>
+        <button class="spell-expand" onclick="toggleSpellDetailManual('${key}')">▸</button>
         <div class="mctrl">${isWM ? '' : (isLocked ? '' : `
-          <button class="mbtn" onclick="event.stopPropagation();manualChangeRank('${name}',${idx},-1)" ${canRankDown?'':'disabled'}>−</button>
-          <button class="mbtn" onclick="event.stopPropagation();manualChangeRank('${name}',${idx},1)" ${canRankUp?'':'disabled'}>+</button>
+          <button class="mbtn" onclick="manualChangeRank('${name}',${idx},-1)" ${canRankDown?'':'disabled'}>−</button>
+          <button class="mbtn" onclick="manualChangeRank('${name}',${idx},1)" ${canRankUp?'':'disabled'}>+</button>
         `)}</div>
         <div class="spell-detail">${buildSpellDetailHTML(name, sp, idx, lvl, rank)}</div>
       </div>`;
@@ -508,8 +508,8 @@ function collapseAllManual(){
 function toggleAllManual(){
   const name = DISC_NAMES[manualActiveTab];
   const spells = CLASS.disciplines[name].spells;
-  const allExpanded = spells.length>0 && spells.every((sp,idx)=> expandedManualKeys.has(name+'|'+idx));
-  if(allExpanded) collapseAllManual();
+  const anyExpanded = spells.some((sp,idx)=> expandedManualKeys.has(name+'|'+idx));
+  if(anyExpanded) collapseAllManual();
   else expandAllManual();
 }
 
