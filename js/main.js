@@ -638,6 +638,35 @@ function applyShareLinkIfPresent(){
 }
 
 const REALM_LABEL = {syrtis:'Syrtis', alsius:'Alsius', ignis:'Ignis'};
+// En pantallas angostas no hay lugar para el escudo grande ni la barra
+// lateral al costado — en vez de duplicar ese HTML, se mueven los mismos
+// elementos reales a un lugar sensato dentro de la página (el escudo, chico,
+// junto al título; la barra de configuración, justo antes del panel de
+// disciplinas) y se devuelven a su lugar de siempre apenas hay espacio.
+const NARROW_QUERY = window.matchMedia
+  ? window.matchMedia('(max-width: 1440px)')
+  : {matches: window.innerWidth <= 1440, addEventListener: function(){}};
+function applyResponsiveLayout(isNarrow){
+  const shield = document.getElementById('hero-realm-shield');
+  const shieldAnchor = document.getElementById('hero-shield-anchor');
+  const shieldRail = document.querySelector('.shield-rail');
+  const rail = document.querySelector('.config-rail');
+  const railAnchor = document.getElementById('config-rail-anchor');
+  const pageFlex = document.querySelector('.page-flex');
+  if(!shield || !shieldAnchor || !shieldRail || !rail || !railAnchor || !pageFlex) return;
+
+  if(isNarrow){
+    if(shield.parentElement !== shieldAnchor){ shieldAnchor.appendChild(shield); shield.classList.add('hero-realm-shield-small'); }
+    if(rail.parentElement !== railAnchor){ railAnchor.appendChild(rail); }
+    rail.style.marginTop = '';
+  } else {
+    if(shield.parentElement !== shieldRail){ shieldRail.appendChild(shield); shield.classList.remove('hero-realm-shield-small'); }
+    if(rail.parentElement !== pageFlex){ pageFlex.appendChild(rail); }
+    scheduleAlignConfigRail();
+  }
+}
+NARROW_QUERY.addEventListener('change', e => applyResponsiveLayout(e.matches));
+
 function updateRealmShield(realmKey){
   const img = document.getElementById('hero-realm-shield');
   if(!img) return;
@@ -775,5 +804,6 @@ function initApp(){
   renderCustomBuild(false);
   renderManualPanel();
   applyShareLinkIfPresent();
+  applyResponsiveLayout(NARROW_QUERY.matches);
   setTimeout(alignConfigRail, 150);
   }
