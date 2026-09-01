@@ -667,7 +667,7 @@ function applyResponsiveLayout(isNarrow){
 }
 NARROW_QUERY.addEventListener('change', e => applyResponsiveLayout(e.matches));
 
-const REALM_MUSIC_VOLUME = 0.2; // acompaña de fondo, sin molestar
+const REALM_MUSIC_VOLUME = 0.05; // acompaña de fondo, sin molestar
 let musicMuted = localStorage.getItem('cort-music-muted') === '1';
 function updateRealmMusic(realmKey){
   const audio = document.getElementById('realm-music');
