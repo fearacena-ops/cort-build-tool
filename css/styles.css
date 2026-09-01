@@ -242,9 +242,9 @@
   .exporting .mbtn{visibility:hidden;}
   .export-row{display:flex;gap:10px;margin-top:16px;margin-bottom:20px;flex-wrap:wrap;}
   .export-card{padding:28px;font-family:var(--font-body);}
-  .export-header{margin-bottom:18px;border-bottom:1px solid var(--line);padding-bottom:14px;display:flex;align-items:center;gap:14px;position:relative;}
-  .export-realm-shield{position:absolute;top:0;right:0;height:58px;width:auto;object-fit:contain;flex-shrink:0;}
-  .export-header-text{padding-right:60px;}
+  .export-header{margin-bottom:18px;border-bottom:1px solid var(--line);padding-bottom:20px;display:flex;align-items:center;gap:14px;position:relative;}
+  .export-realm-shield{position:absolute;top:50%;right:0;transform:translateY(-50%);height:68px;width:auto;object-fit:contain;flex-shrink:0;}
+  .export-header-text{padding-right:76px;}
   .export-class-icon{width:52px;height:52px;border-radius:50%;flex-shrink:0;}
   .export-title{font-family:var(--font-display);font-size:26px;color:var(--ink);}
   .export-sub{font-family:var(--font-mono);font-size:12px;color:var(--bronze);text-transform:uppercase;letter-spacing:.06em;margin-top:3px;}
