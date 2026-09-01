@@ -683,16 +683,13 @@ function updateRealmMusic(realmKey){
 function tryPlayMusic(){
   const audio = document.getElementById('realm-music');
   if(!audio || !audio.src || musicMuted) return;
+  // Si el navegador bloquea la reproducción automática, no se reintenta
+  // solo con "el próximo clic sea cual sea" — eso enganchaba la carga de
+  // audio con cualquier otra cosa que la persona estuviera haciendo en ese
+  // momento (como cambiar de subclase varias veces seguidas). Ahora sólo
+  // se reintenta cuando se toca el botón de sonido a propósito.
   const p = audio.play();
-  if(p && p.catch){
-    p.catch(()=>{
-      // La mayoría de los navegadores bloquean el sonido automático hasta
-      // que la persona interactúa con la página una vez — apenas lo haga
-      // (en cualquier parte), se reintenta.
-      const retry = ()=>{ if(!musicMuted) audio.play().catch(()=>{}); document.removeEventListener('click', retry); };
-      document.addEventListener('click', retry, {once:true});
-    });
-  }
+  if(p && p.catch) p.catch(()=>{});
 }
 function setMusicMuted(muted){
   musicMuted = muted;
