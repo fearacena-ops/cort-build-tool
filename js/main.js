@@ -696,15 +696,18 @@ function scheduleAlignConfigRail(){
 }
 window.addEventListener('resize', scheduleAlignConfigRail);
 
+function updateHeroHeader(){
+  document.getElementById('hero-title-class').textContent = CLASS.label;
+  document.getElementById('hero-class-icon').src = `${ICONS_BASE_PATH}/class-${currentClass}.webp`;
+  document.getElementById('hero-class-icon').alt = CLASS.label;
+}
 function switchClass(newClass){
   currentClass = newClass;
   CLASS = ROOT.classes[currentClass];
   DISC_NAMES = Object.keys(CLASS.disciplines);
   WM_NAME = DISC_NAMES.find(n=> CLASS.disciplines[n].group === "wm");
 
-  document.getElementById('hero-title-class').textContent = CLASS.label;
-  document.getElementById('hero-class-icon').src = `${ICONS_BASE_PATH}/class-${currentClass}.webp`;
-  document.getElementById('hero-class-icon').alt = CLASS.label;
+  updateHeroHeader();
 
   renderWeaponPanel('pa-weapon-panel');
   renderWeaponPanel('pb-bow', 'pb-weapon-section');
@@ -795,6 +798,7 @@ function initApp(){
 
   // --- Render inicial ---
   document.getElementById('app-version').textContent = `Herramienta v${APP_VERSION}`;
+  updateHeroHeader();
   renderWeaponPanel('pa-weapon-panel');
   renderWeaponPanel('pb-bow', 'pb-weapon-section');
   renumberPanelsB();
