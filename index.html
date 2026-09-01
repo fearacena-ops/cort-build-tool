@@ -8,16 +8,26 @@
 </head>
 <body>
 
+<div class="top-bar">
+  <span>Para más información y herramientas puedes visitar <a href="https://cort.ovh/" target="_blank" rel="noopener">cort.ovh</a></span>
+</div>
+
 <div class="wrap">
 
   <header class="hero">
-    <div class="hero-title">
-      <p class="eyebrow">Constructor de builds</p>
-      <h1 class="hero-h1"><img id="hero-class-icon" class="hero-class-icon" src="" alt=""><span id="hero-title-class">Cazador</span></h1>
+    <div class="hero-left">
+      <img id="hero-realm-shield" class="hero-realm-shield" src="" alt="">
+      <div class="hero-title">
+        <p class="eyebrow">Constructor de builds</p>
+        <h1 class="hero-h1"><img id="hero-class-icon" class="hero-class-icon" src="" alt=""><span id="hero-title-class">Cazador</span></h1>
+      </div>
     </div>
     <div class="hero-meta">
-      <span>Datos: trainerdata.json v1.35.19</span>
-      <span id="app-version">Herramienta v1.0.0</span>
+      <div class="choice-group" id="realm-switch">
+        <button class="choice-btn realm-btn active" data-v="syrtis"><i class="realm-swatch" style="background:#7fae5a"></i>Syrtis</button>
+        <button class="choice-btn realm-btn" data-v="alsius"><i class="realm-swatch" style="background:#5b9cc9"></i>Alsius</button>
+        <button class="choice-btn realm-btn" data-v="ignis"><i class="realm-swatch" style="background:#c9622f"></i>Ignis</button>
+      </div>
     </div>
   </header>
 
@@ -121,62 +131,59 @@
 
   <!-- ===================== TAB C: TU BUILD (MANUAL) ===================== -->
   <div class="main-panel active" id="panel-manual">
-    <div class="panel">
-      <div class="field">
-        <label>Reino</label>
-        <div class="choice-group" id="realm-switch">
-          <button class="choice-btn realm-btn active" data-v="syrtis"><i class="realm-swatch" style="background:#7fae5a"></i>Syrtis</button>
-          <button class="choice-btn realm-btn" data-v="alsius"><i class="realm-swatch" style="background:#5b9cc9"></i>Alsius</button>
-          <button class="choice-btn realm-btn" data-v="ignis"><i class="realm-swatch" style="background:#c9622f"></i>Ignis</button>
+    <div class="build-layout">
+      <div class="build-main">
+        <div class="export-row">
+          <button class="go-btn" id="pc-export-img">Exportar como imagen</button>
+          <button class="go-btn secondary" id="pc-export-txt">Copiar link para compartir</button>
+          <button class="go-btn secondary" id="pc-reset">Reiniciar build</button>
+        </div>
+        <div class="stage" id="pc-capture">
+          <div class="stage-body">
+            <div id="pc-summary"></div>
+            <div id="pc-build"></div>
+          </div>
         </div>
       </div>
-      <div class="field" style="margin-top:18px">
-        <label>Subclase</label>
-        <div class="choice-group" id="class-switch">
-          <button class="choice-btn active" data-v="hunter">Cazador</button>
-          <button class="choice-btn" data-v="marksman">Tirador</button>
-          <button class="choice-btn" data-v="conjurer">Conjurador</button>
-          <button class="choice-btn" data-v="warlock">Brujo</button>
-          <button class="choice-btn" data-v="barbarian">Bárbaro</button>
-          <button class="choice-btn" data-v="knight">Caballero</button>
-        </div>
-      </div>
-      <div class="row" style="margin-top:18px">
-        <div class="field" style="max-width:200px">
-          <label>Nivel del personaje</label>
-          <div class="num-inputs"><input type="number" id="pc-level" min="10" max="60" value="60"></div>
-          <div class="hint">Cambiar el nivel reinicia tu build manual.</div>
-        </div>
-        <div class="field" style="max-width:320px">
-          <label>Nombre de tu build (opcional)</label>
-          <input type="text" id="pc-build-name" maxlength="40" placeholder="Ej: Mi Cazador de RvR">
-          <div class="hint">Aparece como título al exportar la imagen.</div>
-        </div>
-      </div>
-    </div>
 
-    <div class="panel" id="pc-archetypes-section" style="display:none">
-      <h2>Sugerencias comunes</h2>
-      <div class="hint" style="margin-top:-8px;margin-bottom:14px">Configuraciones que la comunidad ha compartido.</div>
-      <div class="choice-group" id="pc-archetype-presets"></div>
-      <div id="pc-archetype-blurb" class="hint" style="margin-top:10px"></div>
-    </div>
+      <div class="build-sidebar">
+        <div class="panel">
+          <div class="field">
+            <label>Subclase</label>
+            <div class="choice-group" id="class-switch">
+              <button class="choice-btn active" data-v="hunter">Cazador</button>
+              <button class="choice-btn" data-v="marksman">Tirador</button>
+              <button class="choice-btn" data-v="conjurer">Conjurador</button>
+              <button class="choice-btn" data-v="warlock">Brujo</button>
+              <button class="choice-btn" data-v="barbarian">Bárbaro</button>
+              <button class="choice-btn" data-v="knight">Caballero</button>
+            </div>
+          </div>
+          <div class="field" style="margin-top:18px">
+            <label>Nivel del personaje</label>
+            <div class="num-inputs"><input type="number" id="pc-level" min="10" max="60" value="60"></div>
+            <div class="hint">Cambiar el nivel reinicia tu build manual.</div>
+          </div>
+          <div class="field" style="margin-top:18px">
+            <label>Nombre de tu build (opcional)</label>
+            <input type="text" id="pc-build-name" maxlength="40" placeholder="Ej: Mi Cazador de RvR">
+            <div class="hint">Aparece como título al exportar la imagen.</div>
+          </div>
+        </div>
 
-    <div class="export-row">
-      <button class="go-btn" id="pc-export-img">Exportar como imagen</button>
-      <button class="go-btn secondary" id="pc-export-txt">Copiar link para compartir</button>
-      <button class="go-btn secondary" id="pc-reset">Reiniciar build</button>
-    </div>
-    <div class="stage" id="pc-capture">
-      <div class="stage-body">
-        <div id="pc-summary"></div>
-        <div id="pc-build"></div>
+        <div class="panel" id="pc-archetypes-section" style="display:none">
+          <h2>Sugerencias comunes</h2>
+          <div class="hint" style="margin-top:-8px;margin-bottom:14px">Configuraciones que la comunidad ha compartido.</div>
+          <div class="choice-group" id="pc-archetype-presets"></div>
+          <div id="pc-archetype-blurb" class="hint" style="margin-top:10px"></div>
+        </div>
       </div>
     </div>
   </div>
 
   <div class="foot-note">
-    Datos base extraídos de <code>trainerdata.json</code> (CoRT, licencia AGPLv3).
+    <div>Datos base extraídos de <code>trainerdata.json</code> (CoRT, licencia AGPLv3). Esta es una página hecha por fans, sin afiliación oficial con NGD Studios ni Champions of Regnum.</div>
+    <div id="app-version">Herramienta v1.0.0</div>
   </div>
 </div>
 

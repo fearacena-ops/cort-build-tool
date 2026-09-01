@@ -271,13 +271,15 @@ function buildExportCardFromBuild(buildLike, level, titleSub, customName, archet
   });
   const title = customName ? customName : (archetypeLabel ? `${CLASS.label} – ${archetypeLabel}` : CLASS.label);
   const sub = customName ? CLASS.label : '';
+  const realmKey = document.documentElement.getAttribute('data-realm') || 'syrtis';
   let html = `<div class="export-card">
     <div class="export-header">
       <img class="export-class-icon" src="${ICONS_BASE_PATH}/class-${currentClass}.webp" alt="${CLASS.label}">
-      <div>
+      <div class="export-header-text">
         <div class="export-title">${title}</div>
         ${sub ? `<div class="export-sub">${sub}</div>` : ''}
       </div>
+      <img class="export-realm-shield" src="${ICONS_BASE_PATH}/shield-${realmKey}.webp" alt="">
     </div>
     <div class="summary-grid">
       <div class="stat-card"><div class="label">Nivel</div><div class="value">${level}</div></div>

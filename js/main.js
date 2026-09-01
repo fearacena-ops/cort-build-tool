@@ -550,9 +550,9 @@ function exportBuildAsImage(buildLike, level, titleSub, filenameSuffix, customNa
     temp.style.cssText = 'position:fixed;left:-9999px;top:0;width:640px;';
     temp.innerHTML = buildExportCardFromBuild(buildLike, level, titleSub, customName, archetypeLabel);
     document.body.appendChild(temp);
-    const iconImg = temp.querySelector('.export-class-icon');
-    const waitForIcon = (iconImg && !iconImg.complete)
-      ? new Promise(res=>{ iconImg.onload = res; iconImg.onerror = res; })
+    const imgsToWait = Array.from(temp.querySelectorAll('img')).filter(img=> !img.complete);
+    const waitForIcon = imgsToWait.length
+      ? Promise.all(imgsToWait.map(img=> new Promise(res=>{ img.onload = res; img.onerror = res; })))
       : Promise.resolve();
     waitForIcon.then(()=>{
       const themeBg = getComputedStyle(document.documentElement).getPropertyValue('--bg-1').trim() || '#161d17';
@@ -635,6 +635,14 @@ function applyShareLinkIfPresent(){
     showToast('El link compartido no es válido o está dañado.');
     return false;
   }
+}
+
+const REALM_LABEL = {syrtis:'Syrtis', alsius:'Alsius', ignis:'Ignis'};
+function updateRealmShield(realmKey){
+  const img = document.getElementById('hero-realm-shield');
+  if(!img) return;
+  img.src = `${ICONS_BASE_PATH}/shield-${realmKey}.webp`;
+  img.alt = REALM_LABEL[realmKey] || realmKey;
 }
 
 function switchClass(newClass){
@@ -728,8 +736,10 @@ function initApp(){
   document.getElementById('realm-switch').querySelectorAll('.choice-btn').forEach(btn=>{
     btn.addEventListener('click', ()=>{
       document.documentElement.setAttribute('data-realm', btn.dataset.v);
+      updateRealmShield(btn.dataset.v);
     });
   });
+  updateRealmShield('syrtis');
 
   // --- Render inicial ---
   document.getElementById('app-version').textContent = `Herramienta v${APP_VERSION}`;

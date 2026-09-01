@@ -31,9 +31,13 @@
     color:var(--ink); font-family:var(--font-body); line-height:1.5; min-height:100vh;
     transition:background-color .3s;
   }
+  .top-bar{background:var(--moss);color:#fff;text-align:center;font-size:12.5px;padding:8px 16px;letter-spacing:.02em;}
+  .top-bar a{color:#fff;text-decoration:underline;font-weight:600;}
   .wrap{max-width:1180px;margin:0 auto;padding:36px 22px 80px;}
 
-  header.hero{display:flex;flex-wrap:wrap;gap:20px 32px;align-items:flex-end;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:22px;margin-bottom:22px;}
+  header.hero{display:flex;flex-wrap:wrap;gap:20px 32px;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:22px;margin-bottom:22px;}
+  .hero-left{display:flex;align-items:center;gap:20px;}
+  .hero-realm-shield{width:76px;height:76px;object-fit:contain;flex-shrink:0;filter:drop-shadow(0 3px 10px rgba(0,0,0,.35));}
   .hero-title{max-width:640px;}
   .eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--moss);margin:0 0 10px;}
   h1{font-family:var(--font-display);font-weight:400;font-size:clamp(28px,4vw,42px);margin:0 0 10px;color:var(--ink);letter-spacing:.01em;}
@@ -42,10 +46,18 @@
   h1 em{color:var(--bronze);font-style:italic;}
   .hero-title p{color:var(--ink-dim);margin:0;max-width:56ch;font-size:14.5px;}
   .hero-subclass{font-family:var(--font-mono);font-size:12.5px;color:var(--bronze)!important;text-transform:uppercase;letter-spacing:.06em;margin:2px 0 10px!important;}
-  .hero-meta{font-family:var(--font-mono);font-size:11.5px;color:var(--ink-faint);text-align:right;display:flex;flex-direction:column;gap:4px;}
+  .hero-meta{display:flex;flex-direction:column;gap:4px;}
 
   .notice{display:flex;gap:12px;align-items:flex-start;background:linear-gradient(180deg, rgba(201,161,90,0.08), rgba(201,161,90,0.03));border:1px solid rgba(201,161,90,0.28);border-radius:3px;padding:12px 16px;margin-bottom:26px;font-size:13px;color:var(--ink-dim);}
   .notice b{color:var(--bronze);}
+
+  .build-layout{display:flex;gap:24px;align-items:flex-start;}
+  .build-main{flex:1;min-width:0;}
+  .build-sidebar{width:320px;flex-shrink:0;display:flex;flex-direction:column;gap:20px;}
+  @media (max-width:920px){
+    .build-layout{flex-direction:column;}
+    .build-sidebar{width:100%;order:-1;}
+  }
   .notice .mark{font-family:var(--font-display);font-size:20px;color:var(--bronze);line-height:1;}
 
   .main-tabs{display:flex;gap:4px;margin-bottom:22px;border-bottom:1px solid var(--line);flex-wrap:wrap;}
@@ -220,7 +232,9 @@
   .exporting .mbtn{visibility:hidden;}
   .export-row{display:flex;gap:10px;margin-top:16px;margin-bottom:20px;flex-wrap:wrap;}
   .export-card{padding:28px;font-family:var(--font-body);}
-  .export-header{margin-bottom:18px;border-bottom:1px solid var(--line);padding-bottom:14px;display:flex;align-items:center;gap:14px;}
+  .export-header{margin-bottom:18px;border-bottom:1px solid var(--line);padding-bottom:14px;display:flex;align-items:center;gap:14px;position:relative;}
+  .export-realm-shield{position:absolute;top:0;right:0;height:58px;width:auto;object-fit:contain;flex-shrink:0;}
+  .export-header-text{padding-right:60px;}
   .export-class-icon{width:52px;height:52px;border-radius:50%;flex-shrink:0;}
   .export-title{font-family:var(--font-display);font-size:26px;color:var(--ink);}
   .export-sub{font-family:var(--font-mono);font-size:12px;color:var(--bronze);text-transform:uppercase;letter-spacing:.06em;margin-top:3px;}
@@ -241,7 +255,9 @@
   .export-empty{font-size:12px;color:var(--ink-faint);font-style:italic;}
   .export-row .go-btn{width:auto;flex:1;min-width:180px;margin-top:0;}
 
-  .foot-note{margin-top:30px;padding-top:18px;border-top:1px solid var(--line);font-size:12px;color:var(--ink-faint);}
+  .foot-note{margin-top:30px;padding-top:18px;border-top:1px solid var(--line);font-size:12px;color:var(--ink-faint);display:flex;gap:16px;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;}
+  .foot-note > div:first-child{max-width:70ch;}
+  .foot-note #app-version{font-family:var(--font-mono);font-size:11.5px;white-space:nowrap;}
 
   @media (max-width:760px){
     .wrap{padding:24px 16px 60px;}
