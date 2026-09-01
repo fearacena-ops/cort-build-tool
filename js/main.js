@@ -743,6 +743,7 @@ function updateHeroHeader(){
 }
 function switchClass(newClass){
   currentClass = newClass;
+  localStorage.setItem('cort-last-class', currentClass);
   CLASS = ROOT.classes[currentClass];
   DISC_NAMES = Object.keys(CLASS.disciplines);
   WM_NAME = DISC_NAMES.find(n=> CLASS.disciplines[n].group === "wm");
@@ -826,18 +827,34 @@ function initApp(){
   document.getElementById('class-switch').querySelectorAll('.choice-btn').forEach(btn=>{
     btn.addEventListener('click', ()=> switchClass(btn.dataset.v));
   });
-  
+  // La subclase ya se leyó de lo último guardado (o Brujo, si es la primera
+  // visita) al declarar currentClass — acá solo hace falta que el botón
+  // correcto se vea marcado como activo, ya que el HTML estático siempre
+  // trae a Brujo marcado por default.
+  document.querySelectorAll('#class-switch .choice-btn').forEach(b=>{
+    b.classList.toggle('active', b.dataset.v === currentClass);
+  });
+
+  const VALID_REALM_KEYS = ['syrtis','alsius','ignis'];
+  const savedRealm = localStorage.getItem('cort-last-realm');
+  const startRealm = (savedRealm && VALID_REALM_KEYS.includes(savedRealm)) ? savedRealm : 'syrtis';
+
   wireChoiceGroup('realm-switch');
   document.getElementById('realm-switch').querySelectorAll('.choice-btn.realm-btn').forEach(btn=>{
     btn.addEventListener('click', ()=>{
       document.documentElement.setAttribute('data-realm', btn.dataset.v);
+      localStorage.setItem('cort-last-realm', btn.dataset.v);
       updateRealmShield(btn.dataset.v);
       updateRealmMusic(btn.dataset.v);
     });
   });
-  updateRealmShield('syrtis');
+  document.documentElement.setAttribute('data-realm', startRealm);
+  document.querySelectorAll('#realm-switch .choice-btn.realm-btn').forEach(b=>{
+    b.classList.toggle('active', b.dataset.v === startRealm);
+  });
+  updateRealmShield(startRealm);
   setMusicMuted(musicMuted);
-  updateRealmMusic('syrtis');
+  updateRealmMusic(startRealm);
   document.getElementById('music-mute-btn').addEventListener('click', ()=> setMusicMuted(!musicMuted));
 
   // --- Render inicial ---

@@ -12,7 +12,12 @@
 
 let ROOT = null;
 let REQUIRED = null;
-let currentClass = 'hunter';
+const VALID_CLASS_KEYS = ['hunter','marksman','conjurer','warlock','barbarian','knight'];
+let currentClass = 'warlock';
+if(typeof localStorage !== 'undefined'){
+  const saved = localStorage.getItem('cort-last-class');
+  if(saved && VALID_CLASS_KEYS.includes(saved)) currentClass = saved;
+}
 let CLASS = null;
 let DISC_NAMES = [];
 let WM_NAME = null;
