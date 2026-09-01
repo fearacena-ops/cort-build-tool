@@ -65,7 +65,9 @@
           document.querySelectorAll('#realm-switch .choice-btn.realm-btn').forEach(function(b){
             b.classList.toggle('active', b.dataset.v === r);
           });
-          if(localStorage.getItem('cort-music-muted') === '1'){
+          var savedMuted = localStorage.getItem('cort-music-muted');
+          var startsMuted = savedMuted === null ? true : savedMuted === '1';
+          if(startsMuted){
             var btn = document.getElementById('music-mute-btn');
             btn.textContent = '🔇';
             btn.classList.add('is-muted');
