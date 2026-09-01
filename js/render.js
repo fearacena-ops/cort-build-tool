@@ -287,10 +287,7 @@ function buildExportCardFromBuild(buildLike, level, titleSub, customName, archet
       <div class="stat-card"><div class="label">Poder</div><div class="value">${ppSpent}<span style="color:var(--ink-faint);font-size:13px"> / ${ppBudget}</span></div></div>
     </div>
     <div class="export-disciplines">`;
-  const invested = DISC_NAMES.filter(n=>{
-    if((buildLike.dlvl[n]||0) > 1) return true; // inversión real en disciplina
-    return CLASS.disciplines[n].spells.some((sp,idx)=> (buildLike.ranks[n+'|'+idx]||0) > 0); // o algún punto de poder puntual
-  });
+  const invested = DISC_NAMES.filter(n=> (buildLike.dlvl[n]||0) > 0);
   if(invested.length === 0){
     html += `<p class="empty-note">Todavía no hay puntos de disciplina asignados.</p>`;
   }

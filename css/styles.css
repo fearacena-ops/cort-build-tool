@@ -254,9 +254,8 @@
   .export-disciplines{display:flex;flex-direction:column;gap:12px;margin-top:16px;}
   .export-disc{background:var(--bg-0);border:1px solid var(--line);border-radius:6px;padding:11px 14px;}
   .export-disc-head{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
-  .export-disc.is-empty .export-disc-head{margin-bottom:0;}
-  .export-disc.is-empty{display:flex;align-items:center;justify-content:space-between;padding:9px 14px;}
-  .export-disc.is-empty .export-disc-head{flex:1;}
+  .export-disc.is-empty{display:flex;align-items:center;flex-wrap:wrap;gap:6px 18px;padding:9px 14px;}
+  .export-disc.is-empty .export-disc-head{margin-bottom:0;flex:0 0 auto;}
   .export-disc-icon{width:30px;height:30px;border-radius:6px;background-repeat:no-repeat;border:1px solid var(--line);flex-shrink:0;}
   .export-disc-name{font-family:var(--font-display);font-size:16px;color:var(--ink);flex:1;}
   .export-disc-lvl{font-family:var(--font-mono);font-size:11px;color:var(--bronze);}
