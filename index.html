@@ -64,12 +64,18 @@
           document.querySelectorAll('#realm-switch .choice-btn.realm-btn').forEach(function(b){
             b.classList.toggle('active', b.dataset.v === r);
           });
+          if(localStorage.getItem('cort-music-muted') === '1'){
+            var btn = document.getElementById('music-mute-btn');
+            btn.textContent = '🔇';
+            btn.classList.add('is-muted');
+            btn.title = 'Activar música ambiental';
+          }
         } catch(e){}
       })();
       </script>
     </div>
   </header>
-  <audio id="realm-music" loop></audio>
+  <audio id="realm-music" loop preload="none"></audio>
 
   <div class="main-tabs">
     <button class="main-tab active" data-panel="panel-manual">Tu build</button>
@@ -193,7 +199,7 @@
   </div>
   </div>
 
-  <aside class="config-rail">
+  <aside class="config-rail rail-measuring">
     <div class="panel">
       <div class="field">
         <label>Subclase</label>

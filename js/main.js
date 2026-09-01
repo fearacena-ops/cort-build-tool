@@ -659,6 +659,7 @@ function applyResponsiveLayout(isNarrow){
     if(shield.parentElement !== shieldAnchor){ shieldAnchor.appendChild(shield); shield.classList.add('hero-realm-shield-small'); }
     if(rail.parentElement !== railAnchor){ railAnchor.appendChild(rail); }
     rail.style.marginTop = '';
+    rail.classList.remove('rail-measuring');
   } else {
     if(shield.parentElement !== shieldRail){ shieldRail.appendChild(shield); shield.classList.remove('hero-realm-shield-small'); }
     if(rail.parentElement !== pageFlex){ pageFlex.appendChild(rail); }
@@ -722,12 +723,13 @@ function alignConfigRail(){
   const rail = document.querySelector('.config-rail');
   const stage = document.getElementById('pc-capture');
   if(!rail || !stage) return;
-  if(window.innerWidth <= 1440){ rail.style.marginTop = ''; return; }
+  if(window.innerWidth <= 1440){ rail.style.marginTop = ''; rail.classList.remove('rail-measuring'); return; }
   rail.style.marginTop = '0px'; // reset antes de medir, para partir de una base limpia
   const stageTop = stage.getBoundingClientRect().top;
   const railTop = rail.getBoundingClientRect().top;
   const diff = stageTop - railTop;
   rail.style.marginTop = Math.max(0, diff) + 'px';
+  rail.classList.remove('rail-measuring');
 }
 let alignConfigRailTimer = null;
 function scheduleAlignConfigRail(){
@@ -871,4 +873,5 @@ function initApp(){
   applyShareLinkIfPresent();
   applyResponsiveLayout(NARROW_QUERY.matches);
   setTimeout(alignConfigRail, 150);
+  setTimeout(()=> document.querySelector('.config-rail')?.classList.remove('rail-measuring'), 600);
   }

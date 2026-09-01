@@ -36,7 +36,8 @@
 
   .page-flex{display:flex;gap:28px;justify-content:center;max-width:1780px;margin:0 auto;padding:0 22px 80px;}
   .shield-rail{flex:0 0 240px;display:flex;justify-content:center;align-items:flex-start;padding-top:22px;}
-  .config-rail{flex:0 0 320px;display:flex;flex-direction:column;gap:20px;padding-top:0;}
+  .config-rail{flex:0 0 320px;display:flex;flex-direction:column;gap:20px;padding-top:0;opacity:1;transition:opacity .15s ease;}
+  .config-rail.rail-measuring{opacity:0;}
   .wrap{max-width:1180px;width:100%;padding:22px 0 0;}
   @media (max-width:1440px){
     .page-flex{flex-direction:column;max-width:1180px;padding:0 22px 80px;}
