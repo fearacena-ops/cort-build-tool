@@ -26,6 +26,18 @@ function initRegnumMapIfNeeded(){
     attributionControl: false,
   });
 
+  // Indicador visual del nivel de zoom — el número crudo de Leaflet (que
+  // puede ser negativo y cambia de mínimo según el tamaño del recuadro) no
+  // dice mucho por sí solo, así que se muestra como "escalón X de Y".
+  const zoomBadge = document.getElementById('map-zoom-badge');
+  function updateZoomBadge(){
+    if(!zoomBadge) return;
+    const step = Math.round(regnumMap.getZoom() - regnumMap.getMinZoom()) + 1;
+    const total = Math.round(regnumMap.getMaxZoom() - regnumMap.getMinZoom()) + 1;
+    zoomBadge.textContent = `Zoom ${step}/${total}`;
+  }
+  regnumMap.on('zoom', updateZoomBadge);
+
   // OJO: estos límites hay que expresarlos con unproject(), no en píxeles
   // crudos — con CRS.Simple la latitud queda invertida respecto al eje Y
   // de la imagen (lat = -y). Pasar [[0,0],[MAP_PX,MAP_PX]] directo describe
@@ -37,15 +49,20 @@ function initRegnumMapIfNeeded(){
   );
   regnumMap.setMaxBounds(bounds);
   // El mínimo de zoom se calcula según el tamaño real del recuadro (no un
-  // número fijo) para que alejar del todo muestre el mapa completo, ni más
-  // ni menos — se recalcula en cada resize por si cambia el tamaño del
-  // recuadro (por ejemplo, al girar el celular). getBoundsZoom() recorta su
-  // resultado al minZoom/maxZoom que el mapa tenga en ESE momento, así que
-  // hay que aflojar el mínimo antes de preguntarle, si no siempre devuelve
-  // el mínimo anterior en vez del que realmente hace falta.
+  // número fijo) para que alejar del todo llene todo el recuadro con mapa,
+  // sin bandas negras a los costados — se recalcula en cada resize por si
+  // cambia el tamaño del recuadro (por ejemplo, al girar el celular).
+  // getBoundsZoom(bounds, true) da el zoom mínimo con el que el mapa sigue
+  // *cubriendo* todo el recuadro (en vez del zoom con el que el mapa entero
+  // *entra* en el recuadro, que es lo que devuelve sin el "true" y deja
+  // bandas negras cuando el recuadro no es cuadrado como el mapa). Además
+  // recorta su resultado al minZoom/maxZoom que el mapa tenga en ESE
+  // momento, así que hay que aflojar el mínimo antes de preguntarle, si no
+  // siempre devuelve el mínimo anterior en vez del que realmente hace falta.
   function fitMinZoomToContainer(){
     regnumMap.setMinZoom(-10);
-    regnumMap.setMinZoom(regnumMap.getBoundsZoom(bounds));
+    regnumMap.setMinZoom(regnumMap.getBoundsZoom(bounds, true));
+    updateZoomBadge();
   }
   fitMinZoomToContainer();
   window.addEventListener('resize', ()=>{

@@ -654,6 +654,8 @@ function applyResponsiveLayout(isNarrow){
   const rail = document.querySelector('.config-rail');
   const railAnchor = document.getElementById('config-rail-anchor');
   const pageFlex = document.querySelector('.page-flex');
+  const mapLayers = document.getElementById('map-layers-block');
+  const mapLayersAnchor = document.getElementById('map-layers-anchor');
   if(!shield || !shieldAnchor || !shieldRail || !rail || !railAnchor || !pageFlex) return;
 
   if(isNarrow){
@@ -661,10 +663,18 @@ function applyResponsiveLayout(isNarrow){
     if(rail.parentElement !== railAnchor){ railAnchor.appendChild(rail); }
     rail.style.marginTop = '';
     rail.classList.remove('rail-measuring');
+    if(mapLayers && mapLayersAnchor && mapLayers.parentElement !== mapLayersAnchor){
+      mapLayersAnchor.appendChild(mapLayers);
+      mapLayers.classList.add('map-layers-inline');
+    }
   } else {
     if(shield.parentElement !== shieldRail){ shieldRail.appendChild(shield); shield.classList.remove('hero-realm-shield-small'); }
     if(rail.parentElement !== pageFlex){ pageFlex.appendChild(rail); }
     scheduleAlignConfigRail();
+    if(mapLayers && mapLayers.parentElement !== shieldRail){
+      shieldRail.appendChild(mapLayers);
+      mapLayers.classList.remove('map-layers-inline');
+    }
   }
 }
 NARROW_QUERY.addEventListener('change', e => applyResponsiveLayout(e.matches));
@@ -749,13 +759,16 @@ function updateSharedChromeForTab(panelId){
   const titleH1 = document.getElementById('hero-title-h1');
   const notice = document.getElementById('notice-build');
   const rail = document.querySelector('.config-rail');
+  const mapLayers = document.getElementById('map-layers-block');
   if(eyebrow) eyebrow.textContent = panelId === 'panel-map' ? 'Mapa Interactivo' : 'Constructor de builds';
-  if(titleH1) titleH1.style.display = isBuildTab ? '' : 'none';
-  if(notice) notice.style.display = isBuildTab ? '' : 'none';
-  // visibility en vez de display: así el rail sigue ocupando su lugar en el
-  // flex (240px escudo + rail 320px) y el resto del contenido no se corre
-  // hacia la derecha ni se recentra distinto al cambiar de pestaña.
+  // visibility en vez de display en todo este bloque: así cada elemento
+  // sigue ocupando su lugar (240px escudo + rail 320px, más el alto del
+  // título/aviso) y el resto del contenido no se corre ni sube/baja al
+  // cambiar de pestaña.
+  if(titleH1) titleH1.style.visibility = isBuildTab ? '' : 'hidden';
+  if(notice) notice.style.visibility = isBuildTab ? '' : 'hidden';
   if(rail) rail.style.visibility = isBuildTab ? '' : 'hidden';
+  if(mapLayers) mapLayers.style.display = panelId === 'panel-map' ? '' : 'none';
 }
 
 function switchClass(newClass){
