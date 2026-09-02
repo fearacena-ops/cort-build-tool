@@ -1,0 +1,18 @@
+# Asegura que git nunca intente convertir saltos de línea en archivos
+# binarios (imágenes, audio) — evitaría corromperlos.
+*.jpg binary
+*.jpeg binary
+*.png binary
+*.webp binary
+*.ico binary
+*.ogg binary
+*.mp3 binary
+*.zip binary
+ 
+# Los archivos de texto del proyecto, normalizados a LF siempre
+# (sin importar el sistema operativo de quien los edite).
+*.html text eol=lf
+*.css text eol=lf
+*.js text eol=lf
+*.json text eol=lf
+*.md text eol=lf

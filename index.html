@@ -16,6 +16,7 @@
 })();
 </script>
 <link rel="preload" href="data/game-data.json" as="fetch" crossorigin>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="anonymous">
 <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -82,6 +83,7 @@
 
   <div class="main-tabs">
     <button class="main-tab active" data-panel="panel-manual">Tu build</button>
+    <button class="main-tab" data-panel="panel-map">Mapa interactivo</button>
     <button class="main-tab" data-panel="panel-progress" style="display:none">Progreso de leveo</button>
     <button class="main-tab" data-panel="panel-custom" style="display:none">Build a medida</button>
   </div>
@@ -196,6 +198,33 @@
     </div>
   </div>
 
+  <div class="main-panel" id="panel-map">
+    <div class="map-toolbar">
+      <input type="text" id="map-search" placeholder="Buscar NPC o misión...">
+      <div class="map-filters">
+        <select id="map-filter-tipo">
+          <option value="">Tipo: todos</option>
+          <option value="npc">NPCs</option>
+          <option value="mision">Misiones</option>
+        </select>
+        <select id="map-filter-reino">
+          <option value="">Reino: todos</option>
+          <option value="Syrtis">Syrtis</option>
+          <option value="Alsius">Alsius</option>
+          <option value="Ignis">Ignis</option>
+        </select>
+        <select id="map-filter-profesion">
+          <option value="">Profesión: todas</option>
+        </select>
+        <select id="map-filter-nivel">
+          <option value="">Nivel: todos</option>
+        </select>
+      </div>
+      <div class="map-results" id="map-search-results"></div>
+    </div>
+    <div id="regnum-map"></div>
+  </div>
+
   <div class="foot-note">
     <div>Datos base extraídos de <code>trainerdata.json</code> (CoRT, licencia AGPLv3). Esta es una página hecha por fans, sin afiliación oficial con NGD Studios ni Champions of Regnum.</div>
     <div id="app-version">Herramienta v1.0.0</div>
@@ -265,5 +294,7 @@
 <script src="js/render.js" defer></script>
 <script src="js/main.js" defer></script>
 <script src="js/data-loader.js" defer></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin="anonymous" defer></script>
+<script src="js/map.js" defer></script>
 </body>
 </html>
