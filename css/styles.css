@@ -83,7 +83,9 @@
   .map-result-item:hover{background:var(--bg-2);}
   .map-result-item .mri-name{color:var(--ink);}
   .map-result-item .mri-meta{color:var(--ink-faint);font-size:11.5px;margin-top:2px;}
-  #regnum-map{max-width:1180px;margin:0 auto;height:70vh;min-height:480px;border-radius:6px;border:1px solid var(--line);background:#0a0e14;}
+  .map-body{display:flex;gap:16px;align-items:flex-start;max-width:1180px;margin:0 auto;}
+  .map-layers{flex:0 0 130px;display:flex;flex-direction:column;gap:10px;padding-top:6px;}
+  #regnum-map{flex:1 1 auto;min-width:0;height:70vh;min-height:480px;border-radius:6px;border:1px solid var(--line);background:#0a0e14;}
   .leaflet-popup-content{font-family:var(--font-body);font-size:13px;}
   .leaflet-popup-content b{color:var(--bronze);}
   .regnum-marker{display:flex;align-items:center;justify-content:center;font-size:13px;line-height:1;text-shadow:0 0 3px #000,0 0 3px #000;}
@@ -91,6 +93,8 @@
   .regnum-marker-mision{color:#ffd23f;}
   @media (max-width:760px){
     #panel-map{padding:0 12px;}
+    .map-body{flex-direction:column;}
+    .map-layers{flex-direction:row;gap:18px;padding-top:0;}
     #regnum-map{height:60vh;}
   }
   .main-panel.active{display:block;}

@@ -749,10 +749,13 @@ function updateSharedChromeForTab(panelId){
   const titleH1 = document.getElementById('hero-title-h1');
   const notice = document.getElementById('notice-build');
   const rail = document.querySelector('.config-rail');
-  if(eyebrow) eyebrow.style.display = isBuildTab ? '' : 'none';
+  if(eyebrow) eyebrow.textContent = panelId === 'panel-map' ? 'Mapa Interactivo' : 'Constructor de builds';
   if(titleH1) titleH1.style.display = isBuildTab ? '' : 'none';
   if(notice) notice.style.display = isBuildTab ? '' : 'none';
-  if(rail) rail.style.display = isBuildTab ? '' : 'none';
+  // visibility en vez de display: así el rail sigue ocupando su lugar en el
+  // flex (240px escudo + rail 320px) y el resto del contenido no se corre
+  // hacia la derecha ni se recentra distinto al cambiar de pestaña.
+  if(rail) rail.style.visibility = isBuildTab ? '' : 'hidden';
 }
 
 function switchClass(newClass){

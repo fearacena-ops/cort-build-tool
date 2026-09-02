@@ -21,7 +21,6 @@ function initRegnumMapIfNeeded(){
 
   regnumMap = L.map('regnum-map', {
     crs: L.CRS.Simple,
-    minZoom: -2,
     maxZoom: 2,
     zoomControl: true,
     attributionControl: false,
@@ -37,6 +36,23 @@ function initRegnumMapIfNeeded(){
     regnumMap.unproject([MAP_PX, 0], 0)
   );
   regnumMap.setMaxBounds(bounds);
+  // El mínimo de zoom se calcula según el tamaño real del recuadro (no un
+  // número fijo) para que alejar del todo muestre el mapa completo, ni más
+  // ni menos — se recalcula en cada resize por si cambia el tamaño del
+  // recuadro (por ejemplo, al girar el celular). getBoundsZoom() recorta su
+  // resultado al minZoom/maxZoom que el mapa tenga en ESE momento, así que
+  // hay que aflojar el mínimo antes de preguntarle, si no siempre devuelve
+  // el mínimo anterior en vez del que realmente hace falta.
+  function fitMinZoomToContainer(){
+    regnumMap.setMinZoom(-10);
+    regnumMap.setMinZoom(regnumMap.getBoundsZoom(bounds));
+  }
+  fitMinZoomToContainer();
+  window.addEventListener('resize', ()=>{
+    if(!regnumMap) return;
+    fitMinZoomToContainer();
+    regnumMap.invalidateSize();
+  });
   const center = regnumMap.unproject([MAP_PX/2, MAP_PX/2], 0);
   regnumMap.setView(center, 0);
 
@@ -59,11 +75,12 @@ function initRegnumMapIfNeeded(){
       return tile;
     }
   });
-  // GridLayer trae su propio minZoom:0 por defecto (separado del minZoom:-2
-  // del mapa) — sin esto, al alejar el zoom por debajo de ese default la capa
-  // se considera "fuera de su propio rango" y deja de pedir tiles del todo
-  // (mapa en negro), aunque el mapa en sí permita seguir alejando.
-  new RegnumTiles({ tileSize: TILE_SIZE, noWrap: true, bounds, minNativeZoom:0, maxNativeZoom:0, minZoom:-2, maxZoom:2 }).addTo(regnumMap);
+  // GridLayer trae su propio minZoom:0 por defecto (separado del minZoom
+  // -dinámico- del mapa) — sin esto, al alejar el zoom por debajo de ese
+  // default la capa se considera "fuera de su propio rango" y deja de pedir
+  // tiles del todo (mapa en negro). -10 es solo "bien por debajo de
+  // cualquier minZoom que el mapa vaya a tener nunca", no un valor real.
+  new RegnumTiles({ tileSize: TILE_SIZE, noWrap: true, bounds, minNativeZoom:0, maxNativeZoom:0, minZoom:-10, maxZoom:2 }).addTo(regnumMap);
 
   regnumMarkersLayer = L.layerGroup().addTo(regnumMap);
 
@@ -78,8 +95,25 @@ function initRegnumMapIfNeeded(){
     .catch(err => console.error('No se pudo cargar el mapa de datos', err));
 }
 
+// Las coordenadas de NPCs/misiones vienen en el sistema propio del juego,
+// no en píxeles de nuestros mosaicos — y encima con los ejes invertidos
+// (mismo patrón que los mosaicos: lo que mueve la posición horizontal en
+// el mapa es la "y" del juego, y lo que mueve la vertical es la "x").
+// Ajuste lineal calculado con dos referencias conocidas (centro de
+// Fisgael City y de Korsum Town, Syrtis, ubicadas a mano en los mosaicos
+// 03_13 y 04_11): con esto, 1463 de 1464 NPCs/misiones caen dentro del
+// mapa (el único que queda afuera es un caso de borde real del mundo).
+const GAME_COORD_FIT = { a: 0.6735216548170755, b: 2630.0706401028315, c: 1.01215053331882, e: -916.0918767976746 };
+function gameCoordsToPixel(gameX, gameY){
+  return [
+    GAME_COORD_FIT.a * gameY + GAME_COORD_FIT.b,
+    GAME_COORD_FIT.c * gameX + GAME_COORD_FIT.e,
+  ];
+}
+
 // pixel del mosaico -> latLng de Leaflet (con CRS.Simple, lat=y invertido)
-function pixelToLatLng(px, py){
+function pixelToLatLng(gameX, gameY){
+  const [px, py] = gameCoordsToPixel(gameX, gameY);
   return regnumMap.unproject([px, MAP_PX - py], 0);
 }
 
@@ -128,14 +162,16 @@ function populateRegnumFilters(){
 }
 
 function applyRegnumFilters(){
-  const tipo = document.getElementById('map-filter-tipo').value;
+  const showNpc = document.getElementById('map-toggle-npc').checked;
+  const showMision = document.getElementById('map-toggle-mision').checked;
   const reino = document.getElementById('map-filter-reino').value;
   const prof = document.getElementById('map-filter-profesion').value;
   const nivel = document.getElementById('map-filter-nivel').value;
 
   regnumMarkersLayer.clearLayers();
   regnumAllMarkerObjs.forEach(m=>{
-    if(tipo && m.tipo !== tipo) return;
+    if(m.tipo === 'npc' && !showNpc) return;
+    if(m.tipo === 'mision' && !showMision) return;
     if(reino && m.reino !== reino) return;
     if(prof && m.profesion !== prof) return;
     if(nivel && String(m.nivel) !== nivel) return;
@@ -144,7 +180,7 @@ function applyRegnumFilters(){
 }
 
 function wireRegnumSearchAndFilters(){
-  ['map-filter-tipo','map-filter-reino','map-filter-profesion','map-filter-nivel'].forEach(id=>{
+  ['map-toggle-npc','map-toggle-mision','map-filter-reino','map-filter-profesion','map-filter-nivel'].forEach(id=>{
     document.getElementById(id).addEventListener('change', applyRegnumFilters);
   });
 
