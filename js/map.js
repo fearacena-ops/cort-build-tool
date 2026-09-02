@@ -50,13 +50,20 @@ function initRegnumMapIfNeeded(){
         setTimeout(()=>done(null, tile), 0);
         return tile;
       }
-      tile.src = `data/map-tiles/tile_${r}_${c}.jpg`;
+      // Los archivos vienen nombrados tile_<columna>_<fila> (el número que
+      // avanza verticalmente en el mapa original es el segundo), al revés
+      // de r/c acá — por eso se piden invertidos.
+      tile.src = `data/map-tiles/tile_${c}_${r}.jpg`;
       tile.onload = () => done(null, tile);
       tile.onerror = () => done(null, tile);
       return tile;
     }
   });
-  new RegnumTiles({ tileSize: TILE_SIZE, noWrap: true, bounds, minNativeZoom:0, maxNativeZoom:0 }).addTo(regnumMap);
+  // GridLayer trae su propio minZoom:0 por defecto (separado del minZoom:-2
+  // del mapa) — sin esto, al alejar el zoom por debajo de ese default la capa
+  // se considera "fuera de su propio rango" y deja de pedir tiles del todo
+  // (mapa en negro), aunque el mapa en sí permita seguir alejando.
+  new RegnumTiles({ tileSize: TILE_SIZE, noWrap: true, bounds, minNativeZoom:0, maxNativeZoom:0, minZoom:-2, maxZoom:2 }).addTo(regnumMap);
 
   regnumMarkersLayer = L.layerGroup().addTo(regnumMap);
 
