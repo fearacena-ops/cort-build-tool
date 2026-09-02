@@ -743,6 +743,18 @@ function updateHeroHeader(){
   document.getElementById('hero-class-icon').alt = CLASS.label;
 }
 let switchClassRenderTimer = null;
+function updateSharedChromeForTab(panelId){
+  const isBuildTab = panelId === 'panel-manual';
+  const eyebrow = document.getElementById('hero-eyebrow');
+  const titleH1 = document.getElementById('hero-title-h1');
+  const notice = document.getElementById('notice-build');
+  const rail = document.querySelector('.config-rail');
+  if(eyebrow) eyebrow.style.display = isBuildTab ? '' : 'none';
+  if(titleH1) titleH1.style.display = isBuildTab ? '' : 'none';
+  if(notice) notice.style.display = isBuildTab ? '' : 'none';
+  if(rail) rail.style.display = isBuildTab ? '' : 'none';
+}
+
 function switchClass(newClass){
   currentClass = newClass;
   localStorage.setItem('cort-last-class', currentClass);
@@ -792,6 +804,7 @@ function initApp(){
       document.querySelectorAll('.main-panel').forEach(p=>p.classList.remove('active'));
       btn.classList.add('active');
       document.getElementById(btn.dataset.panel).classList.add('active');
+      updateSharedChromeForTab(btn.dataset.panel);
     });
   });
   wireChoiceGroup('pa-mode');
@@ -882,6 +895,7 @@ function initApp(){
   renderManualPanel();
   applyShareLinkIfPresent();
   applyResponsiveLayout(NARROW_QUERY.matches);
+  updateSharedChromeForTab('panel-manual');
   setTimeout(alignConfigRail, 150);
   setTimeout(()=> document.querySelector('.config-rail')?.classList.remove('rail-measuring'), 600);
   }

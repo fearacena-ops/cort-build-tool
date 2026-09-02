@@ -29,7 +29,8 @@ function initRegnumMapIfNeeded(){
 
   const bounds = [[0,0],[MAP_PX, MAP_PX]];
   regnumMap.setMaxBounds(bounds);
-  regnumMap.fitBounds(bounds);
+  const center = regnumMap.unproject([MAP_PX/2, MAP_PX/2], 0);
+  regnumMap.setView(center, 0);
 
   const RegnumTiles = L.GridLayer.extend({
     createTile: function(coords, done){
