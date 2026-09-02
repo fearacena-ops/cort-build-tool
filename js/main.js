@@ -747,6 +747,27 @@ function scheduleAlignConfigRail(){
 }
 window.addEventListener('resize', scheduleAlignConfigRail);
 
+// Mismo truco que alignConfigRail: los checkboxes de capas viven bajo el
+// escudo, pero tienen que arrancar a la altura del mapa, no pegados al
+// escudo — se mide dónde arranca de verdad .map-frame y se empareja con eso.
+function alignMapLayers(){
+  const layers = document.getElementById('map-layers-block');
+  const frame = document.querySelector('.map-frame');
+  if(!layers || !frame) return;
+  if(window.innerWidth <= 1440){ layers.style.marginTop = ''; return; }
+  layers.style.marginTop = '0px';
+  const frameTop = frame.getBoundingClientRect().top;
+  const layersTop = layers.getBoundingClientRect().top;
+  const diff = frameTop - layersTop;
+  layers.style.marginTop = Math.max(0, diff) + 'px';
+}
+let alignMapLayersTimer = null;
+function scheduleAlignMapLayers(){
+  clearTimeout(alignMapLayersTimer);
+  alignMapLayersTimer = setTimeout(alignMapLayers, 60);
+}
+window.addEventListener('resize', scheduleAlignMapLayers);
+
 function updateHeroHeader(){
   document.getElementById('hero-title-class').textContent = CLASS.label;
   document.getElementById('hero-class-icon').src = `${ICONS_BASE_PATH}/class-${currentClass}.webp`;
@@ -757,18 +778,22 @@ function updateSharedChromeForTab(panelId){
   const isBuildTab = panelId === 'panel-manual';
   const eyebrow = document.getElementById('hero-eyebrow');
   const titleH1 = document.getElementById('hero-title-h1');
-  const notice = document.getElementById('notice-build');
+  const noticeText = document.getElementById('notice-build-text');
   const rail = document.querySelector('.config-rail');
   const mapLayers = document.getElementById('map-layers-block');
-  if(eyebrow) eyebrow.textContent = panelId === 'panel-map' ? 'Mapa Interactivo' : 'Constructor de builds';
-  // visibility en vez de display en todo este bloque: así cada elemento
-  // sigue ocupando su lugar (240px escudo + rail 320px, más el alto del
-  // título/aviso) y el resto del contenido no se corre ni sube/baja al
-  // cambiar de pestaña.
+  const isMapTab = panelId === 'panel-map';
+  if(eyebrow) eyebrow.textContent = isMapTab ? 'Mapa Interactivo' : 'Constructor de builds';
+  if(noticeText) noticeText.textContent = isMapTab
+    ? 'Buscá NPCs y misiones, filtrá por reino o profesión, y hacé clic en un marcador para ver el detalle.'
+    : 'Arma tu build a mano, habilidad por habilidad, y expórtala como imagen para compartir.';
+  // visibility en vez de display: así el título grande y el rail siguen
+  // ocupando su lugar (240px escudo + rail 320px) y el resto del contenido
+  // no se corre ni sube/baja al cambiar de pestaña. El aviso ahora se
+  // muestra siempre (con texto distinto), no hace falta ocultarlo.
   if(titleH1) titleH1.style.visibility = isBuildTab ? '' : 'hidden';
-  if(notice) notice.style.visibility = isBuildTab ? '' : 'hidden';
   if(rail) rail.style.visibility = isBuildTab ? '' : 'hidden';
-  if(mapLayers) mapLayers.style.display = panelId === 'panel-map' ? '' : 'none';
+  if(mapLayers) mapLayers.style.display = isMapTab ? '' : 'none';
+  if(isMapTab) scheduleAlignMapLayers();
 }
 
 function switchClass(newClass){
