@@ -27,7 +27,15 @@ function initRegnumMapIfNeeded(){
     attributionControl: false,
   });
 
-  const bounds = [[0,0],[MAP_PX, MAP_PX]];
+  // OJO: estos límites hay que expresarlos con unproject(), no en píxeles
+  // crudos — con CRS.Simple la latitud queda invertida respecto al eje Y
+  // de la imagen (lat = -y). Pasar [[0,0],[MAP_PX,MAP_PX]] directo describe
+  // una franja que no se solapa con los mosaicos reales y Leaflet termina
+  // empujando la cámara fuera del área con contenido (mapa en negro).
+  const bounds = L.latLngBounds(
+    regnumMap.unproject([0, MAP_PX], 0),
+    regnumMap.unproject([MAP_PX, 0], 0)
+  );
   regnumMap.setMaxBounds(bounds);
   const center = regnumMap.unproject([MAP_PX/2, MAP_PX/2], 0);
   regnumMap.setView(center, 0);
