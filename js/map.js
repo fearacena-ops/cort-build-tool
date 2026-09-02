@@ -161,16 +161,25 @@ function pixelToLatLng(gameX, gameY){
   return regnumMap.unproject([px, py], 0);
 }
 
+// Las ciudades/pueblos/villas no vienen de coordenadas del juego (que pasan
+// por el ajuste de arriba, con su margen de error) — vienen directo del
+// mosaico donde están confirmadas a mano, así que van exactas al centro de
+// ese mosaico sin pasar por gameCoordsToPixel.
+function tileToLatLng(col, row){
+  return regnumMap.unproject([col*TILE_SIZE + TILE_SIZE/2, row*TILE_SIZE + TILE_SIZE/2], 0);
+}
+
 function buildRegnumMarkers(){
   regnumMarkersLayer.clearLayers();
   regnumAllMarkerObjs = [];
   const icons = {
     npc: L.divIcon({className:'regnum-marker regnum-marker-npc', html:'●', iconSize:[14,14]}),
     mision: L.divIcon({className:'regnum-marker regnum-marker-mision', html:'★', iconSize:[14,14]}),
+    ciudad: L.divIcon({className:'regnum-marker regnum-marker-ciudad', html:'◆', iconSize:[18,18]}),
   };
-  const todos = [...regnumMapData.npcs, ...regnumMapData.misiones];
+  const todos = [...regnumMapData.npcs, ...regnumMapData.misiones, ...(regnumMapData.ciudades||[])];
   todos.forEach(m=>{
-    const latlng = pixelToLatLng(m.x, m.y);
+    const latlng = m.tipo === 'ciudad' ? tileToLatLng(m.col, m.row) : pixelToLatLng(m.x, m.y);
     const marker = L.marker(latlng, {icon: icons[m.tipo]});
     marker.bindPopup(buildRegnumPopupHTML(m));
     m._leaflet = marker;
@@ -180,6 +189,9 @@ function buildRegnumMarkers(){
 }
 
 function buildRegnumPopupHTML(m){
+  if(m.tipo === 'ciudad'){
+    return `<b>${m.nombre}</b><br>${m.categoria}<br>${m.reino}`;
+  }
   if(m.tipo === 'npc'){
     return `<b>${m.nombre}</b><br>${m.profesion || m.clase || ''}${m.zona ? ' · '+m.zona : ''}<br>${m.reino}`;
   }
@@ -206,6 +218,7 @@ function populateRegnumFilters(){
 }
 
 function applyRegnumFilters(){
+  const showCiudad = document.getElementById('map-toggle-ciudad').checked;
   const showNpc = document.getElementById('map-toggle-npc').checked;
   const showMision = document.getElementById('map-toggle-mision').checked;
   const reino = document.getElementById('map-filter-reino').value;
@@ -214,22 +227,28 @@ function applyRegnumFilters(){
 
   regnumMarkersLayer.clearLayers();
   regnumAllMarkerObjs.forEach(m=>{
+    if(m.tipo === 'ciudad' && !showCiudad) return;
     if(m.tipo === 'npc' && !showNpc) return;
     if(m.tipo === 'mision' && !showMision) return;
     if(reino && m.reino !== reino) return;
-    if(prof && m.profesion !== prof) return;
-    if(nivel && String(m.nivel) !== nivel) return;
+    // Profesión y nivel son propios de NPCs/misiones — las ciudades no
+    // tienen esos campos, así que no las toca ninguno de estos dos filtros.
+    if(m.tipo !== 'ciudad'){
+      if(prof && m.profesion !== prof) return;
+      if(nivel && String(m.nivel) !== nivel) return;
+    }
     m._leaflet.addTo(regnumMarkersLayer);
   });
 }
 
 function wireRegnumSearchAndFilters(){
-  ['map-toggle-npc','map-toggle-mision','map-filter-reino','map-filter-profesion','map-filter-nivel'].forEach(id=>{
+  ['map-toggle-ciudad','map-toggle-npc','map-toggle-mision','map-filter-reino','map-filter-profesion','map-filter-nivel'].forEach(id=>{
     document.getElementById(id).addEventListener('change', applyRegnumFilters);
   });
 
   const input = document.getElementById('map-search');
   const results = document.getElementById('map-search-results');
+  const iconByTipo = {mision:'★', ciudad:'◆', npc:'●'};
   input.addEventListener('input', ()=>{
     const q = input.value.trim().toLowerCase();
     if(q.length < 2){ results.classList.remove('is-open'); results.innerHTML=''; return; }
@@ -237,8 +256,8 @@ function wireRegnumSearchAndFilters(){
     if(matches.length === 0){ results.classList.remove('is-open'); results.innerHTML=''; return; }
     results.innerHTML = matches.map((m,i)=>`
       <div class="map-result-item" data-idx="${regnumAllMarkerObjs.indexOf(m)}">
-        <div class="mri-name">${m.tipo==='mision'?'★':'●'} ${m.nombre}</div>
-        <div class="mri-meta">${m.tipo==='npc' ? (m.profesion||m.clase||'') : 'Nivel '+m.nivel+' · La da: '+m.la_da} · ${m.reino}</div>
+        <div class="mri-name">${iconByTipo[m.tipo]} ${m.nombre}</div>
+        <div class="mri-meta">${m.tipo==='npc' ? (m.profesion||m.clase||'') : m.tipo==='ciudad' ? m.categoria : 'Nivel '+m.nivel+' · La da: '+m.la_da} · ${m.reino}</div>
       </div>`).join('');
     results.classList.add('is-open');
     results.querySelectorAll('.map-result-item').forEach(el=>{
@@ -246,8 +265,7 @@ function wireRegnumSearchAndFilters(){
         const m = regnumAllMarkerObjs[parseInt(el.dataset.idx)];
         results.classList.remove('is-open');
         input.value = m.nombre;
-        const latlng = pixelToLatLng(m.x, m.y);
-        regnumMap.setView(latlng, 0);
+        regnumMap.setView(m._leaflet.getLatLng(), 0);
         if(!regnumMarkersLayer.hasLayer(m._leaflet)) m._leaflet.addTo(regnumMarkersLayer);
         m._leaflet.openPopup();
       });
