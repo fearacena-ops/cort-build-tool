@@ -113,25 +113,31 @@ function initRegnumMapIfNeeded(){
 }
 
 // Las coordenadas de NPCs/misiones vienen en el sistema propio del juego,
-// no en píxeles de nuestros mosaicos — y encima con los ejes invertidos
-// (mismo patrón que los mosaicos: lo que mueve la posición horizontal en
-// el mapa es la "y" del juego, y lo que mueve la vertical es la "x").
-// Ajuste lineal calculado con dos referencias conocidas (centro de
-// Fisgael City y de Korsum Town, Syrtis, ubicadas a mano en los mosaicos
-// 03_13 y 04_11): con esto, 1463 de 1464 NPCs/misiones caen dentro del
-// mapa (el único que queda afuera es un caso de borde real del mundo).
-const GAME_COORD_FIT = { a: 0.6735216548170755, b: 2630.0706401028315, c: 1.01215053331882, e: -916.0918767976746 };
+// no en píxeles de nuestros mosaicos, y la relación entre ambos no es un
+// simple invertir/escalar ejes — tiene algo de inclinación (rotación leve).
+// Transformación afín completa (6 parámetros) resuelta con tres referencias
+// reales confirmadas a mano en el juego: centro de Fisgael City (Syrtis,
+// mosaico 03_13), Korsum Town (Syrtis, 04_11) y Montsognir City (Alsius,
+// 02_03). Con esto, 1463 de 1464 NPCs/misiones caen dentro del mapa (el
+// único que queda afuera es un caso de borde real del mundo) y las tres
+// referencias caen exactas en su mosaico.
+const GAME_COORD_FIT = { A: 0.0681005181, B: 0.7641547616, C: 1509.946682, D: 1.0608986414, E: 0.0648775164, F: -1717.905509 };
 function gameCoordsToPixel(gameX, gameY){
   return [
-    GAME_COORD_FIT.a * gameY + GAME_COORD_FIT.b,
-    GAME_COORD_FIT.c * gameX + GAME_COORD_FIT.e,
+    GAME_COORD_FIT.A * gameX + GAME_COORD_FIT.B * gameY + GAME_COORD_FIT.C,
+    GAME_COORD_FIT.D * gameX + GAME_COORD_FIT.E * gameY + GAME_COORD_FIT.F,
   ];
 }
 
-// pixel del mosaico -> latLng de Leaflet (con CRS.Simple, lat=y invertido)
+// pixel del mosaico (fila 0 = arriba, igual que los mosaicos) -> latLng de
+// Leaflet. OJO: no hay que invertir la fila acá — unproject() ya hace su
+// propio invertido interno (lat = -y), y es EL MISMO que usa Leaflet para
+// ubicar los mosaicos (ver createTile más arriba). Invertirla de nuevo acá
+// (como hacía antes: MAP_PX - py) deja a los marcadores en el espejo
+// vertical de donde va cada mosaico — misma fila del lado opuesto del mapa.
 function pixelToLatLng(gameX, gameY){
   const [px, py] = gameCoordsToPixel(gameX, gameY);
-  return regnumMap.unproject([px, MAP_PX - py], 0);
+  return regnumMap.unproject([px, py], 0);
 }
 
 function buildRegnumMarkers(){
