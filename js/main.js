@@ -778,6 +778,7 @@ function updateSharedChromeForTab(panelId){
   const isBuildTab = panelId === 'panel-manual';
   const eyebrow = document.getElementById('hero-eyebrow');
   const titleH1 = document.getElementById('hero-title-h1');
+  const titleMap = document.getElementById('hero-title-map');
   const noticeText = document.getElementById('notice-build-text');
   const rail = document.querySelector('.config-rail');
   const mapLayers = document.getElementById('map-layers-block');
@@ -786,11 +787,14 @@ function updateSharedChromeForTab(panelId){
   if(noticeText) noticeText.textContent = isMapTab
     ? 'Buscá NPCs y misiones, filtrá por reino o profesión, y hacé clic en un marcador para ver el detalle.'
     : 'Arma tu build a mano, habilidad por habilidad, y expórtala como imagen para compartir.';
-  // visibility en vez de display: así el título grande y el rail siguen
-  // ocupando su lugar (240px escudo + rail 320px) y el resto del contenido
-  // no se corre ni sube/baja al cambiar de pestaña. El aviso ahora se
-  // muestra siempre (con texto distinto), no hace falta ocultarlo.
-  if(titleH1) titleH1.style.visibility = isBuildTab ? '' : 'hidden';
+  // El título grande ahora siempre muestra algo (ícono+subclase en "Tu
+  // build", ícono+"Regnum" en el mapa) — un solo <h1> visible a la vez, así
+  // que no hace falta reservar espacio con visibility como con el rail.
+  if(titleH1) titleH1.style.display = isBuildTab ? '' : 'none';
+  if(titleMap) titleMap.style.display = isMapTab ? '' : 'none';
+  // visibility en vez de display para el rail: sigue ocupando su lugar
+  // (240px escudo + rail 320px) y el resto del contenido no se corre al
+  // cambiar de pestaña.
   if(rail) rail.style.visibility = isBuildTab ? '' : 'hidden';
   if(mapLayers) mapLayers.style.display = isMapTab ? '' : 'none';
   if(isMapTab) scheduleAlignMapLayers();
