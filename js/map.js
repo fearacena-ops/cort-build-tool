@@ -21,7 +21,9 @@ function initRegnumMapIfNeeded(){
 
   regnumMap = L.map('regnum-map', {
     crs: L.CRS.Simple,
-    maxZoom: 2,
+    // Tope en 0 = resolución nativa de los mosaicos. Pasarse de ahí no
+    // muestra más detalle, solo agranda (emborrona) la misma imagen.
+    maxZoom: 0,
     zoomControl: true,
     attributionControl: false,
   });
@@ -61,7 +63,12 @@ function initRegnumMapIfNeeded(){
   // siempre devuelve el mínimo anterior en vez del que realmente hace falta.
   function fitMinZoomToContainer(){
     regnumMap.setMinZoom(-10);
-    regnumMap.setMinZoom(regnumMap.getBoundsZoom(bounds, true));
+    // +0.15 de margen: el cálculo exacto a veces deja un borde de un par de
+    // píxeles sin cubrir (redondeo, o la barra de scroll aparece/desaparece
+    // justo después de medir) — mejor pasarse un poquito de zoom que dejar
+    // una banda negra apenas perceptible en el borde.
+    const fitZoom = regnumMap.getBoundsZoom(bounds, true) + 0.15;
+    regnumMap.setMinZoom(Math.min(regnumMap.getMaxZoom(), fitZoom));
     updateZoomBadge();
   }
   fitMinZoomToContainer();
