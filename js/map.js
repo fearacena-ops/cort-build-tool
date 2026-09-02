@@ -122,13 +122,13 @@ function initRegnumMapIfNeeded(){
 // Las coordenadas de NPCs/misiones vienen en el sistema propio del juego,
 // no en píxeles de nuestros mosaicos, y la relación entre ambos no es un
 // simple invertir/escalar ejes — tiene algo de inclinación (rotación leve).
-// Transformación afín completa (6 parámetros) resuelta con tres referencias
-// reales confirmadas a mano en el juego: centro de Fisgael City (Syrtis,
-// mosaico 03_13), Korsum Town (Syrtis, 04_11) y Montsognir City (Alsius,
-// 02_03). Con esto, 1463 de 1464 NPCs/misiones caen dentro del mapa (el
-// único que queda afuera es un caso de borde real del mundo) y las tres
-// referencias caen exactas en su mosaico.
-const GAME_COORD_FIT = { A: 0.0681005181, B: 0.7641547616, C: 1509.946682, D: 1.0608986414, E: 0.0648775164, F: -1717.905509 };
+// Transformación afín completa (6 parámetros), ajustada por mínimos
+// cuadrados con 18 referencias reales confirmadas a mano en el juego (un
+// Alquimista por ciudad, repartido entre los tres reinos — ver PR/commit
+// para el detalle de cada mosaico). Error promedio ~0.23 mosaicos (~235px)
+// contra esas 18 referencias; antes, con solo 3 referencias cercanas entre
+// sí, algunas ciudades lejanas quedaban a más de 500px de su lugar real.
+const GAME_COORD_FIT = { A: 0.0182412688, B: 1.0227340852, C: 1723.511143, D: 0.9833468293, E: 0.0031612877, F: -802.199771 };
 function gameCoordsToPixel(gameX, gameY){
   return [
     GAME_COORD_FIT.A * gameX + GAME_COORD_FIT.B * gameY + GAME_COORD_FIT.C,
