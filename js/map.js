@@ -14,10 +14,23 @@ const TILE_SIZE = 1024;
 const GRID = 18;
 const MAP_PX = TILE_SIZE * GRID;
 
+// El mapa fuente es cuadrado (18x18 mosaicos) — si el recuadro no lo es,
+// "llenarlo entero" (sin bandas negras) y "mostrar el mundo completo" se
+// contradicen. Haciendo el recuadro cuadrado se cumplen las dos cosas a la
+// vez: ancho = min(ancho disponible hasta 1180px, 85% del alto de ventana).
+function sizeMapSquare(){
+  const frame = document.querySelector('.map-frame');
+  const container = document.getElementById('regnum-map');
+  if(!frame || !container) return;
+  const side = Math.max(320, Math.min(frame.clientWidth, window.innerHeight * 0.85));
+  container.style.height = side + 'px';
+}
+
 function initRegnumMapIfNeeded(){
   if(regnumMap) return; // ya inicializado
   const container = document.getElementById('regnum-map');
   if(!container || typeof L === 'undefined') return;
+  sizeMapSquare();
 
   regnumMap = L.map('regnum-map', {
     crs: L.CRS.Simple,
@@ -74,6 +87,7 @@ function initRegnumMapIfNeeded(){
   fitMinZoomToContainer();
   window.addEventListener('resize', ()=>{
     if(!regnumMap) return;
+    sizeMapSquare();
     fitMinZoomToContainer();
     regnumMap.invalidateSize();
   });
