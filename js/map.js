@@ -226,22 +226,26 @@ function tileToLatLng(col, row){
 }
 
 const REALM_SLUG = {Syrtis:'syrtis', Alsius:'alsius', Ignis:'ignis'};
-// Ciudad/Pueblo/Villa/Puerto comparten el ícono de casa, sin color de reino
-// (ya se distinguen por reino con el filtro y el popup). Muralla/Fuerte/
-// Castillo sí llevan color de reino, para reconocerlos de un vistazo.
-const PLACE_SHAPE = {Ciudad:'ciudad', Pueblo:'ciudad', Villa:'ciudad', Puerto:'ciudad', Muralla:'muralla', Fuerte:'fuerte', Castillo:'castillo'};
+// Ciudad/Pueblo/Aldea(ex-Villa)/Puerto comparten el ícono de casa, sin color
+// de reino (ya se distinguen por reino con el filtro y el popup). Muralla/
+// Fuerte/Castillo/Altar sí llevan color de reino, para reconocerlos de un
+// vistazo. "Villa" queda como alias de "Aldea" por si algún registro viejo
+// todavía usa ese nombre.
+const PLACE_SHAPE = {Ciudad:'ciudad', Pueblo:'ciudad', Aldea:'ciudad', Villa:'ciudad', Puerto:'ciudad', Muralla:'muralla', Fuerte:'fuerte', Castillo:'castillo', Altar:'altar'};
+// Cada categoría se filtra con su propio checkbox — ver #map-layers-block.
+const PLACE_TOGGLE_ID = {Ciudad:'map-toggle-ciudad', Pueblo:'map-toggle-pueblo', Puerto:'map-toggle-pueblo', Aldea:'map-toggle-aldea', Villa:'map-toggle-aldea', Fuerte:'map-toggle-fuerte', Castillo:'map-toggle-castillo', Muralla:'map-toggle-muralla', Altar:'map-toggle-altar'};
 // El carácter de texto "⌂" sale hueco (solo el contorno) en la mayoría de
 // las fuentes — no hay forma de "rellenarlo" solo con color de texto. Un
 // SVG con fill:currentColor sí queda relleno del color que le pongamos.
 const HOUSE_SVG = '<svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor"><path d="M12 2 L2 11 L5 11 L5 22 L19 22 L19 11 L22 11 Z"/></svg>';
-const PLACE_GLYPH = {ciudad:HOUSE_SVG, muralla:'▬', fuerte:'♜', castillo:'♜'};
+const PLACE_GLYPH = {ciudad:HOUSE_SVG, muralla:'▬', fuerte:'♜', castillo:'♜', altar:'◎'};
 
 function iconFor(m){
   if(m.tipo === 'mision') return L.divIcon({className:'regnum-marker regnum-marker-mision', html:'!', iconSize:[10,14]});
   if(m.tipo === 'npc') return L.divIcon({className:`regnum-marker regnum-marker-npc realm-color-${REALM_SLUG[m.reino]||'syrtis'}`, html:'●', iconSize:[14,14]});
   // ciudad/lugar: la forma sale de la categoría (Ciudad/Fuerte/Castillo/...)
   const shape = PLACE_SHAPE[m.categoria] || 'ciudad';
-  const size = shape === 'castillo' ? 44 : shape === 'fuerte' ? 32 : shape === 'muralla' ? 15 : 34;
+  const size = shape === 'castillo' ? 44 : shape === 'fuerte' ? 32 : shape === 'altar' ? 24 : shape === 'muralla' ? 15 : 34;
   const cls = shape === 'ciudad'
     ? 'regnum-marker regnum-marker-ciudad'
     : `regnum-marker regnum-marker-${shape} realm-color-${REALM_SLUG[m.reino]||'syrtis'}`;
@@ -252,6 +256,13 @@ function buildRegnumMarkers(){
   regnumMarkersLayer.clearLayers();
   regnumAllMarkerObjs = [];
   const todos = [...regnumMapData.npcs, ...regnumMapData.misiones, ...(regnumMapData.ciudades||[])];
+  // Dónde quedó cada NPC ya calculado, por nombre — para que una misión sin
+  // posición propia corregida use la de su dador en vez de su x/y original
+  // (misiones y NPCs se corrigen por separado, así que si no hiciéramos
+  // esto, mover al NPC no movería la misión que da, aunque sea el mismo
+  // punto en el mundo real). npcs va primero en "todos", así que para
+  // cuando se procesa una misión ya están todos calculados.
+  const npcLatLngByName = {};
   todos.forEach(m=>{
     // La clave hay que calcularla ANTES de aplicar ediciones guardadas (si
     // ya se renombró en una sesión anterior, recalcularla ahora daría una
@@ -266,13 +277,17 @@ function buildRegnumMarkers(){
 
     // Prioridad: arrastre de esta sesión (todavía sin exportar) > posición
     // corregida a mano en una sesión anterior (posOverride, ya aplicada a
-    // los datos) > posición por defecto (mosaico exacto para lugares,
-    // fórmula de coordenadas de juego para NPCs/misiones).
+    // los datos) > para una misión sin posición propia, la del NPC que la
+    // da > posición por defecto (mosaico exacto para lugares, fórmula de
+    // coordenadas de juego para NPCs/misiones).
     const latlng = edit && edit.move
       ? tileToLatLng(edit.move.col, edit.move.row)
       : m.posOverride
       ? tileToLatLng(m.posOverride.col, m.posOverride.row)
+      : m.tipo === 'mision' && npcLatLngByName[m.la_da]
+      ? npcLatLngByName[m.la_da]
       : m.tipo === 'ciudad' ? tileToLatLng(m.col, m.row) : pixelToLatLng(m.x, m.y);
+    if(m.tipo === 'npc') npcLatLngByName[m.nombre] = latlng;
     const marker = L.marker(latlng, {icon: iconFor(m), draggable: EDIT_MODE});
     if(EDIT_MODE){
       marker.bindPopup(buildEditPopupHTML(m));
@@ -516,8 +531,9 @@ function populateRegnumFilters(){
   });
 }
 
+const PLACE_TOGGLE_IDS = ['map-toggle-aldea','map-toggle-pueblo','map-toggle-ciudad','map-toggle-fuerte','map-toggle-castillo','map-toggle-muralla','map-toggle-altar'];
+
 function applyRegnumFilters(){
-  const showCiudad = document.getElementById('map-toggle-ciudad').checked;
   const showNpc = document.getElementById('map-toggle-npc').checked;
   const showMision = document.getElementById('map-toggle-mision').checked;
   const reino = document.getElementById('map-filter-reino').value;
@@ -526,9 +542,15 @@ function applyRegnumFilters(){
 
   regnumMarkersLayer.clearLayers();
   regnumAllMarkerObjs.forEach(m=>{
-    if(m.tipo === 'ciudad' && !showCiudad) return;
     if(m.tipo === 'npc' && !showNpc) return;
     if(m.tipo === 'mision' && !showMision) return;
+    if(m.tipo === 'ciudad'){
+      // Cada categoría de lugar (Aldea/Pueblo/Ciudad/Fuerte/Castillo/
+      // Muralla/Altar) tiene su propio checkbox — ver PLACE_TOGGLE_ID.
+      const toggleId = PLACE_TOGGLE_ID[m.categoria];
+      const toggle = toggleId && document.getElementById(toggleId);
+      if(toggle && !toggle.checked) return;
+    }
     if(reino && m.reino !== reino) return;
     // Profesión y nivel son propios de NPCs/misiones — las ciudades no
     // tienen esos campos, así que no las toca ninguno de estos dos filtros.
@@ -541,7 +563,7 @@ function applyRegnumFilters(){
 }
 
 function wireRegnumSearchAndFilters(){
-  ['map-toggle-ciudad','map-toggle-npc','map-toggle-mision','map-filter-reino','map-filter-profesion','map-filter-nivel'].forEach(id=>{
+  [...PLACE_TOGGLE_IDS,'map-toggle-npc','map-toggle-mision','map-filter-reino','map-filter-profesion','map-filter-nivel'].forEach(id=>{
     document.getElementById(id).addEventListener('change', applyRegnumFilters);
   });
 

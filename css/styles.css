@@ -107,6 +107,7 @@
   .regnum-marker-fuerte{font-size:32px;}
   .regnum-marker-castillo{font-size:44px;}
   .regnum-marker-muralla{font-size:15px;}
+  .regnum-marker-altar{font-size:24px;}
   /* Mismos colores que ya usa el selector de reino arriba, para que un
      vistazo alcance para saber de qué reino es un NPC/fuerte/castillo. */
   .realm-color-syrtis{color:#7fae5a;}
