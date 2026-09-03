@@ -122,6 +122,26 @@ function initRegnumMapIfNeeded(){
 
   regnumMarkersLayer = L.layerGroup().addTo(regnumMap);
 
+  // Herramienta de referencia, oculta: agregando ?refpick=1 a la URL, un
+  // click en el mapa (en un lugar vacío, no sobre un marcador) muestra el
+  // mosaico exacto (con decimales) de ese punto — para afinar a mano la
+  // posición de ciudades y lugares de interés sin depender de capturas.
+  if(new URLSearchParams(location.search).get('refpick') === '1'){
+    regnumMap.on('click', (e)=>{
+      const pt = regnumMap.project(e.latlng, 0);
+      const text = `col=${(pt.x/TILE_SIZE).toFixed(3)} row=${(pt.y/TILE_SIZE).toFixed(3)}`;
+      L.popup().setLatLng(e.latlng)
+        .setContent(`<b>Referencia</b><br><code>${text}</code><br><button type="button" id="refpick-copy" style="margin-top:6px">Copiar</button>`)
+        .openOn(regnumMap);
+      setTimeout(()=>{
+        document.getElementById('refpick-copy')?.addEventListener('click', function(){
+          navigator.clipboard?.writeText(text).catch(()=>{});
+          this.textContent = 'Copiado';
+        });
+      }, 0);
+    });
+  }
+
   fetch('data/map-data.json')
     .then(r => r.json())
     .then(data => {
