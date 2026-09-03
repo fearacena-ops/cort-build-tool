@@ -260,8 +260,14 @@ function buildRegnumMarkers(){
     if(edit && edit.fields) Object.assign(m, edit.fields);
     m.__key = key;
 
+    // Prioridad: arrastre de esta sesión (todavía sin exportar) > posición
+    // corregida a mano en una sesión anterior (posOverride, ya aplicada a
+    // los datos) > posición por defecto (mosaico exacto para lugares,
+    // fórmula de coordenadas de juego para NPCs/misiones).
     const latlng = edit && edit.move
       ? tileToLatLng(edit.move.col, edit.move.row)
+      : m.posOverride
+      ? tileToLatLng(m.posOverride.col, m.posOverride.row)
       : m.tipo === 'ciudad' ? tileToLatLng(m.col, m.row) : pixelToLatLng(m.x, m.y);
     const marker = L.marker(latlng, {icon: iconFor(m), draggable: EDIT_MODE});
     if(EDIT_MODE){
