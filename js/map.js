@@ -230,7 +230,11 @@ const REALM_SLUG = {Syrtis:'syrtis', Alsius:'alsius', Ignis:'ignis'};
 // (ya se distinguen por reino con el filtro y el popup). Muralla/Fuerte/
 // Castillo sí llevan color de reino, para reconocerlos de un vistazo.
 const PLACE_SHAPE = {Ciudad:'ciudad', Pueblo:'ciudad', Villa:'ciudad', Puerto:'ciudad', Muralla:'muralla', Fuerte:'fuerte', Castillo:'castillo'};
-const PLACE_GLYPH = {ciudad:'⌂', muralla:'▬', fuerte:'♜', castillo:'♜'};
+// El carácter de texto "⌂" sale hueco (solo el contorno) en la mayoría de
+// las fuentes — no hay forma de "rellenarlo" solo con color de texto. Un
+// SVG con fill:currentColor sí queda relleno del color que le pongamos.
+const HOUSE_SVG = '<svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor"><path d="M12 2 L2 11 L5 11 L5 22 L19 22 L19 11 L22 11 Z"/></svg>';
+const PLACE_GLYPH = {ciudad:HOUSE_SVG, muralla:'▬', fuerte:'♜', castillo:'♜'};
 
 function iconFor(m){
   if(m.tipo === 'mision') return L.divIcon({className:'regnum-marker regnum-marker-mision', html:'!', iconSize:[10,14]});

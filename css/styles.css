@@ -103,7 +103,7 @@
   .leaflet-popup-content b{color:var(--bronze);}
   .regnum-marker{display:flex;align-items:center;justify-content:center;font-size:13px;line-height:1;text-shadow:0 0 3px #000,0 0 3px #000;}
   .regnum-marker-mision{color:#ffd23f;font-weight:700;}
-  .regnum-marker-ciudad{color:var(--bronze);font-size:34px;text-shadow:0 0 3px #000,0 0 5px #000;}
+  .regnum-marker-ciudad{color:var(--bronze);font-size:34px;filter:drop-shadow(0 0 2px #000) drop-shadow(0 0 3px #000);}
   .regnum-marker-fuerte{font-size:32px;}
   .regnum-marker-castillo{font-size:44px;}
   .regnum-marker-muralla{font-size:15px;}
