@@ -58,6 +58,14 @@ function sizeMapSquare(){
   const container = document.getElementById('regnum-map');
   if(!frame || !container) return;
   const side = Math.max(320, Math.min(frame.clientWidth, window.innerHeight * 0.85));
+  // Hay que fijar ancho Y alto: el CSS de base solo da width:100% (hasta los
+  // 1180px del recuadro), así que si sólo se fija el alto acá el contenedor
+  // queda rectangular (más ancho que alto) en vez de cuadrado. Con un
+  // contenedor no-cuadrado, el cálculo de zoom mínimo (que asume que "cubrir
+  // el recuadro" y "mostrar el mundo entero" son la misma cosa, ver más
+  // abajo) termina sobre-acercando el zoom para cubrir el lado más ancho, y
+  // eso recorta contenido de los bordes superior/inferior del mundo.
+  container.style.width = side + 'px';
   container.style.height = side + 'px';
 }
 
@@ -72,6 +80,15 @@ function initRegnumMapIfNeeded(){
     // Tope en 0 = resolución nativa de los mosaicos. Pasarse de ahí no
     // muestra más detalle, solo agranda (emborrona) la misma imagen.
     maxZoom: 0,
+    // zoomSnap:0 = zoom continuo (sin esto Leaflet redondea todo zoom al
+    // entero más cercano por defecto). Con el mundo cuadrado casi nunca
+    // encaja justo en un escalón entero: el zoom mínimo "exacto" para que
+    // el mundo entero cubra el recuadro suele ser fraccionario (p.ej.
+    // -4.59), y redondearlo a -4 agranda el mapa renderizado ~66% de más,
+    // recortando franjas enteras arriba/abajo del recuadro (esto es lo que
+    // hacía que Skolheim/Gokstad, cerca del borde norte/oeste, quedaran
+    // fuera del recuadro visible al zoom mínimo).
+    zoomSnap: 0,
     zoomControl: true,
     attributionControl: false,
   });
@@ -109,6 +126,17 @@ function initRegnumMapIfNeeded(){
   // recorta su resultado al minZoom/maxZoom que el mapa tenga en ESE
   // momento, así que hay que aflojar el mínimo antes de preguntarle, si no
   // siempre devuelve el mínimo anterior en vez del que realmente hace falta.
+  // Al zoom mínimo (escalón 1, el mapa completo ya entra en el recuadro) no
+  // hay a dónde más "arrastrar" — mover el mapa ahí no hace nada útil y
+  // encima confunde al chocar con los límites. Se habilita recién a partir
+  // del escalón 2.
+  function updateDraggingForZoom(){
+    if(!regnumMap) return;
+    if(regnumMap.getZoom() <= regnumMap.getMinZoom() + 0.001) regnumMap.dragging.disable();
+    else regnumMap.dragging.enable();
+  }
+  regnumMap.on('zoom', updateDraggingForZoom);
+
   function fitMinZoomToContainer(){
     regnumMap.setMinZoom(-10);
     // +0.15 de margen: el cálculo exacto a veces deja un borde de un par de
@@ -118,6 +146,7 @@ function initRegnumMapIfNeeded(){
     const fitZoom = regnumMap.getBoundsZoom(bounds, true) + 0.15;
     regnumMap.setMinZoom(Math.min(regnumMap.getMaxZoom(), fitZoom));
     updateZoomBadge();
+    updateDraggingForZoom();
   }
   fitMinZoomToContainer();
   window.addEventListener('resize', ()=>{
@@ -127,7 +156,9 @@ function initRegnumMapIfNeeded(){
     regnumMap.invalidateSize();
   });
   const center = regnumMap.unproject([MAP_PX/2, MAP_PX/2], 0);
-  regnumMap.setView(center, 0);
+  // Arranca mostrando el mapa completo (escalón 1), no centrado a resolución
+  // nativa — así lo primero que se ve es todo el mundo, no un recorte.
+  regnumMap.setView(center, regnumMap.getMinZoom());
 
   const RegnumTiles = L.GridLayer.extend({
     createTile: function(coords, done){
@@ -156,6 +187,48 @@ function initRegnumMapIfNeeded(){
   new RegnumTiles({ tileSize: TILE_SIZE, noWrap: true, bounds, minNativeZoom:0, maxNativeZoom:0, minZoom:-10, maxZoom:2 }).addTo(regnumMap);
 
   regnumMarkersLayer = L.layerGroup().addTo(regnumMap);
+
+  // Si un resultado de búsqueda fuerza a mostrar un marcador cuya categoría
+  // tiene el checkbox apagado (ver wireRegnumSearchAndFilters), que vuelva
+  // a ocultarse al cerrar su popup — no debería quedar "colado" para
+  // siempre solo por haberlo buscado una vez.
+  regnumMap.on('popupclose', ()=> applyRegnumFilters());
+
+  // Si el globo se abre muy cerca de un borde del recuadro (por ejemplo un
+  // marcador cerca del borde del mundo, al zoom mínimo) no entra completo
+  // del lado en que aparece por defecto (arriba y centrado sobre el
+  // marcador). En vez de mover todo el mapa para hacerle lugar (autoPan,
+  // desactivado arriba porque al zoom mínimo no hay margen y termina
+  // empujando y volviendo de golpe), se corre el globo mismo lo justo para
+  // que quede adentro del recuadro — del lado que no choca con el borde.
+  regnumMap.on('popupopen', (e)=>{
+    const popup = e.popup;
+    const popupEl = popup._container;
+    const mapEl = document.getElementById('regnum-map');
+    if(!popupEl || !mapEl) return;
+    const margin = 10;
+    const mr = mapEl.getBoundingClientRect();
+    const pr = popupEl.getBoundingClientRect();
+    let dx = 0, dy = 0;
+    if(pr.left < mr.left + margin) dx = (mr.left + margin) - pr.left;
+    else if(pr.right > mr.right - margin) dx = (mr.right - margin) - pr.right;
+    if(pr.top < mr.top + margin) dy = (mr.top + margin) - pr.top;
+    else if(pr.bottom > mr.bottom - margin) dy = (mr.bottom - margin) - pr.bottom;
+    if(dx || dy){
+      // Leaflet reposiciona el globo con su propio transform (vía
+      // options.offset, pero solo lo aplica al bottom/left, no al
+      // transform con animación de zoom activada — cambiar options.offset
+      // y llamar a update() no lo mueve en la práctica). Más simple y
+      // confiable: sumarle el corrimiento directo al transform ya puesto,
+      // en vez de pelear con su sistema de offsets internos.
+      popupEl.style.transform += ` translate(${dx}px, ${dy}px)`;
+      // La puntita que apunta al marcador se mueve junto con el globo, así
+      // que después de correrlo ya no señala al lugar correcto — mejor
+      // ocultarla que dejarla apuntando para cualquier lado.
+      const tip = popupEl.querySelector('.leaflet-popup-tip-container');
+      if(tip) tip.style.display = 'none';
+    }
+  });
 
   // Herramienta de referencia, oculta: agregando ?refpick=1 a la URL, un
   // click en el mapa (en un lugar vacío, no sobre un marcador) muestra el
@@ -299,12 +372,16 @@ function buildRegnumMarkers(){
       : m.tipo === 'ciudad' ? tileToLatLng(m.col, m.row) : pixelToLatLng(m.x, m.y);
     if(m.tipo === 'npc') npcLatLngByName[m.nombre] = latlng;
     const marker = L.marker(latlng, {icon: iconFor(m), draggable: EDIT_MODE});
+    // autoPan:false — por defecto Leaflet mueve todo el mapa para hacerle
+    // lugar al popup, pero al zoom mínimo (el mapa completo ya cubre el
+    // recuadro) no hay a dónde correrlo: lo intenta, maxBounds lo frena de
+    // vuelta, y el popup queda a mitad de camino, cortado por el borde.
     if(EDIT_MODE){
-      marker.bindPopup(buildEditPopupHTML(m));
+      marker.bindPopup(buildEditPopupHTML(m), {autoPan:false});
       markersByKey[key] = {marker, m};
       wireEditMarker(marker, m);
     } else {
-      marker.bindPopup(buildRegnumPopupHTML(m));
+      marker.bindPopup(buildRegnumPopupHTML(m), {autoPan:false});
     }
     m._leaflet = marker;
     regnumAllMarkerObjs.push(m);
