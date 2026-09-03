@@ -181,26 +181,41 @@ function pixelToLatLng(gameX, gameY){
   return regnumMap.unproject([px, py], 0);
 }
 
-// Las ciudades/pueblos/villas no vienen de coordenadas del juego (que pasan
-// por el ajuste de arriba, con su margen de error) — vienen directo del
-// mosaico donde están confirmadas a mano, así que van exactas al centro de
-// ese mosaico sin pasar por gameCoordsToPixel.
+// Las ciudades/lugares no vienen de coordenadas del juego (que pasan por el
+// ajuste de arriba, con su margen de error) — vienen directo de un click
+// exacto sobre el mosaico correcto (herramienta ?refpick=1), en fracciones
+// de mosaico con decimales — no un número de mosaico entero que haya que
+// centrar, por eso NO se suma TILE_SIZE/2 acá.
 function tileToLatLng(col, row){
-  return regnumMap.unproject([col*TILE_SIZE + TILE_SIZE/2, row*TILE_SIZE + TILE_SIZE/2], 0);
+  return regnumMap.unproject([col*TILE_SIZE, row*TILE_SIZE], 0);
+}
+
+const REALM_SLUG = {Syrtis:'syrtis', Alsius:'alsius', Ignis:'ignis'};
+// Ciudad/Pueblo/Villa/Puerto comparten el ícono de casa, sin color de reino
+// (ya se distinguen por reino con el filtro y el popup). Muralla/Fuerte/
+// Castillo sí llevan color de reino, para reconocerlos de un vistazo.
+const PLACE_SHAPE = {Ciudad:'ciudad', Pueblo:'ciudad', Villa:'ciudad', Puerto:'ciudad', Muralla:'muralla', Fuerte:'fuerte', Castillo:'castillo'};
+const PLACE_GLYPH = {ciudad:'⌂', muralla:'▬', fuerte:'♜', castillo:'♜'};
+
+function iconFor(m){
+  if(m.tipo === 'mision') return L.divIcon({className:'regnum-marker regnum-marker-mision', html:'!', iconSize:[10,14]});
+  if(m.tipo === 'npc') return L.divIcon({className:`regnum-marker regnum-marker-npc realm-color-${REALM_SLUG[m.reino]||'syrtis'}`, html:'●', iconSize:[14,14]});
+  // ciudad/lugar: la forma sale de la categoría (Ciudad/Fuerte/Castillo/...)
+  const shape = PLACE_SHAPE[m.categoria] || 'ciudad';
+  const size = shape === 'castillo' ? 22 : shape === 'fuerte' ? 16 : shape === 'muralla' ? 15 : 17;
+  const cls = shape === 'ciudad'
+    ? 'regnum-marker regnum-marker-ciudad'
+    : `regnum-marker regnum-marker-${shape} realm-color-${REALM_SLUG[m.reino]||'syrtis'}`;
+  return L.divIcon({className:cls, html:PLACE_GLYPH[shape], iconSize:[size,size]});
 }
 
 function buildRegnumMarkers(){
   regnumMarkersLayer.clearLayers();
   regnumAllMarkerObjs = [];
-  const icons = {
-    npc: L.divIcon({className:'regnum-marker regnum-marker-npc', html:'●', iconSize:[14,14]}),
-    mision: L.divIcon({className:'regnum-marker regnum-marker-mision', html:'★', iconSize:[14,14]}),
-    ciudad: L.divIcon({className:'regnum-marker regnum-marker-ciudad', html:'◆', iconSize:[18,18]}),
-  };
   const todos = [...regnumMapData.npcs, ...regnumMapData.misiones, ...(regnumMapData.ciudades||[])];
   todos.forEach(m=>{
     const latlng = m.tipo === 'ciudad' ? tileToLatLng(m.col, m.row) : pixelToLatLng(m.x, m.y);
-    const marker = L.marker(latlng, {icon: icons[m.tipo]});
+    const marker = L.marker(latlng, {icon: iconFor(m)});
     marker.bindPopup(buildRegnumPopupHTML(m));
     m._leaflet = marker;
     regnumAllMarkerObjs.push(m);
@@ -268,7 +283,11 @@ function wireRegnumSearchAndFilters(){
 
   const input = document.getElementById('map-search');
   const results = document.getElementById('map-search-results');
-  const iconByTipo = {mision:'★', ciudad:'◆', npc:'●'};
+  function searchGlyph(m){
+    if(m.tipo === 'mision') return '!';
+    if(m.tipo === 'npc') return '●';
+    return PLACE_GLYPH[PLACE_SHAPE[m.categoria] || 'ciudad'];
+  }
   input.addEventListener('input', ()=>{
     const q = input.value.trim().toLowerCase();
     if(q.length < 2){ results.classList.remove('is-open'); results.innerHTML=''; return; }
@@ -276,7 +295,7 @@ function wireRegnumSearchAndFilters(){
     if(matches.length === 0){ results.classList.remove('is-open'); results.innerHTML=''; return; }
     results.innerHTML = matches.map((m,i)=>`
       <div class="map-result-item" data-idx="${regnumAllMarkerObjs.indexOf(m)}">
-        <div class="mri-name">${iconByTipo[m.tipo]} ${m.nombre}</div>
+        <div class="mri-name">${searchGlyph(m)} ${m.nombre}</div>
         <div class="mri-meta">${m.tipo==='npc' ? (m.profesion||m.clase||'') : m.tipo==='ciudad' ? m.categoria : 'Nivel '+m.nivel+' · La da: '+m.la_da} · ${m.reino}</div>
       </div>`).join('');
     results.classList.add('is-open');
