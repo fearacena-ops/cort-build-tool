@@ -9,6 +9,12 @@ let regnumMap = null;
 let regnumMapData = null;
 let regnumMarkersLayer = null;
 let regnumAllMarkerObjs = []; // {tipo, nombre, ..., leafletMarker}
+// Zonas (áreas de mobs/materiales, ver buildRegnumZones): capa aparte de
+// regnumMarkersLayer porque son polígonos, no marcadores puntuales — el
+// resto de la lógica de click/arrastre/selección de modo edición no les
+// aplica, así que conviene no mezclarlas con regnumAllMarkerObjs.
+let regnumZonesLayer = null;
+let regnumAllZoneObjs = [];
 
 const TILE_SIZE = 1024;
 const GRID = 18;
@@ -221,6 +227,7 @@ function initRegnumMapIfNeeded(){
   new RegnumTiles({ tileSize: TILE_SIZE, noWrap: true, bounds, minNativeZoom:0, maxNativeZoom:0, minZoom:-10, maxZoom:2 }).addTo(regnumMap);
 
   regnumMarkersLayer = L.layerGroup().addTo(regnumMap);
+  regnumZonesLayer = L.layerGroup().addTo(regnumMap);
 
   // Si un resultado de búsqueda fuerza a mostrar un marcador cuya categoría
   // tiene el checkbox apagado (ver wireRegnumSearchAndFilters), que vuelva
@@ -283,10 +290,46 @@ function initRegnumMapIfNeeded(){
   // click en el mapa (en un lugar vacío, no sobre un marcador) muestra el
   // mosaico exacto (con decimales) de ese punto — para afinar a mano la
   // posición de ciudades y lugares de interés sin depender de capturas.
+  // Además, cada click se va acumulando en una lista con un panel flotante
+  // (abajo a la derecha) que dibuja el polígono en vivo — para delimitar
+  // el área de una zona de mobs/materiales click a click por el borde y
+  // después copiar todos los puntos de una — ver buildRegnumZones.
   if(new URLSearchParams(location.search).get('refpick') === '1'){
+    const refpickPoints = [];
+    let refpickPreview = null;
+    const panel = document.createElement('div');
+    panel.style.cssText = 'position:fixed;bottom:10px;right:10px;z-index:9999;background:#0f1410;border:1px solid #2c3a2a;color:#e7ecdf;font-family:monospace;font-size:12px;padding:10px;border-radius:6px;max-width:260px;';
+    panel.innerHTML = `<b>Puntos de zona (refpick)</b><br>
+      <span id="refpick-count">0 puntos</span><br>
+      <button type="button" id="refpick-copy-poly" style="margin-top:6px">Copiar puntos</button>
+      <button type="button" id="refpick-reset" style="margin-top:6px">Reiniciar</button>`;
+    document.body.appendChild(panel);
+    function refreshRefpickPanel(){
+      document.getElementById('refpick-count').textContent = `${refpickPoints.length} punto${refpickPoints.length===1?'':'s'}`;
+      if(refpickPreview) regnumMap.removeLayer(refpickPreview);
+      if(refpickPoints.length >= 2){
+        refpickPreview = L.polygon(refpickPoints.map(p=>tileToLatLng(p.col,p.row)), {color:'#e8c14a', weight:2, fillOpacity:0.12, dashArray:'4,4'}).addTo(regnumMap);
+      } else {
+        refpickPreview = null;
+      }
+    }
+    document.getElementById('refpick-copy-poly').addEventListener('click', function(){
+      const text = JSON.stringify(refpickPoints.map(p=>({col:p.col, row:p.row})));
+      navigator.clipboard?.writeText(text).catch(()=>{});
+      this.textContent = 'Copiado';
+      setTimeout(()=> this.textContent = 'Copiar puntos', 1200);
+    });
+    document.getElementById('refpick-reset').addEventListener('click', ()=>{
+      refpickPoints.length = 0;
+      refreshRefpickPanel();
+    });
     regnumMap.on('click', (e)=>{
       const pt = regnumMap.project(e.latlng, 0);
-      const text = `col=${(pt.x/TILE_SIZE).toFixed(3)} row=${(pt.y/TILE_SIZE).toFixed(3)}`;
+      const col = Number((pt.x/TILE_SIZE).toFixed(3));
+      const row = Number((pt.y/TILE_SIZE).toFixed(3));
+      const text = `col=${col.toFixed(3)} row=${row.toFixed(3)}`;
+      refpickPoints.push({col, row});
+      refreshRefpickPanel();
       L.popup().setLatLng(e.latlng)
         .setContent(`<b>Referencia</b><br><code>${text}</code><br><button type="button" id="refpick-copy" style="margin-top:6px">Copiar</button>`)
         .openOn(regnumMap);
@@ -304,6 +347,7 @@ function initRegnumMapIfNeeded(){
     .then(data => {
       regnumMapData = data;
       buildRegnumMarkers();
+      buildRegnumZones();
       populateRegnumFilters();
       wireRegnumSearchAndFilters();
     })
@@ -437,6 +481,56 @@ function buildRegnumMarkers(){
   });
   applyRegnumFilters();
   if(EDIT_MODE) setupEditModeUI();
+}
+
+// Colores fijos (no ligados al tema de reino, mismo motivo que los íconos
+// de Aldea/Pueblo/Ciudad — ver comentario en css/map.css): rojo para
+// "peligro" (mobs), verde-agua para "recurso" (materiales).
+const ZONE_STYLE = {
+  mobs: {color:'#c0392b', fillColor:'#c0392b'},
+  materiales: {color:'#2f8f6b', fillColor:'#2f8f6b'},
+};
+const ZONE_TOGGLE_ID = {mobs:'map-toggle-mobs', materiales:'map-toggle-materiales'};
+
+function buildZonePopupHTML(z){
+  const items = (z.items||[]).map(it=>
+    z.categoria === 'mobs' ? `${it.nombre}${it.nivel ? ' · Nv. '+it.nivel : ''}` : it.nombre
+  ).join('<br>');
+  return `<b>${z.nombre}</b><br>${z.reino}<br>${items || '<i>(sin items cargados)</i>'}`;
+}
+
+// Zonas (áreas de mobs/materiales delimitadas a mano con la herramienta
+// ?refpick=1, ver más arriba): polígonos con relleno transparente, no
+// marcadores — se cargan y filtran aparte de buildRegnumMarkers.
+function buildRegnumZones(){
+  regnumZonesLayer.clearLayers();
+  regnumAllZoneObjs = [];
+  (regnumMapData.zonas||[]).forEach(z=>{
+    if(!z.puntos || z.puntos.length < 3) return; // un polígono necesita al menos 3 puntos
+    const latlngs = z.puntos.map(p=> tileToLatLng(p.col, p.row));
+    const style = ZONE_STYLE[z.categoria] || ZONE_STYLE.mobs;
+    const polygon = L.polygon(latlngs, {...style, weight:2, fillOpacity:0.22});
+    polygon.bindPopup(buildZonePopupHTML(z), {autoPan:false});
+    z._leaflet = polygon;
+    regnumAllZoneObjs.push(z);
+  });
+  applyZoneFilters();
+}
+
+function passesZoneFilters(z){
+  const toggleId = ZONE_TOGGLE_ID[z.categoria];
+  const toggle = toggleId && document.getElementById(toggleId);
+  if(toggle && !toggle.checked) return false;
+  const reino = document.getElementById('map-filter-reino').value;
+  if(reino && z.reino !== reino) return false;
+  return true;
+}
+
+function applyZoneFilters(){
+  regnumZonesLayer.clearLayers();
+  regnumAllZoneObjs.forEach(z=>{
+    if(passesZoneFilters(z)) z._leaflet.addTo(regnumZonesLayer);
+  });
 }
 
 function editableFieldsFor(m){
@@ -720,8 +814,12 @@ function applyRegnumFilters(){
 }
 
 function wireRegnumSearchAndFilters(){
-  [...PLACE_TOGGLE_IDS,'map-toggle-npc','map-toggle-mision','map-filter-reino','map-filter-profesion','map-filter-nivel'].forEach(id=>{
-    document.getElementById(id).addEventListener('change', applyRegnumFilters);
+  // Un solo refresh para marcadores Y zonas: 'map-filter-reino' afecta a
+  // los dos, y no cuesta nada reconstruir marcadores de más cuando cambia
+  // un checkbox que en realidad es solo de zonas (o viceversa).
+  function refreshMapLayers(){ applyRegnumFilters(); applyZoneFilters(); }
+  [...PLACE_TOGGLE_IDS,'map-toggle-npc','map-toggle-mision','map-toggle-mobs','map-toggle-materiales','map-filter-reino','map-filter-profesion','map-filter-nivel'].forEach(id=>{
+    document.getElementById(id).addEventListener('change', refreshMapLayers);
   });
 
   const input = document.getElementById('map-search');
