@@ -39,6 +39,16 @@ function markerKey(m){
   return `${m.tipo}|${m.nombre}|${extra}`;
 }
 
+// Selección múltiple (modo edición): con el modo activo, click en un
+// marcador lo selecciona/deselecciona en vez de abrir su popup. Arrastrar
+// cualquier marcador que forme parte de una selección de 2 o más mueve a
+// todos juntos, manteniendo la posición relativa entre ellos.
+let selectionMode = false;
+let selectedKeys = new Set();
+let markersByKey = {};
+function latLngToPoint(latlng){ return regnumMap.project(latlng, 0); }
+function pointToLatLng(pt){ return regnumMap.unproject([pt.x, pt.y], 0); }
+
 // El mapa fuente es cuadrado (18x18 mosaicos) — si el recuadro no lo es,
 // "llenarlo entero" (sin bandas negras) y "mostrar el mundo completo" se
 // contradicen. Haciendo el recuadro cuadrado se cumplen las dos cosas a la
@@ -256,6 +266,7 @@ function buildRegnumMarkers(){
     const marker = L.marker(latlng, {icon: iconFor(m), draggable: EDIT_MODE});
     if(EDIT_MODE){
       marker.bindPopup(buildEditPopupHTML(m));
+      markersByKey[key] = {marker, m};
       wireEditMarker(marker, m);
     } else {
       marker.bindPopup(buildRegnumPopupHTML(m));
@@ -310,18 +321,77 @@ function refreshEditPopup(marker, m){
     saveMapEdits();
     regnumMarkersLayer.removeLayer(marker);
     regnumAllMarkerObjs = regnumAllMarkerObjs.filter(x=> x !== m);
+    delete markersByKey[m.__key];
+    selectedKeys.delete(m.__key);
+    updateSelectionUI();
   });
 }
 
+function saveMarkerPosition(marker, m){
+  const pt = latLngToPoint(marker.getLatLng());
+  const move = {col: +(pt.x/TILE_SIZE).toFixed(3), row: +(pt.y/TILE_SIZE).toFixed(3)};
+  mapEdits[m.__key] = Object.assign({}, mapEdits[m.__key], {move});
+  saveMapEdits();
+}
+
+function setMarkerSelected(marker, key, on){
+  if(on) selectedKeys.add(key); else selectedKeys.delete(key);
+  marker._icon?.classList.toggle('regnum-marker-selected', on);
+}
+
+function updateSelectionUI(){
+  const counter = document.getElementById('map-edit-selcount');
+  if(counter) counter.textContent = selectedKeys.size ? `${selectedKeys.size} seleccionados` : '';
+}
+
 // Al arrastrar, guarda la nueva posición (siempre en mosaico col/row, igual
-// que la herramienta ?refpick=1).
+// que la herramienta ?refpick=1). Si el marcador arrastrado forma parte de
+// una selección de 2+ (modo selección múltiple), mueve a todos los
+// seleccionados juntos, manteniendo la posición relativa entre ellos.
 function wireEditMarker(marker, m){
-  marker.on('popupopen', ()=> refreshEditPopup(marker, m));
+  marker.on('popupopen', ()=>{
+    if(selectionMode){
+      marker.closePopup();
+      setMarkerSelected(marker, m.__key, !selectedKeys.has(m.__key));
+      updateSelectionUI();
+      return;
+    }
+    refreshEditPopup(marker, m);
+  });
+
+  let groupOrigin = null; // {anchor: LatLng, others: {key: LatLng}}
+  marker.on('dragstart', ()=>{
+    groupOrigin = null;
+    if(selectedKeys.has(m.__key) && selectedKeys.size >= 2){
+      groupOrigin = {anchor: marker.getLatLng(), others: {}};
+      selectedKeys.forEach(k=>{
+        if(k === m.__key) return;
+        const other = markersByKey[k];
+        if(other) groupOrigin.others[k] = other.marker.getLatLng();
+      });
+    }
+  });
+  marker.on('drag', ()=>{
+    if(!groupOrigin) return;
+    const p1 = latLngToPoint(groupOrigin.anchor);
+    const p2 = latLngToPoint(marker.getLatLng());
+    const delta = {x: p2.x-p1.x, y: p2.y-p1.y};
+    Object.entries(groupOrigin.others).forEach(([k, startLatLng])=>{
+      const other = markersByKey[k];
+      if(!other) return;
+      const sp = latLngToPoint(startLatLng);
+      other.marker.setLatLng(pointToLatLng({x: sp.x+delta.x, y: sp.y+delta.y}));
+    });
+  });
   marker.on('dragend', ()=>{
-    const pt = regnumMap.project(marker.getLatLng(), 0);
-    const move = {col: +(pt.x/TILE_SIZE).toFixed(3), row: +(pt.y/TILE_SIZE).toFixed(3)};
-    mapEdits[m.__key] = Object.assign({}, mapEdits[m.__key], {move});
-    saveMapEdits();
+    saveMarkerPosition(marker, m);
+    if(groupOrigin){
+      Object.keys(groupOrigin.others).forEach(k=>{
+        const other = markersByKey[k];
+        if(other) saveMarkerPosition(other.marker, other.m);
+      });
+      groupOrigin = null;
+    }
     if(marker.isPopupOpen()) refreshEditPopup(marker, m);
   });
 }
@@ -362,12 +432,39 @@ function setupEditModeUI(){
   if(!frame) return;
   const bar = document.createElement('div');
   bar.id = 'map-edit-toolbar';
-  bar.style.cssText = 'position:absolute;left:10px;top:10px;z-index:600;display:flex;gap:8px;align-items:center;';
+  // left:54px para no pisar los botones +/- de zoom, que viven en esa misma
+  // esquina; flex-wrap para que no se corte en recuadros angostos.
+  bar.style.cssText = 'position:absolute;left:54px;top:10px;right:10px;z-index:600;display:flex;flex-wrap:wrap;gap:8px;align-items:center;';
   bar.innerHTML = `
     <span style="background:rgba(10,14,20,.82);border:1px solid var(--line);border-radius:14px;padding:5px 12px;font-family:var(--font-mono);font-size:11px;color:var(--bronze);">✎ Modo edición — arrastrá para mover, click para editar/borrar</span>
+    <button type="button" id="map-edit-multi" class="mini-btn">Selección múltiple</button>
+    <button type="button" id="map-edit-clearsel" class="mini-btn" style="display:none">Deseleccionar todo</button>
+    <span id="map-edit-selcount" style="font-family:var(--font-mono);font-size:11px;color:var(--ink-faint);"></span>
     <button type="button" id="map-edit-export" class="mini-btn">Exportar cambios</button>
   `;
   frame.appendChild(bar);
+
+  const multiBtn = document.getElementById('map-edit-multi');
+  const clearBtn = document.getElementById('map-edit-clearsel');
+  multiBtn.addEventListener('click', ()=>{
+    selectionMode = !selectionMode;
+    multiBtn.textContent = selectionMode ? 'Selección múltiple (activa)' : 'Selección múltiple';
+    multiBtn.classList.toggle('active', selectionMode);
+    clearBtn.style.display = selectionMode ? '' : 'none';
+    if(!selectionMode){
+      // salir del modo no borra la selección, por si se vuelve a entrar,
+      // pero conviene despejar el resaltado visual mientras tanto
+    }
+  });
+  clearBtn.addEventListener('click', ()=>{
+    selectedKeys.forEach(k=>{
+      const other = markersByKey[k];
+      other?.marker._icon?.classList.remove('regnum-marker-selected');
+    });
+    selectedKeys.clear();
+    updateSelectionUI();
+  });
+
   document.getElementById('map-edit-export').addEventListener('click', ()=>{
     const json = exportMapEdits();
     const box = document.createElement('textarea');
