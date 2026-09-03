@@ -1,0 +1,62 @@
+/* ========================================================================
+   layout.css — la estructura de página compartida por las dos pestañas
+   ("Tu build" y "Mapa interactivo"): la grilla de tres columnas
+   (escudo/contenido/rail de configuración), el encabezado, el recuadro de
+   aviso, las pestañas y el pie de página. Lo específico de cada pestaña
+   vive en build.css / map.css.
+   ======================================================================== */
+
+  .page-flex{display:flex;gap:28px;justify-content:center;max-width:1780px;margin:0 auto;padding:0 22px 80px;}
+  .shield-rail{flex:0 0 240px;display:flex;flex-direction:column;align-items:center;gap:22px;padding-top:14px;}
+  .config-rail{flex:0 0 320px;display:flex;flex-direction:column;gap:20px;padding-top:0;opacity:1;transition:opacity .15s ease;}
+  .config-rail.rail-measuring{opacity:0;}
+  .wrap{max-width:1180px;width:100%;padding:14px 0 0;}
+  @media (max-width:1440px){
+    .page-flex{flex-direction:column;max-width:1180px;padding:0 22px 80px;}
+    .shield-rail{display:none;}
+    .config-rail{flex:0 0 auto;width:100%;padding-top:0;margin-bottom:20px;}
+  }
+
+  header.hero{display:flex;flex-wrap:wrap;gap:20px 32px;align-items:center;justify-content:space-between;padding-bottom:8px;margin-bottom:8px;}
+  .hero-left{display:flex;align-items:center;gap:20px;}
+  .hero-realm-shield{width:220px;height:220px;object-fit:contain;object-position:top center;filter:drop-shadow(0 4px 14px rgba(0,0,0,.4));}
+  .hero-realm-shield.hero-realm-shield-small{width:52px;height:52px;filter:drop-shadow(0 2px 6px rgba(0,0,0,.4));}
+  #hero-shield-anchor{display:flex;flex-shrink:0;}
+  .hero-title{max-width:640px;}
+  .eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--moss);margin:0 0 10px;}
+  h1{font-family:var(--font-display);font-weight:400;font-size:clamp(28px,4vw,42px);margin:0 0 10px;color:var(--ink);letter-spacing:.01em;}
+  .hero-h1{display:flex;align-items:center;gap:14px;}
+  .hero-class-icon{width:clamp(32px,4.2vw,46px);height:clamp(32px,4.2vw,46px);border-radius:50%;flex-shrink:0;}
+  h1 em{color:var(--bronze);font-style:italic;}
+  .hero-title p{color:var(--ink-dim);margin:0;max-width:56ch;font-size:14.5px;}
+  .hero-subclass{font-family:var(--font-mono);font-size:12.5px;color:var(--bronze)!important;text-transform:uppercase;letter-spacing:.06em;margin:2px 0 10px!important;}
+  .hero-meta{display:flex;flex-direction:column;gap:4px;}
+
+  .notice{display:flex;gap:12px;align-items:flex-start;background:linear-gradient(180deg, rgba(201,161,90,0.08), rgba(201,161,90,0.03));border:1px solid rgba(201,161,90,0.28);border-radius:3px;padding:12px 16px;margin-bottom:26px;font-size:13px;color:var(--ink-dim);}
+  .notice b{color:var(--bronze);}
+
+  .notice .mark{font-family:var(--font-display);font-size:20px;color:var(--bronze);line-height:1;}
+
+  .main-tabs{display:flex;gap:4px;margin-bottom:22px;border-bottom:1px solid var(--line);flex-wrap:wrap;}
+  .main-tab{background:none;border:none;color:var(--ink-faint);font-family:var(--font-display);font-size:17px;padding:12px 22px;cursor:pointer;position:relative;top:1px;}
+  .main-tab.active{color:var(--bronze);border-bottom:2px solid var(--bronze);}
+  .main-tab:hover:not(.active){color:var(--ink-dim);}
+  .main-panel{display:none;}
+  .main-panel.active{display:block;}
+
+  .foot-note{margin-top:30px;padding-top:18px;border-top:1px solid var(--line);font-size:12px;color:var(--ink-faint);display:flex;gap:16px;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;}
+  .foot-note > div:first-child{max-width:70ch;}
+  .foot-note #app-version{font-family:var(--font-mono);font-size:11.5px;white-space:nowrap;}
+
+  @media (max-width:760px){
+    .page-flex{padding:0 16px 60px;}
+    .wrap{padding:24px 0 0;}
+    .hero-meta{text-align:left;}
+    header.hero{flex-direction:column;align-items:flex-start;}
+    .main-tab{padding:12px 16px;font-size:15px;}
+  }
+  @media (max-width:460px){
+    .page-flex{padding:0 12px 50px;}
+    .wrap{padding:20px 0 0;}
+    h1{letter-spacing:0;}
+  }

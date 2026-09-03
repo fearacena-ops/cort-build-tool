@@ -1,137 +1,8 @@
-  :root{
-    --bg-0:#0f1410; --bg-1:#161d17; --bg-2:#1d251e; --line:#2c3a2a;
-    --moss:#7fae5a; --moss-dim:#4f6d3d; --bronze:#c9a15a; --blood:#a83c3c; --ice:#5a93a8;
-    --ink:#e7ecdf; --ink-dim:#9fae95; --ink-faint:#6d7a67; --accent-text:#eafbe0;
-    --glow-1:rgba(127,174,90,0.10); --glow-2:rgba(168,60,60,0.06);
-    --font-display: "Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
-    --font-body: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
-    --font-mono: "SF Mono",Consolas,"Liberation Mono",monospace;
-  }
-  /* Alsius — reino del hielo: azules profundos, plata */
-  html[data-realm="alsius"]{
-    --bg-0:#0a141f; --bg-1:#101c2b; --bg-2:#16263a; --line:#264057;
-    --moss:#5b9cc9; --moss-dim:#3d6a8f; --bronze:#a9d6e8; --blood:#c9534a; --ice:#7fc4da;
-    --ink:#e8f2f8; --ink-dim:#a7c3d4; --ink-faint:#5e7d92; --accent-text:#eaf7fc;
-    --glow-1:rgba(91,156,201,0.12); --glow-2:rgba(169,214,232,0.06);
-  }
-  /* Ignis — reino del fuego: rojos, ámbar, negro carbón */
-  html[data-realm="ignis"]{
-    --bg-0:#170e09; --bg-1:#211408; --bg-2:#2b1a0f; --line:#4a2d18;
-    --moss:#c9622f; --moss-dim:#8f4520; --bronze:#e8a23a; --blood:#d6432f; --ice:#e0813a;
-    --ink:#f5e9df; --ink-dim:#d6ab8c; --ink-faint:#8f6b50; --accent-text:#fdf0e0;
-    --glow-1:rgba(201,98,47,0.13); --glow-2:rgba(214,67,47,0.08);
-  }
-  *{box-sizing:border-box;}
-  html,body{margin:0;padding:0;}
-  body{
-    background:
-      radial-gradient(ellipse 900px 500px at 15% -10%, var(--glow-1), transparent 60%),
-      radial-gradient(ellipse 700px 500px at 100% 0%, var(--glow-2), transparent 55%),
-      var(--bg-0);
-    color:var(--ink); font-family:var(--font-body); line-height:1.5; min-height:100vh;
-    transition:background-color .3s;
-  }
-  .top-bar{background:var(--moss);color:#fff;text-align:center;font-size:12.5px;padding:8px 16px;letter-spacing:.02em;}
-  .top-bar a{color:#fff;text-decoration:underline;font-weight:600;}
-
-  .page-flex{display:flex;gap:28px;justify-content:center;max-width:1780px;margin:0 auto;padding:0 22px 80px;}
-  .shield-rail{flex:0 0 240px;display:flex;flex-direction:column;align-items:center;gap:22px;padding-top:14px;}
-  .config-rail{flex:0 0 320px;display:flex;flex-direction:column;gap:20px;padding-top:0;opacity:1;transition:opacity .15s ease;}
-  .config-rail.rail-measuring{opacity:0;}
-  .wrap{max-width:1180px;width:100%;padding:14px 0 0;}
-  @media (max-width:1440px){
-    .page-flex{flex-direction:column;max-width:1180px;padding:0 22px 80px;}
-    .shield-rail{display:none;}
-    .config-rail{flex:0 0 auto;width:100%;padding-top:0;margin-bottom:20px;}
-  }
-
-  header.hero{display:flex;flex-wrap:wrap;gap:20px 32px;align-items:center;justify-content:space-between;padding-bottom:8px;margin-bottom:8px;}
-  .hero-left{display:flex;align-items:center;gap:20px;}
-  .hero-realm-shield{width:220px;height:220px;object-fit:contain;object-position:top center;filter:drop-shadow(0 4px 14px rgba(0,0,0,.4));}
-  .hero-realm-shield.hero-realm-shield-small{width:52px;height:52px;filter:drop-shadow(0 2px 6px rgba(0,0,0,.4));}
-  #hero-shield-anchor{display:flex;flex-shrink:0;}
-  .hero-title{max-width:640px;}
-  .eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--moss);margin:0 0 10px;}
-  h1{font-family:var(--font-display);font-weight:400;font-size:clamp(28px,4vw,42px);margin:0 0 10px;color:var(--ink);letter-spacing:.01em;}
-  .hero-h1{display:flex;align-items:center;gap:14px;}
-  .hero-class-icon{width:clamp(32px,4.2vw,46px);height:clamp(32px,4.2vw,46px);border-radius:50%;flex-shrink:0;}
-  h1 em{color:var(--bronze);font-style:italic;}
-  .hero-title p{color:var(--ink-dim);margin:0;max-width:56ch;font-size:14.5px;}
-  .hero-subclass{font-family:var(--font-mono);font-size:12.5px;color:var(--bronze)!important;text-transform:uppercase;letter-spacing:.06em;margin:2px 0 10px!important;}
-  .hero-meta{display:flex;flex-direction:column;gap:4px;}
-
-  .notice{display:flex;gap:12px;align-items:flex-start;background:linear-gradient(180deg, rgba(201,161,90,0.08), rgba(201,161,90,0.03));border:1px solid rgba(201,161,90,0.28);border-radius:3px;padding:12px 16px;margin-bottom:26px;font-size:13px;color:var(--ink-dim);}
-  .notice b{color:var(--bronze);}
-
-  .notice .mark{font-family:var(--font-display);font-size:20px;color:var(--bronze);line-height:1;}
-
-  .main-tabs{display:flex;gap:4px;margin-bottom:22px;border-bottom:1px solid var(--line);flex-wrap:wrap;}
-  .main-tab{background:none;border:none;color:var(--ink-faint);font-family:var(--font-display);font-size:17px;padding:12px 22px;cursor:pointer;position:relative;top:1px;}
-  .main-tab.active{color:var(--bronze);border-bottom:2px solid var(--bronze);}
-  .main-tab:hover:not(.active){color:var(--ink-dim);}
-  .main-panel{display:none;}
-
-  #panel-map{padding:0 16px;}
-  .map-toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;max-width:1180px;margin:0 auto 12px;position:relative;}
-  #map-search{flex:1 1 240px;background:var(--bg-0);border:1px solid var(--line);border-radius:20px;padding:9px 16px;color:var(--ink);font-size:13.5px;}
-  .map-filters{display:flex;gap:8px;flex-wrap:wrap;}
-  .map-filters select{background:var(--bg-0);border:1px solid var(--line);border-radius:20px;padding:8px 12px;color:var(--ink-dim);font-size:12.5px;}
-  .map-results{position:absolute;top:100%;left:0;right:0;background:var(--bg-1);border:1px solid var(--line);border-radius:6px;max-height:340px;overflow-y:auto;z-index:1000;display:none;}
-  .map-results.is-open{display:block;}
-  .map-result-item{padding:10px 14px;cursor:pointer;border-bottom:1px solid var(--line);font-size:13px;}
-  .map-result-item:last-child{border-bottom:none;}
-  .map-result-item:hover{background:var(--bg-2);}
-  .map-result-item .mri-name{color:var(--ink);}
-  .map-result-item .mri-meta{color:var(--ink-faint);font-size:11.5px;margin-top:2px;}
-  .map-frame{position:relative;max-width:1180px;margin:0 auto;}
-  #regnum-map{width:100%;height:70vh;min-height:480px;border-radius:6px;border:1px solid var(--line);background:#0a0e14;}
-  .map-zoom-badge{position:absolute;right:10px;bottom:10px;z-index:600;background:rgba(10,14,20,.82);border:1px solid var(--line);border-radius:14px;padding:5px 12px;font-family:var(--font-mono);font-size:11.5px;color:var(--ink-dim);pointer-events:none;}
-  /* Brújula: el mapa no rota, así que son cuatro etiquetas fijas en los
-     bordes del recuadro — no hace falta recalcularlas por zoom o paneo. */
-  .map-compass{position:absolute;inset:0;z-index:600;pointer-events:none;}
-  .map-compass span{position:absolute;font-family:var(--font-mono);font-size:24px;font-weight:600;color:var(--ink-dim);text-shadow:0 0 4px #000,0 0 4px #000;}
-  .map-compass-n{top:8px;left:50%;transform:translateX(-50%);}
-  .map-compass-s{bottom:8px;left:50%;transform:translateX(-50%);}
-  .map-compass-e{right:8px;top:50%;transform:translateY(-50%);}
-  .map-compass-o{left:8px;top:50%;transform:translateY(-50%);}
-  /* Checkboxes de capas del mapa: viven bajo el escudo en pantallas anchas
-     (.shield-rail) y se mueven acá abajo del buscador en las angostas —
-     mismo patrón que ya usa el escudo y el rail de subclase. */
-  .map-layers{display:flex;flex-direction:column;gap:10px;}
-  .map-layers.map-layers-inline{flex-direction:row;gap:18px;margin-bottom:14px;}
-  .leaflet-popup-content{font-family:var(--font-body);font-size:13px;}
-  .leaflet-popup-content b{color:var(--bronze);}
-  .regnum-marker{display:flex;align-items:center;justify-content:center;font-size:13px;line-height:1;text-shadow:0 0 3px #000,0 0 3px #000;}
-  .regnum-marker-mision{color:#ffd23f;font-weight:700;}
-  /* Color fijo (no var(--bronze)): esa variable cambia según el tema de
-     reino elegido arriba a la derecha, que no tiene nada que ver con el
-     reino de cada lugar — con var(--bronze) las casas cambiaban de color
-     solo por tocar el selector de tema. */
-  .regnum-marker-ciudad,.regnum-marker-pueblo,.regnum-marker-aldea{color:#c9a15a;filter:drop-shadow(0 0 2px #000) drop-shadow(0 0 3px #000);}
-  .regnum-marker-ciudad{font-size:34px;}
-  .regnum-marker-pueblo{font-size:26px;}
-  .regnum-marker-aldea{font-size:18px;}
-  .regnum-marker-fuerte{font-size:32px;}
-  .regnum-marker-castillo{font-size:44px;}
-  .regnum-marker-muralla{font-size:15px;}
-  .regnum-marker-altar{font-size:24px;}
-  /* Mismos colores que ya usa el selector de reino arriba, para que un
-     vistazo alcance para saber de qué reino es un NPC/fuerte/castillo. */
-  .realm-color-syrtis{color:#7fae5a;}
-  .realm-color-alsius{color:#5b9cc9;}
-  .realm-color-ignis{color:#c9622f;}
-  /* Modo edición: resaltado de selección múltiple y estado activo del botón. */
-  /* Blanco a propósito, no bronce: un ícono ya bronce (casa/altar/fuerte)
-     con anillo bronce apenas contrastaba — blanco resalta contra cualquier
-     color/fondo. z-index para que el halo no quede tapado por otros
-     marcadores/mosaicos vecinos. */
-  .regnum-marker-selected{outline:3px solid #fff;outline-offset:3px;border-radius:50%;box-shadow:0 0 0 6px rgba(255,255,255,.4), 0 0 12px 4px rgba(255,255,255,.55);z-index:1000!important;}
-  .mini-btn.active{border-color:var(--bronze);color:var(--bronze);background:rgba(255,255,255,.08);}
-  @media (max-width:760px){
-    #panel-map{padding:0 12px;}
-    #regnum-map{height:60vh;}
-  }
-  .main-panel.active{display:block;}
+/* ========================================================================
+   build.css — todo lo específico de la pestaña "Tu build": el panel de
+   configuración inicial, el camino de niveleo (path-strip/stage/diff),
+   la lista de disciplinas y hechizos, y la tarjeta de exportación.
+   ======================================================================== */
 
   .panel{background:linear-gradient(180deg, var(--bg-2), var(--bg-1));border:1px solid var(--line);border-radius:4px;padding:26px 26px 22px;margin-bottom:24px;position:relative;}
   .panel::before{content:"";position:absolute;top:0;left:22px;right:22px;height:1px;background:linear-gradient(90deg, transparent, var(--moss-dim), transparent);}
@@ -331,18 +202,10 @@
   .export-empty{font-size:11.5px;color:var(--ink-faint);font-style:italic;white-space:nowrap;}
   .export-row .go-btn{width:auto;flex:1;min-width:180px;margin-top:0;}
 
-  .foot-note{margin-top:30px;padding-top:18px;border-top:1px solid var(--line);font-size:12px;color:var(--ink-faint);display:flex;gap:16px;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;}
-  .foot-note > div:first-child{max-width:70ch;}
-  .foot-note #app-version{font-family:var(--font-mono);font-size:11.5px;white-space:nowrap;}
-
   @media (max-width:760px){
-    .page-flex{padding:0 16px 60px;}
-    .wrap{padding:24px 0 0;}
     .tabframe{flex-direction:column;}
     .tab-rail{flex-direction:row;flex-wrap:wrap;flex:none;}
     .rail-btn{width:auto;flex:1 1 150px;}
-    .hero-meta{text-align:left;}
-    header.hero{flex-direction:column;align-items:flex-start;}
     .stage-head{flex-direction:column;align-items:flex-start;}
     .panel{padding:20px 18px 18px;}
     .stage-body{padding:16px 18px 18px;}
@@ -351,15 +214,12 @@
     .mbtn{width:32px;height:32px;font-size:16px;}
     .spell-expand{width:30px;height:30px;font-size:13px;}
     .choice-btn{padding:10px 16px;}
-    .main-tab{padding:12px 16px;font-size:15px;}
     .go-btn{padding:15px;}
     table.detail-table{font-size:10.5px;table-layout:fixed;}
     table.detail-table th, table.detail-table td{padding:5px 5px;}
     table.detail-table th.rowlabel, table.detail-table td.rowlabel{white-space:normal;}
   }
   @media (max-width:460px){
-    .page-flex{padding:0 12px 50px;}
-    .wrap{padding:20px 0 0;}
     .rail-btn{flex-basis:100%;}
     .spell-row{gap:8px;}
     .rank-pips{width:56px;}
@@ -369,7 +229,6 @@
     .num-inputs input[type=number]{width:68px;font-size:15px;}
     .summary-grid{grid-template-columns:repeat(auto-fit,minmax(105px,1fr));}
     .stat-card .value{font-size:19px;}
-    h1{letter-spacing:0;}
     .export-row .go-btn{min-width:140px;}
     .choice-group{gap:6px;}
     .choice-btn{font-size:12.5px;padding:8px 12px;}

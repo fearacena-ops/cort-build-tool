@@ -1,0 +1,69 @@
+/* ========================================================================
+   map.css — todo lo específico de la pestaña "Mapa interactivo": buscador,
+   chips de filtro, checkboxes de capas, el recuadro del mapa en sí
+   (Leaflet), la brújula y los estilos de los marcadores.
+   ======================================================================== */
+
+  #panel-map{padding:0 16px;}
+  .map-toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;max-width:1180px;margin:0 auto 12px;position:relative;}
+  #map-search{flex:1 1 240px;background:var(--bg-0);border:1px solid var(--line);border-radius:20px;padding:9px 16px;color:var(--ink);font-size:13.5px;}
+  .map-filters{display:flex;gap:8px;flex-wrap:wrap;}
+  .map-filters select{background:var(--bg-0);border:1px solid var(--line);border-radius:20px;padding:8px 12px;color:var(--ink-dim);font-size:12.5px;}
+  .map-results{position:absolute;top:100%;left:0;right:0;background:var(--bg-1);border:1px solid var(--line);border-radius:6px;max-height:340px;overflow-y:auto;z-index:1000;display:none;}
+  .map-results.is-open{display:block;}
+  .map-result-item{padding:10px 14px;cursor:pointer;border-bottom:1px solid var(--line);font-size:13px;}
+  .map-result-item:last-child{border-bottom:none;}
+  .map-result-item:hover{background:var(--bg-2);}
+  .map-result-item .mri-name{color:var(--ink);}
+  .map-result-item .mri-meta{color:var(--ink-faint);font-size:11.5px;margin-top:2px;}
+  .map-frame{position:relative;max-width:1180px;margin:0 auto;}
+  #regnum-map{width:100%;height:70vh;min-height:480px;border-radius:6px;border:1px solid var(--line);background:#0a0e14;}
+  .map-zoom-badge{position:absolute;right:10px;bottom:10px;z-index:600;background:rgba(10,14,20,.82);border:1px solid var(--line);border-radius:14px;padding:5px 12px;font-family:var(--font-mono);font-size:11.5px;color:var(--ink-dim);pointer-events:none;}
+  /* Brújula: el mapa no rota, así que son cuatro etiquetas fijas en los
+     bordes del recuadro — no hace falta recalcularlas por zoom o paneo. */
+  .map-compass{position:absolute;inset:0;z-index:600;pointer-events:none;}
+  .map-compass span{position:absolute;font-family:var(--font-mono);font-size:24px;font-weight:600;color:var(--ink-dim);text-shadow:0 0 4px #000,0 0 4px #000;}
+  .map-compass-n{top:8px;left:50%;transform:translateX(-50%);}
+  .map-compass-s{bottom:8px;left:50%;transform:translateX(-50%);}
+  .map-compass-e{right:8px;top:50%;transform:translateY(-50%);}
+  .map-compass-o{left:8px;top:50%;transform:translateY(-50%);}
+  /* Checkboxes de capas del mapa: viven bajo el escudo en pantallas anchas
+     (.shield-rail) y se mueven acá abajo del buscador en las angostas —
+     mismo patrón que ya usa el escudo y el rail de subclase. */
+  .map-layers{display:flex;flex-direction:column;gap:10px;}
+  /* flex-wrap:wrap — sin esto los 9 checkboxes en fila no entran en
+     pantallas angostas (celular) y desbordan hacia la derecha, agrandando
+     el ancho de toda la página (scroll horizontal en vez de acomodarse). */
+  .map-layers.map-layers-inline{flex-direction:row;flex-wrap:wrap;gap:8px 18px;margin-bottom:14px;}
+  .leaflet-popup-content{font-family:var(--font-body);font-size:13px;}
+  .leaflet-popup-content b{color:var(--bronze);}
+  .regnum-marker{display:flex;align-items:center;justify-content:center;font-size:13px;line-height:1;text-shadow:0 0 3px #000,0 0 3px #000;}
+  .regnum-marker-mision{color:#ffd23f;font-weight:700;}
+  /* Color fijo (no var(--bronze)): esa variable cambia según el tema de
+     reino elegido arriba a la derecha, que no tiene nada que ver con el
+     reino de cada lugar — con var(--bronze) las casas cambiaban de color
+     solo por tocar el selector de tema. */
+  .regnum-marker-ciudad,.regnum-marker-pueblo,.regnum-marker-aldea{color:#c9a15a;filter:drop-shadow(0 0 2px #000) drop-shadow(0 0 3px #000);}
+  .regnum-marker-ciudad{font-size:34px;}
+  .regnum-marker-pueblo{font-size:26px;}
+  .regnum-marker-aldea{font-size:18px;}
+  .regnum-marker-fuerte{font-size:32px;}
+  .regnum-marker-castillo{font-size:44px;}
+  .regnum-marker-muralla{font-size:15px;}
+  .regnum-marker-altar{font-size:24px;}
+  /* Mismos colores que ya usa el selector de reino arriba, para que un
+     vistazo alcance para saber de qué reino es un NPC/fuerte/castillo. */
+  .realm-color-syrtis{color:#7fae5a;}
+  .realm-color-alsius{color:#5b9cc9;}
+  .realm-color-ignis{color:#c9622f;}
+  /* Modo edición: resaltado de selección múltiple y estado activo del botón. */
+  /* Blanco a propósito, no bronce: un ícono ya bronce (casa/altar/fuerte)
+     con anillo bronce apenas contrastaba — blanco resalta contra cualquier
+     color/fondo. z-index para que el halo no quede tapado por otros
+     marcadores/mosaicos vecinos. */
+  .regnum-marker-selected{outline:3px solid #fff;outline-offset:3px;border-radius:50%;box-shadow:0 0 0 6px rgba(255,255,255,.4), 0 0 12px 4px rgba(255,255,255,.55);z-index:1000!important;}
+  .mini-btn.active{border-color:var(--bronze);color:var(--bronze);background:rgba(255,255,255,.08);}
+  @media (max-width:760px){
+    #panel-map{padding:0 12px;}
+    #regnum-map{height:60vh;}
+  }
