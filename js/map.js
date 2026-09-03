@@ -299,11 +299,13 @@ function initRegnumMapIfNeeded(){
     let refpickPreview = null;
     const panel = document.createElement('div');
     panel.style.cssText = 'position:fixed;bottom:10px;right:10px;z-index:9999;background:#0f1410;border:1px solid #2c3a2a;color:#e7ecdf;font-family:monospace;font-size:12px;padding:10px;border-radius:6px;max-width:260px;';
-    panel.innerHTML = `<b>Puntos de zona (refpick)</b><br>
+    panel.innerHTML = `<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" id="refpick-poly-mode"> Modo polígono (sin globo)</label>
+      <b>Puntos de zona</b><br>
       <span id="refpick-count">0 puntos</span><br>
       <button type="button" id="refpick-copy-poly" style="margin-top:6px">Copiar puntos</button>
       <button type="button" id="refpick-reset" style="margin-top:6px">Reiniciar</button>`;
     document.body.appendChild(panel);
+    const polyModeCheckbox = document.getElementById('refpick-poly-mode');
     function refreshRefpickPanel(){
       document.getElementById('refpick-count').textContent = `${refpickPoints.length} punto${refpickPoints.length===1?'':'s'}`;
       if(refpickPreview) regnumMap.removeLayer(refpickPreview);
@@ -323,13 +325,20 @@ function initRegnumMapIfNeeded(){
       refpickPoints.length = 0;
       refreshRefpickPanel();
     });
+    // El checkbox decide cuál de las dos cosas hace cada click — antes
+    // hacía las dos siempre, y el globo de referencia (pensado para un
+    // punto suelto) se volvía molesto al ir clickeando muchos puntos
+    // seguidos para armar un polígono.
     regnumMap.on('click', (e)=>{
       const pt = regnumMap.project(e.latlng, 0);
       const col = Number((pt.x/TILE_SIZE).toFixed(3));
       const row = Number((pt.y/TILE_SIZE).toFixed(3));
+      if(polyModeCheckbox.checked){
+        refpickPoints.push({col, row});
+        refreshRefpickPanel();
+        return;
+      }
       const text = `col=${col.toFixed(3)} row=${row.toFixed(3)}`;
-      refpickPoints.push({col, row});
-      refreshRefpickPanel();
       L.popup().setLatLng(e.latlng)
         .setContent(`<b>Referencia</b><br><code>${text}</code><br><button type="button" id="refpick-copy" style="margin-top:6px">Copiar</button>`)
         .openOn(regnumMap);
