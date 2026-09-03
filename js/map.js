@@ -46,6 +46,11 @@ function markerKey(m){
 let selectionMode = false;
 let selectedKeys = new Set();
 let markersByKey = {};
+
+// Clave del marcador que la búsqueda mostró a la fuerza pese a tener su
+// categoría apagada (si hay uno) — ver wireRegnumSearchAndFilters y el
+// popupclose en initRegnumMapIfNeeded.
+let forcedVisibleKey = null;
 function latLngToPoint(latlng){ return regnumMap.project(latlng, 0); }
 function pointToLatLng(pt){ return regnumMap.unproject([pt.x, pt.y], 0); }
 
@@ -191,8 +196,23 @@ function initRegnumMapIfNeeded(){
   // Si un resultado de búsqueda fuerza a mostrar un marcador cuya categoría
   // tiene el checkbox apagado (ver wireRegnumSearchAndFilters), que vuelva
   // a ocultarse al cerrar su popup — no debería quedar "colado" para
-  // siempre solo por haberlo buscado una vez.
-  regnumMap.on('popupclose', ()=> applyRegnumFilters());
+  // siempre solo por haberlo buscado una vez. OJO: 'popupclose' también
+  // se dispara al abrir OTRO globo (Leaflet cierra el anterior solo,
+  // "autoClose") y al hacer click en cualquier globo o marcador — por eso
+  // acá NO se puede reconstruir toda la capa de marcadores (clearLayers +
+  // volver a agregar todo) como se hacía antes: eso le cambia el nodo del
+  // ícono por debajo a marcadores que están en medio de manejar ESE mismo
+  // click, y termina rompiendo los clicks siguientes (globos que dejan de
+  // abrir, mapa "pegado"). Por eso ahora solo se saca, puntualmente, el
+  // marcador que quedó anotado como forzado por la búsqueda — nada más.
+  regnumMap.on('popupclose', (e)=>{
+    if(!forcedVisibleKey) return;
+    const m = regnumAllMarkerObjs.find(x=> x.__key === forcedVisibleKey);
+    forcedVisibleKey = null;
+    if(m && e.popup === m._leaflet.getPopup() && !passesRegnumFilters(m)){
+      regnumMarkersLayer.removeLayer(m._leaflet);
+    }
+  });
 
   // Si el globo se abre muy cerca de un borde del recuadro (por ejemplo un
   // marcador cerca del borde del mundo, al zoom mínimo) no entra completo
@@ -631,32 +651,39 @@ function populateRegnumFilters(){
 
 const PLACE_TOGGLE_IDS = ['map-toggle-aldea','map-toggle-pueblo','map-toggle-ciudad','map-toggle-fuerte','map-toggle-castillo','map-toggle-muralla','map-toggle-altar'];
 
-function applyRegnumFilters(){
+// Separado de applyRegnumFilters para poder reusarlo también al chequear
+// un solo marcador puntual (ver popupclose más abajo) sin tener que
+// reconstruir toda la capa de marcadores por eso.
+function passesRegnumFilters(m){
   const showNpc = document.getElementById('map-toggle-npc').checked;
   const showMision = document.getElementById('map-toggle-mision').checked;
   const reino = document.getElementById('map-filter-reino').value;
   const prof = document.getElementById('map-filter-profesion').value;
   const nivel = document.getElementById('map-filter-nivel').value;
 
+  if(m.tipo === 'npc' && !showNpc) return false;
+  if(m.tipo === 'mision' && !showMision) return false;
+  if(m.tipo === 'ciudad'){
+    // Cada categoría de lugar (Aldea/Pueblo/Ciudad/Fuerte/Castillo/
+    // Muralla/Altar) tiene su propio checkbox — ver PLACE_TOGGLE_ID.
+    const toggleId = PLACE_TOGGLE_ID[m.categoria];
+    const toggle = toggleId && document.getElementById(toggleId);
+    if(toggle && !toggle.checked) return false;
+  }
+  if(reino && m.reino !== reino) return false;
+  // Profesión y nivel son propios de NPCs/misiones — las ciudades no
+  // tienen esos campos, así que no las toca ninguno de estos dos filtros.
+  if(m.tipo !== 'ciudad'){
+    if(prof && m.profesion !== prof) return false;
+    if(nivel && String(m.nivel) !== nivel) return false;
+  }
+  return true;
+}
+
+function applyRegnumFilters(){
   regnumMarkersLayer.clearLayers();
   regnumAllMarkerObjs.forEach(m=>{
-    if(m.tipo === 'npc' && !showNpc) return;
-    if(m.tipo === 'mision' && !showMision) return;
-    if(m.tipo === 'ciudad'){
-      // Cada categoría de lugar (Aldea/Pueblo/Ciudad/Fuerte/Castillo/
-      // Muralla/Altar) tiene su propio checkbox — ver PLACE_TOGGLE_ID.
-      const toggleId = PLACE_TOGGLE_ID[m.categoria];
-      const toggle = toggleId && document.getElementById(toggleId);
-      if(toggle && !toggle.checked) return;
-    }
-    if(reino && m.reino !== reino) return;
-    // Profesión y nivel son propios de NPCs/misiones — las ciudades no
-    // tienen esos campos, así que no las toca ninguno de estos dos filtros.
-    if(m.tipo !== 'ciudad'){
-      if(prof && m.profesion !== prof) return;
-      if(nivel && String(m.nivel) !== nivel) return;
-    }
-    m._leaflet.addTo(regnumMarkersLayer);
+    if(passesRegnumFilters(m)) m._leaflet.addTo(regnumMarkersLayer);
   });
 }
 
@@ -689,7 +716,14 @@ function wireRegnumSearchAndFilters(){
         results.classList.remove('is-open');
         input.value = m.nombre;
         regnumMap.setView(m._leaflet.getLatLng(), 0);
-        if(!regnumMarkersLayer.hasLayer(m._leaflet)) m._leaflet.addTo(regnumMarkersLayer);
+        if(!regnumMarkersLayer.hasLayer(m._leaflet)){
+          // Categoría apagada: se muestra igual porque lo pidió la
+          // búsqueda, pero queda anotado para sacarlo de nuevo al cerrar
+          // su globo (ver popupclose más abajo) — sin tocar ningún otro
+          // marcador en el proceso.
+          m._leaflet.addTo(regnumMarkersLayer);
+          forcedVisibleKey = m.__key;
+        }
         m._leaflet.openPopup();
       });
     });
@@ -708,7 +742,17 @@ document.addEventListener('DOMContentLoaded', ()=>{
   mapTabBtn.addEventListener('click', ()=>{
     setTimeout(()=>{
       initRegnumMapIfNeeded();
-      if(regnumMap) regnumMap.invalidateSize();
+      // El tamaño/encuadre (sizeMapSquare + fitMinZoomToContainer, colgados
+      // del listener de 'resize' de más abajo) antes solo se calculaban una
+      // vez, la primera vez que se inicializaba el mapa — si en ESE momento
+      // puntual quedaban mal calculados (por ejemplo el layout del panel
+      // recién mostrado todavía no había terminado de asentarse), se
+      // quedaban así para siempre, sin corregirse nunca (el mapa no vuelve
+      // a mostrar el mundo completo aunque después sí tenga el tamaño
+      // correcto). Disparar 'resize' cada vez que se abre la pestaña fuerza
+      // a recalcular todo contra el tamaño ACTUAL, ya asentado, sin
+      // depender de que haya salido bien la primera vez.
+      if(regnumMap) window.dispatchEvent(new Event('resize'));
     }, 50);
   });
 });
