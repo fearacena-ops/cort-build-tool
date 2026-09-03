@@ -35,7 +35,11 @@ function saveMapEdits(){
 // desempate. No depende de la posición en el array, así que sigue
 // funcionando aunque se reordene o se agreguen/saquen otros registros.
 function markerKey(m){
-  const extra = m.tipo === 'npc' ? (m.zona||'') : m.tipo === 'ciudad' ? (m.categoria||'') : (m.la_da||'');
+  // Para 'ciudad' se usa zona si existe (p.ej. los altares: varios
+  // comparten nombre "Altar de Resurrección" Y categoría "Altar", así que
+  // sin la zona como desempate todos colisionarían en la misma clave) y
+  // si no hay zona se cae a categoria como antes (lugares que no la tienen).
+  const extra = m.tipo === 'npc' ? (m.zona||'') : m.tipo === 'ciudad' ? (m.zona || m.categoria || '') : (m.la_da||'');
   return `${m.tipo}|${m.nombre}|${extra}`;
 }
 
@@ -437,7 +441,7 @@ function buildRegnumMarkers(){
 
 function editableFieldsFor(m){
   if(m.tipo === 'npc') return [['nombre','Nombre'], ['profesion','Profesión'], ['zona','Zona'], ['reino','Reino']];
-  if(m.tipo === 'ciudad') return [['nombre','Nombre'], ['categoria','Categoría'], ['reino','Reino']];
+  if(m.tipo === 'ciudad') return [['nombre','Nombre'], ['categoria','Categoría'], ['zona','Zona'], ['reino','Reino']];
   return [['nombre','Nombre'], ['nivel','Nivel'], ['la_da','La da'], ['xp','XP'], ['oro','Oro']];
 }
 
@@ -555,7 +559,10 @@ function wireEditMarker(marker, m){
 
 function buildRegnumPopupHTML(m){
   if(m.tipo === 'ciudad'){
-    return `<b>${m.nombre}</b><br>${m.categoria}<br>${m.reino}`;
+    // Los altares comparten el mismo nombre ("Altar de Resurrección") —
+    // ahí conviene mostrar la zona en vez de repetir "Altar" en todos.
+    const linea2 = m.categoria === 'Altar' && m.zona ? m.zona : m.categoria;
+    return `<b>${m.nombre}</b><br>${linea2}<br>${m.reino}`;
   }
   if(m.tipo === 'npc'){
     return `<b>${m.nombre}</b><br>${m.profesion || m.clase || ''}${m.zona ? ' · '+m.zona : ''}<br>${m.reino}`;
@@ -732,7 +739,7 @@ function wireRegnumSearchAndFilters(){
     results.innerHTML = matches.map((m,i)=>`
       <div class="map-result-item" data-idx="${regnumAllMarkerObjs.indexOf(m)}">
         <div class="mri-name">${searchGlyph(m)} ${m.nombre}</div>
-        <div class="mri-meta">${m.tipo==='npc' ? (m.profesion||m.clase||'') : m.tipo==='ciudad' ? m.categoria : 'Nivel '+m.nivel+' · La da: '+m.la_da} · ${m.reino}</div>
+        <div class="mri-meta">${m.tipo==='npc' ? (m.profesion||m.clase||'') : m.tipo==='ciudad' ? (m.categoria==='Altar' && m.zona ? m.zona : m.categoria) : 'Nivel '+m.nivel+' · La da: '+m.la_da} · ${m.reino}</div>
       </div>`).join('');
     results.classList.add('is-open');
     results.querySelectorAll('.map-result-item').forEach(el=>{
