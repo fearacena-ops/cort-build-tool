@@ -226,28 +226,31 @@ function tileToLatLng(col, row){
 }
 
 const REALM_SLUG = {Syrtis:'syrtis', Alsius:'alsius', Ignis:'ignis'};
-// Ciudad/Pueblo/Aldea(ex-Villa)/Puerto comparten el ícono de casa, sin color
-// de reino (ya se distinguen por reino con el filtro y el popup). Muralla/
-// Fuerte/Castillo/Altar sí llevan color de reino, para reconocerlos de un
-// vistazo. "Villa" queda como alias de "Aldea" por si algún registro viejo
-// todavía usa ese nombre.
-const PLACE_SHAPE = {Ciudad:'ciudad', Pueblo:'ciudad', Aldea:'ciudad', Villa:'ciudad', Puerto:'ciudad', Muralla:'muralla', Fuerte:'fuerte', Castillo:'castillo', Altar:'altar'};
+// Ciudad/Pueblo/Aldea(ex-Villa) comparten el ícono de casa, sin color de
+// reino (ya se distinguen por reino con el filtro y el popup) pero con
+// tamaño creciente Aldea < Pueblo < Ciudad para diferenciarlas de un
+// vistazo. Puerto usa el tamaño de Pueblo (mismo checkbox). Muralla/Fuerte/
+// Castillo/Altar sí llevan color de reino. "Villa" queda como alias de
+// "Aldea" por si algún registro viejo todavía usa ese nombre.
+const PLACE_SHAPE = {Ciudad:'ciudad', Pueblo:'pueblo', Puerto:'pueblo', Aldea:'aldea', Villa:'aldea', Muralla:'muralla', Fuerte:'fuerte', Castillo:'castillo', Altar:'altar'};
+const PLACE_SIZE = {ciudad:34, pueblo:26, aldea:18, castillo:44, fuerte:32, altar:24, muralla:15};
+const PLACE_NO_REALM_COLOR = new Set(['ciudad', 'pueblo', 'aldea']);
 // Cada categoría se filtra con su propio checkbox — ver #map-layers-block.
 const PLACE_TOGGLE_ID = {Ciudad:'map-toggle-ciudad', Pueblo:'map-toggle-pueblo', Puerto:'map-toggle-pueblo', Aldea:'map-toggle-aldea', Villa:'map-toggle-aldea', Fuerte:'map-toggle-fuerte', Castillo:'map-toggle-castillo', Muralla:'map-toggle-muralla', Altar:'map-toggle-altar'};
 // El carácter de texto "⌂" sale hueco (solo el contorno) en la mayoría de
 // las fuentes — no hay forma de "rellenarlo" solo con color de texto. Un
 // SVG con fill:currentColor sí queda relleno del color que le pongamos.
 const HOUSE_SVG = '<svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor"><path d="M12 2 L2 11 L5 11 L5 22 L19 22 L19 11 L22 11 Z"/></svg>';
-const PLACE_GLYPH = {ciudad:HOUSE_SVG, muralla:'▬', fuerte:'♜', castillo:'♜', altar:'◎'};
+const PLACE_GLYPH = {ciudad:HOUSE_SVG, pueblo:HOUSE_SVG, aldea:HOUSE_SVG, muralla:'▬', fuerte:'♜', castillo:'♜', altar:'◎'};
 
 function iconFor(m){
   if(m.tipo === 'mision') return L.divIcon({className:'regnum-marker regnum-marker-mision', html:'!', iconSize:[10,14]});
   if(m.tipo === 'npc') return L.divIcon({className:`regnum-marker regnum-marker-npc realm-color-${REALM_SLUG[m.reino]||'syrtis'}`, html:'●', iconSize:[14,14]});
   // ciudad/lugar: la forma sale de la categoría (Ciudad/Fuerte/Castillo/...)
   const shape = PLACE_SHAPE[m.categoria] || 'ciudad';
-  const size = shape === 'castillo' ? 44 : shape === 'fuerte' ? 32 : shape === 'altar' ? 24 : shape === 'muralla' ? 15 : 34;
-  const cls = shape === 'ciudad'
-    ? 'regnum-marker regnum-marker-ciudad'
+  const size = PLACE_SIZE[shape] || 34;
+  const cls = PLACE_NO_REALM_COLOR.has(shape)
+    ? `regnum-marker regnum-marker-${shape}`
     : `regnum-marker regnum-marker-${shape} realm-color-${REALM_SLUG[m.reino]||'syrtis'}`;
   return L.divIcon({className:cls, html:PLACE_GLYPH[shape], iconSize:[size,size]});
 }
