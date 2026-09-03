@@ -14,6 +14,31 @@ const TILE_SIZE = 1024;
 const GRID = 18;
 const MAP_PX = TILE_SIZE * GRID;
 
+// Modo edición (?editmode=1): arrastrar cualquier marcador para moverlo,
+// editar sus campos o borrarlo, y exportar todos los cambios de la sesión
+// como un bloque de texto para pasar y aplicar. Como el sitio es estático
+// (sin base de datos), nada de esto se guarda solo — por eso además de
+// acumularse en memoria se van guardando en localStorage (para no perder
+// el trabajo si se recarga la página sin haber exportado todavía) y hay
+// que exportar y mandar los cambios a mano al terminar.
+const EDIT_MODE = new URLSearchParams(location.search).get('editmode') === '1';
+const EDIT_STORAGE_KEY = 'cort-map-edits';
+let mapEdits = {};
+if(EDIT_MODE){
+  try { mapEdits = JSON.parse(localStorage.getItem(EDIT_STORAGE_KEY) || '{}'); } catch(e){ mapEdits = {}; }
+}
+function saveMapEdits(){
+  try { localStorage.setItem(EDIT_STORAGE_KEY, JSON.stringify(mapEdits)); } catch(e){}
+}
+// Clave estable por marcador: nombre no siempre alcanza solo (podría
+// repetirse), así que se suma zona/categoría/dador de misión como
+// desempate. No depende de la posición en el array, así que sigue
+// funcionando aunque se reordene o se agreguen/saquen otros registros.
+function markerKey(m){
+  const extra = m.tipo === 'npc' ? (m.zona||'') : m.tipo === 'ciudad' ? (m.categoria||'') : (m.la_da||'');
+  return `${m.tipo}|${m.nombre}|${extra}`;
+}
+
 // El mapa fuente es cuadrado (18x18 mosaicos) — si el recuadro no lo es,
 // "llenarlo entero" (sin bandas negras) y "mostrar el mundo completo" se
 // contradicen. Haciendo el recuadro cuadrado se cumplen las dos cosas a la
@@ -214,13 +239,91 @@ function buildRegnumMarkers(){
   regnumAllMarkerObjs = [];
   const todos = [...regnumMapData.npcs, ...regnumMapData.misiones, ...(regnumMapData.ciudades||[])];
   todos.forEach(m=>{
-    const latlng = m.tipo === 'ciudad' ? tileToLatLng(m.col, m.row) : pixelToLatLng(m.x, m.y);
-    const marker = L.marker(latlng, {icon: iconFor(m)});
-    marker.bindPopup(buildRegnumPopupHTML(m));
+    // La clave hay que calcularla ANTES de aplicar ediciones guardadas (si
+    // ya se renombró en una sesión anterior, recalcularla ahora daría una
+    // clave distinta y se perdería el vínculo con lo guardado) — por eso
+    // se cachea en m.__key y de ahí en más siempre se usa esa, nunca se
+    // vuelve a calcular con markerKey().
+    const key = markerKey(m);
+    const edit = mapEdits[key];
+    if(edit && edit.deleted) return; // no se agrega al mapa ni a la lista
+    if(edit && edit.fields) Object.assign(m, edit.fields);
+    m.__key = key;
+
+    const latlng = edit && edit.move
+      ? tileToLatLng(edit.move.col, edit.move.row)
+      : m.tipo === 'ciudad' ? tileToLatLng(m.col, m.row) : pixelToLatLng(m.x, m.y);
+    const marker = L.marker(latlng, {icon: iconFor(m), draggable: EDIT_MODE});
+    if(EDIT_MODE){
+      marker.bindPopup(buildEditPopupHTML(m));
+      wireEditMarker(marker, m);
+    } else {
+      marker.bindPopup(buildRegnumPopupHTML(m));
+    }
     m._leaflet = marker;
     regnumAllMarkerObjs.push(m);
   });
   applyRegnumFilters();
+  if(EDIT_MODE) setupEditModeUI();
+}
+
+function editableFieldsFor(m){
+  if(m.tipo === 'npc') return [['nombre','Nombre'], ['profesion','Profesión'], ['zona','Zona'], ['reino','Reino']];
+  if(m.tipo === 'ciudad') return [['nombre','Nombre'], ['categoria','Categoría'], ['reino','Reino']];
+  return [['nombre','Nombre'], ['nivel','Nivel'], ['la_da','La da'], ['xp','XP'], ['oro','Oro']];
+}
+
+function buildEditPopupHTML(m){
+  const pendiente = mapEdits[m.__key] && (mapEdits[m.__key].move || mapEdits[m.__key].fields) ? ' <span style="color:var(--bronze)">● sin exportar</span>' : '';
+  const inputs = editableFieldsFor(m).map(([f,label])=>
+    `<label style="display:block;margin-top:5px;font-size:11px;color:var(--ink-faint)">${label}<br>
+      <input type="text" data-field="${f}" value="${String(m[f]==null?'':m[f]).replace(/"/g,'&quot;')}" style="width:100%;box-sizing:border-box;"></label>`
+  ).join('');
+  return `<div class="edit-popup">
+    <b>Editar${pendiente}</b>
+    ${inputs}
+    <div style="margin-top:8px;display:flex;gap:6px;">
+      <button type="button" class="ep-save">Guardar</button>
+      <button type="button" class="ep-delete" style="color:#c0392b">Eliminar</button>
+    </div>
+  </div>`;
+}
+
+// Vuelve a armar el contenido del popup (por si cambió algo) y engancha los
+// botones — hay que llamarla cada vez que el contenido se reemplaza, porque
+// setPopupContent() tira los botones/listeners viejos.
+function refreshEditPopup(marker, m){
+  marker.setPopupContent(buildEditPopupHTML(m));
+  const root = marker.getPopup()?.getElement();
+  if(!root) return;
+  root.querySelector('.ep-save')?.addEventListener('click', ()=>{
+    const fields = {};
+    root.querySelectorAll('input[data-field]').forEach(inp=>{ fields[inp.dataset.field] = inp.value; });
+    Object.assign(m, fields);
+    mapEdits[m.__key] = Object.assign({}, mapEdits[m.__key], {fields});
+    saveMapEdits();
+    refreshEditPopup(marker, m);
+  });
+  root.querySelector('.ep-delete')?.addEventListener('click', ()=>{
+    if(!confirm(`¿Eliminar "${m.nombre}"? Se puede deshacer volviendo a exportar sin este cambio.`)) return;
+    mapEdits[m.__key] = Object.assign({}, mapEdits[m.__key], {deleted:true});
+    saveMapEdits();
+    regnumMarkersLayer.removeLayer(marker);
+    regnumAllMarkerObjs = regnumAllMarkerObjs.filter(x=> x !== m);
+  });
+}
+
+// Al arrastrar, guarda la nueva posición (siempre en mosaico col/row, igual
+// que la herramienta ?refpick=1).
+function wireEditMarker(marker, m){
+  marker.on('popupopen', ()=> refreshEditPopup(marker, m));
+  marker.on('dragend', ()=>{
+    const pt = regnumMap.project(marker.getLatLng(), 0);
+    const move = {col: +(pt.x/TILE_SIZE).toFixed(3), row: +(pt.y/TILE_SIZE).toFixed(3)};
+    mapEdits[m.__key] = Object.assign({}, mapEdits[m.__key], {move});
+    saveMapEdits();
+    if(marker.isPopupOpen()) refreshEditPopup(marker, m);
+  });
 }
 
 function buildRegnumPopupHTML(m){
@@ -232,6 +335,60 @@ function buildRegnumPopupHTML(m){
   }
   const pasos = m.pasos ? `<br><span style="font-size:11.5px">${m.pasos}</span>` : '';
   return `<b>${m.nombre}</b><br>Nivel ${m.nivel} · La da: ${m.la_da}<br>${m.xp||0} XP · ${m.oro||0} oro${pasos}`;
+}
+
+// Arma un resumen legible de todos los cambios acumulados en esta sesión
+// (movidos/editados/borrados), identificando cada uno por su clave estable
+// (tipo|nombre original|zona-categoría-dador) para poder encontrarlo en los
+// datos aunque se le haya cambiado el nombre.
+function exportMapEdits(){
+  const entries = Object.entries(mapEdits).filter(([,e])=> e.move || e.fields || e.deleted);
+  const out = {generado: new Date().toISOString(), cambios: entries.length, detalle: entries.map(([key,e])=>{
+    const rec = {clave: key};
+    if(e.deleted) rec.accion = 'eliminar';
+    else {
+      rec.accion = 'actualizar';
+      if(e.move) rec.nuevaPosicion = e.move;
+      if(e.fields) rec.camposNuevos = e.fields;
+    }
+    return rec;
+  })};
+  return JSON.stringify(out, null, 1);
+}
+
+function setupEditModeUI(){
+  if(document.getElementById('map-edit-toolbar')) return; // ya armada
+  const frame = document.querySelector('.map-frame');
+  if(!frame) return;
+  const bar = document.createElement('div');
+  bar.id = 'map-edit-toolbar';
+  bar.style.cssText = 'position:absolute;left:10px;top:10px;z-index:600;display:flex;gap:8px;align-items:center;';
+  bar.innerHTML = `
+    <span style="background:rgba(10,14,20,.82);border:1px solid var(--line);border-radius:14px;padding:5px 12px;font-family:var(--font-mono);font-size:11px;color:var(--bronze);">✎ Modo edición — arrastrá para mover, click para editar/borrar</span>
+    <button type="button" id="map-edit-export" class="mini-btn">Exportar cambios</button>
+  `;
+  frame.appendChild(bar);
+  document.getElementById('map-edit-export').addEventListener('click', ()=>{
+    const json = exportMapEdits();
+    const box = document.createElement('textarea');
+    box.value = json;
+    box.readOnly = true;
+    box.style.cssText = 'position:fixed;inset:8vh 10vw;z-index:9999;background:var(--bg-1);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:14px;font-family:var(--font-mono);font-size:12px;';
+    document.body.appendChild(box);
+    box.focus();
+    box.select();
+    navigator.clipboard?.writeText(json).catch(()=>{});
+    const closeHint = document.createElement('div');
+    closeHint.textContent = 'Copiado al portapapeles. Click afuera del cuadro para cerrar.';
+    closeHint.style.cssText = 'position:fixed;left:10vw;top:calc(8vh - 26px);z-index:9999;color:var(--bronze);font-size:12px;';
+    document.body.appendChild(closeHint);
+    const close = (e)=>{
+      if(e.target === box) return;
+      box.remove(); closeHint.remove();
+      document.removeEventListener('click', close);
+    };
+    setTimeout(()=> document.addEventListener('click', close), 0);
+  });
 }
 
 function populateRegnumFilters(){
