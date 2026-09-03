@@ -290,39 +290,60 @@ function initRegnumMapIfNeeded(){
   // click en el mapa (en un lugar vacío, no sobre un marcador) muestra el
   // mosaico exacto (con decimales) de ese punto — para afinar a mano la
   // posición de ciudades y lugares de interés sin depender de capturas.
-  // Además, cada click se va acumulando en una lista con un panel flotante
-  // (abajo a la derecha) que dibuja el polígono en vivo — para delimitar
-  // el área de una zona de mobs/materiales click a click por el borde y
-  // después copiar todos los puntos de una — ver buildRegnumZones.
+  // Además, cada click se va acumulando en un panel flotante (abajo a la
+  // derecha) que dibuja el polígono en vivo — para delimitar el área de
+  // una zona de mobs/materiales click a click por el borde y después
+  // copiar todos los puntos de una — ver buildRegnumZones. Una zona puede
+  // tener varias piezas separadas (por ejemplo si una ciudad la corta al
+  // medio) — "Cerrar pieza" guarda el anillo actual y arranca uno nuevo,
+  // sin perder los anteriores.
   if(new URLSearchParams(location.search).get('refpick') === '1'){
-    const refpickPoints = [];
+    const refpickPieces = []; // piezas ya cerradas: array de anillos (cada uno, array de {col,row})
+    let refpickCurrent = []; // anillo que se está dibujando ahora
     let refpickPreview = null;
     const panel = document.createElement('div');
     panel.style.cssText = 'position:fixed;bottom:10px;right:10px;z-index:9999;background:#0f1410;border:1px solid #2c3a2a;color:#e7ecdf;font-family:monospace;font-size:12px;padding:10px;border-radius:6px;max-width:260px;';
     panel.innerHTML = `<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" id="refpick-poly-mode"> Modo polígono (sin globo)</label>
       <b>Puntos de zona</b><br>
-      <span id="refpick-count">0 puntos</span><br>
-      <button type="button" id="refpick-copy-poly" style="margin-top:6px">Copiar puntos</button>
+      <span id="refpick-count">pieza actual: 0 puntos · piezas cerradas: 0</span><br>
+      <button type="button" id="refpick-close-piece" style="margin-top:6px">Cerrar pieza y empezar otra</button><br>
+      <button type="button" id="refpick-copy-poly" style="margin-top:6px">Copiar todo</button>
       <button type="button" id="refpick-reset" style="margin-top:6px">Reiniciar</button>`;
     document.body.appendChild(panel);
     const polyModeCheckbox = document.getElementById('refpick-poly-mode');
     function refreshRefpickPanel(){
-      document.getElementById('refpick-count').textContent = `${refpickPoints.length} punto${refpickPoints.length===1?'':'s'}`;
+      document.getElementById('refpick-count').textContent =
+        `pieza actual: ${refpickCurrent.length} punto${refpickCurrent.length===1?'':'s'} · piezas cerradas: ${refpickPieces.length}`;
       if(refpickPreview) regnumMap.removeLayer(refpickPreview);
-      if(refpickPoints.length >= 2){
-        refpickPreview = L.polygon(refpickPoints.map(p=>tileToLatLng(p.col,p.row)), {color:'#e8c14a', weight:2, fillOpacity:0.12, dashArray:'4,4'}).addTo(regnumMap);
+      const anillos = [...refpickPieces, refpickCurrent].filter(a=>a.length>=2);
+      if(anillos.length){
+        refpickPreview = L.polygon(anillos.map(a=>a.map(p=>tileToLatLng(p.col,p.row))), {color:'#e8c14a', weight:2, fillOpacity:0.12, dashArray:'4,4'}).addTo(regnumMap);
       } else {
         refpickPreview = null;
       }
     }
+    document.getElementById('refpick-close-piece').addEventListener('click', function(){
+      if(refpickCurrent.length < 3){
+        this.textContent = 'Faltan puntos (mín. 3)';
+        setTimeout(()=> this.textContent = 'Cerrar pieza y empezar otra', 1200);
+        return;
+      }
+      refpickPieces.push(refpickCurrent);
+      refpickCurrent = [];
+      refreshRefpickPanel();
+    });
     document.getElementById('refpick-copy-poly').addEventListener('click', function(){
-      const text = JSON.stringify(refpickPoints.map(p=>({col:p.col, row:p.row})));
+      // La pieza actual se suma sola si ya tiene forma (3+ puntos) — no
+      // hace falta cerrarla a mano antes de copiar si es la última.
+      const anillos = [...refpickPieces, ...(refpickCurrent.length>=3 ? [refpickCurrent] : [])];
+      const text = JSON.stringify(anillos);
       navigator.clipboard?.writeText(text).catch(()=>{});
       this.textContent = 'Copiado';
-      setTimeout(()=> this.textContent = 'Copiar puntos', 1200);
+      setTimeout(()=> this.textContent = 'Copiar todo', 1200);
     });
     document.getElementById('refpick-reset').addEventListener('click', ()=>{
-      refpickPoints.length = 0;
+      refpickPieces.length = 0;
+      refpickCurrent = [];
       refreshRefpickPanel();
     });
     // El checkbox decide cuál de las dos cosas hace cada click — antes
@@ -334,7 +355,7 @@ function initRegnumMapIfNeeded(){
       const col = Number((pt.x/TILE_SIZE).toFixed(3));
       const row = Number((pt.y/TILE_SIZE).toFixed(3));
       if(polyModeCheckbox.checked){
-        refpickPoints.push({col, row});
+        refpickCurrent.push({col, row});
         refreshRefpickPanel();
         return;
       }
@@ -494,31 +515,50 @@ function buildRegnumMarkers(){
 
 // Colores fijos (no ligados al tema de reino, mismo motivo que los íconos
 // de Aldea/Pueblo/Ciudad — ver comentario en css/map.css): rojo para
-// "peligro" (mobs), verde-agua para "recurso" (materiales).
-const ZONE_STYLE = {
-  mobs: {color:'#c0392b', fillColor:'#c0392b'},
-  materiales: {color:'#2f8f6b', fillColor:'#2f8f6b'},
-};
-const ZONE_TOGGLE_ID = {mobs:'map-toggle-mobs', materiales:'map-toggle-materiales'};
+// "peligro" (mobs), verde-agua para "recurso" (materiales). Una zona con
+// las dos cosas cargadas usa un tercer color propio en vez de mezclar los
+// otros dos, para que de un vistazo se note que tiene ambas.
+const ZONE_COLOR_MOBS = '#c0392b';
+const ZONE_COLOR_MATERIALES = '#2f8f6b';
+const ZONE_COLOR_MIXTA = '#a06be0';
+
+function zoneHasMobs(z){ return (z.mobs||[]).length > 0; }
+function zoneHasMateriales(z){ return (z.materiales||[]).length > 0; }
+
+function zoneColor(z){
+  const mobs = zoneHasMobs(z), mats = zoneHasMateriales(z);
+  if(mobs && mats) return ZONE_COLOR_MIXTA;
+  if(mobs) return ZONE_COLOR_MOBS;
+  return ZONE_COLOR_MATERIALES;
+}
 
 function buildZonePopupHTML(z){
-  const items = (z.items||[]).map(it=>
-    z.categoria === 'mobs' ? `${it.nombre}${it.nivel ? ' · Nv. '+it.nivel : ''}` : it.nombre
-  ).join('<br>');
-  return `<b>${z.nombre}</b><br>${z.reino}<br>${items || '<i>(sin items cargados)</i>'}`;
+  const partes = [`<b>${z.nombre}</b>`, z.reino];
+  if(zoneHasMobs(z)){
+    partes.push('<u>Mobs</u><br>' + z.mobs.map(it=> `${it.nombre}${it.nivel ? ' · Nv. '+it.nivel : ''}`).join('<br>'));
+  }
+  if(zoneHasMateriales(z)){
+    partes.push('<u>Materiales</u><br>' + z.materiales.map(it=> it.nombre).join('<br>'));
+  }
+  return partes.join('<br>');
 }
 
 // Zonas (áreas de mobs/materiales delimitadas a mano con la herramienta
 // ?refpick=1, ver más arriba): polígonos con relleno transparente, no
-// marcadores — se cargan y filtran aparte de buildRegnumMarkers.
+// marcadores — se cargan y filtran aparte de buildRegnumMarkers. Cada zona
+// puede tener varias piezas separadas (z.poligonos es un array de anillos
+// de puntos, no un solo anillo) para el caso de un área que una ciudad
+// corta al medio — Leaflet dibuja eso como un solo polígono (multipolígono
+// nativo), con un solo popup, aunque se vea partido en pantalla.
 function buildRegnumZones(){
   regnumZonesLayer.clearLayers();
   regnumAllZoneObjs = [];
   (regnumMapData.zonas||[]).forEach(z=>{
-    if(!z.puntos || z.puntos.length < 3) return; // un polígono necesita al menos 3 puntos
-    const latlngs = z.puntos.map(p=> tileToLatLng(p.col, p.row));
-    const style = ZONE_STYLE[z.categoria] || ZONE_STYLE.mobs;
-    const polygon = L.polygon(latlngs, {...style, weight:2, fillOpacity:0.22});
+    const anillos = (z.poligonos||[]).filter(anillo => anillo && anillo.length >= 3);
+    if(anillos.length === 0) return; // cada pieza necesita al menos 3 puntos
+    const latlngRings = anillos.map(anillo => anillo.map(p=> tileToLatLng(p.col, p.row)));
+    const color = zoneColor(z);
+    const polygon = L.polygon(latlngRings, {color, fillColor:color, weight:2, fillOpacity:0.22});
     polygon.bindPopup(buildZonePopupHTML(z), {autoPan:false});
     z._leaflet = polygon;
     regnumAllZoneObjs.push(z);
@@ -526,10 +566,13 @@ function buildRegnumZones(){
   applyZoneFilters();
 }
 
+// Una zona puede tener mobs Y materiales a la vez — se muestra si cualquiera
+// de los dos checkboxes que le correspondan (según lo que tenga cargado)
+// está prendido, no necesita que estén los dos.
 function passesZoneFilters(z){
-  const toggleId = ZONE_TOGGLE_ID[z.categoria];
-  const toggle = toggleId && document.getElementById(toggleId);
-  if(toggle && !toggle.checked) return false;
+  const mobsOn = document.getElementById('map-toggle-mobs').checked;
+  const matsOn = document.getElementById('map-toggle-materiales').checked;
+  if(!((zoneHasMobs(z) && mobsOn) || (zoneHasMateriales(z) && matsOn))) return false;
   const reino = document.getElementById('map-filter-reino').value;
   if(reino && z.reino !== reino) return false;
   return true;
