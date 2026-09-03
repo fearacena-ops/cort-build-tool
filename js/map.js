@@ -271,7 +271,14 @@ function buildRegnumMarkers(){
     // vuelve a calcular con markerKey().
     const key = markerKey(m);
     const edit = mapEdits[key];
-    if(edit && edit.deleted) return; // no se agrega al mapa ni a la lista
+    // "disabled" persiste en los datos (data/map-data.json) y aplica para
+    // todo el mundo, no solo en modo edición — un registro desactivado no
+    // se borra, solo deja de mostrarse. Un "edit.disabled" de esta sesión
+    // (todavía sin exportar) pisa lo que diga el dato ya guardado, en
+    // cualquier sentido — así en el futuro alcanza con un cambio de
+    // mapEdits para reactivar algo sin tener que tocar el JSON a mano.
+    const isDisabled = edit && ('disabled' in edit) ? edit.disabled : !!m.disabled;
+    if(isDisabled) return; // no se agrega al mapa ni a la lista
     if(edit && edit.fields) Object.assign(m, edit.fields);
     m.__key = key;
 
@@ -320,7 +327,7 @@ function buildEditPopupHTML(m){
     ${inputs}
     <div style="margin-top:8px;display:flex;gap:6px;">
       <button type="button" class="ep-save">Guardar</button>
-      <button type="button" class="ep-delete" style="color:#c0392b">Eliminar</button>
+      <button type="button" class="ep-delete" style="color:#c0392b">Desactivar</button>
     </div>
   </div>`;
 }
@@ -341,8 +348,8 @@ function refreshEditPopup(marker, m){
     refreshEditPopup(marker, m);
   });
   root.querySelector('.ep-delete')?.addEventListener('click', ()=>{
-    if(!confirm(`¿Eliminar "${m.nombre}"? Se puede deshacer volviendo a exportar sin este cambio.`)) return;
-    mapEdits[m.__key] = Object.assign({}, mapEdits[m.__key], {deleted:true});
+    if(!confirm(`¿Desactivar "${m.nombre}"? No se borra — deja de mostrarse en el mapa, pero se puede reactivar después si fue un error.`)) return;
+    mapEdits[m.__key] = Object.assign({}, mapEdits[m.__key], {disabled:true});
     saveMapEdits();
     regnumMarkersLayer.removeLayer(marker);
     regnumAllMarkerObjs = regnumAllMarkerObjs.filter(x=> x !== m);
@@ -437,10 +444,10 @@ function buildRegnumPopupHTML(m){
 // (tipo|nombre original|zona-categoría-dador) para poder encontrarlo en los
 // datos aunque se le haya cambiado el nombre.
 function exportMapEdits(){
-  const entries = Object.entries(mapEdits).filter(([,e])=> e.move || e.fields || e.deleted);
+  const entries = Object.entries(mapEdits).filter(([,e])=> e.move || e.fields || 'disabled' in e);
   const out = {generado: new Date().toISOString(), cambios: entries.length, detalle: entries.map(([key,e])=>{
     const rec = {clave: key};
-    if(e.deleted) rec.accion = 'eliminar';
+    if('disabled' in e) rec.accion = e.disabled ? 'desactivar' : 'reactivar';
     else {
       rec.accion = 'actualizar';
       if(e.move) rec.nuevaPosicion = e.move;
@@ -466,8 +473,19 @@ function setupEditModeUI(){
     <button type="button" id="map-edit-clearsel" class="mini-btn" style="display:none">Deseleccionar todo</button>
     <span id="map-edit-selcount" style="font-family:var(--font-mono);font-size:11px;color:var(--ink-faint);"></span>
     <button type="button" id="map-edit-export" class="mini-btn">Exportar cambios</button>
+    <button type="button" id="map-edit-clearall" class="mini-btn">Limpiar cambios ya exportados</button>
   `;
   frame.appendChild(bar);
+
+  document.getElementById('map-edit-clearall').addEventListener('click', ()=>{
+    // Solo borra el registro local de "qué cambié en esta sesión" — no toca
+    // nada de data/map-data.json. Usarlo después de confirmar que lo último
+    // exportado ya se aplicó, para que el próximo export no repita todo.
+    if(!confirm('¿Vaciar la lista de cambios acumulados? Hacé esto solo después de confirmar que el último export ya se aplicó — si todavía no, se pierde ese registro (aunque el mapa en pantalla no cambia, solo lo que se acumula para exportar).')) return;
+    mapEdits = {};
+    saveMapEdits();
+    location.reload();
+  });
 
   const multiBtn = document.getElementById('map-edit-multi');
   const clearBtn = document.getElementById('map-edit-clearsel');

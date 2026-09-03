@@ -114,7 +114,11 @@
   .realm-color-alsius{color:#5b9cc9;}
   .realm-color-ignis{color:#c9622f;}
   /* Modo edición: resaltado de selección múltiple y estado activo del botón. */
-  .regnum-marker-selected{outline:2px solid var(--bronze);outline-offset:2px;border-radius:50%;}
+  /* Blanco a propósito, no bronce: un ícono ya bronce (casa/altar/fuerte)
+     con anillo bronce apenas contrastaba — blanco resalta contra cualquier
+     color/fondo. z-index para que el halo no quede tapado por otros
+     marcadores/mosaicos vecinos. */
+  .regnum-marker-selected{outline:3px solid #fff;outline-offset:3px;border-radius:50%;box-shadow:0 0 0 6px rgba(255,255,255,.4), 0 0 12px 4px rgba(255,255,255,.55);z-index:1000!important;}
   .mini-btn.active{border-color:var(--bronze);color:var(--bronze);background:rgba(255,255,255,.08);}
   @media (max-width:760px){
     #panel-map{padding:0 12px;}
