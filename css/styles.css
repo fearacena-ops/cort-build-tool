@@ -103,9 +103,9 @@
   .leaflet-popup-content b{color:var(--bronze);}
   .regnum-marker{display:flex;align-items:center;justify-content:center;font-size:13px;line-height:1;text-shadow:0 0 3px #000,0 0 3px #000;}
   .regnum-marker-mision{color:#ffd23f;font-weight:700;}
-  .regnum-marker-ciudad{color:#f2f2f2;font-size:17px;text-shadow:0 0 3px #000,0 0 5px #000,0 0 2px var(--bronze);}
-  .regnum-marker-fuerte{font-size:16px;}
-  .regnum-marker-castillo{font-size:22px;}
+  .regnum-marker-ciudad{color:var(--bronze);font-size:34px;text-shadow:0 0 3px #000,0 0 5px #000;}
+  .regnum-marker-fuerte{font-size:32px;}
+  .regnum-marker-castillo{font-size:44px;}
   .regnum-marker-muralla{font-size:15px;}
   /* Mismos colores que ya usa el selector de reino arriba, para que un
      vistazo alcance para saber de qué reino es un NPC/fuerte/castillo. */

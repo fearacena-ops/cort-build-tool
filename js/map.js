@@ -237,7 +237,7 @@ function iconFor(m){
   if(m.tipo === 'npc') return L.divIcon({className:`regnum-marker regnum-marker-npc realm-color-${REALM_SLUG[m.reino]||'syrtis'}`, html:'●', iconSize:[14,14]});
   // ciudad/lugar: la forma sale de la categoría (Ciudad/Fuerte/Castillo/...)
   const shape = PLACE_SHAPE[m.categoria] || 'ciudad';
-  const size = shape === 'castillo' ? 22 : shape === 'fuerte' ? 16 : shape === 'muralla' ? 15 : 17;
+  const size = shape === 'castillo' ? 44 : shape === 'fuerte' ? 32 : shape === 'muralla' ? 15 : 34;
   const cls = shape === 'ciudad'
     ? 'regnum-marker regnum-marker-ciudad'
     : `regnum-marker regnum-marker-${shape} realm-color-${REALM_SLUG[m.reino]||'syrtis'}`;
