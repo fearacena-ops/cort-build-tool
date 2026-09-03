@@ -780,6 +780,7 @@ function updateSharedChromeForTab(panelId){
   const titleH1 = document.getElementById('hero-title-h1');
   const titleMap = document.getElementById('hero-title-map');
   const noticeText = document.getElementById('notice-build-text');
+  const notice = document.getElementById('notice-build');
   const rail = document.querySelector('.config-rail');
   const mapLayers = document.getElementById('map-layers-block');
   const isMapTab = panelId === 'panel-map';
@@ -787,6 +788,10 @@ function updateSharedChromeForTab(panelId){
   if(noticeText) noticeText.textContent = isMapTab
     ? 'Buscá NPCs y misiones, filtrá por reino o profesión, y hacé clic en un marcador para ver el detalle.'
     : 'Arma tu build a mano, habilidad por habilidad, y expórtala como imagen para compartir.';
+  // En el mapa el recuadro de aviso ocupaba espacio vertical que conviene
+  // aprovechar para el buscador/chips/mapa — el texto de arriba (eyebrow)
+  // ya cumple ese rol de encabezado, así que en esta pestaña se oculta.
+  if(notice) notice.style.display = isMapTab ? 'none' : '';
   // El título grande ahora siempre muestra algo (ícono+subclase en "Tu
   // build", ícono+"Regnum" en el mapa) — un solo <h1> visible a la vez, así
   // que no hace falta reservar espacio con visibility como con el rail.

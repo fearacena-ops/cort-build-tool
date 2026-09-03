@@ -120,6 +120,7 @@ function initRegnumMapIfNeeded(){
     regnumMap.unproject([MAP_PX, 0], 0)
   );
   regnumMap.setMaxBounds(bounds);
+  const center = regnumMap.unproject([MAP_PX/2, MAP_PX/2], 0);
   // El mínimo de zoom se calcula según el tamaño real del recuadro (no un
   // número fijo) para que alejar del todo llene todo el recuadro con mapa,
   // sin bandas negras a los costados — se recalcula en cada resize por si
@@ -142,13 +143,37 @@ function initRegnumMapIfNeeded(){
   }
   regnumMap.on('zoom', updateDraggingForZoom);
 
+  // setMaxBounds() solo evita ARRASTRAR más allá del mundo — no recentra
+  // solo al alejar el zoom. Por eso si uno mueve el mapa hacia un costado
+  // con zoom adentro y después aleja hasta el mínimo, Leaflet no vuelve a
+  // centrarlo: lo deja donde quedó (dentro de los límites, pero pegado a
+  // un borde) y como al mínimo el mundo casi no tiene margen extra sobre
+  // el recuadro, ahí sí se nota recortado de un lado. Es una limitación
+  // conocida de Leaflet (setMaxBounds no "recentra", solo limita — ver
+  // Leaflet/Leaflet#1475, "maxBounds not respected when zooming"); la
+  // solución estándar es forzar el recentrado a mano al volver al
+  // escalón mínimo.
+  regnumMap.on('zoomend', ()=>{
+    if(regnumMap.getZoom() > regnumMap.getMinZoom() + 0.001) return;
+    const c = regnumMap.getCenter();
+    if(Math.abs(c.lat - center.lat) > 0.5 || Math.abs(c.lng - center.lng) > 0.5){
+      regnumMap.panTo(center, {animate:false});
+    }
+  });
+
   function fitMinZoomToContainer(){
     regnumMap.setMinZoom(-10);
-    // +0.15 de margen: el cálculo exacto a veces deja un borde de un par de
-    // píxeles sin cubrir (redondeo, o la barra de scroll aparece/desaparece
-    // justo después de medir) — mejor pasarse un poquito de zoom que dejar
-    // una banda negra apenas perceptible en el borde.
-    const fitZoom = regnumMap.getBoundsZoom(bounds, true) + 0.15;
+    // +0.04 de margen (no más que eso): el cálculo exacto a veces deja un
+    // borde de un par de píxeles sin cubrir (redondeo, o la barra de
+    // scroll aparece/desaparece justo después de medir) — mejor pasarse
+    // un poquito de zoom que dejar una banda negra apenas perceptible en
+    // el borde. OJO: antes esto era +0.15, que con zoom continuo
+    // (zoomSnap:0, ver más arriba) ya no hace falta y de hecho recorta
+    // bastante de más — +0.15 de zoom es ~11% de la imagen de más (unos
+    // 40px de cada lado en un recuadro de referencia de 769px), no "un
+    // par de píxeles" — eso era lo que se veía como "recortado en todos
+    // los bordes". +0.04 es bastante menos margen, unos pocos píxeles.
+    const fitZoom = regnumMap.getBoundsZoom(bounds, true) + 0.04;
     regnumMap.setMinZoom(Math.min(regnumMap.getMaxZoom(), fitZoom));
     updateZoomBadge();
     updateDraggingForZoom();
@@ -160,9 +185,9 @@ function initRegnumMapIfNeeded(){
     fitMinZoomToContainer();
     regnumMap.invalidateSize();
   });
-  const center = regnumMap.unproject([MAP_PX/2, MAP_PX/2], 0);
   // Arranca mostrando el mapa completo (escalón 1), no centrado a resolución
   // nativa — así lo primero que se ve es todo el mundo, no un recorte.
+  // ("center" ya se calculó más arriba, junto con bounds.)
   regnumMap.setView(center, regnumMap.getMinZoom());
 
   const RegnumTiles = L.GridLayer.extend({
