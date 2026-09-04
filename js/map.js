@@ -892,31 +892,36 @@ function buildRegnumMarkers(){
   if(EDIT_MODE) setupEditModeUI();
 }
 
-// Colores fijos (no ligados al tema de reino, mismo motivo que los íconos
-// de Aldea/Pueblo/Ciudad — ver comentario en css/map.css): rojo para
-// "peligro" (mobs), verde-agua para "recurso" (materiales). Una zona con
-// las dos cosas cargadas usa un tercer color propio en vez de mezclar los
-// otros dos, para que de un vistazo se note que tiene ambas.
-const ZONE_COLOR_MOBS = '#c0392b';
-const ZONE_COLOR_MATERIALES = '#2f8f6b';
-const ZONE_COLOR_MIXTA = '#a06be0';
+// Mismos colores que .realm-color-syrtis/alsius/ignis (ver css/map.css) —
+// una zona se pinta según su reino, igual que ya se distinguen NPCs/
+// fuertes/castillos, en vez de según lo que tenga cargado (mobs/
+// materiales) como era antes.
+const ZONE_COLOR_REINO = { Syrtis: '#7fae5a', Alsius: '#5b9cc9', Ignis: '#c9622f' };
+const ZONE_COLOR_DEFAULT = '#a09a8c'; // por si a alguna zona le faltara el reino
 
 function zoneHasMobs(z){ return (z.mobs||[]).length > 0; }
 function zoneHasMateriales(z){ return (z.materiales||[]).length > 0; }
 
 function zoneColor(z){
-  const mobs = zoneHasMobs(z), mats = zoneHasMateriales(z);
-  if(mobs && mats) return ZONE_COLOR_MIXTA;
-  if(mobs) return ZONE_COLOR_MOBS;
-  return ZONE_COLOR_MATERIALES;
+  return ZONE_COLOR_REINO[z.reino] || ZONE_COLOR_DEFAULT;
 }
 
-function buildZonePopupHTML(z){
+// forzarTodo: cuando la búsqueda muestra una zona a la fuerza (ver
+// wireRegnumSearchAndFilters) porque encontró un mob/material puntual
+// ahí, se le muestra todo el contenido aunque el checkbox de Mobs o
+// Materiales esté apagado — si no, buscar un material y que el tooltip
+// no lo muestre por tener Materiales apagado sería muy raro.
+function buildZonePopupHTML(z, forzarTodo){
+  const mobsOn = forzarTodo || document.getElementById('map-toggle-mobs').checked;
+  const matsOn = forzarTodo || document.getElementById('map-toggle-materiales').checked;
   const partes = [`<b>${z.nombre}</b>`, z.reino];
-  if(zoneHasMobs(z)){
+  // Si tenés solo Mobs prendido no hace falta ver los materiales de la
+  // zona (y viceversa) — el tooltip muestra nada más lo que se está
+  // filtrando en ese momento, no todo lo que la zona tenga cargado.
+  if(zoneHasMobs(z) && mobsOn){
     partes.push('<u>Mobs</u><br>' + z.mobs.map(it=> `${it.nombre}${it.nivel ? ' · Nv. '+it.nivel : ''}`).join('<br>'));
   }
-  if(zoneHasMateriales(z)){
+  if(zoneHasMateriales(z) && matsOn){
     partes.push('<u>Materiales</u><br>' + z.materiales.map(it=> it.nombre).join('<br>'));
   }
   return partes.join('<br>');
@@ -943,10 +948,38 @@ function buildRegnumZones(){
     // natural que tener que acertarle con un click — y así no compite con
     // el resto de la lógica de click de marcadores/edición.
     polygon.bindTooltip(buildZonePopupHTML(z), {sticky:true});
+    // El tooltip "sticky" sigue al mouse — si se abre cerca de un borde
+    // del recuadro del mapa, sale del contenedor y queda cortado (el
+    // contenedor tiene overflow hidden). Se corrige igual que el popup
+    // de arriba (mismo cálculo de margen), pero acá hay que repetirlo en
+    // cada mousemove, no solo al abrir, porque Leaflet reposiciona el
+    // tooltip todo el tiempo mientras el mouse se mueve sobre la zona.
+    polygon.on('mousemove tooltipopen', ()=> nudgeZoneTooltip(polygon));
     z._leaflet = polygon;
     regnumAllZoneObjs.push(z);
   });
   applyZoneFilters();
+}
+
+function nudgeZoneTooltip(layer){
+  const tooltip = layer.getTooltip && layer.getTooltip();
+  if(!tooltip || !tooltip.isOpen()) return;
+  const el = tooltip.getElement ? tooltip.getElement() : tooltip._container;
+  const mapEl = document.getElementById('regnum-map');
+  if(!el || !mapEl) return;
+  const margin = 10;
+  const mr = mapEl.getBoundingClientRect();
+  const tr = el.getBoundingClientRect();
+  let dx = 0, dy = 0;
+  if(tr.left < mr.left + margin) dx = (mr.left + margin) - tr.left;
+  else if(tr.right > mr.right - margin) dx = (mr.right - margin) - tr.right;
+  if(tr.top < mr.top + margin) dy = (mr.top + margin) - tr.top;
+  else if(tr.bottom > mr.bottom - margin) dy = (mr.bottom - margin) - tr.bottom;
+  if(dx || dy){
+    // Se suma al transform que Leaflet ACABA de aplicarle (por el
+    // mousemove), no se reemplaza — mismo truco que con el popup.
+    el.style.transform += ` translate(${dx}px, ${dy}px)`;
+  }
 }
 
 // Una zona puede tener mobs Y materiales a la vez — se muestra si cualquiera
@@ -964,6 +997,11 @@ function passesZoneFilters(z){
 function applyZoneFilters(){
   regnumZonesLayer.clearLayers();
   regnumAllZoneObjs.forEach(z=>{
+    // El contenido del tooltip depende de qué checkbox está prendido
+    // (ver buildZonePopupHTML) — se rearma acá para que quede al día
+    // cada vez que se toca Mobs/Materiales, no solo la primera vez que
+    // se construyó la zona.
+    z._leaflet.setTooltipContent(buildZonePopupHTML(z));
     if(passesZoneFilters(z)) z._leaflet.addTo(regnumZonesLayer);
   });
 }
@@ -1319,6 +1357,12 @@ function wireRegnumSearchAndFilters(){
             z._leaflet.addTo(regnumZonesLayer);
             forcedVisibleZoneKey = z.nombre;
           }
+          // Se buscó un mob/material puntual (o la zona misma) — se
+          // muestra todo el contenido aunque Mobs/Materiales esté
+          // apagado, si no el tooltip podría no mostrar justo lo que se
+          // encontró. Se restaura al filtro normal en el próximo cambio
+          // de checkbox (ver applyZoneFilters).
+          z._leaflet.setTooltipContent(buildZonePopupHTML(z, true));
           z._leaflet.openTooltip(z._leaflet.getBounds().getCenter());
           return;
         }
