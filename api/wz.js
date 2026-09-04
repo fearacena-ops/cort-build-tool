@@ -28,6 +28,14 @@ module.exports = async function handler(req, res) {
     res.setHeader('Cache-Control', 's-maxage=60, stale-while-revalidate=30');
     res.status(200).json(data);
   } catch (err) {
-    res.status(502).json({ error: String((err && err.message) || err) });
+    // Detalle extra (código de red, causa de bajo nivel) mientras se
+    // diagnostica por qué falla desde el entorno de Vercel — "fetch
+    // failed" solo no alcanza para saber si es DNS, TLS, timeout, o un
+    // bloqueo por IP del lado de cort.ovh.
+    res.status(502).json({
+      error: String((err && err.message) || err),
+      code: err && err.code,
+      cause: err && err.cause && String(err.cause.message || err.cause),
+    });
   }
 }
