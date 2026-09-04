@@ -90,11 +90,11 @@
 
   /* ----------------------------------------------------------------------
      Panel de estado de guerra (gemas/fuertes/log), al costado del mapa —
-     ver js/wz.js. Acá solo el contenido; la posición/ancho de .wz-sidebar
-     como carril (mismo trato que .config-rail, ver css/layout.css) vive
-     con el resto de los carriles de la página. Reusa .panel (mismo look
-     de tarjeta que el resto del sitio) con padding más chico, porque es
-     una barra angosta. */
+     ver js/wz.js. Acá solo el contenido; la posición/ancho del carril en
+     sí (#side-rail / .config-rail, compartido con la caja de Subclase de
+     "Tu build") vive en css/layout.css (ver .rail-page-map ahí). Reusa
+     .panel (mismo look de tarjeta que el resto del sitio) con padding más
+     chico, porque es una barra angosta. */
   .wz-panel{padding:14px 16px;font-size:12.5px;}
   .wz-panel-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:9px;gap:8px;}
   .wz-updated{font-size:10.5px;color:var(--ink-faint);font-family:var(--font-mono);white-space:nowrap;}
@@ -123,6 +123,6 @@
      1440px en css/layout.css) los dos paneles pasan a compartir una fila
      en vez de ir siempre en columna, para aprovechar mejor el ancho. */
   @media (max-width:980px){
-    .wz-sidebar{flex-direction:row;flex-wrap:wrap;}
-    .wz-sidebar .wz-panel{flex:1 1 260px;}
+    .rail-page-map{flex-direction:row;flex-wrap:wrap;}
+    .rail-page-map .wz-panel{flex:1 1 260px;}
   }

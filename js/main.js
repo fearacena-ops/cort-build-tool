@@ -651,22 +651,23 @@ function applyResponsiveLayout(isNarrow){
   const shield = document.getElementById('hero-realm-shield');
   const shieldAnchor = document.getElementById('hero-shield-anchor');
   const shieldRail = document.querySelector('.shield-rail');
-  const rail = document.querySelector('.config-rail');
+  const rail = document.getElementById('side-rail'); // carril lateral compartido — ver css/layout.css
   const railAnchor = document.getElementById('config-rail-anchor');
   const pageFlex = document.querySelector('.page-flex');
   const mapLayers = document.getElementById('map-layers-block');
   const mapLayersAnchor = document.getElementById('map-layers-anchor');
-  // Carril del estado de guerra del mapa (ver js/wz.js) — mismo trato que
-  // .config-rail pero del lado del mapa: en angosto se muda junto al
-  // mapa (debajo, no al final de toda la página) en vez de quedar al
-  // costado como carril fijo.
-  const wzRail = document.querySelector('.wz-sidebar');
+  // Las dos "páginas" que comparten el carril: la de "Tu build" (Subclase)
+  // se muda junto al panel de disciplinas en angosto, la del mapa (estado
+  // de guerra, ver js/wz.js) junto al mapa — cada una a SU propio lugar,
+  // no las dos juntas (por eso no alcanza con mover "rail" entero acá).
+  const railPageBuild = document.getElementById('rail-page-build');
+  const wzRail = document.getElementById('wz-sidebar');
   const wzRailAnchor = document.getElementById('wz-sidebar-anchor');
   if(!shield || !shieldAnchor || !shieldRail || !rail || !railAnchor || !pageFlex) return;
 
   if(isNarrow){
     if(shield.parentElement !== shieldAnchor){ shieldAnchor.appendChild(shield); shield.classList.add('hero-realm-shield-small'); }
-    if(rail.parentElement !== railAnchor){ railAnchor.appendChild(rail); }
+    if(railPageBuild && railPageBuild.parentElement !== railAnchor){ railAnchor.appendChild(railPageBuild); }
     rail.style.marginTop = '';
     rail.classList.remove('rail-measuring');
     if(mapLayers && mapLayersAnchor && mapLayers.parentElement !== mapLayersAnchor){
@@ -678,13 +679,15 @@ function applyResponsiveLayout(isNarrow){
     }
   } else {
     if(shield.parentElement !== shieldRail){ shieldRail.appendChild(shield); shield.classList.remove('hero-realm-shield-small'); }
+    if(railPageBuild && railPageBuild.parentElement !== rail){ rail.appendChild(railPageBuild); }
     if(rail.parentElement !== pageFlex){ pageFlex.appendChild(rail); }
     scheduleAlignConfigRail();
     if(mapLayers && mapLayers.parentElement !== shieldRail){
       shieldRail.appendChild(mapLayers);
       mapLayers.classList.remove('map-layers-inline');
     }
-    if(wzRail && wzRail.parentElement !== pageFlex){ pageFlex.appendChild(wzRail); }
+    if(wzRail && wzRail.parentElement !== rail){ rail.appendChild(wzRail); }
+    scheduleAlignWzSidebar();
   }
 }
 NARROW_QUERY.addEventListener('change', e => applyResponsiveLayout(e.matches));
@@ -787,6 +790,35 @@ function scheduleAlignMapLayers(){
 }
 window.addEventListener('resize', scheduleAlignMapLayers);
 
+// Mismo truco otra vez: el panel de estado de guerra (.wz-sidebar, ver
+// js/wz.js) arranca por defecto a la altura del título de la página (es
+// un carril más de .page-flex, ver css/layout.css) — pero visualmente
+// tiene que arrancar a la altura del mapa, no pegado arriba del todo, en
+// vez de que se vea "flotando" separado de lo que muestra. Mismo carril
+// que usa alignConfigRail (.config-rail/#side-rail es uno solo,
+// compartido entre las dos páginas — ver css/layout.css) — acá se
+// alinea con el mapa en vez de con el panel de disciplinas; nunca pisa
+// el cálculo del otro porque cada uno se salta a sí mismo (ver el
+// offsetParent de abajo) cuando su referencia no está visible.
+function alignWzSidebar(){
+  const rail = document.querySelector('.config-rail');
+  const frame = document.querySelector('.map-frame');
+  if(!rail || !frame) return;
+  if(window.innerWidth <= 1440){ rail.style.marginTop = ''; return; }
+  if(frame.offsetParent === null) return;
+  rail.style.marginTop = '0px';
+  const frameTop = frame.getBoundingClientRect().top;
+  const railTop = rail.getBoundingClientRect().top;
+  const diff = frameTop - railTop;
+  rail.style.marginTop = Math.max(0, diff) + 'px';
+}
+let alignWzSidebarTimer = null;
+function scheduleAlignWzSidebar(){
+  clearTimeout(alignWzSidebarTimer);
+  alignWzSidebarTimer = setTimeout(alignWzSidebar, 60);
+}
+window.addEventListener('resize', scheduleAlignWzSidebar);
+
 function updateHeroHeader(){
   document.getElementById('hero-title-class').textContent = CLASS.label;
   document.getElementById('hero-class-icon').src = `${ICONS_BASE_PATH}/class-${currentClass}.webp`;
@@ -800,8 +832,8 @@ function updateSharedChromeForTab(panelId){
   const titleMap = document.getElementById('hero-title-map');
   const noticeText = document.getElementById('notice-build-text');
   const notice = document.getElementById('notice-build');
-  const rail = document.querySelector('.config-rail');
-  const wzRail = document.querySelector('.wz-sidebar');
+  const railPageBuild = document.getElementById('rail-page-build');
+  const wzRail = document.getElementById('wz-sidebar');
   const mapLayers = document.getElementById('map-layers-block');
   const isMapTab = panelId === 'panel-map';
   if(eyebrow) eyebrow.textContent = isMapTab ? 'Mapa Interactivo' : 'Constructor de builds';
@@ -813,25 +845,18 @@ function updateSharedChromeForTab(panelId){
   // ya cumple ese rol de encabezado, así que en esta pestaña se oculta.
   if(notice) notice.style.display = isMapTab ? 'none' : '';
   // El título grande ahora siempre muestra algo (ícono+subclase en "Tu
-  // build", ícono+"Regnum" en el mapa) — un solo <h1> visible a la vez, así
-  // que no hace falta reservar espacio con visibility como con el rail.
+  // build", ícono+"Regnum" en el mapa) — un solo <h1> visible a la vez.
   if(titleH1) titleH1.style.display = isBuildTab ? '' : 'none';
   if(titleMap) titleMap.style.display = isMapTab ? '' : 'none';
-  // visibility en vez de display para el rail: sigue ocupando su lugar
-  // (240px escudo + rail 320px) y el resto del contenido no se corre al
-  // cambiar de pestaña.
-  if(rail) rail.style.visibility = isBuildTab ? '' : 'hidden';
-  // Mismo truco de visibility (no display) que el rail de arriba: sigue
-  // reservando su lugar en la fila de carriles, así cambiar de pestaña no
-  // corre/angosta el resto (mapa incluido) de un lado a otro. A
-  // diferencia de .config-rail (visible por defecto en el CSS, así que
-  // limpiar el inline con '' alcanza para mostrarlo), acá el default en
-  // CSS es hidden (para no destellar visible en la carga inicial, que
-  // arranca en "Tu build") — por eso hace falta "visible" explícito y no
-  // solo limpiar el inline.
-  if(wzRail) wzRail.style.visibility = isMapTab ? 'visible' : 'hidden';
+  // El carril lateral (#side-rail, ver css/layout.css) es UNO SOLO
+  // compartido entre las dos pestañas, siempre presente — nunca se mueve
+  // ni cambia de ancho al cambiar de pestaña, así que no hace falta el
+  // truco de "visibility para reservar lugar" que usaba antes. Lo que
+  // cambia es cuál de las dos páginas de adentro se muestra.
+  if(railPageBuild) railPageBuild.style.display = isBuildTab ? '' : 'none';
+  if(wzRail) wzRail.style.display = isMapTab ? '' : 'none';
   if(mapLayers) mapLayers.style.display = isMapTab ? '' : 'none';
-  if(isMapTab) scheduleAlignMapLayers();
+  if(isMapTab){ scheduleAlignMapLayers(); scheduleAlignWzSidebar(); }
   // Al volver a "Tu build" se vuelve a medir de una, por si el freno de
   // arriba (offsetParent null) se salteó algún recálculo mientras estaba
   // oculto — así queda siempre bien alineado al volver, no solo la
