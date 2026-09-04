@@ -86,36 +86,22 @@ function pointToLatLng(pt){ return regnumMap.unproject([pt.x, pt.y], 0); }
 // El mapa fuente es cuadrado (18x18 mosaicos) — si el recuadro no lo es,
 // "llenarlo entero" (sin bandas negras) y "mostrar el mundo completo" se
 // contradicen. Haciendo el recuadro cuadrado se cumplen las dos cosas a la
-// vez: ancho = min(ancho disponible hasta 1180px, alto real disponible).
+// vez: ancho = min(ancho disponible hasta 1180px, 85% del alto de ventana).
 //
-// El alto disponible se calcula contra dónde arranca de verdad el
-// recuadro (frame.getBoundingClientRect().top), no un porcentaje fijo de
-// la ventana entera — un % fijo (85vh) no sabe cuánto espacio ya se
-// gastó arriba (título, pestañas, buscador, checkboxes), así que en la
-// práctica el mapa se pasaba del borde inferior de la ventana y hacía
-// falta scrollear para verlo completo. Con el alto real que queda desde
-// el mapa hacia abajo, entra dentro de la ventana de entrada, sin perder
-// nada del mundo (sigue siendo el lado más chico entre ancho y alto
-// disponibles, el zoom se sigue ajustando solo para mostrarlo completo).
+// Se probó calcular el alto disponible "real" (contra dónde arranca el
+// recuadro y cuánto queda hasta el borde de la ventana) para que el mapa
+// entrara siempre sin scrollear — pero como el recuadro es CUADRADO, ese
+// alto termina siendo también el ancho: en pantallas con poca altura
+// disponible (la mayoría de los monitores normales, una vez descontado
+// título+pestañas+buscador+pie de página) el mapa se veía mucho más
+// angosto que antes, no solo más bajo. Se vuelve al 85vh de siempre — de
+// nuevo puede hacer falta scrollear un poco para verlo completo, pero
+// mantiene el ancho de siempre en vez de angostarse con la altura.
 function sizeMapSquare(){
   const frame = document.querySelector('.map-frame');
   const container = document.getElementById('regnum-map');
   if(!frame || !container) return;
-  // Debajo del mapa todavía viene el pie de página (.foot-note, siempre
-  // visible sea cual sea la pestaña) y el padding-bottom de .page-flex
-  // (ver css/layout.css) — sin restar ese espacio, "lo que queda hasta
-  // el borde de la ventana" quedaba corto y esas dos cosas igual
-  // empujaban el total por encima de la ventana. En vez de adivinar cada
-  // elemento suelto, se mide directo cuánto hay AHORA (con el alto
-  // actual del mapa, antes de tocarlo) entre el fondo del mapa y el
-  // fondo real de toda la fila de carriles — eso da el espacio que se
-  // necesita reservar, sea lo que sea que haya ahí.
-  const pageFlex = document.querySelector('.page-flex');
-  const frameTop = frame.getBoundingClientRect().top;
-  const espacioDespuesDelMapa = pageFlex ? Math.max(0, pageFlex.getBoundingClientRect().bottom - container.getBoundingClientRect().bottom) : 0;
-  const margenInferior = 12; // respiro extra, para que no quede pegado
-  const altoDisponible = window.innerHeight - frameTop - espacioDespuesDelMapa - margenInferior;
-  const side = Math.max(320, Math.min(frame.clientWidth, altoDisponible));
+  const side = Math.max(320, Math.min(frame.clientWidth, window.innerHeight * 0.85));
   // Hay que fijar ancho Y alto: el CSS de base solo da width:100% (hasta los
   // 1180px del recuadro), así que si sólo se fija el alto acá el contenedor
   // queda rectangular (más ancho que alto) en vez de cuadrado. Con un
