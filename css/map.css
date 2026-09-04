@@ -46,13 +46,16 @@
   .regnum-marker{display:flex;align-items:center;justify-content:center;font-size:13px;line-height:1;
     text-shadow:1px 0 0 #000,-1px 0 0 #000,0 1px 0 #000,0 -1px 0 #000,1px 1px 0 #000,-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000;}
   .regnum-marker-mision{color:#ffd23f;font-weight:700;}
-  /* Color fijo (no var(--bronze)): esa variable cambia según el tema de
-     reino elegido arriba a la derecha, que no tiene nada que ver con el
-     reino de cada lugar — con var(--bronze) las casas cambiaban de color
-     solo por tocar el selector de tema. Acá el contorno es filter:drop-
-     shadow (mismo truco de 8 sombras de 1px) en vez de text-shadow porque
-     es un SVG relleno con currentColor, no un carácter de texto. */
-  .regnum-marker-ciudad,.regnum-marker-pueblo,.regnum-marker-aldea{color:#c9a15a;filter:drop-shadow(1px 0 0 #000) drop-shadow(-1px 0 0 #000) drop-shadow(0 1px 0 #000) drop-shadow(0 -1px 0 #000) drop-shadow(1px 1px 0 #000) drop-shadow(-1px -1px 0 #000) drop-shadow(1px -1px 0 #000) drop-shadow(-1px 1px 0 #000);}
+  /* El color de reino se lo pone la clase realm-color-* de más abajo (según
+     el reino real de CADA lugar, vía JS) — acá solo el contorno. Ojo: no es
+     lo mismo que var(--bronze), esa variable cambia según el tema de reino
+     elegido arriba a la derecha, que no tiene nada que ver con el reino de
+     cada lugar — con var(--bronze) las casas cambiaban de color solo por
+     tocar el selector de tema, por eso nunca se usa acá. El contorno es
+     filter:drop-shadow (mismo truco de 8 sombras de 1px) en vez de text-
+     shadow porque es un SVG relleno con currentColor, no un carácter de
+     texto. */
+  .regnum-marker-ciudad,.regnum-marker-pueblo,.regnum-marker-aldea{filter:drop-shadow(1px 0 0 #000) drop-shadow(-1px 0 0 #000) drop-shadow(0 1px 0 #000) drop-shadow(0 -1px 0 #000) drop-shadow(1px 1px 0 #000) drop-shadow(-1px -1px 0 #000) drop-shadow(1px -1px 0 #000) drop-shadow(-1px 1px 0 #000);}
   .regnum-marker-ciudad{font-size:34px;}
   .regnum-marker-pueblo{font-size:26px;}
   .regnum-marker-aldea{font-size:18px;}

@@ -794,17 +794,15 @@ function tileToLatLng(col, row){
 }
 
 const REALM_SLUG = {Syrtis:'syrtis', Alsius:'alsius', Ignis:'ignis'};
-// Ciudad/Pueblo/Aldea(ex-Villa) comparten el ícono de casa, sin color de
-// reino (ya se distinguen por reino con el filtro y el popup) pero con
-// tamaño creciente Aldea < Pueblo < Ciudad para diferenciarlas de un
-// vistazo. Puerto usa el tamaño de Pueblo (mismo checkbox). Muralla/Fuerte/
-// Castillo/Altar sí llevan color de reino. "Villa" queda como alias de
-// "Aldea" por si algún registro viejo todavía usa ese nombre.
+// Ciudad/Pueblo/Aldea(ex-Villa) comparten el ícono de casa, con color de
+// reino igual que el resto de los marcadores, y tamaño creciente Aldea <
+// Pueblo < Ciudad para diferenciarlas de un vistazo. Puerto usa el tamaño
+// de Pueblo (mismo checkbox). "Villa" queda como alias de "Aldea" por si
+// algún registro viejo todavía usa ese nombre.
 const PLACE_SHAPE = {Ciudad:'ciudad', Pueblo:'pueblo', Puerto:'pueblo', Aldea:'aldea', Villa:'aldea', Muralla:'muralla', Fuerte:'fuerte', Castillo:'castillo', Altar:'altar'};
 // muralla al doble de lo que tenía (15 -> 30): con el glifo genérico
 // ('▬') quedaba chico y poco legible comparado con el resto.
 const PLACE_SIZE = {ciudad:34, pueblo:26, aldea:18, castillo:44, fuerte:32, altar:24, muralla:30};
-const PLACE_NO_REALM_COLOR = new Set(['ciudad', 'pueblo', 'aldea']);
 // Cada categoría se filtra con su propio checkbox — ver #map-layers-block.
 const PLACE_TOGGLE_ID = {Ciudad:'map-toggle-ciudad', Pueblo:'map-toggle-pueblo', Puerto:'map-toggle-pueblo', Aldea:'map-toggle-aldea', Villa:'map-toggle-aldea', Fuerte:'map-toggle-fuerte', Castillo:'map-toggle-castillo', Muralla:'map-toggle-muralla', Altar:'map-toggle-altar'};
 // El carácter de texto "⌂" sale hueco (solo el contorno) en la mayoría de
@@ -824,9 +822,7 @@ function iconFor(m){
   // ciudad/lugar: la forma sale de la categoría (Ciudad/Fuerte/Castillo/...)
   const shape = PLACE_SHAPE[m.categoria] || 'ciudad';
   const size = PLACE_SIZE[shape] || 34;
-  const cls = PLACE_NO_REALM_COLOR.has(shape)
-    ? `regnum-marker regnum-marker-${shape}`
-    : `regnum-marker regnum-marker-${shape} realm-color-${REALM_SLUG[m.reino]||'syrtis'}`;
+  const cls = `regnum-marker regnum-marker-${shape} realm-color-${REALM_SLUG[m.reino]||'syrtis'}`;
   return L.divIcon({className:cls, html:PLACE_GLYPH[shape], iconSize:[size,size]});
 }
 
