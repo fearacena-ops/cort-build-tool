@@ -902,6 +902,21 @@ function switchClass(newClass){
     scheduleAlignConfigRail();
   }, 120);
 }
+// Recordar en qué pestaña estaba, para no volver siempre a "Tu build" al
+// recargar la página estando en el mapa (o viceversa) — ver el
+// localStorage.setItem junto al click de arriba. Simula un click real
+// (no alcanza con solo cambiar las clases "active") porque map.js y
+// wz.js tienen sus propios listeners en el botón del mapa (inicializar
+// Leaflet, arrancar a consultar el estado de guerra) que también tienen
+// que dispararse.
+function restoreLastTab(){
+  let last = null;
+  try { last = localStorage.getItem('cort-last-tab'); } catch(e){}
+  if(!last) return; // nada guardado — "Tu build" ya está activo por defecto en el HTML
+  const btn = document.querySelector(`.main-tab[data-panel="${last}"]`);
+  if(!btn || btn.classList.contains('active') || btn.style.display === 'none') return;
+  btn.click();
+}
 /* =========================================================================
    initApp — arranca la aplicación una vez que los datos del juego llegaron
    ========================================================================= */
@@ -914,6 +929,10 @@ function initApp(){
       btn.classList.add('active');
       document.getElementById(btn.dataset.panel).classList.add('active');
       updateSharedChromeForTab(btn.dataset.panel);
+      // Se recuerda para la próxima carga de la página — ver
+      // restoreLastTab() más abajo, así recargar estando en el mapa no
+      // vuelve siempre a "Tu build".
+      try { localStorage.setItem('cort-last-tab', btn.dataset.panel); } catch(e){}
     });
   });
   wireChoiceGroup('pa-mode');
@@ -1004,7 +1023,12 @@ function initApp(){
   renderManualPanel();
   applyShareLinkIfPresent();
   applyResponsiveLayout(NARROW_QUERY.matches);
-  updateSharedChromeForTab('panel-manual');
+  restoreLastTab();
+  // restoreLastTab() ya disparó updateSharedChromeForTab por su cuenta si
+  // cambió de pestaña (vía el click simulado) — este llamado cubre tanto
+  // ese caso (queda repetido, sin costo) como el default ("Tu build", que
+  // no dispara ningún click porque ya está activo de entrada).
+  updateSharedChromeForTab(document.querySelector('.main-tab.active')?.dataset.panel || 'panel-manual');
   setTimeout(alignConfigRail, 150);
   setTimeout(()=> document.querySelector('.config-rail')?.classList.remove('rail-measuring'), 600);
   }

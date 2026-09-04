@@ -16,6 +16,13 @@ const WZ_GEM_NEUTRAL = '#4a4a4a';
 // fijo, no según la posición de la gema (así lo arma el propio wztools.js
 // de CoRT: js/wztools/wztools.js, generate_gem(realm_colors[...])).
 const WZ_GEM_HOLDER = { 'gem_0.png': null, 'gem_1.png': 'Ignis', 'gem_2.png': 'Alsius', 'gem_3.png': 'Syrtis' };
+// Íconos de gema reales (no puntos de color) — data/icons/gem-*.png.
+const WZ_GEM_ICON = {
+  none: 'data/icons/gem-none.png',
+  Ignis: 'data/icons/gem-ignis.png',
+  Alsius: 'data/icons/gem-alsius.png',
+  Syrtis: 'data/icons/gem-syrtis.png',
+};
 // Las 18 gemas del JSON vienen en un solo array plano: las primeras 6 son
 // las de Alsius, las siguientes 6 las de Ignis, las últimas 6 las de
 // Syrtis (mismo orden que los <span id="wz-gems-N"> del wz.html
@@ -42,9 +49,9 @@ function wzRenderGems(gems) {
   box.innerHTML = WZ_GEM_REALMS.map(([reino, from, to]) => {
     const dots = gems.slice(from, to).map(g => {
       const holder = WZ_GEM_HOLDER[g];
-      const color = holder ? WZ_REALM_COLOR[holder] : WZ_GEM_NEUTRAL;
+      const icon = WZ_GEM_ICON[holder || 'none'];
       const titulo = holder ? `Capturada por ${holder}` : `Gema de ${reino} (a salvo)`;
-      return `<span class="wz-gem-dot" style="background:${color}" title="${titulo}"></span>`;
+      return `<img class="wz-gem-icon" src="${icon}" alt="${titulo}" title="${titulo}">`;
     }).join('');
     return `<div class="wz-gems-row">
       <span class="wz-gems-label" style="color:${WZ_REALM_COLOR[reino]}">${reino}</span>
@@ -105,7 +112,13 @@ function wzRenderLog(events) {
 async function wzTick() {
   const errBox = document.getElementById('wz-error');
   try {
-    const r = await fetch('/api/wz');
+    // cache:'no-store' para que el navegador nunca reuse una respuesta
+    // vieja por su cuenta — el Cache-Control de /api/wz (s-maxage) es
+    // para el borde de Vercel (no pegarle a cort.ovh más de una vez por
+    // minuto), no para el caché propio del navegador; sin esto, algunos
+    // navegadores guardaban la respuesta y el panel quedaba pegado en el
+    // primer dato que había traído, sin actualizarse más.
+    const r = await fetch('/api/wz', { cache: 'no-store' });
     const data = await r.json();
     if (!r.ok || data.error) throw new Error(data.error || `HTTP ${r.status}`);
     if (errBox) { errBox.hidden = true; errBox.textContent = ''; }
@@ -114,8 +127,13 @@ async function wzTick() {
     wzRenderLog(data.events_log);
     const updated = document.getElementById('wz-updated');
     if (updated && data.generated) {
+      // Fecha y hora locales de quien mira la página (Date ya convierte
+      // el timestamp UTC de CoRT a la zona horaria del navegador solo) —
+      // 24 horas a propósito, sin AM/PM.
       const dt = new Date(parseInt(data.generated, 10) * 1000);
-      updated.textContent = dt.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' });
+      updated.textContent = dt.toLocaleString(undefined, {
+        day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false,
+      });
     }
   } catch (err) {
     // No se limpia lo ya mostrado — mejor dejar el último dato bueno que
