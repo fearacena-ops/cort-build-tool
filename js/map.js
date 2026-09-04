@@ -86,12 +86,36 @@ function pointToLatLng(pt){ return regnumMap.unproject([pt.x, pt.y], 0); }
 // El mapa fuente es cuadrado (18x18 mosaicos) — si el recuadro no lo es,
 // "llenarlo entero" (sin bandas negras) y "mostrar el mundo completo" se
 // contradicen. Haciendo el recuadro cuadrado se cumplen las dos cosas a la
-// vez: ancho = min(ancho disponible hasta 1180px, 85% del alto de ventana).
+// vez: ancho = min(ancho disponible hasta 1180px, alto real disponible).
+//
+// El alto disponible se calcula contra dónde arranca de verdad el
+// recuadro (frame.getBoundingClientRect().top), no un porcentaje fijo de
+// la ventana entera — un % fijo (85vh) no sabe cuánto espacio ya se
+// gastó arriba (título, pestañas, buscador, checkboxes), así que en la
+// práctica el mapa se pasaba del borde inferior de la ventana y hacía
+// falta scrollear para verlo completo. Con el alto real que queda desde
+// el mapa hacia abajo, entra dentro de la ventana de entrada, sin perder
+// nada del mundo (sigue siendo el lado más chico entre ancho y alto
+// disponibles, el zoom se sigue ajustando solo para mostrarlo completo).
 function sizeMapSquare(){
   const frame = document.querySelector('.map-frame');
   const container = document.getElementById('regnum-map');
   if(!frame || !container) return;
-  const side = Math.max(320, Math.min(frame.clientWidth, window.innerHeight * 0.85));
+  // Debajo del mapa todavía viene el pie de página (.foot-note, siempre
+  // visible sea cual sea la pestaña) y el padding-bottom de .page-flex
+  // (ver css/layout.css) — sin restar ese espacio, "lo que queda hasta
+  // el borde de la ventana" quedaba corto y esas dos cosas igual
+  // empujaban el total por encima de la ventana. En vez de adivinar cada
+  // elemento suelto, se mide directo cuánto hay AHORA (con el alto
+  // actual del mapa, antes de tocarlo) entre el fondo del mapa y el
+  // fondo real de toda la fila de carriles — eso da el espacio que se
+  // necesita reservar, sea lo que sea que haya ahí.
+  const pageFlex = document.querySelector('.page-flex');
+  const frameTop = frame.getBoundingClientRect().top;
+  const espacioDespuesDelMapa = pageFlex ? Math.max(0, pageFlex.getBoundingClientRect().bottom - container.getBoundingClientRect().bottom) : 0;
+  const margenInferior = 12; // respiro extra, para que no quede pegado
+  const altoDisponible = window.innerHeight - frameTop - espacioDespuesDelMapa - margenInferior;
+  const side = Math.max(320, Math.min(frame.clientWidth, altoDisponible));
   // Hay que fijar ancho Y alto: el CSS de base solo da width:100% (hasta los
   // 1180px del recuadro), así que si sólo se fija el alto acá el contenedor
   // queda rectangular (más ancho que alto) en vez de cuadrado. Con un
@@ -800,9 +824,10 @@ const REALM_SLUG = {Syrtis:'syrtis', Alsius:'alsius', Ignis:'ignis'};
 // de Pueblo (mismo checkbox). "Villa" queda como alias de "Aldea" por si
 // algún registro viejo todavía usa ese nombre.
 const PLACE_SHAPE = {Ciudad:'ciudad', Pueblo:'pueblo', Puerto:'pueblo', Aldea:'aldea', Villa:'aldea', Muralla:'muralla', Fuerte:'fuerte', Castillo:'castillo', Altar:'altar'};
-// muralla al doble de lo que tenía (15 -> 30): con el glifo genérico
-// ('▬') quedaba chico y poco legible comparado con el resto.
-const PLACE_SIZE = {ciudad:34, pueblo:26, aldea:18, castillo:44, fuerte:32, altar:24, muralla:30};
+// muralla agrandada un par de veces ya (15 -> 30 -> 42): con el glifo
+// genérico ('▬') quedaba chico y poco legible comparado con el resto, y
+// después el ícono SVG nuevo se lucía más grande.
+const PLACE_SIZE = {ciudad:34, pueblo:26, aldea:18, castillo:44, fuerte:32, altar:24, muralla:42};
 // Cada categoría se filtra con su propio checkbox — ver #map-layers-block.
 const PLACE_TOGGLE_ID = {Ciudad:'map-toggle-ciudad', Pueblo:'map-toggle-pueblo', Puerto:'map-toggle-pueblo', Aldea:'map-toggle-aldea', Villa:'map-toggle-aldea', Fuerte:'map-toggle-fuerte', Castillo:'map-toggle-castillo', Muralla:'map-toggle-muralla', Altar:'map-toggle-altar'};
 // El carácter de texto "⌂" sale hueco (solo el contorno) en la mayoría de
@@ -810,10 +835,13 @@ const PLACE_TOGGLE_ID = {Ciudad:'map-toggle-ciudad', Pueblo:'map-toggle-pueblo',
 // SVG con fill:currentColor sí queda relleno del color que le pongamos.
 const HOUSE_SVG = '<svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor"><path d="M12 2 L2 11 L5 11 L5 22 L19 22 L19 11 L22 11 Z"/></svg>';
 // Muralla: no es un glifo de texto/SVG como el resto — es un <div> vacío
-// que CSS rellena con la imagen data/icons/muralla.png vía mask-image (ver
+// que CSS rellena con la imagen data/icons/muralla.svg vía mask-image (ver
 // .muralla-icon en css/map.css), así se recolorea por reino igual que los
-// demás sin necesitar un archivo distinto por color.
-const MURALLA_ICON_HTML = '<div class="muralla-icon"></div>';
+// demás sin necesitar un archivo distinto por color. Va envuelto en otro
+// <div> (.muralla-icon-wrap) que es quien lleva el contorno negro — ver
+// el comentario largo en css/map.css sobre por qué no puede ir el mismo
+// elemento que tiene el mask-image.
+const MURALLA_ICON_HTML = '<div class="muralla-icon-wrap"><div class="muralla-icon"></div></div>';
 const PLACE_GLYPH = {ciudad:HOUSE_SVG, pueblo:HOUSE_SVG, aldea:HOUSE_SVG, muralla:MURALLA_ICON_HTML, fuerte:'♜', castillo:'♜', altar:'◎'};
 
 // Dueño actual (según el estado de guerra en vivo de CoRT) de cada

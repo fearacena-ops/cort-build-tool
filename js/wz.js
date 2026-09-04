@@ -60,6 +60,22 @@ const WZ_FORT_NAME_MAP = {
 
 let wzPollTimer = null;
 
+// dd/MM/aa hh:mm, en la hora local de quien mira la página (Date ya
+// convierte el timestamp UTC de CoRT a la zona horaria del navegador
+// solo) y 24 horas a propósito, sin AM/PM. Formato fijo armado a mano en
+// vez de toLocaleString: ese depende del idioma del navegador y no
+// garantiza este orden día/mes/año en particular.
+function wzFormatDateTime(unixSeconds) {
+  const dt = new Date(unixSeconds * 1000);
+  const pad = n => String(n).padStart(2, '0');
+  const dd = pad(dt.getDate());
+  const mm = pad(dt.getMonth() + 1);
+  const aa = pad(dt.getFullYear() % 100);
+  const hh = pad(dt.getHours());
+  const mi = pad(dt.getMinutes());
+  return `${dd}/${mm}/${aa} ${hh}:${mi}`;
+}
+
 function wzRelTime(unixSeconds) {
   const diff = Math.floor(Date.now() / 1000) - unixSeconds;
   if (diff < 60) return 'hace un momento';
@@ -132,7 +148,7 @@ function wzRenderLog(events) {
   const relevantes = events.filter(ev => ev.type !== 'wish');
   box.innerHTML = relevantes.slice(0, 25).map(ev => `
     <li>
-      <span class="wz-log-time">${wzRelTime(ev.date)}</span>
+      <span class="wz-log-time">${wzFormatDateTime(ev.date)} · ${wzRelTime(ev.date)}</span>
       <span style="color:${WZ_REALM_COLOR[ev.owner] || 'inherit'}">${wzDescribeEvent(ev)}</span>
     </li>`).join('');
 }
@@ -158,15 +174,7 @@ async function wzTick() {
     // todavía y no pasa nada.
     if (typeof applyWzFortStatus === 'function') applyWzFortStatus(data.forts);
     const updated = document.getElementById('wz-updated');
-    if (updated && data.generated) {
-      // Fecha y hora locales de quien mira la página (Date ya convierte
-      // el timestamp UTC de CoRT a la zona horaria del navegador solo) —
-      // 24 horas a propósito, sin AM/PM.
-      const dt = new Date(parseInt(data.generated, 10) * 1000);
-      updated.textContent = dt.toLocaleString(undefined, {
-        day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false,
-      });
-    }
+    if (updated && data.generated) updated.textContent = wzFormatDateTime(parseInt(data.generated, 10));
   } catch (err) {
     // No se limpia lo ya mostrado — mejor dejar el último dato bueno que
     // se tenía (con un aviso) que vaciar todo el panel por un fallo
