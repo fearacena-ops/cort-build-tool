@@ -61,15 +61,15 @@
   .regnum-marker-aldea{font-size:18px;}
   .regnum-marker-fuerte{font-size:32px;}
   .regnum-marker-castillo{font-size:44px;}
-  /* Muralla usa una imagen (data/icons/muralla.png, blanco/negro con fondo
-     transparente) en vez de un glifo de texto — mask-image la usa como
+  /* Muralla usa una imagen (data/icons/muralla.svg, forma blanca sobre
+     fondo transparente) en vez de un glifo de texto — mask-image la usa como
      plantilla y pinta el hueco con background-color:currentColor, así se
      recolorea por reino igual que el resto (ver realm-color-* abajo) sin
      necesitar un archivo por reino. El div en sí no tiene contenido de
      texto, por eso no necesita font-size. Mismo contorno de 8 sombras que
      las casas (acá también hace falta filter, no hay texto que recorrer
      con text-shadow). */
-  .muralla-icon{width:100%;height:100%;background-color:currentColor;-webkit-mask-image:url(../data/icons/muralla.png);mask-image:url(../data/icons/muralla.png);-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:center;mask-position:center;-webkit-mask-size:contain;mask-size:contain;filter:drop-shadow(1px 0 0 #000) drop-shadow(-1px 0 0 #000) drop-shadow(0 1px 0 #000) drop-shadow(0 -1px 0 #000) drop-shadow(1px 1px 0 #000) drop-shadow(-1px -1px 0 #000) drop-shadow(1px -1px 0 #000) drop-shadow(-1px 1px 0 #000);}
+  .muralla-icon{width:100%;height:100%;background-color:currentColor;-webkit-mask-image:url(../data/icons/muralla.svg);mask-image:url(../data/icons/muralla.svg);-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:center;mask-position:center;-webkit-mask-size:contain;mask-size:contain;filter:drop-shadow(1px 0 0 #000) drop-shadow(-1px 0 0 #000) drop-shadow(0 1px 0 #000) drop-shadow(0 -1px 0 #000) drop-shadow(1px 1px 0 #000) drop-shadow(-1px -1px 0 #000) drop-shadow(1px -1px 0 #000) drop-shadow(-1px 1px 0 #000);}
   .regnum-marker-altar{font-size:24px;}
   /* Mismos colores que ya usa el selector de reino arriba, para que un
      vistazo alcance para saber de qué reino es un NPC/fuerte/castillo. */

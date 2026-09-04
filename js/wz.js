@@ -79,10 +79,20 @@ function wzRenderGems(gems) {
   const box = document.getElementById('wz-gems');
   if (!box || !Array.isArray(gems)) return;
   box.innerHTML = WZ_GEM_REALMS.map(([reino, from, to]) => {
-    const dots = gems.slice(from, to).map((g, i) => {
+    // La variante (1/2) alterna según el ORDEN en que aparece cada gema
+    // de un mismo dueño, de izquierda a derecha — no según su posición
+    // absoluta en la fila de 6. Con la posición absoluta, las dos gemas
+    // capturadas de un reino podían caer las dos en índice par (o las
+    // dos en impar) y terminaban mostrando la misma variante, en vez de
+    // alternar como se ve en el juego.
+    const ocurrencias = {};
+    const dots = gems.slice(from, to).map(g => {
       const holder = WZ_GEM_HOLDER[g];
-      const iconos = WZ_GEM_ICON[holder || 'none'];
-      const icon = iconos[i % iconos.length];
+      const clave = holder || 'none';
+      const ocurrencia = ocurrencias[clave] || 0;
+      ocurrencias[clave] = ocurrencia + 1;
+      const iconos = WZ_GEM_ICON[clave];
+      const icon = iconos[ocurrencia % iconos.length];
       const titulo = holder ? `Capturada por ${holder}` : `Gema de ${reino} (a salvo)`;
       return `<img class="wz-gem-icon" src="${icon}" alt="${titulo}" title="${titulo}">`;
     }).join('');
