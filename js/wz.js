@@ -1,27 +1,33 @@
-// Panel de "Estado de guerra" al costado del mapa: quién tiene las gemas,
-// quién tiene cada fuerte/castillo/muralla ahora mismo, y el log de
-// capturas recientes. Datos reales de CoRT (cort.ovh), traídos a través
+// Panel de "Estado de guerra" al costado del mapa: quién tiene las gemas
+// y el log de capturas recientes. Datos reales de CoRT, traídos a través
 // de /api/wz (ver ese archivo — hace falta un proxy propio porque CoRT no
-// habilita CORS para otros sitios). Todo lo de acá vive aparte de map.js
-// a propósito: no depende de Leaflet ni de regnumMapData, solo del mismo
-// sistema de tabs.
+// habilita CORS para otros sitios). Quién tiene cada fuerte/castillo/
+// muralla AHORA se ve directo en el mapa (los marcadores cambian de
+// color solos, ver applyWzFortStatus en map.js) — no hace falta
+// repetirlo en una lista aparte acá.
+//
+// Todo lo de acá vive aparte de map.js a propósito: no depende de
+// Leaflet ni de regnumMapData, solo del mismo sistema de tabs (y de la
+// función global applyWzFortStatus, si map.js ya se cargó, para pintar
+// los marcadores del mapa con este mismo dato).
 
 // Mismos colores que .realm-color-syrtis/alsius/ignis en css/map.css —
 // repetidos acá (no hay forma simple de compartir constantes entre estos
 // dos scripts sueltos) para no depender de que map.js se haya cargado.
 const WZ_REALM_COLOR = { Alsius: '#5b9cc9', Ignis: '#c9622f', Syrtis: '#7fae5a' };
-const WZ_GEM_NEUTRAL = '#4a4a4a';
 // gem_0.png = todavía en su reino de origen (gris, "a salvo"). gem_1/2/3
 // identifican qué reino la tiene ahora — Ignis/Alsius/Syrtis en ESE orden
 // fijo, no según la posición de la gema (así lo arma el propio wztools.js
 // de CoRT: js/wztools/wztools.js, generate_gem(realm_colors[...])).
 const WZ_GEM_HOLDER = { 'gem_0.png': null, 'gem_1.png': 'Ignis', 'gem_2.png': 'Alsius', 'gem_3.png': 'Syrtis' };
-// Íconos de gema reales (no puntos de color) — data/icons/gem-*.png.
+// Íconos de gema reales (no puntos de color) — data/icons/gem-*.png. Dos
+// variantes por reino (se alternan según la posición de cada gema en su
+// fila de 6, solo para que no queden seis copias idénticas en línea).
 const WZ_GEM_ICON = {
-  none: 'data/icons/gem-none.png',
-  Ignis: 'data/icons/gem-ignis.png',
-  Alsius: 'data/icons/gem-alsius.png',
-  Syrtis: 'data/icons/gem-syrtis.png',
+  none: ['data/icons/gem-none.png'],
+  Ignis: ['data/icons/gem-ignis-1.png', 'data/icons/gem-ignis-2.png'],
+  Alsius: ['data/icons/gem-alsius-1.png', 'data/icons/gem-alsius-2.png'],
+  Syrtis: ['data/icons/gem-syrtis-1.png', 'data/icons/gem-syrtis-2.png'],
 };
 // Las 18 gemas del JSON vienen en un solo array plano: las primeras 6 son
 // las de Alsius, las siguientes 6 las de Ignis, las últimas 6 las de
@@ -32,6 +38,25 @@ const WZ_GEM_REALMS = [
   ['Ignis', 6, 12],
   ['Syrtis', 12, 18],
 ];
+// Nombre de CoRT (como viene en forts[].name, con el número entre
+// paréntesis) -> nuestro propio nombre en español (data/map-data.json),
+// para pintar los marcadores del mapa real con el dueño actual sin dejar
+// de mostrar el nombre en español de siempre. Lista fija de 12 — no hay
+// necesidad de "adivinar" el emparejamiento con texto suelto.
+const WZ_FORT_NAME_MAP = {
+  'Imperia Castle (1)': 'Castillo Imperia',
+  'Fort Aggersborg (2)': 'Fuerte Aggersborg',
+  'Fort Trelleborg (3)': 'Fuerte Trelleborg',
+  'Great Wall of Alsius (4)': 'Gran muralla de Alsius',
+  'Fort Menirah (5)': 'Fuerte Menirah',
+  'Fort Samal (6)': 'Fuerte Samal',
+  'Shaanarid Castle (7)': 'Castillo Shaanarid',
+  'Great Wall of Ignis (8)': 'Gran muralla de Ignis',
+  'Fort Algaros (9)': 'Fuerte Algaros',
+  'Fort Herbred (10)': 'Fuerte Herbred',
+  'Eferias Castle (11)': 'Castillo Eferias',
+  'Great Wall of Syrtis (12)': 'Gran muralla de Syrtis',
+};
 
 let wzPollTimer = null;
 
@@ -43,13 +68,21 @@ function wzRelTime(unixSeconds) {
   return `hace ${Math.floor(diff / 86400)} d`;
 }
 
+// El nombre de CoRT trae siempre un número entre paréntesis al final
+// ("Fort Aggersborg (2)") que identifica el fuerte puertas adentro de su
+// sistema, pero no aporta nada acá — se saca para mostrar.
+function wzCleanName(name) {
+  return (name || '').replace(/\s*\(\d+\)\s*$/, '');
+}
+
 function wzRenderGems(gems) {
   const box = document.getElementById('wz-gems');
   if (!box || !Array.isArray(gems)) return;
   box.innerHTML = WZ_GEM_REALMS.map(([reino, from, to]) => {
-    const dots = gems.slice(from, to).map(g => {
+    const dots = gems.slice(from, to).map((g, i) => {
       const holder = WZ_GEM_HOLDER[g];
-      const icon = WZ_GEM_ICON[holder || 'none'];
+      const iconos = WZ_GEM_ICON[holder || 'none'];
+      const icon = iconos[i % iconos.length];
       const titulo = holder ? `Capturada por ${holder}` : `Gema de ${reino} (a salvo)`;
       return `<img class="wz-gem-icon" src="${icon}" alt="${titulo}" title="${titulo}">`;
     }).join('');
@@ -60,26 +93,11 @@ function wzRenderGems(gems) {
   }).join('');
 }
 
-function wzRenderForts(forts) {
-  const box = document.getElementById('wz-forts');
-  if (!box || !Array.isArray(forts)) return;
-  box.innerHTML = forts.map(f => {
-    const color = WZ_REALM_COLOR[f.owner] || WZ_GEM_NEUTRAL;
-    const capturado = f.owner !== f.location
-      ? `<span class="wz-fort-captured">de ${f.location}</span>`
-      : '';
-    return `<div class="wz-fort" title="${f.name} — ${f.owner}${f.owner !== f.location ? ' (originalmente ' + f.location + ')' : ''}">
-      <span class="wz-fort-dot" style="background:${color}"></span>
-      <span class="wz-fort-name">${f.name}</span>
-      ${capturado}
-    </div>`;
-  }).join('');
-}
-
 function wzDescribeEvent(ev) {
+  const nombre = wzCleanName(ev.name);
   if (ev.type === 'relic') {
     const de = ev.location && ev.location !== 'transit' && ev.location !== ev.owner ? ` (de ${ev.location})` : '';
-    return `${ev.owner} capturó la reliquia ${ev.name}${de}`;
+    return `${ev.owner} capturó la reliquia ${nombre}${de}`;
   }
   if (ev.type === 'gem') {
     // acá "name" es el número de la gema dentro de su reino (1, 2...),
@@ -90,9 +108,9 @@ function wzDescribeEvent(ev) {
   }
   // type === 'fort' (y cualquier otro tipo no contemplado, para no
   // dejarlo sin texto — mejor una descripción genérica que una vacía)
-  if (ev.owner === ev.location) return `${ev.owner} recuperó ${ev.name}`;
-  if (ev.owner) return `${ev.owner} capturó ${ev.name} (de ${ev.location})`;
-  return `${ev.name || ev.location || 'Evento'}`;
+  if (ev.owner === ev.location) return `${ev.owner} recuperó ${nombre}`;
+  if (ev.owner) return `${ev.owner} capturó ${nombre} (de ${ev.location})`;
+  return `${nombre || ev.location || 'Evento'}`;
 }
 
 function wzRenderLog(events) {
@@ -114,7 +132,7 @@ async function wzTick() {
   try {
     // cache:'no-store' para que el navegador nunca reuse una respuesta
     // vieja por su cuenta — el Cache-Control de /api/wz (s-maxage) es
-    // para el borde de Vercel (no pegarle a cort.ovh más de una vez por
+    // para el borde de Vercel (no pegarle a la fuente más de una vez por
     // minuto), no para el caché propio del navegador; sin esto, algunos
     // navegadores guardaban la respuesta y el panel quedaba pegado en el
     // primer dato que había traído, sin actualizarse más.
@@ -123,8 +141,12 @@ async function wzTick() {
     if (!r.ok || data.error) throw new Error(data.error || `HTTP ${r.status}`);
     if (errBox) { errBox.hidden = true; errBox.textContent = ''; }
     wzRenderGems(data.gems);
-    wzRenderForts(data.forts);
     wzRenderLog(data.events_log);
+    // Pinta los marcadores de Fuerte/Castillo/Muralla en el mapa real
+    // con el dueño actual — función expuesta por map.js; si ese script
+    // todavía no corrió (o el usuario nunca abrió el mapa), no existe
+    // todavía y no pasa nada.
+    if (typeof applyWzFortStatus === 'function') applyWzFortStatus(data.forts);
     const updated = document.getElementById('wz-updated');
     if (updated && data.generated) {
       // Fecha y hora locales de quien mira la página (Date ya convierte
@@ -151,8 +173,8 @@ function initWzIfNeeded() {
   wzTick();
   // Mismo ritmo que usa CoRT para consultarse a sí mismo (una vez por
   // minuto) — /api/wz además cachea 60s de su lado, así que aunque haya
-  // varias pestañas/visitantes abiertos a la vez no se le pega a cort.ovh
-  // más seguido que eso en total.
+  // varias pestañas/visitantes abiertos a la vez no se le pega a la
+  // fuente más seguido que eso en total.
   wzPollTimer = setInterval(wzTick, 60000);
 }
 

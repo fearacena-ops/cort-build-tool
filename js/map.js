@@ -816,14 +816,47 @@ const HOUSE_SVG = '<svg viewBox="0 0 24 24" width="1em" height="1em" fill="curre
 const MURALLA_ICON_HTML = '<div class="muralla-icon"></div>';
 const PLACE_GLYPH = {ciudad:HOUSE_SVG, pueblo:HOUSE_SVG, aldea:HOUSE_SVG, muralla:MURALLA_ICON_HTML, fuerte:'♜', castillo:'♜', altar:'◎'};
 
+// Dueño actual (según el estado de guerra en vivo de CoRT) de cada
+// fuerte/castillo/muralla, por NUESTRO nombre en español — alimentado
+// por applyWzFortStatus más abajo, llamada desde js/wz.js cada vez que
+// llega dato nuevo (una vez por minuto). Vacío hasta que llega el primer
+// dato, o si CoRT no responde — en ese caso el marcador se pinta con su
+// reino real de siempre (ver iconFor), no queda "sin color".
+let wzLiveFortOwner = {};
+
 function iconFor(m){
   if(m.tipo === 'mision') return L.divIcon({className:'regnum-marker regnum-marker-mision', html:'!', iconSize:[10,14]});
   if(m.tipo === 'npc') return L.divIcon({className:`regnum-marker regnum-marker-npc realm-color-${REALM_SLUG[m.reino]||'syrtis'}`, html:'●', iconSize:[14,14]});
   // ciudad/lugar: la forma sale de la categoría (Ciudad/Fuerte/Castillo/...)
   const shape = PLACE_SHAPE[m.categoria] || 'ciudad';
   const size = PLACE_SIZE[shape] || 34;
-  const cls = `regnum-marker regnum-marker-${shape} realm-color-${REALM_SLUG[m.reino]||'syrtis'}`;
+  // Fuerte/Castillo/Muralla: si CoRT dice quién lo tiene AHORA, se pinta
+  // de ESE reino en vez del original — el nombre en español que se
+  // muestra en todos lados (popup, buscador) no cambia, solo el color
+  // del ícono en el mapa.
+  const liveOwner = (shape === 'fuerte' || shape === 'castillo' || shape === 'muralla') ? wzLiveFortOwner[m.nombre] : null;
+  const cls = `regnum-marker regnum-marker-${shape} realm-color-${REALM_SLUG[liveOwner || m.reino]||'syrtis'}`;
   return L.divIcon({className:cls, html:PLACE_GLYPH[shape], iconSize:[size,size]});
+}
+
+// Llamada por js/wz.js cada vez que llega un estado de guerra nuevo (ver
+// wzTick ahí) — WZ_FORT_NAME_MAP (definido en ese mismo archivo) empareja
+// el nombre de CoRT ("Fort Aggersborg (2)") con el nuestro ("Fuerte
+// Aggersborg"). Solo repinta los 12 marcadores afectados (setIcon en el
+// lugar), no reconstruye toda la capa — así no se cierran popups
+// abiertos ni se pierde ningún otro estado por un refresco de fondo.
+function applyWzFortStatus(forts){
+  if(!Array.isArray(forts) || typeof WZ_FORT_NAME_MAP === 'undefined') return;
+  wzLiveFortOwner = {};
+  forts.forEach(f=>{
+    const nombre = WZ_FORT_NAME_MAP[f.name];
+    if(nombre) wzLiveFortOwner[nombre] = f.owner;
+  });
+  regnumAllMarkerObjs.forEach(m=>{
+    if(m.tipo === 'ciudad' && wzLiveFortOwner[m.nombre] !== undefined && m._leaflet){
+      m._leaflet.setIcon(iconFor(m));
+    }
+  });
 }
 
 function buildRegnumMarkers(){
