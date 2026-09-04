@@ -493,7 +493,12 @@ const PLACE_TOGGLE_ID = {Ciudad:'map-toggle-ciudad', Pueblo:'map-toggle-pueblo',
 // las fuentes — no hay forma de "rellenarlo" solo con color de texto. Un
 // SVG con fill:currentColor sí queda relleno del color que le pongamos.
 const HOUSE_SVG = '<svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor"><path d="M12 2 L2 11 L5 11 L5 22 L19 22 L19 11 L22 11 Z"/></svg>';
-const PLACE_GLYPH = {ciudad:HOUSE_SVG, pueblo:HOUSE_SVG, aldea:HOUSE_SVG, muralla:'▬', fuerte:'♜', castillo:'♜', altar:'◎'};
+// Muralla: no es un glifo de texto/SVG como el resto — es un <div> vacío
+// que CSS rellena con la imagen data/icons/muralla.png vía mask-image (ver
+// .muralla-icon en css/map.css), así se recolorea por reino igual que los
+// demás sin necesitar un archivo distinto por color.
+const MURALLA_ICON_HTML = '<div class="muralla-icon"></div>';
+const PLACE_GLYPH = {ciudad:HOUSE_SVG, pueblo:HOUSE_SVG, aldea:HOUSE_SVG, muralla:MURALLA_ICON_HTML, fuerte:'♜', castillo:'♜', altar:'◎'};
 
 function iconFor(m){
   if(m.tipo === 'mision') return L.divIcon({className:'regnum-marker regnum-marker-mision', html:'!', iconSize:[10,14]});
