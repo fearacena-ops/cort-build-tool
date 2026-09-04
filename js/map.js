@@ -290,51 +290,27 @@ function initRegnumMapIfNeeded(){
   // click en el mapa (en un lugar vacío, no sobre un marcador) muestra el
   // mosaico exacto (con decimales) de ese punto — para afinar a mano la
   // posición de ciudades y lugares de interés sin depender de capturas.
-  // El selector de modo decide qué hace cada click:
-  //  - Normal: el globo de siempre, con su botón de copiar.
-  //  - Polígono: junta puntos en un panel (sin globo, molestaba al hacer
-  //    muchos clicks seguidos) para delimitar el área de una zona de
-  //    mobs/materiales — ver buildRegnumZones. Una zona puede tener varias
-  //    piezas separadas (por ejemplo si una ciudad la corta al medio):
-  //    "Cerrar pieza" guarda el anillo actual y arranca uno nuevo.
-  //  - Ángulo: dos clicks (centro de la muralla, después un punto en la
-  //    dirección hacia la que "mira" la pared real en el mosaico) y calcula
-  //    los grados para el campo "angulo" de esa muralla — ver iconFor().
+  // Además, cada click se va acumulando en un panel flotante (abajo a la
+  // derecha) que dibuja el polígono en vivo — para delimitar el área de
+  // una zona de mobs/materiales click a click por el borde y después
+  // copiar todos los puntos de una — ver buildRegnumZones. Una zona puede
+  // tener varias piezas separadas (por ejemplo si una ciudad la corta al
+  // medio) — "Cerrar pieza" guarda el anillo actual y arranca uno nuevo,
+  // sin perder los anteriores.
   if(new URLSearchParams(location.search).get('refpick') === '1'){
     const refpickPieces = []; // piezas ya cerradas: array de anillos (cada uno, array de {col,row})
     let refpickCurrent = []; // anillo que se está dibujando ahora
     let refpickPreview = null;
-    let anguloCentro = null; // primer click del modo ángulo, en espera del segundo
-    let anguloPreview = null;
     const panel = document.createElement('div');
     panel.style.cssText = 'position:fixed;bottom:10px;right:10px;z-index:9999;background:#0f1410;border:1px solid #2c3a2a;color:#e7ecdf;font-family:monospace;font-size:12px;padding:10px;border-radius:6px;max-width:260px;';
-    panel.innerHTML = `<label style="display:flex;align-items:center;gap:6px">Modo:
-        <select id="refpick-mode" style="flex:1">
-          <option value="normal">Normal (con globo)</option>
-          <option value="poligono">Polígono (zona)</option>
-          <option value="angulo">Ángulo (muralla)</option>
-        </select>
-      </label>
-      <div id="refpick-poly-panel" style="margin-top:6px">
-        <b>Puntos de zona</b><br>
-        <span id="refpick-count">pieza actual: 0 puntos · piezas cerradas: 0</span><br>
-        <button type="button" id="refpick-close-piece" style="margin-top:6px">Cerrar pieza y empezar otra</button><br>
-        <button type="button" id="refpick-copy-poly" style="margin-top:6px">Copiar todo</button>
-        <button type="button" id="refpick-reset" style="margin-top:6px">Reiniciar</button>
-      </div>
-      <div id="refpick-angulo-panel" style="margin-top:6px;display:none">
-        <b>Ángulo de muralla</b><br>
-        <span id="refpick-angulo-estado">click el centro de la muralla</span><br>
-        <button type="button" id="refpick-copy-angulo" style="margin-top:6px" disabled>Copiar ángulo</button>
-      </div>`;
+    panel.innerHTML = `<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" id="refpick-poly-mode"> Modo polígono (sin globo)</label>
+      <b>Puntos de zona</b><br>
+      <span id="refpick-count">pieza actual: 0 puntos · piezas cerradas: 0</span><br>
+      <button type="button" id="refpick-close-piece" style="margin-top:6px">Cerrar pieza y empezar otra</button><br>
+      <button type="button" id="refpick-copy-poly" style="margin-top:6px">Copiar todo</button>
+      <button type="button" id="refpick-reset" style="margin-top:6px">Reiniciar</button>`;
     document.body.appendChild(panel);
-    const modeSelect = document.getElementById('refpick-mode');
-    const polyPanel = document.getElementById('refpick-poly-panel');
-    const anguloPanel = document.getElementById('refpick-angulo-panel');
-    modeSelect.addEventListener('change', ()=>{
-      polyPanel.style.display = modeSelect.value === 'poligono' ? '' : 'none';
-      anguloPanel.style.display = modeSelect.value === 'angulo' ? '' : 'none';
-    });
+    const polyModeCheckbox = document.getElementById('refpick-poly-mode');
     function refreshRefpickPanel(){
       document.getElementById('refpick-count').textContent =
         `pieza actual: ${refpickCurrent.length} punto${refpickCurrent.length===1?'':'s'} · piezas cerradas: ${refpickPieces.length}`;
@@ -370,49 +346,19 @@ function initRegnumMapIfNeeded(){
       refpickCurrent = [];
       refreshRefpickPanel();
     });
-    let refpickAnguloValue = null;
-    document.getElementById('refpick-copy-angulo').addEventListener('click', function(){
-      if(refpickAnguloValue == null) return;
-      navigator.clipboard?.writeText(String(refpickAnguloValue)).catch(()=>{});
-      this.textContent = 'Copiado';
-      setTimeout(()=> this.textContent = 'Copiar ángulo', 1200);
-    });
+    // El checkbox decide cuál de las dos cosas hace cada click — antes
+    // hacía las dos siempre, y el globo de referencia (pensado para un
+    // punto suelto) se volvía molesto al ir clickeando muchos puntos
+    // seguidos para armar un polígono.
     regnumMap.on('click', (e)=>{
       const pt = regnumMap.project(e.latlng, 0);
       const col = Number((pt.x/TILE_SIZE).toFixed(3));
       const row = Number((pt.y/TILE_SIZE).toFixed(3));
-
-      if(modeSelect.value === 'poligono'){
+      if(polyModeCheckbox.checked){
         refpickCurrent.push({col, row});
         refreshRefpickPanel();
         return;
       }
-
-      if(modeSelect.value === 'angulo'){
-        if(!anguloCentro){
-          anguloCentro = {col, row};
-          document.getElementById('refpick-angulo-estado').textContent =
-            `centro: col=${col.toFixed(3)} row=${row.toFixed(3)} — click hacia dónde mira la pared`;
-          document.getElementById('refpick-copy-angulo').disabled = true;
-          return;
-        }
-        // Convención: 0° = "mira hacia el norte" (fila menor), y crece en
-        // sentido horario — el mismo sentido que usa CSS transform:rotate(),
-        // así el valor calculado acá se puede pegar tal cual en el campo
-        // "angulo" del lugar y el ícono queda mirando para donde se clickeó.
-        const dCol = col - anguloCentro.col;
-        const dRowNorte = -(row - anguloCentro.row);
-        let angulo = Math.atan2(dCol, dRowNorte) * 180 / Math.PI;
-        angulo = Math.round(((angulo % 360) + 360) % 360);
-        refpickAnguloValue = angulo;
-        document.getElementById('refpick-angulo-estado').textContent = `Ángulo: ${angulo}° (click de nuevo para medir otra)`;
-        document.getElementById('refpick-copy-angulo').disabled = false;
-        if(anguloPreview) regnumMap.removeLayer(anguloPreview);
-        anguloPreview = L.polyline([tileToLatLng(anguloCentro.col, anguloCentro.row), e.latlng], {color:'#e8c14a', weight:2}).addTo(regnumMap);
-        anguloCentro = null;
-        return;
-      }
-
       const text = `col=${col.toFixed(3)} row=${row.toFixed(3)}`;
       L.popup().setLatLng(e.latlng)
         .setContent(`<b>Referencia</b><br><code>${text}</code><br><button type="button" id="refpick-copy" style="margin-top:6px">Copiar</button>`)
@@ -509,16 +455,7 @@ function iconFor(m){
   const cls = PLACE_NO_REALM_COLOR.has(shape)
     ? `regnum-marker regnum-marker-${shape}`
     : `regnum-marker regnum-marker-${shape} realm-color-${REALM_SLUG[m.reino]||'syrtis'}`;
-  // m.angulo (grados, sentido horario, 0° = como viene el glifo por
-  // defecto) — por ahora solo lo cargan las murallas, para que el ícono
-  // quede orientado igual que la pared real en el mosaico de abajo. Se
-  // rota un <div> interno, NUNCA el contenedor que arma Leaflet — ese ya
-  // tiene su propio transform para ubicar el marcador, y pisárselo lo
-  // deja mal posicionado.
-  const html = (m.angulo)
-    ? `<div style="transform:rotate(${m.angulo}deg);width:100%;height:100%;display:flex;align-items:center;justify-content:center;">${PLACE_GLYPH[shape]}</div>`
-    : PLACE_GLYPH[shape];
-  return L.divIcon({className:cls, html, iconSize:[size,size]});
+  return L.divIcon({className:cls, html:PLACE_GLYPH[shape], iconSize:[size,size]});
 }
 
 function buildRegnumMarkers(){
@@ -657,7 +594,7 @@ function applyZoneFilters(){
 
 function editableFieldsFor(m){
   if(m.tipo === 'npc') return [['nombre','Nombre'], ['profesion','Profesión'], ['zona','Zona'], ['reino','Reino']];
-  if(m.tipo === 'ciudad') return [['nombre','Nombre'], ['categoria','Categoría'], ['zona','Zona'], ['reino','Reino'], ['angulo','Ángulo (°, solo murallas)']];
+  if(m.tipo === 'ciudad') return [['nombre','Nombre'], ['categoria','Categoría'], ['zona','Zona'], ['reino','Reino']];
   return [['nombre','Nombre'], ['nivel','Nivel'], ['la_da','La da'], ['xp','XP'], ['oro','Oro']];
 }
 
