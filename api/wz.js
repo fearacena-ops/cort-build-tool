@@ -8,12 +8,21 @@
 // lado del servidor (entre servidores no aplica CORS) y le devuelve el
 // dato a nuestra propia página, sirviendo desde nuestro propio origen.
 //
+// runtime:'edge' a propósito, no el runtime Node por defecto: con Node
+// (que en Vercel corre sobre AWS Lambda) la conexión a cort.ovh:443 daba
+// timeout siempre — todo indica un bloqueo de red contra rangos de IP de
+// proveedores cloud (medida anti-scraping habitual), no un tema de headers
+// ni de CORS. Edge corre sobre una red distinta (no AWS), así que esquiva
+// ese bloqueo puntual.
+//
 // Cache-Control con s-maxage hace que Vercel cachee la respuesta en su
 // borde: aunque entren muchos visitantes a la vez, o el mismo visitante
 // pida varias veces seguidas, esta función (y por lo tanto cort.ovh) no
 // se llama más de una vez por minuto en total — mismo ritmo que usa el
 // propio sitio de CoRT para consultarse a sí mismo.
-module.exports = async function handler(req, res) {
+export const config = { runtime: 'edge' };
+
+export default async function handler() {
   try {
     const upstream = await fetch('https://cort.ovh/api/var/wstatus.json', {
       headers: {
@@ -21,21 +30,27 @@ module.exports = async function handler(req, res) {
       },
     });
     if (!upstream.ok) {
-      res.status(502).json({ error: `CoRT respondió ${upstream.status}` });
-      return;
+      return new Response(JSON.stringify({ error: `CoRT respondió ${upstream.status}` }), {
+        status: 502,
+        headers: { 'content-type': 'application/json' },
+      });
     }
     const data = await upstream.json();
-    res.setHeader('Cache-Control', 's-maxage=60, stale-while-revalidate=30');
-    res.status(200).json(data);
+    return new Response(JSON.stringify(data), {
+      status: 200,
+      headers: {
+        'content-type': 'application/json',
+        'Cache-Control': 's-maxage=60, stale-while-revalidate=30',
+      },
+    });
   } catch (err) {
-    // Detalle extra (código de red, causa de bajo nivel) mientras se
-    // diagnostica por qué falla desde el entorno de Vercel — "fetch
-    // failed" solo no alcanza para saber si es DNS, TLS, timeout, o un
-    // bloqueo por IP del lado de cort.ovh.
-    res.status(502).json({
+    return new Response(JSON.stringify({
       error: String((err && err.message) || err),
       code: err && err.code,
       cause: err && err.cause && String(err.cause.message || err.cause),
+    }), {
+      status: 502,
+      headers: { 'content-type': 'application/json' },
     });
   }
 }
