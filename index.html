@@ -235,15 +235,33 @@
       <div class="map-results" id="map-search-results"></div>
     </div>
     <div id="map-layers-anchor"></div>
-    <div class="map-frame">
-      <div id="regnum-map"></div>
-      <div class="map-zoom-badge" id="map-zoom-badge"></div>
-      <div class="map-compass">
-        <span class="map-compass-n">N</span>
-        <span class="map-compass-s">S</span>
-        <span class="map-compass-e">E</span>
-        <span class="map-compass-o">O</span>
+    <div class="map-with-wz">
+      <div class="map-frame">
+        <div id="regnum-map"></div>
+        <div class="map-zoom-badge" id="map-zoom-badge"></div>
+        <div class="map-compass">
+          <span class="map-compass-n">N</span>
+          <span class="map-compass-s">S</span>
+          <span class="map-compass-e">E</span>
+          <span class="map-compass-o">O</span>
+        </div>
       </div>
+      <aside class="wz-sidebar" id="wz-sidebar">
+        <div class="panel wz-panel">
+          <div class="wz-panel-head">
+            <b>Estado de guerra</b>
+            <span class="wz-updated" id="wz-updated"></span>
+          </div>
+          <div class="wz-error" id="wz-error" hidden></div>
+          <div class="wz-gems" id="wz-gems"></div>
+          <div class="wz-forts" id="wz-forts"></div>
+        </div>
+        <div class="panel wz-panel wz-log-panel">
+          <b>Últimos eventos</b>
+          <ul class="wz-log" id="wz-log"></ul>
+        </div>
+        <div class="wz-credit">Datos en vivo: <a href="https://cort.ovh/CoRT/wz.html" target="_blank" rel="noopener">CoRT</a></div>
+      </aside>
     </div>
   </div>
 
@@ -318,5 +336,6 @@
 <script src="js/data-loader.js" defer></script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin="anonymous" defer></script>
 <script src="js/map.js" defer></script>
+<script src="js/wz.js" defer></script>
 </body>
 </html>
