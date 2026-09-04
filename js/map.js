@@ -490,12 +490,28 @@ function initRegnumMapIfNeeded(){
       matsUl.innerHTML = ztMats.map((it,i)=>`<li>${it.nombre} <a href="#" data-i="${i}" class="zt-mat-del" style="color:#c0392b;text-decoration:none">✕</a></li>`).join('');
       matsUl.querySelectorAll('.zt-mat-del').forEach(a=> a.addEventListener('click', (e)=>{ e.preventDefault(); ztMats.splice(+a.dataset.i, 1); ztRefreshLists(); }));
     }
+    function ztGetCurrentZone(nombre){
+      // El estado "actual" de una zona: si en esta misma sesión ya hay
+      // un cambio pendiente para ese nombre (se le sacaron piezas para
+      // armar otra zona, se le editaron mobs, etc.), se parte de ahí —
+      // si no, del dato ya cargado. Sin esto, usar la misma zona de
+      // origen dos veces seguidas en una sesión "olvida" lo que ya se
+      // le había sacado la primera vez.
+      for(let i = zoneToolChanges.length - 1; i >= 0; i--){
+        if(zoneToolChanges[i].nombre === nombre) return zoneToolChanges[i];
+      }
+      return (regnumMapData.zonas||[]).find(zz=> zz.nombre === nombre) || null;
+    }
     function ztRenderPieceList(){
       const box = document.getElementById('zt-piece-list');
       if(!box) return;
+      const nombreActual = document.getElementById('zt-name')?.value.trim();
       const rows = refpickPieces.map((ring,i)=>{
         const src = refpickPieceSource[i];
-        const tag = src ? ` <span style="color:#9fae95">— de "${src}"</span>` : '';
+        // Si la pieza vino de la misma zona que se está armando ahora,
+        // mostrar el origen es redundante (obvio, es la que se cargó) —
+        // solo importa avisar cuando es de OTRA zona distinta.
+        const tag = (src && src !== nombreActual) ? ` <span style="color:#9fae95">— de "${src}"</span>` : '';
         return `<label style="display:flex;align-items:center;gap:6px;padding:2px 0;cursor:pointer">
            <input type="checkbox" class="zt-piece-chk" data-i="${i}" ${refpickPieceChecked[i] !== false ? 'checked' : ''}>
            Pieza ${i+1} (${ring.length} puntos)${tag}
@@ -519,6 +535,10 @@ function initRegnumMapIfNeeded(){
         `<option value="${z.nombre.replace(/"/g,'&quot;')}">${z.nombre} (${z.reino}) — ${(z.mobs||[]).length} mobs, ${(z.materiales||[]).length} mat.</option>`
       ).join('');
     }
+    // Si se edita el nombre a mano, la lista de piezas se refresca — así
+    // la etiqueta "de tal zona" (que se oculta cuando coincide con el
+    // nombre actual) queda al día sin esperar a otra acción.
+    document.getElementById('zt-name').addEventListener('input', ()=> ztRenderPieceList());
     document.getElementById('zt-mob-add').addEventListener('click', ()=>{
       const nombre = document.getElementById('zt-mob-name').value.trim();
       const nivel = document.getElementById('zt-mob-nivel').value.trim();
@@ -537,9 +557,13 @@ function initRegnumMapIfNeeded(){
     });
     document.getElementById('zt-load').addEventListener('click', ()=>{
       const nombre = document.getElementById('zt-list').value;
-      const z = (regnumMapData.zonas||[]).find(zz=> zz.nombre === nombre);
+      // Se usa el estado más actualizado (si ya se le sacaron piezas o
+      // se le cambiaron mobs/materiales en esta misma sesión, eso es lo
+      // que se carga) — no el dato original, para no volver a ofrecer
+      // piezas que ya se le dieron a otra zona nueva.
+      const z = ztGetCurrentZone(nombre);
       if(!z) return;
-      document.getElementById('zt-name').value = z.nombre;
+      document.getElementById('zt-name').value = nombre;
       document.getElementById('zt-reino').value = z.reino || 'Syrtis';
       ztMobs = (z.mobs||[]).map(it=>({...it}));
       ztMats = (z.materiales||[]).map(it=>({...it}));
@@ -558,7 +582,7 @@ function initRegnumMapIfNeeded(){
       refpickPieceSource.length = 0; keepSource.forEach(s=> refpickPieceSource.push(s));
       // Y ahora sí sumamos las piezas propias de esta zona, tildadas y
       // etiquetadas con su nombre (para que se vea de dónde vinieron).
-      (z.poligonos||[]).forEach(pieza=> { refpickPieces.push(pieza); refpickPieceChecked.push(true); refpickPieceSource.push(z.nombre); });
+      (z.poligonos||[]).forEach(pieza=> { refpickPieces.push(pieza); refpickPieceChecked.push(true); refpickPieceSource.push(nombre); });
       refpickCurrent = [];
       refreshRefpickPanel();
     });
@@ -582,6 +606,32 @@ function initRegnumMapIfNeeded(){
       const poligonos = [...checkedIdx.map(i=> refpickPieces[i]), ...(refpickCurrent.length>=3 ? [refpickCurrent] : [])];
       if(poligonos.length === 0){ alert('No hay ninguna pieza tildada para guardar — dibujá una (panel de abajo), tildá alguna de la lista de piezas, o "Cargar" una zona existente para seguir agregándole cosas.'); return; }
       zoneToolChanges.push({nombre, reino, poligonos, mobs: ztMobs, materiales: ztMats});
+      // Si alguna pieza tildada vino de OTRA zona ya existente (se trajo
+      // acá con "Cargar" y se reusa con un nombre distinto), esa pieza
+      // se saca también de la zona de origen — si no, queda viviendo
+      // duplicada en las dos a la vez (esto fue justo lo que pasó con
+      // "Zona de prueba" al separar las primeras zonas por nombre).
+      const porOrigen = new Map(); // nombre de zona de origen -> Set de piezas (por referencia) a sacarle
+      checkedIdx.forEach(i=>{
+        const src = refpickPieceSource[i];
+        if(src && src !== nombre){
+          if(!porOrigen.has(src)) porOrigen.set(src, new Set());
+          porOrigen.get(src).add(refpickPieces[i]);
+        }
+      });
+      porOrigen.forEach((piezasASacar, srcNombre)=>{
+        const srcActual = ztGetCurrentZone(srcNombre);
+        const restantes = (srcActual?.poligonos||[]).filter(r=> !piezasASacar.has(r));
+        const srcMobs = srcActual ? (srcActual.mobs||[]) : [];
+        const srcMats = srcActual ? (srcActual.materiales||[]) : [];
+        if(restantes.length === 0 && srcMobs.length === 0 && srcMats.length === 0){
+          // no le queda nada propio: se marca para eliminar en vez de
+          // dejar un cascarón vacío dando vueltas.
+          zoneToolChanges.push({eliminar: srcNombre});
+        } else {
+          zoneToolChanges.push({nombre: srcNombre, reino: srcActual ? srcActual.reino : reino, poligonos: restantes, mobs: srcMobs, materiales: srcMats});
+        }
+      });
       saveZoneToolChanges();
       ztRefreshChangesCount();
       // Las piezas recién guardadas se sacan de la lista para que no se
