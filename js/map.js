@@ -33,6 +33,21 @@ let mapEdits = {};
 if(EDIT_MODE){
   try { mapEdits = JSON.parse(localStorage.getItem(EDIT_STORAGE_KEY) || '{}'); } catch(e){ mapEdits = {}; }
 }
+// Editor de zonas (mobs/materiales), colgado de la misma herramienta
+// ?refpick=1 que ya sirve para dibujar el contorno — separado de mapEdits
+// porque acá cada cambio es una zona entera (guardar o eliminar), no una
+// edición puntual de un marcador. Mismo motivo que arriba para guardarlo
+// en localStorage: sitio estático, sin backend, alguien tiene que aplicar
+// el export a mano.
+const REFPICK_MODE = new URLSearchParams(location.search).get('refpick') === '1';
+const ZONE_TOOL_STORAGE_KEY = 'cort-zone-tool-changes';
+let zoneToolChanges = [];
+if(REFPICK_MODE){
+  try { zoneToolChanges = JSON.parse(localStorage.getItem(ZONE_TOOL_STORAGE_KEY) || '[]'); } catch(e){ zoneToolChanges = []; }
+}
+function saveZoneToolChanges(){
+  try { localStorage.setItem(ZONE_TOOL_STORAGE_KEY, JSON.stringify(zoneToolChanges)); } catch(e){}
+}
 function saveMapEdits(){
   try { localStorage.setItem(EDIT_STORAGE_KEY, JSON.stringify(mapEdits)); } catch(e){}
 }
@@ -297,7 +312,12 @@ function initRegnumMapIfNeeded(){
   // tener varias piezas separadas (por ejemplo si una ciudad la corta al
   // medio) — "Cerrar pieza" guarda el anillo actual y arranca uno nuevo,
   // sin perder los anteriores.
-  if(new URLSearchParams(location.search).get('refpick') === '1'){
+  // zoneToolSetupFn: el panel de "Editor de zonas" (más abajo) necesita
+  // la lista de zonas ya cargadas, que recién existe después del fetch de
+  // más abajo — por eso arma su función pero la guarda acá para llamarla
+  // recién ahí, en vez de armar todo el panel de una.
+  let zoneToolSetupFn = null;
+  if(REFPICK_MODE){
     const refpickPieces = []; // piezas ya cerradas: array de anillos (cada uno, array de {col,row})
     let refpickCurrent = []; // anillo que se está dibujando ahora
     let refpickPreview = null;
@@ -316,6 +336,11 @@ function initRegnumMapIfNeeded(){
     function refreshRefpickPanel(){
       document.getElementById('refpick-count').textContent =
         `pieza actual: ${refpickCurrent.length} punto${refpickCurrent.length===1?'':'s'} · piezas cerradas: ${refpickPieces.length}`;
+      // El panel del editor de zonas (más abajo) muestra este mismo total
+      // — se actualiza acá también para no duplicar la cuenta en dos
+      // lugares. document.getElementById da null si ese panel no se armó
+      // todavía (el fetch de datos no terminó), por eso el "?.".
+      document.getElementById('zt-piece-count') && (document.getElementById('zt-piece-count').textContent = refpickPieces.length + (refpickCurrent.length>=3?1:0));
       if(refpickPreview) regnumMap.removeLayer(refpickPreview);
       const anillos = [...refpickPieces, refpickCurrent].filter(a=>a.length>=2);
       if(anillos.length){
@@ -385,6 +410,155 @@ function initRegnumMapIfNeeded(){
         });
       }, 0);
     });
+
+    // ------------------------------------------------------------------
+    // Editor de zonas: lista las zonas ya cargadas, permite cargar una
+    // para seguir agregándole piezas/mobs/materiales, sacarle o agregarle
+    // mobs/materiales sueltos, guardarla (a la lista de cambios
+    // pendientes) o marcarla para eliminar. Todo junto se copia con
+    // "Exportar cambios" — mismo mecanismo que el modo edición de NPCs/
+    // lugares (sin backend, alguien tiene que aplicar el export a mano).
+    const zonePanel = document.createElement('div');
+    zonePanel.style.cssText = 'position:fixed;top:10px;right:10px;z-index:9999;background:#0f1410;border:1px solid #2c3a2a;color:#e7ecdf;font-family:monospace;font-size:12px;padding:10px;border-radius:6px;max-width:280px;max-height:82vh;overflow-y:auto;';
+    zonePanel.innerHTML = `
+      <b>Editor de zonas</b>
+      <div style="margin-top:6px">Zonas existentes:</div>
+      <select id="zt-list" style="width:100%;margin-top:2px;box-sizing:border-box"></select>
+      <div style="margin-top:6px;display:flex;gap:6px;">
+        <button type="button" id="zt-load" style="flex:1">Cargar</button>
+        <button type="button" id="zt-delete" style="flex:1">Eliminar</button>
+      </div>
+      <hr style="border-color:#2c3a2a;margin:10px 0">
+      <div>Nombre de la zona:</div>
+      <input type="text" id="zt-name" style="width:100%;box-sizing:border-box;margin:2px 0 6px">
+      <div>Reino:</div>
+      <select id="zt-reino" style="width:100%;box-sizing:border-box;margin:2px 0 6px">
+        <option value="Syrtis">Syrtis</option>
+        <option value="Alsius">Alsius</option>
+        <option value="Ignis">Ignis</option>
+      </select>
+      <div style="color:#9fae95">Piezas de polígono dibujadas: <span id="zt-piece-count">0</span> (usar el panel de abajo para dibujarlas)</div>
+      <div style="margin-top:8px"><b>Mobs</b></div>
+      <ul id="zt-mobs-list" style="margin:4px 0;padding-left:18px"></ul>
+      <div style="display:flex;gap:4px">
+        <input type="text" id="zt-mob-name" placeholder="Nombre" style="flex:2;min-width:0">
+        <input type="text" id="zt-mob-nivel" placeholder="Nivel" style="flex:1;min-width:0">
+      </div>
+      <button type="button" id="zt-mob-add" style="margin-top:4px;width:100%">Agregar mob</button>
+      <div style="margin-top:8px"><b>Materiales</b></div>
+      <ul id="zt-mats-list" style="margin:4px 0;padding-left:18px"></ul>
+      <input type="text" id="zt-mat-name" placeholder="Nombre" style="width:100%;box-sizing:border-box">
+      <button type="button" id="zt-mat-add" style="margin-top:4px;width:100%">Agregar material</button>
+      <hr style="border-color:#2c3a2a;margin:10px 0">
+      <button type="button" id="zt-save" style="width:100%">Guardar zona (a cambios pendientes)</button>
+      <div style="margin-top:6px">Cambios pendientes: <span id="zt-changes-count">0</span></div>
+      <button type="button" id="zt-export" style="margin-top:4px;width:100%">Exportar cambios</button>
+      <button type="button" id="zt-clear-exported" style="margin-top:4px;width:100%">Limpiar cambios ya exportados</button>
+    `;
+    document.body.appendChild(zonePanel);
+
+    let ztMobs = [];
+    let ztMats = [];
+
+    function ztRefreshChangesCount(){
+      document.getElementById('zt-changes-count').textContent = zoneToolChanges.length;
+    }
+    function ztRefreshLists(){
+      const mobsUl = document.getElementById('zt-mobs-list');
+      mobsUl.innerHTML = ztMobs.map((it,i)=>`<li>${it.nombre} · Nv.${it.nivel||'?'} <a href="#" data-i="${i}" class="zt-mob-del" style="color:#c0392b;text-decoration:none">✕</a></li>`).join('');
+      mobsUl.querySelectorAll('.zt-mob-del').forEach(a=> a.addEventListener('click', (e)=>{ e.preventDefault(); ztMobs.splice(+a.dataset.i, 1); ztRefreshLists(); }));
+      const matsUl = document.getElementById('zt-mats-list');
+      matsUl.innerHTML = ztMats.map((it,i)=>`<li>${it.nombre} <a href="#" data-i="${i}" class="zt-mat-del" style="color:#c0392b;text-decoration:none">✕</a></li>`).join('');
+      matsUl.querySelectorAll('.zt-mat-del').forEach(a=> a.addEventListener('click', (e)=>{ e.preventDefault(); ztMats.splice(+a.dataset.i, 1); ztRefreshLists(); }));
+    }
+    function ztRefreshZoneList(){
+      const sel = document.getElementById('zt-list');
+      const zonas = regnumMapData.zonas || [];
+      sel.innerHTML = zonas.map(z=>
+        `<option value="${z.nombre.replace(/"/g,'&quot;')}">${z.nombre} (${z.reino}) — ${(z.mobs||[]).length} mobs, ${(z.materiales||[]).length} mat.</option>`
+      ).join('');
+    }
+    document.getElementById('zt-mob-add').addEventListener('click', ()=>{
+      const nombre = document.getElementById('zt-mob-name').value.trim();
+      const nivel = document.getElementById('zt-mob-nivel').value.trim();
+      if(!nombre) return;
+      ztMobs.push({nombre, nivel});
+      document.getElementById('zt-mob-name').value = '';
+      document.getElementById('zt-mob-nivel').value = '';
+      ztRefreshLists();
+    });
+    document.getElementById('zt-mat-add').addEventListener('click', ()=>{
+      const nombre = document.getElementById('zt-mat-name').value.trim();
+      if(!nombre) return;
+      ztMats.push({nombre});
+      document.getElementById('zt-mat-name').value = '';
+      ztRefreshLists();
+    });
+    document.getElementById('zt-load').addEventListener('click', ()=>{
+      const nombre = document.getElementById('zt-list').value;
+      const z = (regnumMapData.zonas||[]).find(zz=> zz.nombre === nombre);
+      if(!z) return;
+      document.getElementById('zt-name').value = z.nombre;
+      document.getElementById('zt-reino').value = z.reino || 'Syrtis';
+      ztMobs = (z.mobs||[]).map(it=>({...it}));
+      ztMats = (z.materiales||[]).map(it=>({...it}));
+      ztRefreshLists();
+      // Carga también el polígono ya dibujado en el panel de abajo, para
+      // poder seguir agregándole piezas nuevas sin redibujar las que ya
+      // estaban.
+      refpickPieces.length = 0;
+      (z.poligonos||[]).forEach(pieza=> refpickPieces.push(pieza));
+      refpickCurrent = [];
+      refreshRefpickPanel();
+    });
+    document.getElementById('zt-delete').addEventListener('click', ()=>{
+      const nombre = document.getElementById('zt-list').value;
+      if(!nombre) return;
+      if(!confirm(`¿Marcar "${nombre}" para eliminar? No borra nada todavía — se aplica recién cuando se exporten los cambios y se apliquen al archivo de datos.`)) return;
+      zoneToolChanges.push({eliminar: nombre});
+      saveZoneToolChanges();
+      ztRefreshChangesCount();
+    });
+    document.getElementById('zt-save').addEventListener('click', ()=>{
+      const nombre = document.getElementById('zt-name').value.trim();
+      const reino = document.getElementById('zt-reino').value;
+      if(!nombre){ alert('Falta el nombre de la zona.'); return; }
+      const poligonos = [...refpickPieces, ...(refpickCurrent.length>=3 ? [refpickCurrent] : [])];
+      if(poligonos.length === 0){ alert('No hay ningún polígono dibujado todavía — usá el panel de abajo (modo polígono) primero, o "Cargar" una zona existente para seguir agregándole cosas.'); return; }
+      zoneToolChanges.push({nombre, reino, poligonos, mobs: ztMobs, materiales: ztMats});
+      saveZoneToolChanges();
+      ztRefreshChangesCount();
+      alert(`"${nombre}" sumada a los cambios pendientes (${zoneToolChanges.length} en total). Podés seguir con la próxima zona o exportar cuando termines.`);
+    });
+    document.getElementById('zt-export').addEventListener('click', function(){
+      const json = JSON.stringify(zoneToolChanges, null, 1);
+      const box = document.createElement('textarea');
+      box.value = json;
+      box.readOnly = true;
+      box.style.cssText = 'position:fixed;inset:8vh 10vw;z-index:9999;background:#161d17;color:#e7ecdf;border:1px solid #2c3a2a;border-radius:6px;padding:14px;font-family:monospace;font-size:12px;';
+      document.body.appendChild(box);
+      box.focus();
+      box.select();
+      navigator.clipboard?.writeText(json).catch(()=>{});
+      const closeHint = document.createElement('div');
+      closeHint.textContent = 'Copiado al portapapeles. Click afuera del cuadro para cerrar.';
+      closeHint.style.cssText = 'position:fixed;left:10vw;top:calc(8vh - 26px);z-index:9999;color:#c9a15a;font-size:12px;';
+      document.body.appendChild(closeHint);
+      const close = (e)=>{
+        if(e.target === box) return;
+        box.remove(); closeHint.remove();
+        document.removeEventListener('click', close);
+      };
+      setTimeout(()=> document.addEventListener('click', close), 0);
+    });
+    document.getElementById('zt-clear-exported').addEventListener('click', ()=>{
+      if(!confirm('¿Vaciar la lista de cambios pendientes? Hacé esto solo después de confirmar que el último export ya se aplicó — si todavía no, se pierde ese registro.')) return;
+      zoneToolChanges = [];
+      saveZoneToolChanges();
+      ztRefreshChangesCount();
+    });
+    ztRefreshChangesCount();
+    zoneToolSetupFn = ztRefreshZoneList;
   }
 
   fetch('data/map-data.json')
@@ -395,6 +569,7 @@ function initRegnumMapIfNeeded(){
       buildRegnumZones();
       populateRegnumFilters();
       wireRegnumSearchAndFilters();
+      zoneToolSetupFn?.();
     })
     .catch(err => console.error('No se pudo cargar el mapa de datos', err));
 }
@@ -581,7 +756,11 @@ function buildRegnumZones(){
     const latlngRings = anillos.map(anillo => anillo.map(p=> tileToLatLng(p.col, p.row)));
     const color = zoneColor(z);
     const polygon = L.polygon(latlngRings, {color, fillColor:color, weight:2, fillOpacity:0.22});
-    polygon.bindPopup(buildZonePopupHTML(z), {autoPan:false});
+    // Tooltip (con el mouse encima) en vez de popup (con click): a
+    // diferencia de un marcador puntual, pasar el mouse por un área es más
+    // natural que tener que acertarle con un click — y así no compite con
+    // el resto de la lógica de click de marcadores/edición.
+    polygon.bindTooltip(buildZonePopupHTML(z), {sticky:true});
     z._leaflet = polygon;
     regnumAllZoneObjs.push(z);
   });
