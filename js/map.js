@@ -320,6 +320,7 @@ function initRegnumMapIfNeeded(){
   if(REFPICK_MODE){
     const refpickPieces = []; // piezas ya cerradas: array de anillos (cada uno, array de {col,row})
     let refpickPieceChecked = []; // paralelo a refpickPieces: cuáles se incluyen al guardar una zona (ver "Editor de zonas")
+    let refpickPieceSource = []; // paralelo a refpickPieces: null si la dibujaste a mano ahora, o el nombre de la zona de la que vino (via "Cargar")
     let refpickCurrent = []; // anillo que se está dibujando ahora
     let refpickPreview = null;
     const panel = document.createElement('div');
@@ -383,6 +384,7 @@ function initRegnumMapIfNeeded(){
       }
       refpickPieces.push(refpickCurrent);
       refpickPieceChecked.push(true);
+      refpickPieceSource.push(null);
       refpickCurrent = [];
       refreshRefpickPanel();
     });
@@ -398,6 +400,7 @@ function initRegnumMapIfNeeded(){
     document.getElementById('refpick-reset').addEventListener('click', ()=>{
       refpickPieces.length = 0;
       refpickPieceChecked.length = 0;
+      refpickPieceSource.length = 0;
       refpickCurrent = [];
       refreshRefpickPanel();
     });
@@ -490,12 +493,14 @@ function initRegnumMapIfNeeded(){
     function ztRenderPieceList(){
       const box = document.getElementById('zt-piece-list');
       if(!box) return;
-      const rows = refpickPieces.map((ring,i)=>
-        `<label style="display:flex;align-items:center;gap:6px;padding:2px 0;cursor:pointer">
+      const rows = refpickPieces.map((ring,i)=>{
+        const src = refpickPieceSource[i];
+        const tag = src ? ` <span style="color:#9fae95">— de "${src}"</span>` : '';
+        return `<label style="display:flex;align-items:center;gap:6px;padding:2px 0;cursor:pointer">
            <input type="checkbox" class="zt-piece-chk" data-i="${i}" ${refpickPieceChecked[i] !== false ? 'checked' : ''}>
-           Pieza ${i+1} (${ring.length} puntos)
-         </label>`
-      );
+           Pieza ${i+1} (${ring.length} puntos)${tag}
+         </label>`;
+      });
       if(refpickCurrent.length >= 3){
         rows.push(`<div style="color:#9fae95;padding:2px 0">Pieza actual sin cerrar (${refpickCurrent.length} puntos) — se incluye siempre</div>`);
       }
@@ -539,11 +544,21 @@ function initRegnumMapIfNeeded(){
       ztMobs = (z.mobs||[]).map(it=>({...it}));
       ztMats = (z.materiales||[]).map(it=>({...it}));
       ztRefreshLists();
-      // Suma las piezas ya guardadas de esta zona a la lista de abajo,
-      // tildadas (listas para guardarse tal cual si no se toca nada) —
-      // sin pisar piezas que ya hubiera destildadas ahí, guardadas aparte
-      // para otra zona.
-      (z.poligonos||[]).forEach(pieza=> { refpickPieces.push(pieza); refpickPieceChecked.push(true); });
+      // Antes de traer las piezas de esta zona, sacamos de la lista
+      // cualquier pieza que hubiera quedado ahí de haber "Cargado" OTRA
+      // zona existente antes (repasarla no debe dejarla pegada para
+      // siempre) — pero las que dibujaste vos a mano en esta sesión y
+      // todavía no guardaste (source null) se respetan tal cual.
+      const keepPieces = [], keepChecked = [], keepSource = [];
+      refpickPieces.forEach((p,i)=>{
+        if(!refpickPieceSource[i]){ keepPieces.push(p); keepChecked.push(refpickPieceChecked[i]); keepSource.push(refpickPieceSource[i]); }
+      });
+      refpickPieces.length = 0; keepPieces.forEach(p=> refpickPieces.push(p));
+      refpickPieceChecked.length = 0; keepChecked.forEach(c=> refpickPieceChecked.push(c));
+      refpickPieceSource.length = 0; keepSource.forEach(s=> refpickPieceSource.push(s));
+      // Y ahora sí sumamos las piezas propias de esta zona, tildadas y
+      // etiquetadas con su nombre (para que se vea de dónde vinieron).
+      (z.poligonos||[]).forEach(pieza=> { refpickPieces.push(pieza); refpickPieceChecked.push(true); refpickPieceSource.push(z.nombre); });
       refpickCurrent = [];
       refreshRefpickPanel();
     });
@@ -576,8 +591,10 @@ function initRegnumMapIfNeeded(){
       const checkedSet = new Set(checkedIdx);
       const keepPieces = refpickPieces.filter((_,i)=> !checkedSet.has(i));
       const keepChecked = refpickPieceChecked.filter((_,i)=> !checkedSet.has(i));
+      const keepSource = refpickPieceSource.filter((_,i)=> !checkedSet.has(i));
       refpickPieces.length = 0; keepPieces.forEach(p=> refpickPieces.push(p));
       refpickPieceChecked.length = 0; keepChecked.forEach(c=> refpickPieceChecked.push(c));
+      refpickPieceSource.length = 0; keepSource.forEach(s=> refpickPieceSource.push(s));
       if(refpickCurrent.length>=3) refpickCurrent = [];
       // Y el formulario se limpia entero para la próxima zona — si no, los
       // mobs/materiales cargados acá también se colarían en la próxima
