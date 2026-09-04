@@ -656,6 +656,12 @@ function applyResponsiveLayout(isNarrow){
   const pageFlex = document.querySelector('.page-flex');
   const mapLayers = document.getElementById('map-layers-block');
   const mapLayersAnchor = document.getElementById('map-layers-anchor');
+  // Carril del estado de guerra del mapa (ver js/wz.js) — mismo trato que
+  // .config-rail pero del lado del mapa: en angosto se muda junto al
+  // mapa (debajo, no al final de toda la página) en vez de quedar al
+  // costado como carril fijo.
+  const wzRail = document.querySelector('.wz-sidebar');
+  const wzRailAnchor = document.getElementById('wz-sidebar-anchor');
   if(!shield || !shieldAnchor || !shieldRail || !rail || !railAnchor || !pageFlex) return;
 
   if(isNarrow){
@@ -667,6 +673,9 @@ function applyResponsiveLayout(isNarrow){
       mapLayersAnchor.appendChild(mapLayers);
       mapLayers.classList.add('map-layers-inline');
     }
+    if(wzRail && wzRailAnchor && wzRail.parentElement !== wzRailAnchor){
+      wzRailAnchor.appendChild(wzRail);
+    }
   } else {
     if(shield.parentElement !== shieldRail){ shieldRail.appendChild(shield); shield.classList.remove('hero-realm-shield-small'); }
     if(rail.parentElement !== pageFlex){ pageFlex.appendChild(rail); }
@@ -675,6 +684,7 @@ function applyResponsiveLayout(isNarrow){
       shieldRail.appendChild(mapLayers);
       mapLayers.classList.remove('map-layers-inline');
     }
+    if(wzRail && wzRail.parentElement !== pageFlex){ pageFlex.appendChild(wzRail); }
   }
 }
 NARROW_QUERY.addEventListener('change', e => applyResponsiveLayout(e.matches));
@@ -732,6 +742,15 @@ function alignConfigRail(){
   const rail = document.querySelector('.config-rail');
   const stage = document.getElementById('pc-capture');
   if(!rail || !stage) return;
+  // Si "Tu build" no está visible ahora mismo (display:none en
+  // .main-panel, ver css/layout.css), el stage da un rect todo en cero —
+  // esto pasa de verdad: el mapa dispara un 'resize' global al abrir su
+  // pestaña (para que Leaflet recalcule tamaño, ver map.js), que también
+  // dispara este cálculo por el listener de más abajo. Sin este freno, el
+  // margen ya bien calculado se pisaba con "0px" a lo pavote, y como
+  // nada lo vuelve a medir al volver a "Tu build", quedaba pegado arriba
+  // para siempre.
+  if(stage.offsetParent === null) return;
   if(window.innerWidth <= 1440){ rail.style.marginTop = ''; rail.classList.remove('rail-measuring'); return; }
   rail.style.marginTop = '0px'; // reset antes de medir, para partir de una base limpia
   const stageTop = stage.getBoundingClientRect().top;
@@ -782,6 +801,7 @@ function updateSharedChromeForTab(panelId){
   const noticeText = document.getElementById('notice-build-text');
   const notice = document.getElementById('notice-build');
   const rail = document.querySelector('.config-rail');
+  const wzRail = document.querySelector('.wz-sidebar');
   const mapLayers = document.getElementById('map-layers-block');
   const isMapTab = panelId === 'panel-map';
   if(eyebrow) eyebrow.textContent = isMapTab ? 'Mapa Interactivo' : 'Constructor de builds';
@@ -801,8 +821,22 @@ function updateSharedChromeForTab(panelId){
   // (240px escudo + rail 320px) y el resto del contenido no se corre al
   // cambiar de pestaña.
   if(rail) rail.style.visibility = isBuildTab ? '' : 'hidden';
+  // Mismo truco de visibility (no display) que el rail de arriba: sigue
+  // reservando su lugar en la fila de carriles, así cambiar de pestaña no
+  // corre/angosta el resto (mapa incluido) de un lado a otro. A
+  // diferencia de .config-rail (visible por defecto en el CSS, así que
+  // limpiar el inline con '' alcanza para mostrarlo), acá el default en
+  // CSS es hidden (para no destellar visible en la carga inicial, que
+  // arranca en "Tu build") — por eso hace falta "visible" explícito y no
+  // solo limpiar el inline.
+  if(wzRail) wzRail.style.visibility = isMapTab ? 'visible' : 'hidden';
   if(mapLayers) mapLayers.style.display = isMapTab ? '' : 'none';
   if(isMapTab) scheduleAlignMapLayers();
+  // Al volver a "Tu build" se vuelve a medir de una, por si el freno de
+  // arriba (offsetParent null) se salteó algún recálculo mientras estaba
+  // oculto — así queda siempre bien alineado al volver, no solo la
+  // primera vez que se cargó la página.
+  if(isBuildTab) scheduleAlignConfigRail();
 }
 
 function switchClass(newClass){

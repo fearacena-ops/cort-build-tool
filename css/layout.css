@@ -10,11 +10,20 @@
   .shield-rail{flex:0 0 240px;display:flex;flex-direction:column;align-items:center;gap:22px;padding-top:14px;}
   .config-rail{flex:0 0 320px;display:flex;flex-direction:column;gap:20px;padding-top:0;opacity:1;transition:opacity .15s ease;}
   .config-rail.rail-measuring{opacity:0;}
+  /* Mismo trato que .config-rail (ancho fijo, visibility en vez de
+     display para no correr el resto de los carriles al cambiar de
+     pestaña — ver updateSharedChromeForTab en main.js) pero para el
+     panel de estado de guerra del mapa (ver js/wz.js), del lado
+     contrario: visible en "Mapa interactivo", reservado pero oculto en
+     "Tu build". No necesita el truco de "rail-measuring" porque no
+     depende de medir nada más arriba para alinearse. */
+  .wz-sidebar{flex:0 0 300px;min-width:0;display:flex;flex-direction:column;gap:12px;padding-top:0;visibility:hidden;}
   .wrap{max-width:1180px;width:100%;padding:14px 0 0;}
   @media (max-width:1440px){
     .page-flex{flex-direction:column;max-width:1180px;padding:0 22px 80px;}
     .shield-rail{display:none;}
     .config-rail{flex:0 0 auto;width:100%;padding-top:0;margin-bottom:20px;}
+    .wz-sidebar{flex:0 0 auto;width:100%;padding-top:0;}
   }
 
   header.hero{display:flex;flex-wrap:wrap;gap:20px 32px;align-items:center;justify-content:space-between;padding-bottom:8px;margin-bottom:8px;}

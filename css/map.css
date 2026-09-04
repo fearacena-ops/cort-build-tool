@@ -16,13 +16,6 @@
   .map-result-item:hover{background:var(--bg-2);}
   .map-result-item .mri-name{color:var(--ink);}
   .map-result-item .mri-meta{color:var(--ink-faint);font-size:11.5px;margin-top:2px;}
-  /* .map-frame conserva su max-width propio — acá solo se agrega al lado
-     un carril para el panel de estado de guerra (ver wz.js), sin tocar
-     cómo se calcula el tamaño cuadrado del mapa (sizeMapSquare lee
-     .map-frame.clientWidth, que ahora es más angosto por compartir fila
-     con el panel — se adapta solo, sin que haga falta tocar el JS). */
-  .map-with-wz{display:flex;gap:16px;max-width:1520px;margin:0 auto;align-items:flex-start;}
-  .map-with-wz .map-frame{flex:1 1 auto;min-width:0;}
   .map-frame{position:relative;max-width:1180px;margin:0 auto;}
   #regnum-map{width:100%;height:70vh;min-height:480px;border-radius:6px;border:1px solid var(--line);background:#0a0e14;}
   .map-zoom-badge{position:absolute;right:10px;bottom:10px;z-index:600;background:rgba(10,14,20,.82);border:1px solid var(--line);border-radius:14px;padding:5px 12px;font-family:var(--font-mono);font-size:11.5px;color:var(--ink-dim);pointer-events:none;}
@@ -97,9 +90,11 @@
 
   /* ----------------------------------------------------------------------
      Panel de estado de guerra (gemas/fuertes/log), al costado del mapa —
-     ver js/wz.js. Reusa .panel (mismo look de tarjeta que el resto del
-     sitio) con padding más chico, porque es una barra angosta. */
-  .wz-sidebar{flex:0 0 300px;min-width:0;display:flex;flex-direction:column;gap:12px;}
+     ver js/wz.js. Acá solo el contenido; la posición/ancho de .wz-sidebar
+     como carril (mismo trato que .config-rail, ver css/layout.css) vive
+     con el resto de los carriles de la página. Reusa .panel (mismo look
+     de tarjeta que el resto del sitio) con padding más chico, porque es
+     una barra angosta. */
   .wz-panel{padding:14px 16px;font-size:12.5px;}
   .wz-panel-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:9px;gap:8px;}
   .wz-updated{font-size:10.5px;color:var(--ink-faint);font-family:var(--font-mono);white-space:nowrap;}
@@ -124,8 +119,10 @@
   .wz-log .wz-log-time{display:block;color:var(--ink-faint);font-family:var(--font-mono);font-size:10px;}
   .wz-credit{font-size:10px;color:var(--ink-faint);text-align:right;}
   .wz-credit a{color:var(--ink-faint);}
+  /* Por debajo de los 980px (angosto incluso apilado, ver el breakpoint de
+     1440px en css/layout.css) los dos paneles pasan a compartir una fila
+     en vez de ir siempre en columna, para aprovechar mejor el ancho. */
   @media (max-width:980px){
-    .map-with-wz{flex-direction:column;}
-    .wz-sidebar{flex:none;width:100%;flex-direction:row;flex-wrap:wrap;}
+    .wz-sidebar{flex-direction:row;flex-wrap:wrap;}
     .wz-sidebar .wz-panel{flex:1 1 260px;}
   }
