@@ -319,6 +319,7 @@ function initRegnumMapIfNeeded(){
   let zoneToolSetupFn = null;
   if(REFPICK_MODE){
     const refpickPieces = []; // piezas ya cerradas: array de anillos (cada uno, array de {col,row})
+    let refpickPieceChecked = []; // paralelo a refpickPieces: cuáles se incluyen al guardar una zona (ver "Editor de zonas")
     let refpickCurrent = []; // anillo que se está dibujando ahora
     let refpickPreview = null;
     const panel = document.createElement('div');
@@ -336,18 +337,30 @@ function initRegnumMapIfNeeded(){
     function refreshRefpickPanel(){
       document.getElementById('refpick-count').textContent =
         `pieza actual: ${refpickCurrent.length} punto${refpickCurrent.length===1?'':'s'} · piezas cerradas: ${refpickPieces.length}`;
-      // El panel del editor de zonas (más abajo) muestra este mismo total
-      // — se actualiza acá también para no duplicar la cuenta en dos
-      // lugares. document.getElementById da null si ese panel no se armó
-      // todavía (el fetch de datos no terminó), por eso el "?.".
-      document.getElementById('zt-piece-count') && (document.getElementById('zt-piece-count').textContent = refpickPieces.length + (refpickCurrent.length>=3?1:0));
       if(refpickPreview) regnumMap.removeLayer(refpickPreview);
-      const anillos = [...refpickPieces, refpickCurrent].filter(a=>a.length>=2);
-      if(anillos.length){
-        refpickPreview = L.polygon(anillos.map(a=>a.map(p=>tileToLatLng(p.col,p.row))), {color:'#e8c14a', weight:2, fillOpacity:0.12, dashArray:'4,4'}).addTo(regnumMap);
-      } else {
-        refpickPreview = null;
+      refpickPreview = null;
+      // Las piezas tildadas (ver lista en "Editor de zonas") se dibujan
+      // distinto de las destildadas — así se ve de un vistazo cuáles se
+      // van a guardar si se toca "Guardar zona" ahora mismo, y cuáles
+      // quedan aparte (guardadas para otra zona, sin tocar).
+      const checkedRings = refpickPieces.filter((_,i)=> refpickPieceChecked[i] !== false);
+      const uncheckedRings = refpickPieces.filter((_,i)=> refpickPieceChecked[i] === false);
+      const armedRings = [...checkedRings, refpickCurrent].filter(a=>a.length>=2);
+      const layers = [];
+      if(armedRings.length){
+        layers.push(L.polygon(armedRings.map(a=>a.map(p=>tileToLatLng(p.col,p.row))), {color:'#e8c14a', weight:2, fillOpacity:0.12, dashArray:'4,4'}));
       }
+      if(uncheckedRings.length){
+        layers.push(L.polygon(uncheckedRings.map(a=>a.map(p=>tileToLatLng(p.col,p.row))), {color:'#777', weight:2, fillOpacity:0.05, dashArray:'2,6'}));
+      }
+      if(layers.length){
+        refpickPreview = L.layerGroup(layers).addTo(regnumMap);
+      }
+      // El panel del editor de zonas (más abajo) tiene la lista de piezas
+      // con sus checkboxes — se refresca acá también para no duplicar
+      // esta lógica en dos lugares (declarada como function así queda
+      // "hoisted" y se puede llamar aunque esté definida más abajo).
+      ztRenderPieceList();
     }
     document.getElementById('refpick-undo-point').addEventListener('click', ()=>{
       // Solo saca de la pieza que se está dibujando ahora — las piezas ya
@@ -369,6 +382,7 @@ function initRegnumMapIfNeeded(){
         return;
       }
       refpickPieces.push(refpickCurrent);
+      refpickPieceChecked.push(true);
       refpickCurrent = [];
       refreshRefpickPanel();
     });
@@ -383,6 +397,7 @@ function initRegnumMapIfNeeded(){
     });
     document.getElementById('refpick-reset').addEventListener('click', ()=>{
       refpickPieces.length = 0;
+      refpickPieceChecked.length = 0;
       refpickCurrent = [];
       refreshRefpickPanel();
     });
@@ -437,7 +452,8 @@ function initRegnumMapIfNeeded(){
         <option value="Alsius">Alsius</option>
         <option value="Ignis">Ignis</option>
       </select>
-      <div style="color:#9fae95">Piezas de polígono dibujadas: <span id="zt-piece-count">0</span> (usar el panel de abajo para dibujarlas)</div>
+      <div style="color:#9fae95">Piezas dibujadas (tildadas = se guardan con esta zona; el panel de abajo es para dibujar más):</div>
+      <div id="zt-piece-list" style="max-height:110px;overflow-y:auto;margin:4px 0 6px;padding:4px;background:#161d17;border:1px solid #2c3a2a;border-radius:4px"></div>
       <div style="margin-top:8px"><b>Mobs</b></div>
       <ul id="zt-mobs-list" style="margin:4px 0;padding-left:18px"></ul>
       <div style="display:flex;gap:4px">
@@ -471,6 +487,26 @@ function initRegnumMapIfNeeded(){
       matsUl.innerHTML = ztMats.map((it,i)=>`<li>${it.nombre} <a href="#" data-i="${i}" class="zt-mat-del" style="color:#c0392b;text-decoration:none">✕</a></li>`).join('');
       matsUl.querySelectorAll('.zt-mat-del').forEach(a=> a.addEventListener('click', (e)=>{ e.preventDefault(); ztMats.splice(+a.dataset.i, 1); ztRefreshLists(); }));
     }
+    function ztRenderPieceList(){
+      const box = document.getElementById('zt-piece-list');
+      if(!box) return;
+      const rows = refpickPieces.map((ring,i)=>
+        `<label style="display:flex;align-items:center;gap:6px;padding:2px 0;cursor:pointer">
+           <input type="checkbox" class="zt-piece-chk" data-i="${i}" ${refpickPieceChecked[i] !== false ? 'checked' : ''}>
+           Pieza ${i+1} (${ring.length} puntos)
+         </label>`
+      );
+      if(refpickCurrent.length >= 3){
+        rows.push(`<div style="color:#9fae95;padding:2px 0">Pieza actual sin cerrar (${refpickCurrent.length} puntos) — se incluye siempre</div>`);
+      }
+      box.innerHTML = rows.length ? rows.join('') : '<span style="color:#9fae95">(ninguna todavía)</span>';
+      box.querySelectorAll('.zt-piece-chk').forEach(chk=>{
+        chk.addEventListener('change', ()=>{
+          refpickPieceChecked[+chk.dataset.i] = chk.checked;
+          refreshRefpickPanel();
+        });
+      });
+    }
     function ztRefreshZoneList(){
       const sel = document.getElementById('zt-list');
       const zonas = regnumMapData.zonas || [];
@@ -503,11 +539,11 @@ function initRegnumMapIfNeeded(){
       ztMobs = (z.mobs||[]).map(it=>({...it}));
       ztMats = (z.materiales||[]).map(it=>({...it}));
       ztRefreshLists();
-      // Carga también el polígono ya dibujado en el panel de abajo, para
-      // poder seguir agregándole piezas nuevas sin redibujar las que ya
-      // estaban.
-      refpickPieces.length = 0;
-      (z.poligonos||[]).forEach(pieza=> refpickPieces.push(pieza));
+      // Suma las piezas ya guardadas de esta zona a la lista de abajo,
+      // tildadas (listas para guardarse tal cual si no se toca nada) —
+      // sin pisar piezas que ya hubiera destildadas ahí, guardadas aparte
+      // para otra zona.
+      (z.poligonos||[]).forEach(pieza=> { refpickPieces.push(pieza); refpickPieceChecked.push(true); });
       refpickCurrent = [];
       refreshRefpickPanel();
     });
@@ -523,12 +559,35 @@ function initRegnumMapIfNeeded(){
       const nombre = document.getElementById('zt-name').value.trim();
       const reino = document.getElementById('zt-reino').value;
       if(!nombre){ alert('Falta el nombre de la zona.'); return; }
-      const poligonos = [...refpickPieces, ...(refpickCurrent.length>=3 ? [refpickCurrent] : [])];
-      if(poligonos.length === 0){ alert('No hay ningún polígono dibujado todavía — usá el panel de abajo (modo polígono) primero, o "Cargar" una zona existente para seguir agregándole cosas.'); return; }
+      // Solo las piezas tildadas en la lista de arriba entran en esta
+      // zona — así piezas pensadas para otra zona distinta no se cuelan
+      // acá. La pieza actual sin cerrar (si tiene forma) se suma siempre,
+      // igual que antes.
+      const checkedIdx = refpickPieces.map((_,i)=>i).filter(i=> refpickPieceChecked[i] !== false);
+      const poligonos = [...checkedIdx.map(i=> refpickPieces[i]), ...(refpickCurrent.length>=3 ? [refpickCurrent] : [])];
+      if(poligonos.length === 0){ alert('No hay ninguna pieza tildada para guardar — dibujá una (panel de abajo), tildá alguna de la lista de piezas, o "Cargar" una zona existente para seguir agregándole cosas.'); return; }
       zoneToolChanges.push({nombre, reino, poligonos, mobs: ztMobs, materiales: ztMats});
       saveZoneToolChanges();
       ztRefreshChangesCount();
-      alert(`"${nombre}" sumada a los cambios pendientes (${zoneToolChanges.length} en total). Podés seguir con la próxima zona o exportar cuando termines.`);
+      // Las piezas recién guardadas se sacan de la lista para que no se
+      // vuelvan a colar solas en la próxima zona (era justo el problema:
+      // todo lo dibujado quedaba pegado a cada zona que se guardara
+      // después). Las que hayan quedado destildadas se mantienen ahí.
+      const checkedSet = new Set(checkedIdx);
+      const keepPieces = refpickPieces.filter((_,i)=> !checkedSet.has(i));
+      const keepChecked = refpickPieceChecked.filter((_,i)=> !checkedSet.has(i));
+      refpickPieces.length = 0; keepPieces.forEach(p=> refpickPieces.push(p));
+      refpickPieceChecked.length = 0; keepChecked.forEach(c=> refpickPieceChecked.push(c));
+      if(refpickCurrent.length>=3) refpickCurrent = [];
+      // Y el formulario se limpia entero para la próxima zona — si no, los
+      // mobs/materiales cargados acá también se colarían en la próxima
+      // por el mismo motivo.
+      document.getElementById('zt-name').value = '';
+      ztMobs = [];
+      ztMats = [];
+      ztRefreshLists();
+      refreshRefpickPanel();
+      alert(`"${nombre}" sumada a los cambios pendientes (${zoneToolChanges.length} en total). Las piezas y datos ya se limpiaron para la próxima zona.`);
     });
     document.getElementById('zt-export').addEventListener('click', function(){
       const json = JSON.stringify(zoneToolChanges, null, 1);
