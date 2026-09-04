@@ -306,9 +306,11 @@ function initRegnumMapIfNeeded(){
     panel.innerHTML = `<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" id="refpick-poly-mode"> Modo polígono (sin globo)</label>
       <b>Puntos de zona</b><br>
       <span id="refpick-count">pieza actual: 0 puntos · piezas cerradas: 0</span><br>
+      <button type="button" id="refpick-undo-point" style="margin-top:6px">Eliminar último punto</button>
+      <button type="button" id="refpick-clear-current" style="margin-top:6px">Reiniciar pieza actual</button><br>
       <button type="button" id="refpick-close-piece" style="margin-top:6px">Cerrar pieza y empezar otra</button><br>
       <button type="button" id="refpick-copy-poly" style="margin-top:6px">Copiar todo</button>
-      <button type="button" id="refpick-reset" style="margin-top:6px">Reiniciar</button>`;
+      <button type="button" id="refpick-reset" style="margin-top:6px">Reiniciar todo</button>`;
     document.body.appendChild(panel);
     const polyModeCheckbox = document.getElementById('refpick-poly-mode');
     function refreshRefpickPanel(){
@@ -322,6 +324,19 @@ function initRegnumMapIfNeeded(){
         refpickPreview = null;
       }
     }
+    document.getElementById('refpick-undo-point').addEventListener('click', ()=>{
+      // Solo saca de la pieza que se está dibujando ahora — las piezas ya
+      // cerradas (refpickPieces) no se tocan, para eso está "Reiniciar
+      // pieza actual" o "Reiniciar todo" más abajo.
+      refpickCurrent.pop();
+      refreshRefpickPanel();
+    });
+    document.getElementById('refpick-clear-current').addEventListener('click', ()=>{
+      // Igual que el botón de arriba pero de una: vacía la pieza sin
+      // cerrar entera, sin tocar las que ya quedaron cerradas.
+      refpickCurrent = [];
+      refreshRefpickPanel();
+    });
     document.getElementById('refpick-close-piece').addEventListener('click', function(){
       if(refpickCurrent.length < 3){
         this.textContent = 'Faltan puntos (mín. 3)';
