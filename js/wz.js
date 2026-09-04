@@ -74,15 +74,28 @@ function wzDescribeEvent(ev) {
     const de = ev.location && ev.location !== 'transit' && ev.location !== ev.owner ? ` (de ${ev.location})` : '';
     return `${ev.owner} capturó la reliquia ${ev.name}${de}`;
   }
-  // type === 'fort'
+  if (ev.type === 'gem') {
+    // acá "name" es el número de la gema dentro de su reino (1, 2...),
+    // no un nombre propio — no vale la pena mostrarlo, alcanza con de
+    // qué reino era y quién la tiene ahora.
+    if (ev.owner === ev.location) return `${ev.owner} recuperó una gema`;
+    return `${ev.owner} capturó una gema de ${ev.location}`;
+  }
+  // type === 'fort' (y cualquier otro tipo no contemplado, para no
+  // dejarlo sin texto — mejor una descripción genérica que una vacía)
   if (ev.owner === ev.location) return `${ev.owner} recuperó ${ev.name}`;
-  return `${ev.owner} capturó ${ev.name} (de ${ev.location})`;
+  if (ev.owner) return `${ev.owner} capturó ${ev.name} (de ${ev.location})`;
+  return `${ev.name || ev.location || 'Evento'}`;
 }
 
 function wzRenderLog(events) {
   const box = document.getElementById('wz-log');
   if (!box || !Array.isArray(events)) return;
-  box.innerHTML = events.slice(0, 25).map(ev => `
+  // "wish" no trae nombre/dueño (no es una captura) — no aporta nada al
+  // log de capturas, se descarta antes de recortar a los 25 más
+  // recientes para no gastar un lugar del log en una línea vacía.
+  const relevantes = events.filter(ev => ev.type !== 'wish');
+  box.innerHTML = relevantes.slice(0, 25).map(ev => `
     <li>
       <span class="wz-log-time">${wzRelTime(ev.date)}</span>
       <span style="color:${WZ_REALM_COLOR[ev.owner] || 'inherit'}">${wzDescribeEvent(ev)}</span>
