@@ -76,6 +76,10 @@ let markersByKey = {};
 // categoría apagada (si hay uno) — ver wireRegnumSearchAndFilters y el
 // popupclose en initRegnumMapIfNeeded.
 let forcedVisibleKey = null;
+// Lo mismo pero para una zona (nombre, no hay __key) mostrada a la fuerza
+// por la búsqueda pese a tener Mobs/Materiales o el reino apagados — ver
+// wireRegnumSearchAndFilters y el tooltipclose en initRegnumMapIfNeeded.
+let forcedVisibleZoneKey = null;
 function latLngToPoint(latlng){ return regnumMap.project(latlng, 0); }
 function pointToLatLng(pt){ return regnumMap.unproject([pt.x, pt.y], 0); }
 
@@ -262,6 +266,19 @@ function initRegnumMapIfNeeded(){
     forcedVisibleKey = null;
     if(m && e.popup === m._leaflet.getPopup() && !passesRegnumFilters(m)){
       regnumMarkersLayer.removeLayer(m._leaflet);
+    }
+  });
+
+  // Mismo mecanismo que arriba pero para una zona mostrada a la fuerza
+  // por la búsqueda (ver wireRegnumSearchAndFilters) — las zonas usan
+  // tooltip (hover) en vez de popup (click), así que se engancha en
+  // 'tooltipclose' en vez de 'popupclose'.
+  regnumMap.on('tooltipclose', (e)=>{
+    if(!forcedVisibleZoneKey) return;
+    const z = regnumAllZoneObjs.find(x=> x.nombre === forcedVisibleZoneKey);
+    forcedVisibleZoneKey = null;
+    if(z && e.tooltip === z._leaflet.getTooltip() && !passesZoneFilters(z)){
+      regnumZonesLayer.removeLayer(z._leaflet);
     }
   });
 
@@ -490,6 +507,29 @@ function initRegnumMapIfNeeded(){
       matsUl.innerHTML = ztMats.map((it,i)=>`<li>${it.nombre} <a href="#" data-i="${i}" class="zt-mat-del" style="color:#c0392b;text-decoration:none">✕</a></li>`).join('');
       matsUl.querySelectorAll('.zt-mat-del').forEach(a=> a.addEventListener('click', (e)=>{ e.preventDefault(); ztMats.splice(+a.dataset.i, 1); ztRefreshLists(); }));
     }
+    function ztApplyLive(entry){
+      // Aplica el mismo cambio (guardar/actualizar o eliminar) también
+      // en vivo, sobre el mapa que se está viendo ahora mismo — para
+      // poder probar cómo queda de una, sin tener que exportar, mandarlo
+      // y esperar a que se aplique de verdad al sitio. Es solo en este
+      // navegador y se pierde al recargar la página; lo único que
+      // persiste de verdad es "Exportar cambios".
+      regnumMapData.zonas = regnumMapData.zonas || [];
+      if(entry.eliminar){
+        regnumMapData.zonas = regnumMapData.zonas.filter(z=> z.nombre !== entry.eliminar);
+      } else {
+        // Copia aparte, no el mismo objeto que se guardó en
+        // zoneToolChanges: buildRegnumZones() le cuelga un ._leaflet (el
+        // polígono de Leaflet, que tiene referencias circulares) a cada
+        // zona de regnumMapData — si fuera el mismo objeto, "Exportar
+        // cambios" (JSON.stringify de zoneToolChanges) reventaba con
+        // "Converting circular structure to JSON".
+        const copia = {...entry};
+        const idx = regnumMapData.zonas.findIndex(z=> z.nombre === entry.nombre);
+        if(idx >= 0) regnumMapData.zonas[idx] = copia;
+        else regnumMapData.zonas.push(copia);
+      }
+    }
     function ztGetCurrentZone(nombre){
       // El estado "actual" de una zona: si en esta misma sesión ya hay
       // un cambio pendiente para ese nombre (se le sacaron piezas para
@@ -589,10 +629,14 @@ function initRegnumMapIfNeeded(){
     document.getElementById('zt-delete').addEventListener('click', ()=>{
       const nombre = document.getElementById('zt-list').value;
       if(!nombre) return;
-      if(!confirm(`¿Marcar "${nombre}" para eliminar? No borra nada todavía — se aplica recién cuando se exporten los cambios y se apliquen al archivo de datos.`)) return;
-      zoneToolChanges.push({eliminar: nombre});
+      if(!confirm(`¿Marcar "${nombre}" para eliminar? La saca ya mismo del mapa que estás viendo (para probar) — el archivo de datos real recién cambia cuando se exporten los cambios y se apliquen.`)) return;
+      const entry = {eliminar: nombre};
+      zoneToolChanges.push(entry);
+      ztApplyLive(entry);
       saveZoneToolChanges();
       ztRefreshChangesCount();
+      buildRegnumZones();
+      ztRefreshZoneList();
     });
     document.getElementById('zt-save').addEventListener('click', ()=>{
       const nombre = document.getElementById('zt-name').value.trim();
@@ -605,7 +649,7 @@ function initRegnumMapIfNeeded(){
       const checkedIdx = refpickPieces.map((_,i)=>i).filter(i=> refpickPieceChecked[i] !== false);
       const poligonos = [...checkedIdx.map(i=> refpickPieces[i]), ...(refpickCurrent.length>=3 ? [refpickCurrent] : [])];
       if(poligonos.length === 0){ alert('No hay ninguna pieza tildada para guardar — dibujá una (panel de abajo), tildá alguna de la lista de piezas, o "Cargar" una zona existente para seguir agregándole cosas.'); return; }
-      zoneToolChanges.push({nombre, reino, poligonos, mobs: ztMobs, materiales: ztMats});
+      const entradas = [{nombre, reino, poligonos, mobs: ztMobs, materiales: ztMats}];
       // Si alguna pieza tildada vino de OTRA zona ya existente (se trajo
       // acá con "Cargar" y se reusa con un nombre distinto), esa pieza
       // se saca también de la zona de origen — si no, queda viviendo
@@ -627,13 +671,25 @@ function initRegnumMapIfNeeded(){
         if(restantes.length === 0 && srcMobs.length === 0 && srcMats.length === 0){
           // no le queda nada propio: se marca para eliminar en vez de
           // dejar un cascarón vacío dando vueltas.
-          zoneToolChanges.push({eliminar: srcNombre});
+          entradas.push({eliminar: srcNombre});
         } else {
-          zoneToolChanges.push({nombre: srcNombre, reino: srcActual ? srcActual.reino : reino, poligonos: restantes, mobs: srcMobs, materiales: srcMats});
+          entradas.push({nombre: srcNombre, reino: srcActual ? srcActual.reino : reino, poligonos: restantes, mobs: srcMobs, materiales: srcMats});
         }
       });
+      // Cada entrada se suma a los cambios pendientes (lo que se manda a
+      // exportar más tarde) Y se aplica en vivo al mapa que se está
+      // viendo ahora — así se puede probar cómo queda de una.
+      entradas.forEach(e=>{ zoneToolChanges.push(e); ztApplyLive(e); });
       saveZoneToolChanges();
       ztRefreshChangesCount();
+      // Si la zona nueva tiene mobs/materiales pero el checkbox
+      // correspondiente estaba apagado, se prende solo — si no, quedaría
+      // invisible pese a acabar de guardarla, dando la falsa impresión de
+      // que algo salió mal.
+      if(ztMobs.length && !document.getElementById('map-toggle-mobs').checked) document.getElementById('map-toggle-mobs').checked = true;
+      if(ztMats.length && !document.getElementById('map-toggle-materiales').checked) document.getElementById('map-toggle-materiales').checked = true;
+      buildRegnumZones(); // reconstruye la capa de zonas (aplica los filtros de nuevo al final)
+      ztRefreshZoneList();
       // Las piezas recién guardadas se sacan de la lista para que no se
       // vuelvan a colar solas en la próxima zona (era justo el problema:
       // todo lo dibujado quedaba pegado a cada zona que se guardara
@@ -654,7 +710,7 @@ function initRegnumMapIfNeeded(){
       ztMats = [];
       ztRefreshLists();
       refreshRefpickPanel();
-      alert(`"${nombre}" sumada a los cambios pendientes (${zoneToolChanges.length} en total). Las piezas y datos ya se limpiaron para la próxima zona.`);
+      alert(`"${nombre}" ya se ve en el mapa (y quedó sumada a los cambios pendientes, ${zoneToolChanges.length} en total, para cuando quieras exportarlos). Las piezas y datos del formulario ya se limpiaron para la próxima zona.`);
     });
     document.getElementById('zt-export').addEventListener('click', function(){
       const json = JSON.stringify(zoneToolChanges, null, 1);
@@ -1208,21 +1264,65 @@ function wireRegnumSearchAndFilters(){
     if(m.tipo === 'npc') return '●';
     return PLACE_GLYPH[PLACE_SHAPE[m.categoria] || 'ciudad'];
   }
+  // Además de NPCs/misiones/lugares, el buscador encuentra zonas por su
+  // nombre, y también por el nombre de cada mob o material que tengan
+  // cargado — para poder buscar "Lobo Acechador" o "Mineral de hierro" y
+  // que te lleve directo a la zona donde aparecen, no solo al nombre de
+  // la zona en sí. Se arma de nuevo en cada búsqueda (son pocas zonas,
+  // no vale la pena cachearlo) para reflejar cualquier zona nueva/editada.
+  function buildZoneSearchEntries(){
+    const entries = [];
+    regnumAllZoneObjs.forEach(z=>{
+      entries.push({kind:'zona', zona:z, label:z.nombre, meta:`Zona · ${z.reino}`});
+      (z.mobs||[]).forEach(mob=> entries.push({kind:'mob', zona:z, label:mob.nombre, meta:`Mob en "${z.nombre}"${mob.nivel ? ' · Nv.'+mob.nivel : ''}`}));
+      (z.materiales||[]).forEach(mat=> entries.push({kind:'material', zona:z, label:mat.nombre, meta:`Material en "${z.nombre}"`}));
+    });
+    return entries;
+  }
+  function zoneEntryGlyph(kind){
+    return kind === 'zona' ? '▦' : kind === 'mob' ? '☠' : '◆';
+  }
   input.addEventListener('input', ()=>{
     const q = input.value.trim().toLowerCase();
     if(q.length < 2){ results.classList.remove('is-open'); results.innerHTML=''; return; }
-    const matches = regnumAllMarkerObjs.filter(m=> m.nombre.toLowerCase().includes(q)).slice(0, 30);
+    const markerMatches = regnumAllMarkerObjs.filter(m=> m.nombre.toLowerCase().includes(q)).map(m=>({kind:'marker', m}));
+    const zoneMatches = buildZoneSearchEntries().filter(e=> e.label.toLowerCase().includes(q));
+    const matches = [...markerMatches, ...zoneMatches].slice(0, 30);
     if(matches.length === 0){ results.classList.remove('is-open'); results.innerHTML=''; return; }
-    results.innerHTML = matches.map((m,i)=>`
-      <div class="map-result-item" data-idx="${regnumAllMarkerObjs.indexOf(m)}">
-        <div class="mri-name">${searchGlyph(m)} ${m.nombre}</div>
-        <div class="mri-meta">${m.tipo==='npc' ? (m.profesion||m.clase||'') : m.tipo==='ciudad' ? (m.categoria==='Altar' && m.zona ? m.zona : m.categoria) : 'Nivel '+m.nivel+' · La da: '+m.la_da} · ${m.reino}</div>
-      </div>`).join('');
+    results.innerHTML = matches.map(match=>{
+      if(match.kind === 'marker'){
+        const m = match.m;
+        return `<div class="map-result-item" data-kind="marker" data-idx="${regnumAllMarkerObjs.indexOf(m)}">
+          <div class="mri-name">${searchGlyph(m)} ${m.nombre}</div>
+          <div class="mri-meta">${m.tipo==='npc' ? (m.profesion||m.clase||'') : m.tipo==='ciudad' ? (m.categoria==='Altar' && m.zona ? m.zona : m.categoria) : 'Nivel '+m.nivel+' · La da: '+m.la_da} · ${m.reino}</div>
+        </div>`;
+      }
+      return `<div class="map-result-item" data-kind="zona" data-zona="${match.zona.nombre.replace(/"/g,'&quot;')}">
+        <div class="mri-name">${zoneEntryGlyph(match.kind)} ${match.label}</div>
+        <div class="mri-meta">${match.meta}</div>
+      </div>`;
+    }).join('');
     results.classList.add('is-open');
     results.querySelectorAll('.map-result-item').forEach(el=>{
       el.addEventListener('click', ()=>{
-        const m = regnumAllMarkerObjs[parseInt(el.dataset.idx)];
         results.classList.remove('is-open');
+        if(el.dataset.kind === 'zona'){
+          const z = regnumAllZoneObjs.find(zz=> zz.nombre === el.dataset.zona);
+          if(!z) return;
+          input.value = z.nombre;
+          regnumMap.fitBounds(z._leaflet.getBounds().pad(0.2));
+          if(!regnumZonesLayer.hasLayer(z._leaflet)){
+            // Mobs/Materiales apagados, o el reino no calza: se muestra
+            // igual porque lo pidió la búsqueda, pero queda anotada para
+            // ocultarse de nuevo al cerrar su tooltip (ver tooltipclose
+            // en initRegnumMapIfNeeded) — sin tocar ninguna otra zona.
+            z._leaflet.addTo(regnumZonesLayer);
+            forcedVisibleZoneKey = z.nombre;
+          }
+          z._leaflet.openTooltip(z._leaflet.getBounds().getCenter());
+          return;
+        }
+        const m = regnumAllMarkerObjs[parseInt(el.dataset.idx)];
         input.value = m.nombre;
         regnumMap.setView(m._leaflet.getLatLng(), 0);
         if(!regnumMarkersLayer.hasLayer(m._leaflet)){
