@@ -1100,8 +1100,10 @@ const ZONE_COLOR_REINO = { Syrtis: '#7fae5a', Alsius: '#5b9cc9', Ignis: '#c9622f
 const ZONE_COLOR_DEFAULT = '#a09a8c'; // por si a alguna zona le faltara el reino
 // Morado para los jefes en el tooltip -- a propósito distinto de los
 // colores de reino (que ya significan otra cosa acá) para que un jefe
-// especial resalte de un vistazo en el detalle de la zona.
-const JEFE_COLOR = '#a56dd6';
+// especial resalte de un vistazo en el detalle de la zona. Menos
+// saturado que el primer intento (#a56dd6) -- quedaba muy fuerte al
+// lado de los colores de reino, bastante más apagados.
+const JEFE_COLOR = '#9b85c4';
 
 function zoneHasMobs(z){ return (z.mobs||[]).length > 0; }
 function zoneHasMateriales(z){ return (z.materiales||[]).length > 0; }
