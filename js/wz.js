@@ -136,6 +136,13 @@ function wzRenderGems(gems) {
 }
 
 function wzDescribeEvent(ev) {
+  if (ev.type === 'wish') {
+    // Cuando un reino junta sus 6 gemas puede "pedir un deseo", lo que
+    // resetea las gemas a su posición original -- no es una captura, así
+    // que no tiene name/owner como los demás, el reino que pidió el deseo
+    // viene en location (ver el ejemplo usado para probar esto).
+    return `${ev.location} pidió un deseo`;
+  }
   if (ev.type === 'relic') {
     const nombre = wzCleanName(ev.name);
     const de = ev.location && ev.location !== 'transit' && ev.location !== ev.owner ? ` (de ${ev.location})` : '';
@@ -159,17 +166,20 @@ function wzDescribeEvent(ev) {
   return `${nombre || ev.location || 'Evento'}`;
 }
 
+// A qué reino corresponde colorear cada línea del log -- normalmente el
+// que hizo la captura (owner), pero "wish" no tiene owner (no es una
+// captura), ahí el reino relevante viene en location (ver wzDescribeEvent).
+function wzEventRealm(ev) {
+  return ev.type === 'wish' ? ev.location : ev.owner;
+}
+
 function wzRenderLog(events) {
   const box = document.getElementById('wz-log');
   if (!box || !Array.isArray(events)) return;
-  // "wish" no trae nombre/dueño (no es una captura) — no aporta nada al
-  // log de capturas, se descarta antes de recortar a los 25 más
-  // recientes para no gastar un lugar del log en una línea vacía.
-  const relevantes = events.filter(ev => ev.type !== 'wish');
-  box.innerHTML = relevantes.slice(0, 25).map(ev => `
+  box.innerHTML = events.slice(0, 25).map(ev => `
     <li>
       <span class="wz-log-time">${wzFormatDateTime(ev.date)} · ${wzRelTime(ev.date)}</span>
-      <span style="color:${WZ_REALM_COLOR[ev.owner] || 'inherit'}">${wzDescribeEvent(ev)}</span>
+      <span style="color:${WZ_REALM_COLOR[wzEventRealm(ev)] || 'inherit'}">${wzDescribeEvent(ev)}</span>
     </li>`).join('');
 }
 
