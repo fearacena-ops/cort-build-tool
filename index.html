@@ -36,7 +36,13 @@ if('serviceWorker' in navigator){
 })();
 </script>
 <link rel="preload" href="data/game-data.json" as="fetch" crossorigin>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="anonymous">
+<!-- Leaflet alojado en el propio sitio (vendor/leaflet/, versión 1.9.4 fija)
+     en vez de bajarlo de unpkg.com en cada visita -- si ese CDN externo
+     estaba lento o fallaba, el mapa se quedaba en negro para siempre (nada
+     reintentaba la descarga) hasta recargar la página entera. Sirviéndolo
+     desde acá queda cubierto por la misma caché de Vercel y el service
+     worker que ya protegen al resto del sitio. -->
+<link rel="stylesheet" href="vendor/leaflet/leaflet.css">
 <link rel="stylesheet" href="css/theme.css">
 <link rel="stylesheet" href="css/layout.css">
 <link rel="stylesheet" href="css/build.css">
@@ -356,7 +362,7 @@ if('serviceWorker' in navigator){
 <script src="js/render.js" defer></script>
 <script src="js/main.js" defer></script>
 <script src="js/data-loader.js" defer></script>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin="anonymous" defer></script>
+<script src="vendor/leaflet/leaflet.js" defer></script>
 <script src="js/map.js" defer></script>
 <script src="js/wz.js" defer></script>
 </body>
