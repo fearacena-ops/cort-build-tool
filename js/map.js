@@ -1098,6 +1098,10 @@ function buildRegnumMarkers(){
 // materiales) como era antes.
 const ZONE_COLOR_REINO = { Syrtis: '#7fae5a', Alsius: '#5b9cc9', Ignis: '#c9622f' };
 const ZONE_COLOR_DEFAULT = '#a09a8c'; // por si a alguna zona le faltara el reino
+// Morado para los jefes en el tooltip -- a propósito distinto de los
+// colores de reino (que ya significan otra cosa acá) para que un jefe
+// especial resalte de un vistazo en el detalle de la zona.
+const JEFE_COLOR = '#a56dd6';
 
 function zoneHasMobs(z){ return (z.mobs||[]).length > 0; }
 function zoneHasMateriales(z){ return (z.materiales||[]).length > 0; }
@@ -1142,7 +1146,8 @@ function buildZonePopupHTML(z, forzarTodo){
     partes.push('<u>Mobs</u><br>' + sortedPorNivel(z.mobs).map(it=> `${it.nombre}${it.nivel ? ' · Nv. '+it.nivel : ''}`).join('<br>'));
   }
   if(zoneHasJefes(z) && jefesOn){
-    partes.push('<u>Jefes</u><br>' + sortedPorNivel(z.jefes).map(it=> `${it.nombre} (${it.etiqueta})${it.nivel ? ' · Nv. '+it.nivel : ''}`).join('<br>'));
+    const listaJefes = sortedPorNivel(z.jefes).map(it=> `${it.nombre} (${it.etiqueta})${it.nivel ? ' · Nv. '+it.nivel : ''}`).join('<br>');
+    partes.push(`<span style="color:${JEFE_COLOR}"><u>Jefes</u><br>${listaJefes}</span>`);
   }
   if(zoneHasMateriales(z) && matsOn){
     partes.push('<u>Materiales</u><br>' + z.materiales.map(it=> it.nombre).join('<br>'));
