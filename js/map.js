@@ -814,7 +814,14 @@ function initRegnumMapIfNeeded(){
       const checkedIdx = refpickPieces.map((_,i)=>i).filter(i=> refpickPieceChecked[i] !== false);
       const poligonos = [...checkedIdx.map(i=> refpickPieces[i]), ...(refpickCurrent.length>=3 ? [refpickCurrent] : [])];
       if(poligonos.length === 0){ alert('No hay ninguna pieza tildada para guardar — dibujá una (panel de abajo), tildá alguna de la lista de piezas, o "Cargar" una zona existente para seguir agregándole cosas.'); return; }
-      const entradas = [{nombre, reino, poligonos, mobs: ztMobs, jefes: ztJefes, materiales: ztMats}];
+      // Copias, no los arrays ztMobs/ztJefes/ztMats en sí (ver más abajo por
+      // qué): si esta entrada guardara la referencia directa, seguir
+      // editando esas mismas listas para la PRÓXIMA zona (agregar/sacar un
+      // jefe, etc.) mutaría también esta zona ya guardada -- pasó de
+      // verdad con jefes (faltaba resetear ztJefes después de guardar, ver
+      // más abajo) y corrompía la zona anterior en vez de afectar solo a
+      // la nueva.
+      const entradas = [{nombre, reino, poligonos, mobs: ztMobs.map(it=>({...it})), jefes: ztJefes.map(it=>({...it})), materiales: ztMats.map(it=>({...it}))}];
       // Si alguna pieza tildada vino de OTRA zona ya existente (se trajo
       // acá con "Cargar" y se reusa con un nombre distinto), esa pieza
       // se saca también de la zona de origen — si no, queda viviendo
@@ -839,7 +846,10 @@ function initRegnumMapIfNeeded(){
           // dejar un cascarón vacío dando vueltas.
           entradas.push({eliminar: srcNombre});
         } else {
-          entradas.push({nombre: srcNombre, reino: srcActual ? srcActual.reino : reino, poligonos: restantes, mobs: srcMobs, jefes: srcJefes, materiales: srcMats});
+          // Mismo motivo que arriba: copias de srcMobs/srcJefes/srcMats,
+          // no las referencias tal cual (podrían venir de una zona que se
+          // vuelva a tocar más tarde).
+          entradas.push({nombre: srcNombre, reino: srcActual ? srcActual.reino : reino, poligonos: restantes, mobs: srcMobs.map(it=>({...it})), jefes: srcJefes.map(it=>({...it})), materiales: srcMats.map(it=>({...it}))});
         }
       });
       // Cada entrada se suma a los cambios pendientes (lo que se manda a
@@ -874,6 +884,7 @@ function initRegnumMapIfNeeded(){
       // por el mismo motivo.
       document.getElementById('zt-name').value = '';
       ztMobs = [];
+      ztJefes = [];
       ztMats = [];
       ztRefreshLists();
       refreshRefpickPanel();
@@ -1100,10 +1111,10 @@ const ZONE_COLOR_REINO = { Syrtis: '#7fae5a', Alsius: '#5b9cc9', Ignis: '#c9622f
 const ZONE_COLOR_DEFAULT = '#a09a8c'; // por si a alguna zona le faltara el reino
 // Morado para los jefes en el tooltip -- a propósito distinto de los
 // colores de reino (que ya significan otra cosa acá) para que un jefe
-// especial resalte de un vistazo en el detalle de la zona. Menos
-// saturado que el primer intento (#a56dd6) -- quedaba muy fuerte al
-// lado de los colores de reino, bastante más apagados.
-const JEFE_COLOR = '#9b85c4';
+// especial resalte de un vistazo en el detalle de la zona. Primero
+// #a56dd6 (muy fuerte), después #9b85c4 (quedó muy apagado) -- este es
+// un morado eléctrico más oscuro, a medio camino entre los dos.
+const JEFE_COLOR = '#8035e0';
 
 function zoneHasMobs(z){ return (z.mobs||[]).length > 0; }
 function zoneHasMateriales(z){ return (z.materiales||[]).length > 0; }
