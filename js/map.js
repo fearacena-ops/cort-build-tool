@@ -160,6 +160,13 @@ function initRegnumMapIfNeeded(){
     // pasaba del máximo, y "rebotaba" al soltar. Con esto en false, el
     // pinch-zoom se frena directo en el límite, sin pasarse ni rebotar.
     bounceAtZoomLimits: false,
+    // Mismo espíritu que bounceAtZoomLimits pero para los BORDES del mundo
+    // (setMaxBounds más abajo): por defecto (0.0) esos límites son
+    // "blandos" -- con dos dedos (pinch) se puede arrastrar el mapa más
+    // allá del borde igual, sin ninguna resistencia, y recién al soltar
+    // vuelve de un salto a donde corresponde. En 1.0 el límite es sólido,
+    // no se puede arrastrar más allá ni un toque, con uno o dos dedos.
+    maxBoundsViscosity: 1.0,
   });
 
   // Indicador visual del nivel de zoom — el número crudo de Leaflet (que

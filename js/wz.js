@@ -91,6 +91,22 @@ function wzCleanName(name) {
   return (name || '').replace(/\s*\(\d+\)\s*$/, '');
 }
 
+// "el Fuerte X" / "el Castillo X" pero "la Gran muralla de X" -- el único
+// caso femenino entre los 12 nombres de WZ_FORT_NAME_MAP.
+function wzArticulo(nombreEs) {
+  return nombreEs.startsWith('Gran muralla') ? 'la' : 'el';
+}
+// Nombre de fuerte/castillo/muralla, ya en español y con su artículo (ver
+// WZ_FORT_NAME_MAP, arriba — el mismo diccionario que ya se usa para
+// pintar los marcadores del mapa). Si no está en el diccionario (no
+// debería pasar con los 12 fijos que manda CoRT) se cae al nombre en
+// inglés tal cual, sin partir nada.
+function wzNombreFuerteConArticulo(nombreCrudo) {
+  const nombreEs = WZ_FORT_NAME_MAP[nombreCrudo];
+  if (!nombreEs) return wzCleanName(nombreCrudo);
+  return `${wzArticulo(nombreEs)} ${nombreEs}`;
+}
+
 function wzRenderGems(gems) {
   const box = document.getElementById('wz-gems');
   if (!box || !Array.isArray(gems)) return;
@@ -120,8 +136,8 @@ function wzRenderGems(gems) {
 }
 
 function wzDescribeEvent(ev) {
-  const nombre = wzCleanName(ev.name);
   if (ev.type === 'relic') {
+    const nombre = wzCleanName(ev.name);
     const de = ev.location && ev.location !== 'transit' && ev.location !== ev.owner ? ` (de ${ev.location})` : '';
     return `${ev.owner} capturó la reliquia ${nombre}${de}`;
   }
@@ -133,7 +149,11 @@ function wzDescribeEvent(ev) {
     return `${ev.owner} capturó una gema de ${ev.location}`;
   }
   // type === 'fort' (y cualquier otro tipo no contemplado, para no
-  // dejarlo sin texto — mejor una descripción genérica que una vacía)
+  // dejarlo sin texto — mejor una descripción genérica que una vacía).
+  // El nombre siempre en español y con artículo -- ver WZ_FORT_NAME_MAP y
+  // wzNombreFuerteConArticulo más arriba (mismo diccionario que ya
+  // recolorea los marcadores del mapa).
+  const nombre = wzNombreFuerteConArticulo(ev.name);
   if (ev.owner === ev.location) return `${ev.owner} recuperó ${nombre}`;
   if (ev.owner) return `${ev.owner} capturó ${nombre} (de ${ev.location})`;
   return `${nombre || ev.location || 'Evento'}`;
