@@ -5,6 +5,26 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Constructor de builds — Champions of Regnum</title>
 <link rel="icon" type="image/png" href="favicon.png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0a0e14">
+<!-- iOS ignora el manifest de PWA -- necesita estas etiquetas propias para
+     "Agregar a inicio" (icono, modo standalone sin barra de Safari, y el
+     nombre que se ve bajo el icono). -->
+<link rel="apple-touch-icon" href="data/icons/pwa/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Regnum Companion">
+<script>
+// Registra el service worker (cache offline / instalación como app) -- va
+// acá arriba, apenas soportado, para no depender de que el resto del body
+// cargue antes. Si falla (navegador viejo, http sin TLS, etc.) no rompe
+// nada: el sitio sigue funcionando igual, solo sin cacheo offline.
+if('serviceWorker' in navigator){
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch(()=>{});
+  });
+}
+</script>
 <script>
 // Aplica el reino guardado ANTES de que se pinte cualquier color — evita el
 // parpadeo de "aparece Syrtis y después cambia al que tenías elegido".
