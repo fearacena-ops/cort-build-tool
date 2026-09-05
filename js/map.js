@@ -108,9 +108,9 @@ function sizeMapSquare(){
   // cambio de pestaña, etc.) en vez de mantenerse estable.
   frame.style.width = '';
   const baseSide = Math.min(frame.clientWidth, window.innerHeight * 0.85);
-  // 5% más chico que el cálculo de siempre, a pedido — nada más que un
-  // factor sobre el mismo lado ya calculado.
-  const side = Math.max(320, baseSide * 0.95);
+  // 7% más chico que el cálculo de siempre, a pedido (primero 5%, después
+  // 2% más) — nada más que un factor sobre el mismo lado ya calculado.
+  const side = Math.max(320, baseSide * 0.93);
   // Hay que fijar ancho Y alto: el CSS de base solo da width:100% (hasta los
   // 1180px del recuadro), así que si sólo se fija el alto acá el contenedor
   // queda rectangular (más ancho que alto) en vez de cuadrado. Con un
