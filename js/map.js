@@ -153,6 +153,13 @@ function initRegnumMapIfNeeded(){
     zoomSnap: 0,
     zoomControl: true,
     attributionControl: false,
+    // Por defecto Leaflet deja "pasarse" del mínimo/máximo mientras se hace
+    // pinch-zoom con el dedo (efecto elástico) y recién al soltar vuelve de
+    // golpe al límite real — en celular eso se veía como que el mapa se
+    // achicaba de más (dejando el fondo negro a la vista) o el zoom se
+    // pasaba del máximo, y "rebotaba" al soltar. Con esto en false, el
+    // pinch-zoom se frena directo en el límite, sin pasarse ni rebotar.
+    bounceAtZoomLimits: false,
   });
 
   // Indicador visual del nivel de zoom — el número crudo de Leaflet (que
