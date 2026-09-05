@@ -25,6 +25,12 @@
      cuadratura: el mapa dejaba de mostrarse completo. sizeMapSquare() ya
      tiene su propio piso (320px) para no achicarse de más. */
   #regnum-map{width:100%;height:70vh;border-radius:6px;border:1px solid var(--line);background:#0a0e14;}
+  /* Fundido de entrada de cada mosaico (ver createTile en js/map.js) --
+     sin esto cada uno aparece de golpe apenas termina de bajar, y como no
+     bajan todos exactamente juntos (324 pedidos de red a la vez al cargar
+     el mapa) se nota mucho el efecto de "se van armando los recuadros". */
+  .regnum-tile-img{opacity:0;transition:opacity .2s ease;}
+  .regnum-tile-img.regnum-tile-loaded{opacity:1;}
   .map-zoom-badge{position:absolute;right:10px;bottom:10px;z-index:600;background:rgba(10,14,20,.82);border:1px solid var(--line);border-radius:14px;padding:5px 12px;font-family:var(--font-mono);font-size:11.5px;color:var(--ink-dim);pointer-events:none;}
   /* Brújula: el mapa no rota, así que son cuatro etiquetas fijas en los
      bordes del recuadro — no hace falta recalcularlas por zoom o paneo. */

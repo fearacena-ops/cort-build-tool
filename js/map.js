@@ -317,8 +317,14 @@ function initRegnumMapIfNeeded(){
       // cambiarle la resolución sin recrearlo (ver updateTileResolution).
       tile.dataset.col = c;
       tile.dataset.row = r;
+      // Clase para el fade-in (ver css/map.css) -- sin esto cada mosaico
+      // aparece de golpe apenas termina de bajar, y como no bajan todos
+      // exactamente juntos se nota mucho el efecto de "se van armando los
+      // recuadros" al cargar o recargar. Con un fundido cortito queda
+      // igual de rápido pero mucho menos brusco.
+      tile.className = 'regnum-tile-img';
       tile.src = tileUrlFor(c, r, tileResIsHi);
-      tile.onload = () => done(null, tile);
+      tile.onload = () => { tile.classList.add('regnum-tile-loaded'); done(null, tile); };
       tile.onerror = () => done(null, tile);
       return tile;
     }
@@ -343,7 +349,17 @@ function initRegnumMapIfNeeded(){
     Object.values(regnumTilesLayer._tiles).forEach(t => {
       const img = t.el;
       if(img.dataset.col === undefined) return; // mosaico vacío (fuera de rango)
-      img.src = tileUrlFor(img.dataset.col, img.dataset.row, tileResIsHi);
+      const url = tileUrlFor(img.dataset.col, img.dataset.row, tileResIsHi);
+      // Precargar en un <img> aparte (fuera del documento) ANTES de pisarle
+      // el src al mosaico visible: asignar el src directo lo deja en blanco
+      // (se ve el fondo oscuro del mapa) mientras baja la imagen nueva, y
+      // con 16 mosaicos cambiando a la vez ese "parpadeo negro" se nota
+      // bastante. Precargando aparte, el mosaico visible se queda mostrando
+      // el anterior sin cortes hasta el instante justo en que la imagen
+      // nueva ya está lista para pintarse.
+      const pre = new Image();
+      pre.onload = () => { img.src = url; };
+      pre.src = url;
     });
   }
   regnumMap.on('zoom', updateTileResolution);
