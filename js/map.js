@@ -617,6 +617,14 @@ function initRegnumMapIfNeeded(){
         <input type="text" id="zt-mob-nivel" placeholder="Nivel" style="flex:1;min-width:0">
       </div>
       <button type="button" id="zt-mob-add" style="margin-top:4px;width:100%">Agregar mob</button>
+      <div style="margin-top:8px"><b>Jefes</b> <span style="color:#9fae95;font-weight:normal">(mobs especiales, con etiqueta de rareza)</span></div>
+      <ul id="zt-jefes-list" style="margin:4px 0;padding-left:18px"></ul>
+      <div style="display:flex;gap:4px">
+        <input type="text" id="zt-jefe-name" placeholder="Nombre" style="flex:2;min-width:0">
+        <input type="text" id="zt-jefe-etiqueta" placeholder="Etiqueta (Campeón, Legendario...)" style="flex:2;min-width:0">
+        <input type="text" id="zt-jefe-nivel" placeholder="Nivel" style="flex:1;min-width:0">
+      </div>
+      <button type="button" id="zt-jefe-add" style="margin-top:4px;width:100%">Agregar jefe</button>
       <div style="margin-top:8px"><b>Materiales</b></div>
       <ul id="zt-mats-list" style="margin:4px 0;padding-left:18px"></ul>
       <input type="text" id="zt-mat-name" placeholder="Nombre" style="width:100%;box-sizing:border-box">
@@ -630,15 +638,24 @@ function initRegnumMapIfNeeded(){
     document.body.appendChild(zonePanel);
 
     let ztMobs = [];
+    let ztJefes = [];
     let ztMats = [];
 
     function ztRefreshChangesCount(){
       document.getElementById('zt-changes-count').textContent = zoneToolChanges.length;
     }
     function ztRefreshLists(){
+      // Se ordena EN el mismo array (sort muta in-place) antes de mostrar
+      // -- así el índice que ve cada botón "✕" en el HTML coincide con el
+      // índice real en el array para el splice() de abajo, ya ordenado.
+      ztMobs.sort((a, b) => nivelSortKey(a.nivel) - nivelSortKey(b.nivel));
+      ztJefes.sort((a, b) => nivelSortKey(a.nivel) - nivelSortKey(b.nivel));
       const mobsUl = document.getElementById('zt-mobs-list');
       mobsUl.innerHTML = ztMobs.map((it,i)=>`<li>${it.nombre} · Nv.${it.nivel||'?'} <a href="#" data-i="${i}" class="zt-mob-del" style="color:#c0392b;text-decoration:none">✕</a></li>`).join('');
       mobsUl.querySelectorAll('.zt-mob-del').forEach(a=> a.addEventListener('click', (e)=>{ e.preventDefault(); ztMobs.splice(+a.dataset.i, 1); ztRefreshLists(); }));
+      const jefesUl = document.getElementById('zt-jefes-list');
+      jefesUl.innerHTML = ztJefes.map((it,i)=>`<li>${it.nombre} (${it.etiqueta||'?'}) · Nv.${it.nivel||'?'} <a href="#" data-i="${i}" class="zt-jefe-del" style="color:#c0392b;text-decoration:none">✕</a></li>`).join('');
+      jefesUl.querySelectorAll('.zt-jefe-del').forEach(a=> a.addEventListener('click', (e)=>{ e.preventDefault(); ztJefes.splice(+a.dataset.i, 1); ztRefreshLists(); }));
       const matsUl = document.getElementById('zt-mats-list');
       matsUl.innerHTML = ztMats.map((it,i)=>`<li>${it.nombre} <a href="#" data-i="${i}" class="zt-mat-del" style="color:#c0392b;text-decoration:none">✕</a></li>`).join('');
       matsUl.querySelectorAll('.zt-mat-del').forEach(a=> a.addEventListener('click', (e)=>{ e.preventDefault(); ztMats.splice(+a.dataset.i, 1); ztRefreshLists(); }));
@@ -708,7 +725,7 @@ function initRegnumMapIfNeeded(){
       const sel = document.getElementById('zt-list');
       const zonas = regnumMapData.zonas || [];
       sel.innerHTML = zonas.map(z=>
-        `<option value="${z.nombre.replace(/"/g,'&quot;')}">${z.nombre} (${z.reino}) — ${(z.mobs||[]).length} mobs, ${(z.materiales||[]).length} mat.</option>`
+        `<option value="${z.nombre.replace(/"/g,'&quot;')}">${z.nombre} (${z.reino}) — ${(z.mobs||[]).length} mobs, ${(z.jefes||[]).length} jefes, ${(z.materiales||[]).length} mat.</option>`
       ).join('');
     }
     // Si se edita el nombre a mano, la lista de piezas se refresca — así
@@ -722,6 +739,17 @@ function initRegnumMapIfNeeded(){
       ztMobs.push({nombre, nivel});
       document.getElementById('zt-mob-name').value = '';
       document.getElementById('zt-mob-nivel').value = '';
+      ztRefreshLists();
+    });
+    document.getElementById('zt-jefe-add').addEventListener('click', ()=>{
+      const nombre = document.getElementById('zt-jefe-name').value.trim();
+      const etiqueta = document.getElementById('zt-jefe-etiqueta').value.trim();
+      const nivel = document.getElementById('zt-jefe-nivel').value.trim();
+      if(!nombre) return;
+      ztJefes.push({nombre, etiqueta, nivel});
+      document.getElementById('zt-jefe-name').value = '';
+      document.getElementById('zt-jefe-etiqueta').value = '';
+      document.getElementById('zt-jefe-nivel').value = '';
       ztRefreshLists();
     });
     document.getElementById('zt-mat-add').addEventListener('click', ()=>{
@@ -742,6 +770,7 @@ function initRegnumMapIfNeeded(){
       document.getElementById('zt-name').value = nombre;
       document.getElementById('zt-reino').value = z.reino || 'Syrtis';
       ztMobs = (z.mobs||[]).map(it=>({...it}));
+      ztJefes = (z.jefes||[]).map(it=>({...it}));
       ztMats = (z.materiales||[]).map(it=>({...it}));
       ztRefreshLists();
       // Antes de traer las piezas de esta zona, sacamos de la lista
@@ -785,7 +814,7 @@ function initRegnumMapIfNeeded(){
       const checkedIdx = refpickPieces.map((_,i)=>i).filter(i=> refpickPieceChecked[i] !== false);
       const poligonos = [...checkedIdx.map(i=> refpickPieces[i]), ...(refpickCurrent.length>=3 ? [refpickCurrent] : [])];
       if(poligonos.length === 0){ alert('No hay ninguna pieza tildada para guardar — dibujá una (panel de abajo), tildá alguna de la lista de piezas, o "Cargar" una zona existente para seguir agregándole cosas.'); return; }
-      const entradas = [{nombre, reino, poligonos, mobs: ztMobs, materiales: ztMats}];
+      const entradas = [{nombre, reino, poligonos, mobs: ztMobs, jefes: ztJefes, materiales: ztMats}];
       // Si alguna pieza tildada vino de OTRA zona ya existente (se trajo
       // acá con "Cargar" y se reusa con un nombre distinto), esa pieza
       // se saca también de la zona de origen — si no, queda viviendo
@@ -803,13 +832,14 @@ function initRegnumMapIfNeeded(){
         const srcActual = ztGetCurrentZone(srcNombre);
         const restantes = (srcActual?.poligonos||[]).filter(r=> !piezasASacar.has(r));
         const srcMobs = srcActual ? (srcActual.mobs||[]) : [];
+        const srcJefes = srcActual ? (srcActual.jefes||[]) : [];
         const srcMats = srcActual ? (srcActual.materiales||[]) : [];
-        if(restantes.length === 0 && srcMobs.length === 0 && srcMats.length === 0){
+        if(restantes.length === 0 && srcMobs.length === 0 && srcJefes.length === 0 && srcMats.length === 0){
           // no le queda nada propio: se marca para eliminar en vez de
           // dejar un cascarón vacío dando vueltas.
           entradas.push({eliminar: srcNombre});
         } else {
-          entradas.push({nombre: srcNombre, reino: srcActual ? srcActual.reino : reino, poligonos: restantes, mobs: srcMobs, materiales: srcMats});
+          entradas.push({nombre: srcNombre, reino: srcActual ? srcActual.reino : reino, poligonos: restantes, mobs: srcMobs, jefes: srcJefes, materiales: srcMats});
         }
       });
       // Cada entrada se suma a los cambios pendientes (lo que se manda a
@@ -823,6 +853,7 @@ function initRegnumMapIfNeeded(){
       // invisible pese a acabar de guardarla, dando la falsa impresión de
       // que algo salió mal.
       if(ztMobs.length && !document.getElementById('map-toggle-mobs').checked) document.getElementById('map-toggle-mobs').checked = true;
+      if(ztJefes.length && !document.getElementById('map-toggle-jefes').checked) document.getElementById('map-toggle-jefes').checked = true;
       if(ztMats.length && !document.getElementById('map-toggle-materiales').checked) document.getElementById('map-toggle-materiales').checked = true;
       buildRegnumZones(); // reconstruye la capa de zonas (aplica los filtros de nuevo al final)
       ztRefreshZoneList();
@@ -1070,6 +1101,23 @@ const ZONE_COLOR_DEFAULT = '#a09a8c'; // por si a alguna zona le faltara el rein
 
 function zoneHasMobs(z){ return (z.mobs||[]).length > 0; }
 function zoneHasMateriales(z){ return (z.materiales||[]).length > 0; }
+// Jefes: mobs especiales con una etiqueta de rareza (Campeón, Legendario,
+// Épico...) -- viven en su propio array (z.jefes) separado de z.mobs para
+// poder prenderlos/apagarlos con su propio checkbox independiente.
+function zoneHasJefes(z){ return (z.jefes||[]).length > 0; }
+
+// Orden por nivel para mostrar (mobs y jefes): "nivel" es texto libre (en
+// general un número como "22", pero el campo del editor no fuerza formato,
+// así que también podría ser un rango tipo "5-8") -- se ordena por el
+// primer número que aparezca. Sin número (vacío o texto raro) va al final,
+// no al principio, para no mezclarse con los niveles bajos reales.
+function nivelSortKey(nivel){
+  const m = String(nivel == null ? '' : nivel).match(/\d+/);
+  return m ? parseInt(m[0], 10) : Infinity;
+}
+function sortedPorNivel(lista){
+  return (lista || []).slice().sort((a, b) => nivelSortKey(a.nivel) - nivelSortKey(b.nivel));
+}
 
 function zoneColor(z){
   return ZONE_COLOR_REINO[z.reino] || ZONE_COLOR_DEFAULT;
@@ -1083,12 +1131,18 @@ function zoneColor(z){
 function buildZonePopupHTML(z, forzarTodo){
   const mobsOn = forzarTodo || document.getElementById('map-toggle-mobs').checked;
   const matsOn = forzarTodo || document.getElementById('map-toggle-materiales').checked;
+  const jefesOn = forzarTodo || document.getElementById('map-toggle-jefes').checked;
   const partes = [`<b>${z.nombre}</b>`, z.reino];
   // Si tenés solo Mobs prendido no hace falta ver los materiales de la
   // zona (y viceversa) — el tooltip muestra nada más lo que se está
   // filtrando en ese momento, no todo lo que la zona tenga cargado.
+  // Ordenados por nivel (ver nivelSortKey/sortedPorNivel) para que el
+  // detalle de la zona se lea de más fácil a más difícil.
   if(zoneHasMobs(z) && mobsOn){
-    partes.push('<u>Mobs</u><br>' + z.mobs.map(it=> `${it.nombre}${it.nivel ? ' · Nv. '+it.nivel : ''}`).join('<br>'));
+    partes.push('<u>Mobs</u><br>' + sortedPorNivel(z.mobs).map(it=> `${it.nombre}${it.nivel ? ' · Nv. '+it.nivel : ''}`).join('<br>'));
+  }
+  if(zoneHasJefes(z) && jefesOn){
+    partes.push('<u>Jefes</u><br>' + sortedPorNivel(z.jefes).map(it=> `${it.nombre} (${it.etiqueta})${it.nivel ? ' · Nv. '+it.nivel : ''}`).join('<br>'));
   }
   if(zoneHasMateriales(z) && matsOn){
     partes.push('<u>Materiales</u><br>' + z.materiales.map(it=> it.nombre).join('<br>'));
@@ -1151,13 +1205,14 @@ function nudgeZoneTooltip(layer){
   }
 }
 
-// Una zona puede tener mobs Y materiales a la vez — se muestra si cualquiera
-// de los dos checkboxes que le correspondan (según lo que tenga cargado)
-// está prendido, no necesita que estén los dos.
+// Una zona puede tener mobs, jefes Y materiales a la vez — se muestra si
+// cualquiera de los checkboxes que le correspondan (según lo que tenga
+// cargado) está prendido, no necesita que estén todos.
 function passesZoneFilters(z){
   const mobsOn = document.getElementById('map-toggle-mobs').checked;
   const matsOn = document.getElementById('map-toggle-materiales').checked;
-  if(!((zoneHasMobs(z) && mobsOn) || (zoneHasMateriales(z) && matsOn))) return false;
+  const jefesOn = document.getElementById('map-toggle-jefes').checked;
+  if(!((zoneHasMobs(z) && mobsOn) || (zoneHasMateriales(z) && matsOn) || (zoneHasJefes(z) && jefesOn))) return false;
   const reino = document.getElementById('map-filter-reino').value;
   if(reino && z.reino !== reino) return false;
   return true;
@@ -1460,7 +1515,7 @@ function wireRegnumSearchAndFilters(){
   // los dos, y no cuesta nada reconstruir marcadores de más cuando cambia
   // un checkbox que en realidad es solo de zonas (o viceversa).
   function refreshMapLayers(){ applyRegnumFilters(); applyZoneFilters(); }
-  [...PLACE_TOGGLE_IDS,'map-toggle-npc','map-toggle-mision','map-toggle-mobs','map-toggle-materiales','map-filter-reino','map-filter-profesion','map-filter-nivel'].forEach(id=>{
+  [...PLACE_TOGGLE_IDS,'map-toggle-npc','map-toggle-mision','map-toggle-mobs','map-toggle-jefes','map-toggle-materiales','map-filter-reino','map-filter-profesion','map-filter-nivel'].forEach(id=>{
     document.getElementById(id).addEventListener('change', refreshMapLayers);
   });
 
@@ -1482,12 +1537,13 @@ function wireRegnumSearchAndFilters(){
     regnumAllZoneObjs.forEach(z=>{
       entries.push({kind:'zona', zona:z, label:z.nombre, meta:`Zona · ${z.reino}`});
       (z.mobs||[]).forEach(mob=> entries.push({kind:'mob', zona:z, label:mob.nombre, meta:`Mob en "${z.nombre}"${mob.nivel ? ' · Nv.'+mob.nivel : ''}`}));
+      (z.jefes||[]).forEach(jefe=> entries.push({kind:'jefe', zona:z, label:jefe.nombre, meta:`${jefe.etiqueta||'Jefe'} en "${z.nombre}"${jefe.nivel ? ' · Nv.'+jefe.nivel : ''}`}));
       (z.materiales||[]).forEach(mat=> entries.push({kind:'material', zona:z, label:mat.nombre, meta:`Material en "${z.nombre}"`}));
     });
     return entries;
   }
   function zoneEntryGlyph(kind){
-    return kind === 'zona' ? '▦' : kind === 'mob' ? '☠' : '◆';
+    return kind === 'zona' ? '▦' : kind === 'mob' ? '☠' : kind === 'jefe' ? '★' : '◆';
   }
   input.addEventListener('input', ()=>{
     const q = input.value.trim().toLowerCase();
