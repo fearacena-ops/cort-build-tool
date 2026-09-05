@@ -275,6 +275,31 @@ function initRegnumMapIfNeeded(){
   // ("center" ya se calculó más arriba, junto con bounds.)
   regnumMap.setView(center, regnumMap.getMinZoom());
 
+  // Dos resoluciones por mosaico: los livianos de siempre (512px,
+  // data/map-tiles/) para la vista alejada -- con el mundo completo a la
+  // vista los 324 entran en memoria a la vez, por eso tienen que ser
+  // livianos (ver el commit que los achicó, motivado por un crash de
+  // memoria en celulares) -- y los originales de 1024px (data/map-tiles/hi/,
+  // recuperados del historial de git) recién cuando se está bastante
+  // acercado, donde Leaflet ya solo mantiene en pantalla un puñado de
+  // mosaicos (el resto se podan solos por estar fuera del recuadro
+  // visible), así que no hay riesgo de repetir el mismo problema de memoria.
+  // El umbral (0.6) es sobre la MISMA posición proporcional 0..1 dentro del
+  // rango de zoom real que ya usa updateZoomBadge más arriba -- a partir de
+  // ahí quedan en pantalla unos pocos mosaicos nomás (visto a mano con la
+  // herramienta de pruebas), bien lejos de volver a acercarse a los ~324 de
+  // la vista completa.
+  const TILE_RES_HI_RATIO = 0.6;
+  function tileUrlFor(c, r, hi){
+    return hi ? `data/map-tiles/hi/tile_${c}_${r}.jpg` : `data/map-tiles/tile_${c}_${r}.jpg`;
+  }
+  function wantsHiRes(){
+    const min = regnumMap.getMinZoom(), max = regnumMap.getMaxZoom();
+    const ratio = max > min ? (regnumMap.getZoom() - min) / (max - min) : 0;
+    return ratio >= TILE_RES_HI_RATIO;
+  }
+  let tileResIsHi = false; // se corrige solo apenas se calcula el minZoom real, más abajo
+  let regnumTilesLayer = null;
   const RegnumTiles = L.GridLayer.extend({
     createTile: function(coords, done){
       const tile = document.createElement('img');
@@ -287,8 +312,12 @@ function initRegnumMapIfNeeded(){
       }
       // Los archivos vienen nombrados tile_<columna>_<fila> (el número que
       // avanza verticalmente en el mapa original es el segundo), al revés
-      // de r/c acá — por eso se piden invertidos.
-      tile.src = `data/map-tiles/tile_${c}_${r}.jpg`;
+      // de r/c acá — por eso se piden invertidos. data-col/data-row quedan
+      // guardados en el propio elemento para poder encontrarlo de nuevo y
+      // cambiarle la resolución sin recrearlo (ver updateTileResolution).
+      tile.dataset.col = c;
+      tile.dataset.row = r;
+      tile.src = tileUrlFor(c, r, tileResIsHi);
       tile.onload = () => done(null, tile);
       tile.onerror = () => done(null, tile);
       return tile;
@@ -299,7 +328,25 @@ function initRegnumMapIfNeeded(){
   // default la capa se considera "fuera de su propio rango" y deja de pedir
   // tiles del todo (mapa en negro). -10 es solo "bien por debajo de
   // cualquier minZoom que el mapa vaya a tener nunca", no un valor real.
-  new RegnumTiles({ tileSize: TILE_SIZE, noWrap: true, bounds, minNativeZoom:0, maxNativeZoom:0, minZoom:-10, maxZoom:2 }).addTo(regnumMap);
+  regnumTilesLayer = new RegnumTiles({ tileSize: TILE_SIZE, noWrap: true, bounds, minNativeZoom:0, maxNativeZoom:0, minZoom:-10, maxZoom:2 }).addTo(regnumMap);
+
+  // Los mosaicos YA CREADOS no se recrean solos al hacer zoom (es el mismo
+  // único "nivel nativo" de siempre, Leaflet solo los escala con CSS) — para
+  // que cambien de resolución de verdad hay que pisarles el src a mano acá,
+  // pero SOLO a los que sigan puestos (los de fuera del recuadro visible ya
+  // se podaron solos, y los nuevos que se creen de acá en más ya salen
+  // pedidos en la resolución correcta desde createTile).
+  function updateTileResolution(){
+    const hi = wantsHiRes();
+    if(hi === tileResIsHi) return;
+    tileResIsHi = hi;
+    Object.values(regnumTilesLayer._tiles).forEach(t => {
+      const img = t.el;
+      if(img.dataset.col === undefined) return; // mosaico vacío (fuera de rango)
+      img.src = tileUrlFor(img.dataset.col, img.dataset.row, tileResIsHi);
+    });
+  }
+  regnumMap.on('zoom', updateTileResolution);
 
   regnumMarkersLayer = L.layerGroup().addTo(regnumMap);
   regnumZonesLayer = L.layerGroup().addTo(regnumMap);
