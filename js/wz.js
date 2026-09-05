@@ -146,10 +146,9 @@ function wzDescribeEvent(ev) {
   if (ev.type === 'relic') {
     const nombre = wzCleanName(ev.name);
     if (ev.location === 'altar') {
-      // Vuelve sola a su altar de origen (se resetea) -- no es una
-      // captura de nadie, por eso no se menciona a ev.owner acá (ver
-      // también wzEventRealm, más abajo, para el color de la línea).
-      return `Reliquia de ${nombre} ha regresado`;
+      // Vuelve sola al altar de SU reino (ev.owner acá es justamente eso
+      // -- a quién pertenece ese altar, no quién la "capturó").
+      return `Reliquia de ${nombre} ha regresado a ${ev.owner}`;
     }
     // 'transit' (recién capturada, todavía no llegó a destino) no aporta
     // nada como ubicación -- se omite. Cualquier otro valor (un reino) sí
@@ -178,10 +177,7 @@ function wzDescribeEvent(ev) {
 // A qué reino corresponde colorear cada línea del log -- normalmente el
 // que hizo la captura (owner), pero "wish" no tiene owner (no es una
 // captura), ahí el reino relevante viene en location (ver wzDescribeEvent).
-// La reliquia que "ha regresado" a su altar tampoco es de nadie -- ningún
-// reino en particular, así que sin color (se cae a 'inherit').
 function wzEventRealm(ev) {
-  if (ev.type === 'relic' && ev.location === 'altar') return null;
   return ev.type === 'wish' ? ev.location : ev.owner;
 }
 
