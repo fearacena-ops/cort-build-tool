@@ -334,7 +334,19 @@ function initRegnumMapIfNeeded(){
   // default la capa se considera "fuera de su propio rango" y deja de pedir
   // tiles del todo (mapa en negro). -10 es solo "bien por debajo de
   // cualquier minZoom que el mapa vaya a tener nunca", no un valor real.
-  regnumTilesLayer = new RegnumTiles({ tileSize: TILE_SIZE, noWrap: true, bounds, minNativeZoom:0, maxNativeZoom:0, minZoom:-10, maxZoom:2 }).addTo(regnumMap);
+  regnumTilesLayer = new RegnumTiles({
+    tileSize: TILE_SIZE, noWrap: true, bounds, minNativeZoom:0, maxNativeZoom:0, minZoom:-10, maxZoom:2,
+    // Con zoom continuo (zoomSnap:0) un scroll o pinch dispara muchísimos
+    // eventos 'zoom' seguidos mientras el gesto todavía se está moviendo.
+    // updateWhenZooming:true (el default) hace que Leaflet pode/agregue
+    // mosaicos en CADA uno de esos pasos intermedios -- y de paso, que
+    // updateTileResolution (más abajo) intente cambiar la resolución de
+    // varios mosaicos a mitad del gesto, más de una vez. En false, Leaflet
+    // solo escala con CSS mientras se mueve y recién reacomoda los
+    // mosaicos de verdad una vez que el gesto se frena del todo (zoomend) --
+    // mismo espíritu que pasar el swap de resolución a 'zoomend' más abajo.
+    updateWhenZooming: false,
+  }).addTo(regnumMap);
 
   // Los mosaicos YA CREADOS no se recrean solos al hacer zoom (es el mismo
   // único "nivel nativo" de siempre, Leaflet solo los escala con CSS) — para
@@ -362,7 +374,12 @@ function initRegnumMapIfNeeded(){
       pre.src = url;
     });
   }
-  regnumMap.on('zoom', updateTileResolution);
+  // 'zoomend', no 'zoom': con zoom continuo, 'zoom' dispara seguido
+  // mientras el gesto se sigue moviendo -- cambiar la resolución recién
+  // cuando el zoom se frena del todo evita re-disparar el swap varias
+  // veces seguidas a mitad de un mismo scroll/pinch (ver también
+  // updateWhenZooming:false más arriba, mismo motivo).
+  regnumMap.on('zoomend', updateTileResolution);
 
   regnumMarkersLayer = L.layerGroup().addTo(regnumMap);
   regnumZonesLayer = L.layerGroup().addTo(regnumMap);
