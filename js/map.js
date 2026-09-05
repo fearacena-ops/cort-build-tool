@@ -165,12 +165,26 @@ function initRegnumMapIfNeeded(){
   // Indicador visual del nivel de zoom — el número crudo de Leaflet (que
   // puede ser negativo y cambia de mínimo según el tamaño del recuadro) no
   // dice mucho por sí solo, así que se muestra como "escalón X de Y".
+  //
+  // El zoom en sí es continuo (zoomSnap:0, ver más arriba) a propósito, para
+  // que el mundo se vea siempre completo sin recortar bordes — pero el
+  // "total" de escalones NO puede salir de ahí redondeando el rango real
+  // (getMaxZoom()-getMinZoom()), porque ese rango es fraccionario y varía
+  // con el tamaño del recuadro: según cómo cayera el redondeo, el total
+  // mostrado saltaba entre 5 y 6 de una sesión a otra, y encima dejaba un
+  // click de más disponible cerca de las puntas antes de llegar de verdad
+  // al límite. TOTAL_ZOOM_STEPS es fijo — el escalón se calcula como la
+  // posición PROPORCIONAL del zoom actual dentro del rango real, mapeada a
+  // esos 5 escalones, así el total mostrado nunca cambia y "1"/"5" quedan
+  // pegados de verdad a los extremos reales.
+  const TOTAL_ZOOM_STEPS = 5;
   const zoomBadge = document.getElementById('map-zoom-badge');
   function updateZoomBadge(){
     if(!zoomBadge) return;
-    const step = Math.round(regnumMap.getZoom() - regnumMap.getMinZoom()) + 1;
-    const total = Math.round(regnumMap.getMaxZoom() - regnumMap.getMinZoom()) + 1;
-    zoomBadge.textContent = `Zoom ${step}/${total}`;
+    const min = regnumMap.getMinZoom(), max = regnumMap.getMaxZoom();
+    const ratio = max > min ? (regnumMap.getZoom() - min) / (max - min) : 0;
+    const step = Math.min(TOTAL_ZOOM_STEPS, Math.max(1, Math.round(ratio * (TOTAL_ZOOM_STEPS - 1)) + 1));
+    zoomBadge.textContent = `Zoom ${step}/${TOTAL_ZOOM_STEPS}`;
   }
   regnumMap.on('zoom', updateZoomBadge);
 
