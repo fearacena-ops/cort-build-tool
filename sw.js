@@ -1,62 +1,38 @@
 // Service worker de Regnum Companion (PWA).
 //
-// Estrategia deliberadamente simple, en dos partes:
+// Estrategia: "red primero, cache como respaldo" para TODO lo del sitio
+// (excepto /api/, ver más abajo) -- no cache-first.
 //
-// 1) "App shell" (HTML/CSS/JS del sitio): se precachea en la instalación,
-//    así el sitio abre al toque en visitas repetidas incluso con mala señal.
-//    CACHE_VERSION hay que subirla a mano en cada cambio de alguno de estos
-//    archivos -- es lo que hace que una visita futura note que hay una
-//    versión nueva y reemplace la cache vieja (ver 'activate' más abajo).
-//
-// 2) Todo lo demás que el sitio pide (mosaicos del mapa, íconos, audio,
-//    game-data.json) se cachea "sobre la marcha" la primera vez que se
-//    usa (cache-first con relleno de cache en segundo plano) -- ninguno
-//    de estos archivos cambia solo, así que no hace falta invalidarlos
-//    nunca, y de paso evita precachear a la fuerza los ~9.5MB de mosaicos
-//    del mapa (que muchos visitantes ni van a abrir) en la instalación.
+// La primera versión de esto precacheaba el "app shell" (html/css/js) en la
+// instalación y lo servía cache-first, pensando que así el sitio abría más
+// rápido en visitas repetidas. El problema real: este sitio se actualiza
+// seguido (varias veces por sesión de trabajo), y cache-first significa que
+// una vez que el navegador de alguien cachea una versión, seguía viendo ESA
+// versión para siempre -- sin importar cuántas veces se subiera un cambio
+// nuevo -- hasta acordarse de subir CACHE_VERSION a mano en cada cambio (y
+// ya se me pasó). Con la pestaña abierta a internet, no tiene sentido
+// arriesgarse a mostrar algo viejo por una mejora de velocidad chica; mejor
+// pedirle siempre la version mas nueva a la red primero, y usar la cache
+// solo como red de contención si de verdad no hay conexión.
 //
 // El proxy de estado de guerra (/api/wz) queda deliberadamente AFUERA de
-// todo esto: no se cachea nunca, se deja pasar directo a la red (ver el
-// primer chequeo dentro de 'fetch'), porque esos datos cambian todo el
-// tiempo y ya tienen su propio manejo de caché (ver fetch(...,
-// {cache:'no-store'}) en js/wz.js).
+// todo esto: no se cachea nunca, se deja pasar directo a la red, porque esos
+// datos cambian todo el tiempo y ya tienen su propio manejo de caché (ver
+// fetch(..., {cache:'no-store'}) en js/wz.js).
 
-const CACHE_VERSION = 'v1';
-const SHELL_CACHE = `regnum-shell-${CACHE_VERSION}`;
+const CACHE_VERSION = 'v2';
 const RUNTIME_CACHE = `regnum-runtime-${CACHE_VERSION}`;
 
-const SHELL_FILES = [
-  '/',
-  '/index.html',
-  '/manifest.json',
-  '/favicon.png',
-  '/css/theme.css',
-  '/css/layout.css',
-  '/css/build.css',
-  '/css/map.css',
-  '/js/weights.js',
-  '/js/vocabulario.js',
-  '/js/engine.js',
-  '/js/render.js',
-  '/js/main.js',
-  '/js/data-loader.js',
-  '/js/map.js',
-  '/js/wz.js',
-];
-
-self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open(SHELL_CACHE).then((cache) => cache.addAll(SHELL_FILES))
-  );
+self.addEventListener('install', () => {
   self.skipWaiting();
 });
 
 self.addEventListener('activate', (event) => {
+  // Bumpear CACHE_VERSION (si hiciera falta alguna vez forzar un borrado
+  // total de lo que la gente tenga cacheado) limpia acá las caches viejas.
   event.waitUntil(
     caches.keys().then((names) => Promise.all(
-      names
-        .filter((n) => n !== SHELL_CACHE && n !== RUNTIME_CACHE)
-        .map((n) => caches.delete(n))
+      names.filter((n) => n !== RUNTIME_CACHE).map((n) => caches.delete(n))
     ))
   );
   self.clients.claim();
@@ -71,19 +47,13 @@ self.addEventListener('fetch', (event) => {
   // El estado de guerra nunca se cachea -- siempre a la red, tal cual.
   if (url.pathname.startsWith('/api/')) return;
 
-  // Resto del sitio (leaflet de unpkg incluido, por descarte de origin más
-  // arriba no aplica) -- cache-first, guardando en cache lo que se vaya
-  // pidiendo por primera vez (mosaicos del mapa, data/*.json, íconos, audio).
   event.respondWith(
-    caches.match(req).then((cached) => {
-      if (cached) return cached;
-      return fetch(req).then((res) => {
-        if (res.ok) {
-          const copy = res.clone();
-          caches.open(RUNTIME_CACHE).then((cache) => cache.put(req, copy));
-        }
-        return res;
-      }).catch(() => cached);
-    })
+    fetch(req).then((res) => {
+      if (res.ok) {
+        const copy = res.clone();
+        caches.open(RUNTIME_CACHE).then((cache) => cache.put(req, copy));
+      }
+      return res;
+    }).catch(() => caches.match(req))
   );
 });
