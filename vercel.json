@@ -19,6 +19,12 @@
       ]
     },
     {
+      "source": "/data/map-tiles/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=604800, must-revalidate" }
+      ]
+    },
+    {
       "source": "/css/(.*)",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=600, must-revalidate" }
