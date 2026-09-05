@@ -101,7 +101,16 @@ function sizeMapSquare(){
   const frame = document.querySelector('.map-frame');
   const container = document.getElementById('regnum-map');
   if(!frame || !container) return;
-  const side = Math.max(320, Math.min(frame.clientWidth, window.innerHeight * 0.85));
+  // Se resetea el ancho ANTES de medir frame.clientWidth: si se dejara el
+  // valor ya achicado de la última vez, cada llamada mediría contra ESE
+  // ancho reducido en vez del disponible de verdad, y el recuadro se
+  // iría achicando de a poco cada vez que se llama esta función (resize,
+  // cambio de pestaña, etc.) en vez de mantenerse estable.
+  frame.style.width = '';
+  const baseSide = Math.min(frame.clientWidth, window.innerHeight * 0.85);
+  // 5% más chico que el cálculo de siempre, a pedido — nada más que un
+  // factor sobre el mismo lado ya calculado.
+  const side = Math.max(320, baseSide * 0.95);
   // Hay que fijar ancho Y alto: el CSS de base solo da width:100% (hasta los
   // 1180px del recuadro), así que si sólo se fija el alto acá el contenedor
   // queda rectangular (más ancho que alto) en vez de cuadrado. Con un
@@ -111,6 +120,15 @@ function sizeMapSquare(){
   // eso recorta contenido de los bordes superior/inferior del mundo.
   container.style.width = side + 'px';
   container.style.height = side + 'px';
+  // El recuadro (.map-frame) también se achica al mismo tamaño exacto —
+  // antes se quedaba con su ancho de siempre (hasta 1180px) aunque el
+  // mapa de adentro fuera más angosto por la altura, y eso dejaba a la
+  // brújula (posicionada contra el recuadro completo, no contra el mapa)
+  // más ancha que el cuadrado real — por eso "E" terminaba cayendo fuera
+  // del mapa. Con el recuadro exactamente del tamaño del mapa, y
+  // margin:0 auto ya puesto en .map-frame (ver css/map.css), el conjunto
+  // queda centrado solo y la brújula siempre coincide con el borde real.
+  frame.style.width = side + 'px';
 }
 
 function initRegnumMapIfNeeded(){
