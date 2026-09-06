@@ -1532,6 +1532,13 @@ function wireRegnumSearchAndFilters(){
 
   const input = document.getElementById('map-search');
   const results = document.getElementById('map-search-results');
+  // Sin tildes ni mayúsculas para comparar -- así buscar "golem" (sin
+  // acento, fácil de tipear apurado) encuentra igual "Gólem", y
+  // viceversa. NFD separa cada letra acentuada en letra + acento aparte
+  // (ej. "ó" -> "o" + "´"); el regex se queda solo con la letra.
+  function normalizarBusqueda(s){
+    return (s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+  }
   function searchGlyph(m){
     if(m.tipo === 'mision') return '!';
     if(m.tipo === 'npc') return '●';
@@ -1635,15 +1642,15 @@ function wireRegnumSearchAndFilters(){
     return PLACE_TOGGLE_ID[m.categoria];
   }
   input.addEventListener('input', ()=>{
-    const q = input.value.trim().toLowerCase();
+    const q = normalizarBusqueda(input.value.trim());
     if(q.length < 2){
       results.classList.remove('is-open');
       results.innerHTML='';
       clearZoneSearchHighlight();
       return;
     }
-    const markerMatches = regnumAllMarkerObjs.filter(m=> m.nombre.toLowerCase().includes(q)).map(m=>({kind:'marker', m}));
-    const rawZoneMatches = buildZoneSearchEntries().filter(e=> e.label.toLowerCase().includes(q));
+    const markerMatches = regnumAllMarkerObjs.filter(m=> normalizarBusqueda(m.nombre).includes(q)).map(m=>({kind:'marker', m}));
+    const rawZoneMatches = buildZoneSearchEntries().filter(e=> normalizarBusqueda(e.label).includes(q));
     const zoneRows = groupZoneMatches(rawZoneMatches);
     const matches = [...markerMatches, ...zoneRows].slice(0, 30);
     if(matches.length === 0){ results.classList.remove('is-open'); results.innerHTML=''; return; }
