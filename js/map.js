@@ -72,18 +72,13 @@ let selectionMode = false;
 let selectedKeys = new Set();
 let markersByKey = {};
 
-// Clave del marcador que la búsqueda mostró a la fuerza pese a tener su
-// categoría apagada (si hay uno) — ver wireRegnumSearchAndFilters y el
-// popupclose en initRegnumMapIfNeeded.
-let forcedVisibleKey = null;
-// Lo mismo pero para una zona (nombre, no hay __key) mostrada a la fuerza
-// por la búsqueda pese a tener Mobs/Materiales o el reino apagados — ver
-// wireRegnumSearchAndFilters y el tooltipclose en initRegnumMapIfNeeded.
-// Es un Set (no una sola clave) porque buscar un mob/jefe/material que
-// se repite en varias zonas ahora las muestra todas juntas a la vez —
-// cada una se saca por su cuenta al cerrarse su propio tooltip, sin
-// afectar a las demás.
-let forcedVisibleZoneKeys = new Set();
+// Nombres de zona resaltadas ahora mismo por una búsqueda (ver
+// wireRegnumSearchAndFilters) — no cambian su visibilidad (eso lo decide
+// el checkbox real de la categoría encontrada, que la búsqueda prende
+// solo), nada más su color en el mapa, para marcar en cuáles de todas
+// las que se ven aparece justo lo buscado. Se reemplaza entero en cada
+// nueva búsqueda (ver clearZoneSearchHighlight).
+let highlightedZoneKeys = new Set();
 function latLngToPoint(latlng){ return regnumMap.project(latlng, 0); }
 function pointToLatLng(pt){ return regnumMap.unproject([pt.x, pt.y], 0); }
 
@@ -387,44 +382,6 @@ function initRegnumMapIfNeeded(){
 
   regnumMarkersLayer = L.layerGroup().addTo(regnumMap);
   regnumZonesLayer = L.layerGroup().addTo(regnumMap);
-
-  // Si un resultado de búsqueda fuerza a mostrar un marcador cuya categoría
-  // tiene el checkbox apagado (ver wireRegnumSearchAndFilters), que vuelva
-  // a ocultarse al cerrar su popup — no debería quedar "colado" para
-  // siempre solo por haberlo buscado una vez. OJO: 'popupclose' también
-  // se dispara al abrir OTRO globo (Leaflet cierra el anterior solo,
-  // "autoClose") y al hacer click en cualquier globo o marcador — por eso
-  // acá NO se puede reconstruir toda la capa de marcadores (clearLayers +
-  // volver a agregar todo) como se hacía antes: eso le cambia el nodo del
-  // ícono por debajo a marcadores que están en medio de manejar ESE mismo
-  // click, y termina rompiendo los clicks siguientes (globos que dejan de
-  // abrir, mapa "pegado"). Por eso ahora solo se saca, puntualmente, el
-  // marcador que quedó anotado como forzado por la búsqueda — nada más.
-  regnumMap.on('popupclose', (e)=>{
-    if(!forcedVisibleKey) return;
-    const m = regnumAllMarkerObjs.find(x=> x.__key === forcedVisibleKey);
-    forcedVisibleKey = null;
-    if(m && e.popup === m._leaflet.getPopup() && !passesRegnumFilters(m)){
-      regnumMarkersLayer.removeLayer(m._leaflet);
-    }
-  });
-
-  // Mismo mecanismo que arriba pero para una zona mostrada a la fuerza
-  // por la búsqueda (ver wireRegnumSearchAndFilters) — las zonas usan
-  // tooltip (hover) en vez de popup (click), así que se engancha en
-  // 'tooltipclose' en vez de 'popupclose'.
-  regnumMap.on('tooltipclose', (e)=>{
-    if(forcedVisibleZoneKeys.size === 0) return;
-    // Se identifica la zona por el tooltip que de verdad se cerró (no
-    // por una sola clave global) porque puede haber varias forzadas a
-    // la vez -- cerrar una no debe tocar a las otras.
-    const z = regnumAllZoneObjs.find(x=> x._leaflet && e.tooltip === x._leaflet.getTooltip() && forcedVisibleZoneKeys.has(x.nombre));
-    if(!z) return;
-    forcedVisibleZoneKeys.delete(z.nombre);
-    if(!passesZoneFilters(z)){
-      regnumZonesLayer.removeLayer(z._leaflet);
-    }
-  });
 
   // Si el globo se abre muy cerca de un borde del recuadro (por ejemplo un
   // marcador cerca del borde del mundo, al zoom mínimo) no entra completo
@@ -1632,36 +1589,59 @@ function wireRegnumSearchAndFilters(){
     }
     return `${tipo} en ${row.zonas.length} zonas: ${row.zonas.map(z=> z.nombre).join(', ')}`;
   }
-  // Muestra a la vez, con su tooltip abierto, TODAS las zonas dadas (una
-  // sola si vino de elegir la zona por su propio nombre, varias si vino
-  // de un mob/jefe/material que se repite) y encuadra el mapa para que
-  // entren todas juntas.
-  function showZonesFromSearch(zonas){
+  // Color bien distinto al de los 3 reinos (ver ZONE_COLOR_REINO) para
+  // que, entre todas las zonas que ya se ven en el mapa por tener su
+  // checkbox prendido, se note en cuáles justo aparece lo que se buscó.
+  const ZONE_SEARCH_HIGHLIGHT_COLOR = '#ffe000';
+  // Vuelve las zonas resaltadas por la búsqueda anterior a su color
+  // normal (por reino) — se llama antes de aplicar un resaltado nuevo,
+  // así no queda "pegado" el de una búsqueda vieja.
+  function clearZoneSearchHighlight(){
+    highlightedZoneKeys.forEach(nombre=>{
+      const z = regnumAllZoneObjs.find(zz=> zz.nombre === nombre);
+      if(z && z._leaflet){
+        const color = zoneColor(z);
+        z._leaflet.setStyle({color, fillColor:color, weight:2, fillOpacity:0.22, dashArray:null});
+      }
+    });
+    highlightedZoneKeys = new Set();
+  }
+  // Resalta las zonas dadas (una sola si se buscó la zona por su propio
+  // nombre, varias si vino de un mob/jefe/material que se repite) y
+  // encuadra el mapa para que entren todas juntas. No las agrega ni las
+  // saca de regnumZonesLayer — de la visibilidad se encarga el checkbox
+  // real de la categoría encontrada (ver el click de resultados más
+  // abajo), el resaltado es solo un color para ubicarlas entre el resto.
+  function highlightZonesFromSearch(zonas){
+    clearZoneSearchHighlight();
     if(zonas.length === 0) return;
     let bounds = null;
     zonas.forEach(z=>{
-      if(!regnumZonesLayer.hasLayer(z._leaflet)){
-        // Mobs/Materiales apagados, o el reino no calza: se muestra
-        // igual porque lo pidió la búsqueda, pero queda anotada para
-        // ocultarse de nuevo al cerrar su tooltip (ver tooltipclose en
-        // initRegnumMapIfNeeded) — sin tocar ninguna otra zona.
-        z._leaflet.addTo(regnumZonesLayer);
-        forcedVisibleZoneKeys.add(z.nombre);
-      }
-      // Se buscó un mob/jefe/material puntual (o la zona misma) — se
-      // muestra todo el contenido aunque Mobs/Materiales esté apagado,
-      // si no el tooltip podría no mostrar justo lo que se encontró. Se
-      // restaura al filtro normal en el próximo cambio de checkbox (ver
-      // applyZoneFilters).
-      z._leaflet.setTooltipContent(buildZonePopupHTML(z, true));
-      z._leaflet.openTooltip(z._leaflet.getBounds().getCenter());
+      highlightedZoneKeys.add(z.nombre);
+      z._leaflet.setStyle({color:ZONE_SEARCH_HIGHLIGHT_COLOR, fillColor:ZONE_SEARCH_HIGHLIGHT_COLOR, weight:4, fillOpacity:0.35, dashArray:'6 4'});
       bounds = bounds ? bounds.extend(z._leaflet.getBounds()) : z._leaflet.getBounds();
     });
     regnumMap.fitBounds(bounds.pad(0.2));
   }
+  // Qué checkbox prender según qué se encontró — así buscar un mob (por
+  // ejemplo) deja su categoría prendida de ahí en más, en vez de forzar
+  // una excepción puntual que desaparece sola. Un match de tipo 'zona'
+  // (se buscó el nombre de la zona en sí, no algo adentro) no prende
+  // ningún checkbox por su cuenta.
+  const TOGGLE_ID_POR_TIPO_ZONA = {mob:'map-toggle-mobs', jefe:'map-toggle-jefes', material:'map-toggle-materiales'};
+  function toggleIdParaMarcador(m){
+    if(m.tipo === 'npc') return 'map-toggle-npc';
+    if(m.tipo === 'mision') return 'map-toggle-mision';
+    return PLACE_TOGGLE_ID[m.categoria];
+  }
   input.addEventListener('input', ()=>{
     const q = input.value.trim().toLowerCase();
-    if(q.length < 2){ results.classList.remove('is-open'); results.innerHTML=''; return; }
+    if(q.length < 2){
+      results.classList.remove('is-open');
+      results.innerHTML='';
+      clearZoneSearchHighlight();
+      return;
+    }
     const markerMatches = regnumAllMarkerObjs.filter(m=> m.nombre.toLowerCase().includes(q)).map(m=>({kind:'marker', m}));
     const rawZoneMatches = buildZoneSearchEntries().filter(e=> e.label.toLowerCase().includes(q));
     const zoneRows = groupZoneMatches(rawZoneMatches);
@@ -1676,7 +1656,7 @@ function wireRegnumSearchAndFilters(){
         </div>`;
       }
       const nombresZonas = JSON.stringify(match.zonas.map(z=> z.nombre)).replace(/"/g,'&quot;');
-      return `<div class="map-result-item" data-kind="zona" data-zonas="${nombresZonas}" data-label="${match.label.replace(/"/g,'&quot;')}">
+      return `<div class="map-result-item" data-kind="zona" data-tipo="${match.kind}" data-zonas="${nombresZonas}" data-label="${match.label.replace(/"/g,'&quot;')}">
         <div class="mri-name">${zoneEntryGlyph(match.kind)} ${match.label}</div>
         <div class="mri-meta">${metaForRow(match)}</div>
       </div>`;
@@ -1690,19 +1670,22 @@ function wireRegnumSearchAndFilters(){
           const zonas = nombres.map(n=> regnumAllZoneObjs.find(zz=> zz.nombre === n)).filter(Boolean);
           if(zonas.length === 0) return;
           input.value = el.dataset.label;
-          showZonesFromSearch(zonas);
+          const toggleId = TOGGLE_ID_POR_TIPO_ZONA[el.dataset.tipo];
+          const toggle = toggleId && document.getElementById(toggleId);
+          if(toggle && !toggle.checked){ toggle.checked = true; refreshMapLayers(); }
+          highlightZonesFromSearch(zonas);
           return;
         }
         const m = regnumAllMarkerObjs[parseInt(el.dataset.idx)];
         input.value = m.nombre;
+        const toggleId = toggleIdParaMarcador(m);
+        const toggle = toggleId && document.getElementById(toggleId);
+        if(toggle && !toggle.checked){ toggle.checked = true; refreshMapLayers(); }
         regnumMap.setView(m._leaflet.getLatLng(), 0);
         if(!regnumMarkersLayer.hasLayer(m._leaflet)){
-          // Categoría apagada: se muestra igual porque lo pidió la
-          // búsqueda, pero queda anotado para sacarlo de nuevo al cerrar
-          // su globo (ver popupclose más abajo) — sin tocar ningún otro
-          // marcador en el proceso.
+          // Filtro de reino/profesión/nivel puntual que igual lo tapa:
+          // caso raro, pero que no desaparezca justo lo que se buscó.
           m._leaflet.addTo(regnumMarkersLayer);
-          forcedVisibleKey = m.__key;
         }
         m._leaflet.openPopup();
       });
