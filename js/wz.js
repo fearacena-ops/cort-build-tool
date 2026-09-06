@@ -157,11 +157,11 @@ function wzDescribeEvent(ev) {
     return `${ev.owner} capturó la reliquia de ${nombre}${de}`;
   }
   if (ev.type === 'gem') {
-    // acá "name" es el número de la gema dentro de su reino (1, 2...),
-    // no un nombre propio — no vale la pena mostrarlo, alcanza con de
-    // qué reino era y quién la tiene ahora.
-    if (ev.owner === ev.location) return `${ev.owner} recuperó una gema`;
-    return `${ev.owner} capturó una gema de ${ev.location}`;
+    // "name" es el número de la gema dentro de su reino (1, 2...) -- a
+    // pedido, se muestra (antes se descartaba). Vale para los 3 reinos
+    // igual, no es un caso especial de ninguno.
+    if (ev.owner === ev.location) return `${ev.owner} recuperó la gema ${ev.name}`;
+    return `${ev.owner} capturó la gema ${ev.name} de ${ev.location}`;
   }
   // type === 'fort' (y cualquier otro tipo no contemplado, para no
   // dejarlo sin texto — mejor una descripción genérica que una vacía).
