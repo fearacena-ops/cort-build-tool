@@ -1142,6 +1142,7 @@ const ZONE_COLOR_DEFAULT = '#a09a8c'; // por si a alguna zona le faltara el rein
 // #a56dd6 (muy fuerte), después #9b85c4 (quedó muy apagado) -- este es
 // un morado eléctrico más oscuro, a medio camino entre los dos.
 const JEFE_COLOR = '#8035e0';
+const MATERIAL_COLOR = '#8a6d00';
 
 function zoneHasMobs(z){ return (z.mobs||[]).length > 0; }
 function zoneHasMateriales(z){ return (z.materiales||[]).length > 0; }
@@ -1190,7 +1191,7 @@ function buildZonePopupHTML(z, forzarTodo){
     partes.push(`<span style="color:${JEFE_COLOR}"><u>Jefes</u><br>${listaJefes}</span>`);
   }
   if(zoneHasMateriales(z) && matsOn){
-    partes.push('<u>Materiales</u><br>' + z.materiales.map(it=> it.nombre).join('<br>'));
+    partes.push(`<span style="color:${MATERIAL_COLOR}"><u>Materiales</u><br>${z.materiales.map(it=> it.nombre).join('<br>')}</span>`);
   }
   return partes.join('<br>');
 }
