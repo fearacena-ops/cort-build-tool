@@ -234,8 +234,16 @@ function initWzIfNeeded() {
   wzPollTimer = setInterval(wzTick, 60000);
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  const mapTabBtn = document.querySelector('.main-tab[data-panel="panel-map"]');
-  if (!mapTabBtn) return;
-  mapTabBtn.addEventListener('click', () => initWzIfNeeded());
-});
+// Sin DOMContentLoaded a propósito -- mismo motivo que en map.js (wz.js
+// también es "defer", el documento ya está listo cuando esto corre) y
+// mismo chequeo de respaldo: si la pestaña del mapa ya quedó activa
+// mientras este script todavía bajaba (internet lento + restoreLastTab
+// disparando su click sintético antes de tiempo), se auto-inicializa acá
+// igual, sin depender de haber enganchado el click a tiempo.
+const wzMapTabBtn = document.querySelector('.main-tab[data-panel="panel-map"]');
+if (wzMapTabBtn) {
+  wzMapTabBtn.addEventListener('click', () => initWzIfNeeded());
+  if (document.getElementById('panel-map')?.classList.contains('active')) {
+    initWzIfNeeded();
+  }
+}

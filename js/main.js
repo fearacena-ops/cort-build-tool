@@ -868,7 +868,24 @@ function updateSharedChromeForTab(panelId){
   if(railPageBuild) railPageBuild.style.display = isBuildTab ? '' : 'none';
   if(wzRail) wzRail.style.display = isMapTab ? '' : 'none';
   if(mapLayers) mapLayers.style.display = isMapTab ? '' : 'none';
-  if(isMapTab){ scheduleAlignMapLayers(); scheduleAlignWzSidebar(); }
+  if(isMapTab){
+    // Llamado directo acá, no solo confiar en que map.js/wz.js ya hayan
+    // enganchado SU PROPIO listener de click en el botón de la pestaña --
+    // eso es justo lo que fallaba de verdad en el reporte de "pantalla
+    // negra que no carga": restoreLastTab() (recarga que vuelve sola al
+    // mapa) puede terminar de resolver el fetch de game-data.json y
+    // disparar su click sintético ANTES de que map.js/wz.js (scripts más
+    // pesados, cargan después) hayan terminado de bajar y registrar ese
+    // listener -- con conexión lenta esto se comprobó de verdad (log en
+    // mano: initRegnumMapIfNeeded nunca se llegaba a llamar). Esta función
+    // (updateSharedChromeForTab) es la misma que YA se llama tanto desde
+    // un click real como desde restoreLastTab, así que llamando directo
+    // acá la inicialización deja de depender de esa carrera por completo.
+    // Ambas funciones ya se cuidan solas de no inicializar dos veces.
+    window.initRegnumMapIfNeeded?.();
+    window.initWzIfNeeded?.();
+    scheduleAlignMapLayers(); scheduleAlignWzSidebar();
+  }
   // Al volver a "Tu build" se vuelve a medir de una, por si el freno de
   // arriba (offsetParent null) se salteó algún recálculo mientras estaba
   // oculto — así queda siempre bien alineado al volver, no solo la

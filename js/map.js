@@ -1659,23 +1659,39 @@ function wireRegnumSearchAndFilters(){
 // Enganchar con el sistema de tabs ya existente: al activar el tab del mapa,
 // inicializarlo (solo la primera vez) y refrescar su tamaño (Leaflet necesita
 // esto cuando el contenedor estuvo oculto con display:none al calcular tamaño).
-document.addEventListener('DOMContentLoaded', ()=>{
-  const mapTabBtn = document.querySelector('.main-tab[data-panel="panel-map"]');
-  if(!mapTabBtn) return;
-  mapTabBtn.addEventListener('click', ()=>{
-    setTimeout(()=>{
-      initRegnumMapIfNeeded();
-      // El tamaño/encuadre (sizeMapSquare + fitMinZoomToContainer, colgados
-      // del listener de 'resize' de más abajo) antes solo se calculaban una
-      // vez, la primera vez que se inicializaba el mapa — si en ESE momento
-      // puntual quedaban mal calculados (por ejemplo el layout del panel
-      // recién mostrado todavía no había terminado de asentarse), se
-      // quedaban así para siempre, sin corregirse nunca (el mapa no vuelve
-      // a mostrar el mundo completo aunque después sí tenga el tamaño
-      // correcto). Disparar 'resize' cada vez que se abre la pestaña fuerza
-      // a recalcular todo contra el tamaño ACTUAL, ya asentado, sin
-      // depender de que haya salido bien la primera vez.
-      if(regnumMap) window.dispatchEvent(new Event('resize'));
-    }, 50);
-  });
-});
+//
+// OJO -- esto NO va envuelto en un DOMContentLoaded (a diferencia de como
+// estaba antes): map.js es un script con "defer", así que el documento ya
+// está totalmente parseado para cuando este archivo se ejecuta, esperar
+// ese evento acá era innecesario Y, peor, dejaba una ventana real de
+// carrera: con internet lento, el fetch de game-data.json (en
+// data-loader.js, un script MÁS LIVIANO que carga antes) puede resolver y
+// disparar el click sintético de restoreLastTab() ANTES de que este
+// script (más pesado, Leaflet incluido) haya terminado de bajar --
+// comprobado de verdad con logs (initRegnumMapIfNeeded ni se llegaba a
+// llamar). Por eso además de engancharse al click de siempre, se chequea
+// acá mismo si la pestaña YA quedó marcada activa mientras este script
+// todavía estaba bajando -- así, sea cual sea el orden en que terminen las
+// dos cosas, el mapa se termina inicializando en el primero de los dos
+// momentos que pase.
+function onMapTabActivated(){
+  initRegnumMapIfNeeded();
+  // El tamaño/encuadre (sizeMapSquare + fitMinZoomToContainer, colgados
+  // del listener de 'resize' de más abajo) antes solo se calculaban una
+  // vez, la primera vez que se inicializaba el mapa — si en ESE momento
+  // puntual quedaban mal calculados (por ejemplo el layout del panel
+  // recién mostrado todavía no había terminado de asentarse), se
+  // quedaban así para siempre, sin corregirse nunca (el mapa no vuelve
+  // a mostrar el mundo completo aunque después sí tenga el tamaño
+  // correcto). Disparar 'resize' cada vez que se abre la pestaña fuerza
+  // a recalcular todo contra el tamaño ACTUAL, ya asentado, sin
+  // depender de que haya salido bien la primera vez.
+  if(regnumMap) window.dispatchEvent(new Event('resize'));
+}
+const mapTabBtn = document.querySelector('.main-tab[data-panel="panel-map"]');
+if(mapTabBtn){
+  mapTabBtn.addEventListener('click', ()=> setTimeout(onMapTabActivated, 50));
+  if(document.getElementById('panel-map')?.classList.contains('active')){
+    setTimeout(onMapTabActivated, 50);
+  }
+}
