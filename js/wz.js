@@ -106,6 +106,17 @@ function wzNombreFuerteConArticulo(nombreCrudo) {
   if (!nombreEs) return wzCleanName(nombreCrudo);
   return `${wzArticulo(nombreEs)} ${nombreEs}`;
 }
+// Para las 3 "Gran muralla de X": si el reino que aparece como sujeto de
+// la frase (quien la recupera) es ESE MISMO X, mencionarlo de nuevo en el
+// nombre es puro repetir lo mismo dos veces ("Alsius ha recuperado la
+// Gran muralla de Alsius") -- se acorta a solo "la Gran muralla". Si en
+// cambio la recupera OTRO reino (le tocó de rebote a un tercero antes de
+// volver a caer en quien la tiene ahora), el nombre completo sigue
+// haciendo falta para saber cuál muralla es, y se deja tal cual.
+function wzNombreSinReinoPropio(nombre, reino) {
+  const sufijo = ` de ${reino}`;
+  return nombre.endsWith(sufijo) ? nombre.slice(0, -sufijo.length) : nombre;
+}
 
 function wzRenderGems(gems) {
   const box = document.getElementById('wz-gems');
@@ -170,7 +181,9 @@ function wzDescribeEvent(ev) {
   // wzNombreFuerteConArticulo más arriba (mismo diccionario que ya
   // recolorea los marcadores del mapa).
   const nombre = wzNombreFuerteConArticulo(ev.name);
-  if (ev.owner === ev.location) return `${ev.owner} recuperó ${nombre}`;
+  if (ev.owner === ev.location) {
+    return `${ev.owner} ha recuperado ${wzNombreSinReinoPropio(nombre, ev.owner)}`;
+  }
   // Las 3 "Gran muralla de X" ya llevan el reino en su propio nombre --
   // agregar "(de X)" ahí es puro repetir lo mismo dos veces (ej. "la Gran
   // muralla de Alsius (de Alsius)"). Se omite SOLO cuando de verdad
