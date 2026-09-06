@@ -589,6 +589,13 @@ function initRegnumMapIfNeeded(){
     // pendientes) o marcarla para eliminar. Todo junto se copia con
     // "Exportar cambios" — mismo mecanismo que el modo edición de NPCs/
     // lugares (sin backend, alguien tiene que aplicar el export a mano).
+    // Nombres de zona que YA existían en el sitio real antes de esta sesión
+    // -- sirve para distinguir, al eliminar, si hace falta avisarle al
+    // sitio real (mandar el cambio) o si la zona nunca llegó a existir ahí
+    // y alcanza con descartarla sin dejar rastro (ver zt-delete, más
+    // abajo). Arranca vacío: recién se llena de verdad más abajo, una vez
+    // que el fetch de regnumMapData ya resolvió (ver zoneToolSetupFn).
+    let ztBaselineZoneNames = new Set();
     const zonePanel = document.createElement('div');
     zonePanel.style.cssText = 'position:fixed;top:10px;right:10px;z-index:9999;background:#0f1410;border:1px solid #2c3a2a;color:#e7ecdf;font-family:monospace;font-size:12px;padding:10px;border-radius:6px;max-width:280px;max-height:82vh;overflow-y:auto;';
     zonePanel.innerHTML = `
@@ -794,10 +801,24 @@ function initRegnumMapIfNeeded(){
     document.getElementById('zt-delete').addEventListener('click', ()=>{
       const nombre = document.getElementById('zt-list').value;
       if(!nombre) return;
-      if(!confirm(`¿Marcar "${nombre}" para eliminar? La saca ya mismo del mapa que estás viendo (para probar) — el archivo de datos real recién cambia cuando se exporten los cambios y se apliquen.`)) return;
-      const entry = {eliminar: nombre};
-      zoneToolChanges.push(entry);
-      ztApplyLive(entry);
+      // Si la zona ya existía en el sitio real antes de esta sesión, hay
+      // que avisarle (queda un {eliminar} en cambios pendientes, para
+      // exportar y mandar). Pero si es una zona que se creó DE CERO en
+      // esta misma sesión (nunca llegó a existir en el sitio real todavía),
+      // "eliminar" no tiene nada que avisarle a nadie -- alcanza con sacarla
+      // de los cambios pendientes tal cual, sin dejar ningún rastro que
+      // haya que exportar ni mandar.
+      const existiaEnElSitio = ztBaselineZoneNames.has(nombre);
+      if(existiaEnElSitio){
+        if(!confirm(`¿Marcar "${nombre}" para eliminar? La saca ya mismo del mapa que estás viendo (para probar) — el archivo de datos real recién cambia cuando se exporten los cambios y se apliquen.`)) return;
+        const entry = {eliminar: nombre};
+        zoneToolChanges.push(entry);
+        ztApplyLive(entry);
+      } else {
+        if(!confirm(`"${nombre}" todavía no existe en el sitio real (la creaste en esta misma sesión) -- ¿descartarla del todo? No queda nada pendiente por exportar ni mandar para esta zona.`)) return;
+        zoneToolChanges = zoneToolChanges.filter(e=> e.nombre !== nombre);
+        ztApplyLive({eliminar: nombre}); // solo para sacarla del mapa que se está viendo ahora
+      }
       saveZoneToolChanges();
       ztRefreshChangesCount();
       buildRegnumZones();
@@ -918,7 +939,13 @@ function initRegnumMapIfNeeded(){
       ztRefreshChangesCount();
     });
     ztRefreshChangesCount();
-    zoneToolSetupFn = ztRefreshZoneList;
+    zoneToolSetupFn = () => {
+      // Recién acá existe de verdad regnumMapData (ver el fetch más abajo)
+      // -- antes de esto ztBaselineZoneNames se calculaba contra datos
+      // todavía sin llegar.
+      ztBaselineZoneNames = new Set((regnumMapData.zonas||[]).map(z=> z.nombre));
+      ztRefreshZoneList();
+    };
   }
 
   fetch('data/map-data.json')
