@@ -9,7 +9,11 @@
   #map-search{flex:1 1 240px;background:var(--bg-0);border:1px solid var(--line);border-radius:20px;padding:9px 16px;color:var(--ink);font-size:13.5px;}
   .map-filters{display:flex;gap:8px;flex-wrap:wrap;}
   .map-filters select{background:var(--bg-0);border:1px solid var(--line);border-radius:20px;padding:8px 12px;color:var(--ink-dim);font-size:12.5px;}
-  .map-results{position:absolute;top:100%;left:0;right:0;background:var(--bg-1);border:1px solid var(--line);border-radius:6px;max-height:340px;overflow-y:auto;z-index:1000;display:none;}
+  /* z-index bien por encima de 1000: los controles propios de Leaflet
+     (zoom +/-, atribución, etc., dentro de .map-frame) también usan 1000
+     -- con el mismo valor, empatan y gana quien aparece después en el
+     HTML (el mapa, que va después que esta barra), tapando la lista. */
+  .map-results{position:absolute;top:100%;left:0;right:0;background:var(--bg-1);border:1px solid var(--line);border-radius:6px;max-height:340px;overflow-y:auto;z-index:1500;display:none;}
   .map-results.is-open{display:block;}
   .map-result-item{padding:10px 14px;cursor:pointer;border-bottom:1px solid var(--line);font-size:13px;}
   .map-result-item:last-child{border-bottom:none;}
