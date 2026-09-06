@@ -160,8 +160,9 @@ function wzDescribeEvent(ev) {
     // "name" es el número de la gema dentro de su reino (1, 2...) -- a
     // pedido, se muestra (antes se descartaba). Vale para los 3 reinos
     // igual, no es un caso especial de ninguno.
-    if (ev.owner === ev.location) return `${ev.owner} recuperó la gema ${ev.name}`;
-    return `${ev.owner} capturó la gema ${ev.name} de ${ev.location}`;
+    const gema = `Gema #${ev.name}`;
+    if (ev.owner === ev.location) return `${ev.owner} recuperó la ${gema}`;
+    return `${ev.owner} capturó la ${gema} de ${ev.location}`;
   }
   // type === 'fort' (y cualquier otro tipo no contemplado, para no
   // dejarlo sin texto — mejor una descripción genérica que una vacía).
@@ -170,7 +171,14 @@ function wzDescribeEvent(ev) {
   // recolorea los marcadores del mapa).
   const nombre = wzNombreFuerteConArticulo(ev.name);
   if (ev.owner === ev.location) return `${ev.owner} recuperó ${nombre}`;
-  if (ev.owner) return `${ev.owner} capturó ${nombre} (de ${ev.location})`;
+  // Las 3 "Gran muralla de X" ya llevan el reino en su propio nombre --
+  // agregar "(de X)" ahí es puro repetir lo mismo dos veces (ej. "la Gran
+  // muralla de Alsius (de Alsius)"). Se omite SOLO cuando de verdad
+  // coincide con el nombre propio -- si algún día una de estas murallas
+  // se recaptura de un tercer reino (no el de su nombre), "(de Y)" sigue
+  // aportando algo real y se muestra igual.
+  const deEsRedundante = ev.location && nombre.endsWith(ev.location);
+  if (ev.owner) return `${ev.owner} capturó ${nombre}${deEsRedundante ? '' : ` (de ${ev.location})`}`;
   return `${nombre || ev.location || 'Evento'}`;
 }
 
