@@ -733,7 +733,14 @@ function setMusicMuted(muted){
 function updateRealmShield(realmKey){
   const img = document.getElementById('hero-realm-shield');
   if(!img) return;
-  img.src = `${ICONS_BASE_PATH}/shield-${realmKey}.webp`;
+  const src = `${ICONS_BASE_PATH}/shield-${realmKey}.webp`;
+  // El <script> inline de index.html ya deja este mismo src puesto antes de
+  // que esto llegue a correr (para que el escudo aparezca de una, sin
+  // esperar a initApp) -- reasignar el MISMO src de nuevo acá hace que el
+  // navegador aborte esa descarga ya en curso y la vuelva a pedir de cero
+  // (se veía como NS_BINDING_ABORTED en la pestaña de Red). Si ya es el
+  // correcto, no se toca.
+  if(img.getAttribute('src') !== src) img.src = src;
   img.alt = REALM_LABEL[realmKey] || realmKey;
 }
 
@@ -821,8 +828,13 @@ window.addEventListener('resize', scheduleAlignWzSidebar);
 
 function updateHeroHeader(){
   document.getElementById('hero-title-class').textContent = CLASS.label;
-  document.getElementById('hero-class-icon').src = `${ICONS_BASE_PATH}/class-${currentClass}.webp`;
-  document.getElementById('hero-class-icon').alt = CLASS.label;
+  // Mismo motivo que en updateRealmShield: el <script> inline de index.html
+  // ya deja este ícono puesto antes -- no reasignar el mismo src de nuevo
+  // (evita un pedido duplicado/abortado de más).
+  const classIcon = document.getElementById('hero-class-icon');
+  const classSrc = `${ICONS_BASE_PATH}/class-${currentClass}.webp`;
+  if(classIcon.getAttribute('src') !== classSrc) classIcon.src = classSrc;
+  classIcon.alt = CLASS.label;
 }
 let switchClassRenderTimer = null;
 function updateSharedChromeForTab(panelId){
