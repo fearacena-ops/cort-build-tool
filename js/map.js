@@ -79,7 +79,11 @@ let forcedVisibleKey = null;
 // Lo mismo pero para una zona (nombre, no hay __key) mostrada a la fuerza
 // por la búsqueda pese a tener Mobs/Materiales o el reino apagados — ver
 // wireRegnumSearchAndFilters y el tooltipclose en initRegnumMapIfNeeded.
-let forcedVisibleZoneKey = null;
+// Es un Set (no una sola clave) porque buscar un mob/jefe/material que
+// se repite en varias zonas ahora las muestra todas juntas a la vez —
+// cada una se saca por su cuenta al cerrarse su propio tooltip, sin
+// afectar a las demás.
+let forcedVisibleZoneKeys = new Set();
 function latLngToPoint(latlng){ return regnumMap.project(latlng, 0); }
 function pointToLatLng(pt){ return regnumMap.unproject([pt.x, pt.y], 0); }
 
@@ -410,10 +414,14 @@ function initRegnumMapIfNeeded(){
   // tooltip (hover) en vez de popup (click), así que se engancha en
   // 'tooltipclose' en vez de 'popupclose'.
   regnumMap.on('tooltipclose', (e)=>{
-    if(!forcedVisibleZoneKey) return;
-    const z = regnumAllZoneObjs.find(x=> x.nombre === forcedVisibleZoneKey);
-    forcedVisibleZoneKey = null;
-    if(z && e.tooltip === z._leaflet.getTooltip() && !passesZoneFilters(z)){
+    if(forcedVisibleZoneKeys.size === 0) return;
+    // Se identifica la zona por el tooltip que de verdad se cerró (no
+    // por una sola clave global) porque puede haber varias forzadas a
+    // la vez -- cerrar una no debe tocar a las otras.
+    const z = regnumAllZoneObjs.find(x=> x._leaflet && e.tooltip === x._leaflet.getTooltip() && forcedVisibleZoneKeys.has(x.nombre));
+    if(!z) return;
+    forcedVisibleZoneKeys.delete(z.nombre);
+    if(!passesZoneFilters(z)){
       regnumZonesLayer.removeLayer(z._leaflet);
     }
   });
@@ -1573,30 +1581,91 @@ function wireRegnumSearchAndFilters(){
     return PLACE_GLYPH[PLACE_SHAPE[m.categoria] || 'ciudad'];
   }
   // Además de NPCs/misiones/lugares, el buscador encuentra zonas por su
-  // nombre, y también por el nombre de cada mob o material que tengan
-  // cargado — para poder buscar "Lobo Acechador" o "Mineral de hierro" y
-  // que te lleve directo a la zona donde aparecen, no solo al nombre de
-  // la zona en sí. Se arma de nuevo en cada búsqueda (son pocas zonas,
-  // no vale la pena cachearlo) para reflejar cualquier zona nueva/editada.
+  // nombre, y también por el nombre de cada mob, jefe o material que
+  // tengan cargado — para poder buscar "Lobo Acechador" o "Mineral de
+  // hierro" y que te lleve directo a la zona donde aparecen, no solo al
+  // nombre de la zona en sí. Se arma de nuevo en cada búsqueda (son
+  // pocas zonas, no vale la pena cachearlo) para reflejar cualquier
+  // zona nueva/editada.
   function buildZoneSearchEntries(){
     const entries = [];
     regnumAllZoneObjs.forEach(z=>{
-      entries.push({kind:'zona', zona:z, label:z.nombre, meta:`Zona · ${z.reino}`});
-      (z.mobs||[]).forEach(mob=> entries.push({kind:'mob', zona:z, label:mob.nombre, meta:`Mob en "${z.nombre}"${mob.nivel ? ' · Nv.'+mob.nivel : ''}`}));
-      (z.jefes||[]).forEach(jefe=> entries.push({kind:'jefe', zona:z, label:jefe.nombre, meta:`${jefe.etiqueta||'Jefe'} en "${z.nombre}"${jefe.nivel ? ' · Nv.'+jefe.nivel : ''}`}));
-      (z.materiales||[]).forEach(mat=> entries.push({kind:'material', zona:z, label:mat.nombre, meta:`Material en "${z.nombre}"`}));
+      entries.push({kind:'zona', zona:z, label:z.nombre});
+      (z.mobs||[]).forEach(mob=> entries.push({kind:'mob', zona:z, label:mob.nombre, nivel:mob.nivel}));
+      (z.jefes||[]).forEach(jefe=> entries.push({kind:'jefe', zona:z, label:jefe.nombre, nivel:jefe.nivel, etiqueta:jefe.etiqueta}));
+      (z.materiales||[]).forEach(mat=> entries.push({kind:'material', zona:z, label:mat.nombre}));
     });
     return entries;
   }
   function zoneEntryGlyph(kind){
     return kind === 'zona' ? '▦' : kind === 'mob' ? '☠' : kind === 'jefe' ? '★' : '◆';
   }
+  // Un mismo mob/jefe/material puede repetirse en varias zonas (mismo
+  // nombre) -- antes cada zona generaba su propia fila de resultado, y
+  // elegir una "ataba" la búsqueda a esa sola zona, sin mostrar las
+  // demás. Ahora se agrupan por nombre exacto (mismo tipo) en una sola
+  // fila que guarda TODAS las zonas donde aparece, para mostrarlas
+  // juntas al elegirla. Las zonas propiamente dichas (se buscó el
+  // nombre de la zona, no de algo adentro) se dejan sueltas, una fila
+  // por zona, como siempre — no tiene sentido "agrupar" ese caso.
+  function groupZoneMatches(rawMatches){
+    const filas = rawMatches.filter(e=> e.kind === 'zona').map(e=> ({kind:'zona', label:e.label, zonas:[e.zona], detalle:[e]}));
+    const porClave = new Map();
+    rawMatches.filter(e=> e.kind !== 'zona').forEach(e=>{
+      const clave = e.kind+'|'+e.label.toLowerCase();
+      let fila = porClave.get(clave);
+      if(!fila){ fila = {kind:e.kind, label:e.label, zonas:[], detalle:[]}; porClave.set(clave, fila); filas.push(fila); }
+      fila.zonas.push(e.zona);
+      fila.detalle.push(e);
+    });
+    return filas;
+  }
+  function metaForRow(row){
+    if(row.kind === 'zona') return `Zona · ${row.zonas[0].reino}`;
+    const tipo = row.kind === 'mob' ? 'Mob' : row.kind === 'jefe' ? 'Jefe' : 'Material';
+    if(row.zonas.length === 1){
+      const d = row.detalle[0];
+      const extra = row.kind === 'jefe'
+        ? `${d.etiqueta ? ' ('+d.etiqueta+')' : ''}${d.nivel ? ' · Nv.'+d.nivel : ''}`
+        : (d.nivel ? ' · Nv.'+d.nivel : '');
+      return `${tipo} en "${row.zonas[0].nombre}"${extra}`;
+    }
+    return `${tipo} en ${row.zonas.length} zonas: ${row.zonas.map(z=> z.nombre).join(', ')}`;
+  }
+  // Muestra a la vez, con su tooltip abierto, TODAS las zonas dadas (una
+  // sola si vino de elegir la zona por su propio nombre, varias si vino
+  // de un mob/jefe/material que se repite) y encuadra el mapa para que
+  // entren todas juntas.
+  function showZonesFromSearch(zonas){
+    if(zonas.length === 0) return;
+    let bounds = null;
+    zonas.forEach(z=>{
+      if(!regnumZonesLayer.hasLayer(z._leaflet)){
+        // Mobs/Materiales apagados, o el reino no calza: se muestra
+        // igual porque lo pidió la búsqueda, pero queda anotada para
+        // ocultarse de nuevo al cerrar su tooltip (ver tooltipclose en
+        // initRegnumMapIfNeeded) — sin tocar ninguna otra zona.
+        z._leaflet.addTo(regnumZonesLayer);
+        forcedVisibleZoneKeys.add(z.nombre);
+      }
+      // Se buscó un mob/jefe/material puntual (o la zona misma) — se
+      // muestra todo el contenido aunque Mobs/Materiales esté apagado,
+      // si no el tooltip podría no mostrar justo lo que se encontró. Se
+      // restaura al filtro normal en el próximo cambio de checkbox (ver
+      // applyZoneFilters).
+      z._leaflet.setTooltipContent(buildZonePopupHTML(z, true));
+      z._leaflet.openTooltip(z._leaflet.getBounds().getCenter());
+      bounds = bounds ? bounds.extend(z._leaflet.getBounds()) : z._leaflet.getBounds();
+    });
+    regnumMap.fitBounds(bounds.pad(0.2));
+  }
   input.addEventListener('input', ()=>{
     const q = input.value.trim().toLowerCase();
     if(q.length < 2){ results.classList.remove('is-open'); results.innerHTML=''; return; }
     const markerMatches = regnumAllMarkerObjs.filter(m=> m.nombre.toLowerCase().includes(q)).map(m=>({kind:'marker', m}));
-    const zoneMatches = buildZoneSearchEntries().filter(e=> e.label.toLowerCase().includes(q));
-    const matches = [...markerMatches, ...zoneMatches].slice(0, 30);
+    const rawZoneMatches = buildZoneSearchEntries().filter(e=> e.label.toLowerCase().includes(q));
+    const zoneRows = groupZoneMatches(rawZoneMatches);
+    const matches = [...markerMatches, ...zoneRows].slice(0, 30);
     if(matches.length === 0){ results.classList.remove('is-open'); results.innerHTML=''; return; }
     results.innerHTML = matches.map(match=>{
       if(match.kind === 'marker'){
@@ -1606,9 +1675,10 @@ function wireRegnumSearchAndFilters(){
           <div class="mri-meta">${m.tipo==='npc' ? (m.profesion||m.clase||'') : m.tipo==='ciudad' ? (m.categoria==='Altar' && m.zona ? m.zona : m.categoria) : 'Nivel '+m.nivel+' · La da: '+m.la_da} · ${m.reino}</div>
         </div>`;
       }
-      return `<div class="map-result-item" data-kind="zona" data-zona="${match.zona.nombre.replace(/"/g,'&quot;')}">
+      const nombresZonas = JSON.stringify(match.zonas.map(z=> z.nombre)).replace(/"/g,'&quot;');
+      return `<div class="map-result-item" data-kind="zona" data-zonas="${nombresZonas}" data-label="${match.label.replace(/"/g,'&quot;')}">
         <div class="mri-name">${zoneEntryGlyph(match.kind)} ${match.label}</div>
-        <div class="mri-meta">${match.meta}</div>
+        <div class="mri-meta">${metaForRow(match)}</div>
       </div>`;
     }).join('');
     results.classList.add('is-open');
@@ -1616,25 +1686,11 @@ function wireRegnumSearchAndFilters(){
       el.addEventListener('click', ()=>{
         results.classList.remove('is-open');
         if(el.dataset.kind === 'zona'){
-          const z = regnumAllZoneObjs.find(zz=> zz.nombre === el.dataset.zona);
-          if(!z) return;
-          input.value = z.nombre;
-          regnumMap.fitBounds(z._leaflet.getBounds().pad(0.2));
-          if(!regnumZonesLayer.hasLayer(z._leaflet)){
-            // Mobs/Materiales apagados, o el reino no calza: se muestra
-            // igual porque lo pidió la búsqueda, pero queda anotada para
-            // ocultarse de nuevo al cerrar su tooltip (ver tooltipclose
-            // en initRegnumMapIfNeeded) — sin tocar ninguna otra zona.
-            z._leaflet.addTo(regnumZonesLayer);
-            forcedVisibleZoneKey = z.nombre;
-          }
-          // Se buscó un mob/material puntual (o la zona misma) — se
-          // muestra todo el contenido aunque Mobs/Materiales esté
-          // apagado, si no el tooltip podría no mostrar justo lo que se
-          // encontró. Se restaura al filtro normal en el próximo cambio
-          // de checkbox (ver applyZoneFilters).
-          z._leaflet.setTooltipContent(buildZonePopupHTML(z, true));
-          z._leaflet.openTooltip(z._leaflet.getBounds().getCenter());
+          const nombres = JSON.parse(el.dataset.zonas);
+          const zonas = nombres.map(n=> regnumAllZoneObjs.find(zz=> zz.nombre === n)).filter(Boolean);
+          if(zonas.length === 0) return;
+          input.value = el.dataset.label;
+          showZonesFromSearch(zonas);
           return;
         }
         const m = regnumAllMarkerObjs[parseInt(el.dataset.idx)];
