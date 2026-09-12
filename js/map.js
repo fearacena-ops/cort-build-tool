@@ -1104,7 +1104,7 @@ function buildRegnumMarkers(){
       // Función, no un string fijo — así Leaflet la vuelve a llamar cada
       // vez que se abre el popup y el "aparece en" sale recalculado con
       // la hora actual, no la de cuando se armó el mapa.
-      marker.bindPopup(() => buildEpicoPopupHTML(m), {autoPan:false, maxWidth:200, className:'epico-popup'});
+      marker.bindPopup(() => buildEpicoPopupHTML(m), {autoPan:false, maxWidth:190, className:'epico-popup'});
     } else {
       marker.bindPopup(buildRegnumPopupHTML(m), {autoPan:false});
     }

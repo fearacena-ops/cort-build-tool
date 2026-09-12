@@ -115,11 +115,17 @@
      proporción no calza, no recortaría cabeza ni cola). Un poco más
      chico que como quedaba antes la más alta (Daen Rha, sin este tope
      llegaba a unos 317px de alto). */
-  .epico-popup-img{display:block;width:170px;height:220px;object-fit:contain;margin:0 auto 6px;border-radius:6px;}
-  /* Fondo gris en vez del blanco por defecto de Leaflet -- el dibujo de
-     Evendim tiene rayos blancos que quedaban invisibles contra blanco. */
+  .epico-popup-img{display:block;width:161px;height:209px;object-fit:contain;margin:0 auto 6px;border-radius:6px;}
+  /* Segundo intento de fondo: negro con algo de transparencia (el gris
+     sólido anterior no convenció) -- con fondo oscuro el texto por
+     defecto de los popups (color:#333, ver leaflet.css) queda invisible,
+     así que hay que aclararlo entero acá, botón de cerrar incluido. */
   .epico-popup .leaflet-popup-content-wrapper,
-  .epico-popup .leaflet-popup-tip{background:#b8b8b8;}
+  .epico-popup .leaflet-popup-tip{background:rgba(0,0,0,.85);}
+  .epico-popup .leaflet-popup-content{color:#e6e6e6;}
+  .epico-popup a.leaflet-popup-close-button{color:#ccc;}
+  .epico-popup a.leaflet-popup-close-button:hover,
+  .epico-popup a.leaflet-popup-close-button:focus{color:#fff;}
   /* Mismos colores que ya usa el selector de reino arriba, para que un
      vistazo alcance para saber de qué reino es un NPC/fuerte/castillo. */
   .realm-color-syrtis{color:#7fae5a;}
