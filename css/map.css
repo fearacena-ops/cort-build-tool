@@ -99,6 +99,15 @@
   .muralla-icon-wrap{width:100%;height:100%;filter:drop-shadow(0 0 1.2px #000) drop-shadow(0 0 1.2px #000);}
   .muralla-icon{width:100%;height:100%;background-color:currentColor;-webkit-mask-image:url(../data/icons/muralla.svg);mask-image:url(../data/icons/muralla.svg);-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:center;mask-position:center;-webkit-mask-size:contain;mask-size:contain;}
   .regnum-marker-altar{font-size:24px;}
+  /* Épicos: estrella morada bien brillante (no un color de reino como el
+     resto) para que salte a la vista entre todo lo demás del mapa -- el
+     mismo morado que ya distingue a los jefes en el tooltip de zona
+     (JEFE_COLOR en map.js), pero con resplandor (el glow no se ve solo
+     con color de texto, hace falta el text-shadow extra) en vez del
+     contorno negro de 1px que usa el resto de los marcadores. */
+  .regnum-marker-epico{color:#c68cff;font-size:26px;font-weight:700;
+    text-shadow:0 0 4px #c68cff,0 0 9px #a24bff,0 0 16px #a24bff,1px 0 0 #000,-1px 0 0 #000,0 1px 0 #000,0 -1px 0 #000;}
+  .epico-popup-img{display:block;width:100%;max-width:220px;margin:0 auto 6px;border-radius:6px;}
   /* Mismos colores que ya usa el selector de reino arriba, para que un
      vistazo alcance para saber de qué reino es un NPC/fuerte/castillo. */
   .realm-color-syrtis{color:#7fae5a;}

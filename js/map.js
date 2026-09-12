@@ -1001,6 +1001,9 @@ let wzLiveFortOwner = {};
 function iconFor(m){
   if(m.tipo === 'mision') return L.divIcon({className:'regnum-marker regnum-marker-mision', html:'!', iconSize:[10,14]});
   if(m.tipo === 'npc') return L.divIcon({className:`regnum-marker regnum-marker-npc realm-color-${REALM_SLUG[m.reino]||'syrtis'}`, html:'●', iconSize:[14,14]});
+  // Épico: sin color de reino (ver .regnum-marker-epico) -- el morado
+  // brillante identifica la categoría, no de quién es.
+  if(m.tipo === 'epico') return L.divIcon({className:'regnum-marker regnum-marker-epico', html:'★', iconSize:[26,26]});
   // ciudad/lugar: la forma sale de la categoría (Ciudad/Fuerte/Castillo/...)
   const shape = PLACE_SHAPE[m.categoria] || 'ciudad';
   const size = PLACE_SIZE[shape] || 34;
@@ -1036,7 +1039,7 @@ function applyWzFortStatus(forts){
 function buildRegnumMarkers(){
   regnumMarkersLayer.clearLayers();
   regnumAllMarkerObjs = [];
-  const todos = [...regnumMapData.npcs, ...regnumMapData.misiones, ...(regnumMapData.ciudades||[])];
+  const todos = [...regnumMapData.npcs, ...regnumMapData.misiones, ...(regnumMapData.ciudades||[]), ...(regnumMapData.epicos||[])];
   // Dónde quedó cada NPC ya calculado, por nombre — para que una misión sin
   // posición propia corregida use la de su dador en vez de su x/y original
   // (misiones y NPCs se corrigen por separado, así que si no hiciéramos
@@ -1085,6 +1088,11 @@ function buildRegnumMarkers(){
       marker.bindPopup(buildEditPopupHTML(m), {autoPan:false});
       markersByKey[key] = {marker, m};
       wireEditMarker(marker, m);
+    } else if(m.tipo === 'epico'){
+      // Función, no un string fijo — así Leaflet la vuelve a llamar cada
+      // vez que se abre el popup y el "aparece en" sale recalculado con
+      // la hora actual, no la de cuando se armó el mapa.
+      marker.bindPopup(() => buildEpicoPopupHTML(m), {autoPan:false, maxWidth:240, className:'epico-popup'});
     } else {
       marker.bindPopup(buildRegnumPopupHTML(m), {autoPan:false});
     }
@@ -1244,6 +1252,7 @@ function applyZoneFilters(){
 function editableFieldsFor(m){
   if(m.tipo === 'npc') return [['nombre','Nombre'], ['profesion','Profesión'], ['zona','Zona'], ['reino','Reino']];
   if(m.tipo === 'ciudad') return [['nombre','Nombre'], ['categoria','Categoría'], ['zona','Zona'], ['reino','Reino']];
+  if(m.tipo === 'epico') return [['nombre','Nombre'], ['zona','Zona'], ['reino','Reino'], ['drop','Drop']];
   return [['nombre','Nombre'], ['nivel','Nivel'], ['la_da','La da'], ['xp','XP'], ['oro','Oro']];
 }
 
@@ -1357,6 +1366,46 @@ function wireEditMarker(marker, m){
     }
     if(marker.isPopupOpen()) refreshEditPopup(marker, m);
   });
+}
+
+// Reaparición de los épicos: MISMA fórmula que usa cort.ovh/bosses.html
+// (sacada de su propio código fuente, no inventada) -- cada uno respawnea
+// cada 61 horas a partir de una fecha de referencia fija ("first"), con
+// un pequeño "drift" en segundos (propio de cada jefe) que ese sitio le
+// suma al período, aparentemente solo para desempatar sus horarios entre
+// sí. Al ser puramente aritmético contra la hora actual, no hace falta
+// consultar a CoRT (ni a nadie) para saber cuánto falta.
+const EPICO_SPAWN_PERIOD = 61 * 3600;
+const EPICO_SPAWN_REF = {
+  evendim: {first: 1768416250, drift: 7},
+  daen:    {first: 1768672935, drift: 5},
+  thorkul: {first: 1768146754, drift: 4},
+};
+function epicoNextSpawn(bossKey){
+  const ref = EPICO_SPAWN_REF[bossKey];
+  if(!ref) return null;
+  const period = EPICO_SPAWN_PERIOD + ref.drift;
+  const now = Math.floor(Date.now() / 1000);
+  const cycles = Math.floor((now - ref.first) / period);
+  const prev = ref.first + cycles * period;
+  return {prev, next: prev + period};
+}
+function formatEpicoCountdown(segundos){
+  if(segundos <= 0) return 'ahora mismo';
+  const d = Math.floor(segundos / 86400);
+  const h = Math.floor((segundos % 86400) / 3600);
+  const min = Math.floor((segundos % 3600) / 60);
+  const partes = [];
+  if(d) partes.push(d + 'd');
+  if(d || h) partes.push(h + 'h');
+  partes.push(min + 'm');
+  return partes.join(' ');
+}
+function buildEpicoPopupHTML(m){
+  const sp = epicoNextSpawn(m.bossKey);
+  const spawnTxt = sp ? formatEpicoCountdown(sp.next - Math.floor(Date.now()/1000)) : '?';
+  const img = m.imagen ? `<img class="epico-popup-img" src="${m.imagen}" alt="${m.nombre}">` : '';
+  return `${img}<b>${m.nombre}</b><br>${m.zona}<br>${m.reino}<br><b>Drop:</b> ${m.drop}<br><b>Aparece en:</b> ${spawnTxt}`;
 }
 
 function buildRegnumPopupHTML(m){
@@ -1491,12 +1540,14 @@ const PLACE_TOGGLE_IDS = ['map-toggle-aldea','map-toggle-pueblo','map-toggle-ciu
 function passesRegnumFilters(m){
   const showNpc = document.getElementById('map-toggle-npc').checked;
   const showMision = document.getElementById('map-toggle-mision').checked;
+  const showEpico = document.getElementById('map-toggle-epico').checked;
   const reino = document.getElementById('map-filter-reino').value;
   const prof = document.getElementById('map-filter-profesion').value;
   const nivel = document.getElementById('map-filter-nivel').value;
 
   if(m.tipo === 'npc' && !showNpc) return false;
   if(m.tipo === 'mision' && !showMision) return false;
+  if(m.tipo === 'epico' && !showEpico) return false;
   if(m.tipo === 'ciudad'){
     // Cada categoría de lugar (Aldea/Pueblo/Ciudad/Fuerte/Castillo/
     // Muralla/Altar) tiene su propio checkbox — ver PLACE_TOGGLE_ID.
@@ -1505,9 +1556,9 @@ function passesRegnumFilters(m){
     if(toggle && !toggle.checked) return false;
   }
   if(reino && m.reino !== reino) return false;
-  // Profesión y nivel son propios de NPCs/misiones — las ciudades no
-  // tienen esos campos, así que no las toca ninguno de estos dos filtros.
-  if(m.tipo !== 'ciudad'){
+  // Profesión y nivel son propios de NPCs/misiones — las ciudades ni los
+  // épicos tienen esos campos, así que ninguno de estos dos filtros los toca.
+  if(m.tipo !== 'ciudad' && m.tipo !== 'epico'){
     if(prof && m.profesion !== prof) return false;
     if(nivel && String(m.nivel) !== nivel) return false;
   }
@@ -1526,7 +1577,7 @@ function wireRegnumSearchAndFilters(){
   // los dos, y no cuesta nada reconstruir marcadores de más cuando cambia
   // un checkbox que en realidad es solo de zonas (o viceversa).
   function refreshMapLayers(){ applyRegnumFilters(); applyZoneFilters(); }
-  [...PLACE_TOGGLE_IDS,'map-toggle-npc','map-toggle-mision','map-toggle-mobs','map-toggle-jefes','map-toggle-materiales','map-filter-reino','map-filter-profesion','map-filter-nivel'].forEach(id=>{
+  [...PLACE_TOGGLE_IDS,'map-toggle-npc','map-toggle-mision','map-toggle-epico','map-toggle-mobs','map-toggle-jefes','map-toggle-materiales','map-filter-reino','map-filter-profesion','map-filter-nivel'].forEach(id=>{
     document.getElementById(id).addEventListener('change', refreshMapLayers);
   });
 
@@ -1542,6 +1593,7 @@ function wireRegnumSearchAndFilters(){
   function searchGlyph(m){
     if(m.tipo === 'mision') return '!';
     if(m.tipo === 'npc') return '●';
+    if(m.tipo === 'epico') return '★';
     return PLACE_GLYPH[PLACE_SHAPE[m.categoria] || 'ciudad'];
   }
   // Además de NPCs/misiones/lugares, el buscador encuentra zonas por su
@@ -1639,6 +1691,7 @@ function wireRegnumSearchAndFilters(){
   function toggleIdParaMarcador(m){
     if(m.tipo === 'npc') return 'map-toggle-npc';
     if(m.tipo === 'mision') return 'map-toggle-mision';
+    if(m.tipo === 'epico') return 'map-toggle-epico';
     return PLACE_TOGGLE_ID[m.categoria];
   }
   input.addEventListener('input', ()=>{
@@ -1659,7 +1712,7 @@ function wireRegnumSearchAndFilters(){
         const m = match.m;
         return `<div class="map-result-item" data-kind="marker" data-idx="${regnumAllMarkerObjs.indexOf(m)}">
           <div class="mri-name">${searchGlyph(m)} ${m.nombre}</div>
-          <div class="mri-meta">${m.tipo==='npc' ? (m.profesion||m.clase||'') : m.tipo==='ciudad' ? (m.categoria==='Altar' && m.zona ? m.zona : m.categoria) : 'Nivel '+m.nivel+' · La da: '+m.la_da} · ${m.reino}</div>
+          <div class="mri-meta">${m.tipo==='npc' ? (m.profesion||m.clase||'') : m.tipo==='ciudad' ? (m.categoria==='Altar' && m.zona ? m.zona : m.categoria) : m.tipo==='epico' ? ('Épico · '+m.zona) : 'Nivel '+m.nivel+' · La da: '+m.la_da} · ${m.reino}</div>
         </div>`;
       }
       const nombresZonas = JSON.stringify(match.zonas.map(z=> z.nombre)).replace(/"/g,'&quot;');
