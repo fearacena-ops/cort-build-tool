@@ -109,7 +109,10 @@ function sizeMapSquare(){
   const baseSide = Math.min(frame.clientWidth, window.innerHeight * 0.85);
   // 7% más chico que el cálculo de siempre, a pedido (primero 5%, después
   // 2% más) — nada más que un factor sobre el mismo lado ya calculado.
-  const side = Math.max(320, baseSide * 0.93);
+  // Redondeado a un entero: el ajuste de zoom en fitMinZoomToContainer ya
+  // no lleva ningún margen de sobra (ver ahí) porque deja de hacer falta
+  // — un lado con fracción de píxel es una de las cosas que lo motivaban.
+  const side = Math.round(Math.max(320, baseSide * 0.93));
   // Hay que fijar ancho Y alto: el CSS de base solo da width:100% (hasta los
   // 1180px del recuadro), así que si sólo se fija el alto acá el contenedor
   // queda rectangular (más ancho que alto) en vez de cuadrado. Con un
@@ -247,17 +250,18 @@ function initRegnumMapIfNeeded(){
 
   function fitMinZoomToContainer(){
     regnumMap.setMinZoom(-10);
-    // +0.04 de margen (no más que eso): el cálculo exacto a veces deja un
-    // borde de un par de píxeles sin cubrir (redondeo, o la barra de
-    // scroll aparece/desaparece justo después de medir) — mejor pasarse
-    // un poquito de zoom que dejar una banda negra apenas perceptible en
-    // el borde. OJO: antes esto era +0.15, que con zoom continuo
-    // (zoomSnap:0, ver más arriba) ya no hace falta y de hecho recorta
-    // bastante de más — +0.15 de zoom es ~11% de la imagen de más (unos
-    // 40px de cada lado en un recuadro de referencia de 769px), no "un
-    // par de píxeles" — eso era lo que se veía como "recortado en todos
-    // los bordes". +0.04 es bastante menos margen, unos pocos píxeles.
-    const fitZoom = regnumMap.getBoundsZoom(bounds, true) + 0.04;
+    // Antes se le sumaba +0.04 de margen (que a su vez venía de +0.15)
+    // "por las dudas" de un borde de un par de píxeles sin cubrir por
+    // redondeo — pero eso recorta el mundo real de un pelo en LOS
+    // CUATRO bordes a cambio (a ~640px de recuadro, unos 9px por lado,
+    // que es justo lo que se reportó como "le falta un poco por mostrar
+    // en todos los costados"). Con el recuadro forzado a un lado entero
+    // (Math.round en sizeMapSquare, ver ahí) el margen que hace falta de
+    // verdad es mucho menor: a mano se midió hasta 2-3px de banda negra
+    // en una esquina con margen 0 (probado en varios tamaños de
+    // recuadro, de ~480px a ~780px) — +0.01 alcanza de sobra para
+    // taparlo sin recortar nada perceptible del otro lado.
+    const fitZoom = regnumMap.getBoundsZoom(bounds, true) + 0.01;
     regnumMap.setMinZoom(Math.min(regnumMap.getMaxZoom(), fitZoom));
     updateZoomBadge();
     updateDraggingForZoom();
