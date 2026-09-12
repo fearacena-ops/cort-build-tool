@@ -390,8 +390,7 @@ function initRegnumMapIfNeeded(){
   // desactivado arriba porque al zoom mínimo no hay margen y termina
   // empujando y volviendo de golpe), se corre el globo mismo lo justo para
   // que quede adentro del recuadro — del lado que no choca con el borde.
-  regnumMap.on('popupopen', (e)=>{
-    const popup = e.popup;
+  function nudgePopupInsideFrame(popup){
     const popupEl = popup._container;
     const mapEl = document.getElementById('regnum-map');
     if(!popupEl || !mapEl) return;
@@ -416,6 +415,19 @@ function initRegnumMapIfNeeded(){
       // ocultarla que dejarla apuntando para cualquier lado.
       const tip = popupEl.querySelector('.leaflet-popup-tip-container');
       if(tip) tip.style.display = 'none';
+    }
+  }
+  regnumMap.on('popupopen', (e)=>{
+    nudgePopupInsideFrame(e.popup);
+    // El popup de un épico trae una imagen -- Leaflet mide el tamaño del
+    // globo (y decide dónde entra completo, ver arriba) ANTES de que esa
+    // imagen termine de cargar, así que el recuadro blanco queda armado
+    // para un contenido más bajo del que en verdad termina teniendo, y la
+    // imagen se sale por arriba. popup.update() le hace recalcular todo
+    // una vez que la imagen ya tiene su alto real.
+    const img = e.popup._container?.querySelector('.epico-popup-img');
+    if(img && !img.complete){
+      img.addEventListener('load', ()=>{ e.popup.update(); nudgePopupInsideFrame(e.popup); }, {once:true});
     }
   });
 
