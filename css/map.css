@@ -107,7 +107,15 @@
      contorno negro de 1px que usa el resto de los marcadores. */
   .regnum-marker-epico{color:#c68cff;font-size:26px;font-weight:700;
     text-shadow:0 0 4px #c68cff,0 0 9px #a24bff,0 0 16px #a24bff,1px 0 0 #000,-1px 0 0 #000,0 1px 0 #000,0 -1px 0 #000;}
-  .epico-popup-img{display:block;width:100%;max-width:220px;margin:0 auto 6px;border-radius:6px;}
+  /* Tamaño fijo e igual para las 3 -- las fotos no vienen todas con la
+     misma proporción (una más angosta y alta, otras más cuadradas), así
+     que con solo un max-width cada tarjeta terminaba de una altura
+     distinta. object-fit:contain evita recortar el dibujo para que
+     entre en la caja (solo dejaría franjas vacías a los costados si la
+     proporción no calza, no recortaría cabeza ni cola). Un poco más
+     chico que como quedaba antes la más alta (Daen Rha, sin este tope
+     llegaba a unos 317px de alto). */
+  .epico-popup-img{display:block;width:170px;height:220px;object-fit:contain;margin:0 auto 6px;border-radius:6px;}
   /* Mismos colores que ya usa el selector de reino arriba, para que un
      vistazo alcance para saber de qué reino es un NPC/fuerte/castillo. */
   .realm-color-syrtis{color:#7fae5a;}

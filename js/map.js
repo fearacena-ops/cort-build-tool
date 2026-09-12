@@ -1104,7 +1104,7 @@ function buildRegnumMarkers(){
       // Función, no un string fijo — así Leaflet la vuelve a llamar cada
       // vez que se abre el popup y el "aparece en" sale recalculado con
       // la hora actual, no la de cuando se armó el mapa.
-      marker.bindPopup(() => buildEpicoPopupHTML(m), {autoPan:false, maxWidth:240, className:'epico-popup'});
+      marker.bindPopup(() => buildEpicoPopupHTML(m), {autoPan:false, maxWidth:200, className:'epico-popup'});
     } else {
       marker.bindPopup(buildRegnumPopupHTML(m), {autoPan:false});
     }
@@ -1417,7 +1417,10 @@ function buildEpicoPopupHTML(m){
   const sp = epicoNextSpawn(m.bossKey);
   const spawnTxt = sp ? formatEpicoCountdown(sp.next - Math.floor(Date.now()/1000)) : '?';
   const img = m.imagen ? `<img class="epico-popup-img" src="${m.imagen}" alt="${m.nombre}">` : '';
-  return `${img}<b>${m.nombre}</b><br>${m.zona}<br>${m.reino}<br><b>Drop:</b> ${m.drop}<br><b>Aparece en:</b> ${spawnTxt}`;
+  // Zona/Reino/Drop quedan ocultos por ahora (a pedido) -- el dato sigue
+  // en m.zona/m.reino/m.drop por si se decide mostrarlo más adelante,
+  // esta función nada más no los imprime todavía.
+  return `${img}<b>${m.nombre}</b><br><b>Aparece en:</b> ${spawnTxt}`;
 }
 
 function buildRegnumPopupHTML(m){
