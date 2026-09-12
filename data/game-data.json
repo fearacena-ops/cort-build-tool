@@ -27480,126 +27480,6 @@
        "spriteIdx": 2
       },
       {
-       "name": "Maestría de Guerra",
-       "cat": [
-        "dps"
-       ],
-       "lvl": 2,
-       "pvp": 3,
-       "roles": [
-        "dps"
-       ],
-       "aoe": false,
-       "group": false,
-       "rvr": false,
-       "soloSustain": false,
-       "soloPersonal": false,
-       "desc": "El Warmaster mejora su atributo principal de clase.",
-       "type": "Passive",
-       "mana": null,
-       "cast": null,
-       "gcd": null,
-       "cooldown": null,
-       "range": null,
-       "area": null,
-       "duration": null,
-       "buffs": [
-        {
-         "label": "Atributo de clase",
-         "value": "+15%"
-        }
-       ],
-       "debuffs": [],
-       "damage": [],
-       "commonRank": 5,
-       "attrTags": [
-        "+Fuerza"
-       ],
-       "contenido": [
-        "PvP",
-        "PvE",
-        "Leveo PvE",
-        "Grupo PvP",
-        "Grupo PvE"
-       ],
-       "funciones": [
-        "Self_buffer"
-       ],
-       "blockable100": false,
-       "resistible100": false,
-       "contenidoPrincipal": [
-        "PvP",
-        "PvE",
-        "Leveo PvE"
-       ],
-       "contenidoSecundario": [
-        "Grupo PvP",
-        "Grupo PvE"
-       ],
-       "selfDebuff": false,
-       "weaponInterval": false,
-       "spriteIdx": 6
-      },
-      {
-       "name": "Sangre de Warmaster",
-       "cat": [
-        "tank"
-       ],
-       "lvl": 2,
-       "pvp": 3,
-       "roles": [
-        "tank"
-       ],
-       "aoe": false,
-       "group": false,
-       "rvr": false,
-       "soloSustain": false,
-       "soloPersonal": false,
-       "desc": "La capacidad atlética del Warmaster aumenta debido a sus largos años de entrenamiento.",
-       "type": "Passive",
-       "mana": null,
-       "cast": null,
-       "gcd": null,
-       "cooldown": null,
-       "range": null,
-       "area": null,
-       "duration": null,
-       "buffs": [
-        {
-         "label": "Salud",
-         "value": "+300"
-        }
-       ],
-       "debuffs": [],
-       "damage": [],
-       "commonRank": 5,
-       "attrTags": [],
-       "contenido": [
-        "PvP",
-        "PvE",
-        "Leveo PvE",
-        "Grupo PvP",
-        "Grupo PvE"
-       ],
-       "funciones": [
-        "Self_buffer"
-       ],
-       "blockable100": false,
-       "resistible100": false,
-       "contenidoPrincipal": [
-        "PvP",
-        "PvE",
-        "Leveo PvE"
-       ],
-       "contenidoSecundario": [
-        "Grupo PvP",
-        "Grupo PvE"
-       ],
-       "selfDebuff": false,
-       "weaponInterval": false,
-       "spriteIdx": 10
-      },
-      {
        "name": "Bandera de Warmaster",
        "cat": [
         "support"
@@ -27660,6 +27540,67 @@
        "selfDebuff": false,
        "weaponInterval": false,
        "spriteIdx": 4
+      },
+      {
+       "name": "Maestría de Guerra",
+       "cat": [
+        "dps"
+       ],
+       "lvl": 2,
+       "pvp": 3,
+       "roles": [
+        "dps"
+       ],
+       "aoe": false,
+       "group": false,
+       "rvr": false,
+       "soloSustain": false,
+       "soloPersonal": false,
+       "desc": "El Warmaster mejora su atributo principal de clase.",
+       "type": "Passive",
+       "mana": null,
+       "cast": null,
+       "gcd": null,
+       "cooldown": null,
+       "range": null,
+       "area": null,
+       "duration": null,
+       "buffs": [
+        {
+         "label": "Atributo de clase",
+         "value": "+15%"
+        }
+       ],
+       "debuffs": [],
+       "damage": [],
+       "commonRank": 5,
+       "attrTags": [
+        "+Fuerza"
+       ],
+       "contenido": [
+        "PvP",
+        "PvE",
+        "Leveo PvE",
+        "Grupo PvP",
+        "Grupo PvE"
+       ],
+       "funciones": [
+        "Self_buffer"
+       ],
+       "blockable100": false,
+       "resistible100": false,
+       "contenidoPrincipal": [
+        "PvP",
+        "PvE",
+        "Leveo PvE"
+       ],
+       "contenidoSecundario": [
+        "Grupo PvP",
+        "Grupo PvE"
+       ],
+       "selfDebuff": false,
+       "weaponInterval": false,
+       "spriteIdx": 6
       },
       {
        "name": "Grito Heroico",
@@ -27723,6 +27664,65 @@
        "selfDebuff": false,
        "weaponInterval": false,
        "spriteIdx": 8
+      },
+      {
+       "name": "Sangre de Warmaster",
+       "cat": [
+        "tank"
+       ],
+       "lvl": 2,
+       "pvp": 3,
+       "roles": [
+        "tank"
+       ],
+       "aoe": false,
+       "group": false,
+       "rvr": false,
+       "soloSustain": false,
+       "soloPersonal": false,
+       "desc": "La capacidad atlética del Warmaster aumenta debido a sus largos años de entrenamiento.",
+       "type": "Passive",
+       "mana": null,
+       "cast": null,
+       "gcd": null,
+       "cooldown": null,
+       "range": null,
+       "area": null,
+       "duration": null,
+       "buffs": [
+        {
+         "label": "Salud",
+         "value": "+300"
+        }
+       ],
+       "debuffs": [],
+       "damage": [],
+       "commonRank": 5,
+       "attrTags": [],
+       "contenido": [
+        "PvP",
+        "PvE",
+        "Leveo PvE",
+        "Grupo PvP",
+        "Grupo PvE"
+       ],
+       "funciones": [
+        "Self_buffer"
+       ],
+       "blockable100": false,
+       "resistible100": false,
+       "contenidoPrincipal": [
+        "PvP",
+        "PvE",
+        "Leveo PvE"
+       ],
+       "contenidoSecundario": [
+        "Grupo PvP",
+        "Grupo PvE"
+       ],
+       "selfDebuff": false,
+       "weaponInterval": false,
+       "spriteIdx": 10
       }
      ]
     }
@@ -32812,126 +32812,6 @@
        "spriteIdx": 2
       },
       {
-       "name": "Maestría de Guerra",
-       "cat": [
-        "tank"
-       ],
-       "lvl": 2,
-       "pvp": 3,
-       "roles": [
-        "dps"
-       ],
-       "aoe": false,
-       "group": false,
-       "rvr": false,
-       "soloSustain": false,
-       "soloPersonal": false,
-       "desc": "El Warmaster magnifica su Constitución.",
-       "type": "Passive",
-       "mana": null,
-       "cast": null,
-       "gcd": null,
-       "cooldown": null,
-       "range": null,
-       "area": null,
-       "duration": null,
-       "buffs": [
-        {
-         "label": "Constitución",
-         "value": "+15%"
-        }
-       ],
-       "debuffs": [],
-       "damage": [],
-       "commonRank": 5,
-       "attrTags": [
-        "+Constitución"
-       ],
-       "contenido": [
-        "PvP",
-        "PvE",
-        "Leveo PvE",
-        "Grupo PvP",
-        "Grupo PvE"
-       ],
-       "funciones": [
-        "Self_buffer"
-       ],
-       "blockable100": false,
-       "resistible100": false,
-       "contenidoPrincipal": [
-        "PvP",
-        "PvE",
-        "Leveo PvE"
-       ],
-       "contenidoSecundario": [
-        "Grupo PvP",
-        "Grupo PvE"
-       ],
-       "selfDebuff": false,
-       "weaponInterval": false,
-       "spriteIdx": 6
-      },
-      {
-       "name": "Sangre de Warmaster",
-       "cat": [
-        "tank"
-       ],
-       "lvl": 2,
-       "pvp": 3,
-       "roles": [
-        "tank"
-       ],
-       "aoe": false,
-       "group": false,
-       "rvr": false,
-       "soloSustain": false,
-       "soloPersonal": false,
-       "desc": "La capacidad atlética del Warmaster aumenta debido a sus largos años de entrenamiento.",
-       "type": "Passive",
-       "mana": null,
-       "cast": null,
-       "gcd": null,
-       "cooldown": null,
-       "range": null,
-       "area": null,
-       "duration": null,
-       "buffs": [
-        {
-         "label": "Salud",
-         "value": "+350"
-        }
-       ],
-       "debuffs": [],
-       "damage": [],
-       "commonRank": 5,
-       "attrTags": [],
-       "contenido": [
-        "PvP",
-        "PvE",
-        "Leveo PvE",
-        "Grupo PvP",
-        "Grupo PvE"
-       ],
-       "funciones": [
-        "Self_buffer"
-       ],
-       "blockable100": false,
-       "resistible100": false,
-       "contenidoPrincipal": [
-        "PvP",
-        "PvE",
-        "Leveo PvE"
-       ],
-       "contenidoSecundario": [
-        "Grupo PvP",
-        "Grupo PvE"
-       ],
-       "selfDebuff": false,
-       "weaponInterval": false,
-       "spriteIdx": 10
-      },
-      {
        "name": "Asistencia del Paladín",
        "cat": [
         "tank",
@@ -32994,6 +32874,67 @@
        "spriteIdx": 4
       },
       {
+       "name": "Maestría de Guerra",
+       "cat": [
+        "tank"
+       ],
+       "lvl": 2,
+       "pvp": 3,
+       "roles": [
+        "dps"
+       ],
+       "aoe": false,
+       "group": false,
+       "rvr": false,
+       "soloSustain": false,
+       "soloPersonal": false,
+       "desc": "El Warmaster magnifica su Constitución.",
+       "type": "Passive",
+       "mana": null,
+       "cast": null,
+       "gcd": null,
+       "cooldown": null,
+       "range": null,
+       "area": null,
+       "duration": null,
+       "buffs": [
+        {
+         "label": "Constitución",
+         "value": "+15%"
+        }
+       ],
+       "debuffs": [],
+       "damage": [],
+       "commonRank": 5,
+       "attrTags": [
+        "+Constitución"
+       ],
+       "contenido": [
+        "PvP",
+        "PvE",
+        "Leveo PvE",
+        "Grupo PvP",
+        "Grupo PvE"
+       ],
+       "funciones": [
+        "Self_buffer"
+       ],
+       "blockable100": false,
+       "resistible100": false,
+       "contenidoPrincipal": [
+        "PvP",
+        "PvE",
+        "Leveo PvE"
+       ],
+       "contenidoSecundario": [
+        "Grupo PvP",
+        "Grupo PvE"
+       ],
+       "selfDebuff": false,
+       "weaponInterval": false,
+       "spriteIdx": 6
+      },
+      {
        "name": "Bendecido",
        "cat": [
         "tank"
@@ -33052,6 +32993,65 @@
        "selfDebuff": false,
        "weaponInterval": false,
        "spriteIdx": 8
+      },
+      {
+       "name": "Sangre de Warmaster",
+       "cat": [
+        "tank"
+       ],
+       "lvl": 2,
+       "pvp": 3,
+       "roles": [
+        "tank"
+       ],
+       "aoe": false,
+       "group": false,
+       "rvr": false,
+       "soloSustain": false,
+       "soloPersonal": false,
+       "desc": "La capacidad atlética del Warmaster aumenta debido a sus largos años de entrenamiento.",
+       "type": "Passive",
+       "mana": null,
+       "cast": null,
+       "gcd": null,
+       "cooldown": null,
+       "range": null,
+       "area": null,
+       "duration": null,
+       "buffs": [
+        {
+         "label": "Salud",
+         "value": "+350"
+        }
+       ],
+       "debuffs": [],
+       "damage": [],
+       "commonRank": 5,
+       "attrTags": [],
+       "contenido": [
+        "PvP",
+        "PvE",
+        "Leveo PvE",
+        "Grupo PvP",
+        "Grupo PvE"
+       ],
+       "funciones": [
+        "Self_buffer"
+       ],
+       "blockable100": false,
+       "resistible100": false,
+       "contenidoPrincipal": [
+        "PvP",
+        "PvE",
+        "Leveo PvE"
+       ],
+       "contenidoSecundario": [
+        "Grupo PvP",
+        "Grupo PvE"
+       ],
+       "selfDebuff": false,
+       "weaponInterval": false,
+       "spriteIdx": 10
       }
      ]
     }

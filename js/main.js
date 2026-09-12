@@ -223,6 +223,15 @@ function weaponSummaryLabel(weaponChoice){
   }).filter(Boolean).join(', ');
 }
 // Named community archetypes — shown as quick-start suggestions in "Tu build" (Tab C)
+// La mayoría (tank/defender/paladin de Caballero) son heurísticas: se le
+// pasan context/role/priorityDiscipline a computeBuild() y el algoritmo
+// arma un reparto razonable para ese rol, a cualquier nivel.
+// "Para Dragón" es distinto — es una build puntual de nivel 60 calcada
+// tal cual de una referencia real, punto por punto, no algo que el
+// algoritmo pueda reproducir a partir de un rol/contexto genérico. Por
+// eso lleva "exact" (dlvl + ranks ya armados) en vez de esas tres
+// propiedades, y applyArchetypeToManual() la aplica directo, sin pasar
+// por computeBuild.
 const ARCHETYPE_PRESETS = {
   knight: [
     {key:'tank', label:'Tanque', priorityDiscipline:'Vanguard', role:'tank', context:'rvr',
@@ -231,6 +240,28 @@ const ARCHETYPE_PRESETS = {
      blurb:'Protege a magos y bárbaros controlando enemigos (Retar, Provocar, Finta) en vez de solo tanquear.'},
     {key:'paladin', label:'Paladín', priorityDiscipline:'Shields', role:'support', context:'rvr',
      blurb:'Mitad guerrero, mitad conjurador — vive lanzando auras de área a sus aliados (Escudo estelar, Barrera deflectora).'},
+    {key:'paradragon', label:'Para Dragón', exact:{dlvl:{"Slashing Weapons":19, "Blunt Weapons":1, "Piercing Weapons":1, "Tactics":19, "Vanguard":19, "Shields":19, "Knight WM":13}, ranks:{"Slashing Weapons|1":5, "Slashing Weapons|3":5, "Slashing Weapons|8":5, "Tactics|6":5, "Tactics|8":5, "Vanguard|1":5, "Vanguard|3":5, "Vanguard|4":5, "Vanguard|5":5, "Vanguard|8":5, "Vanguard|9":5, "Shields|0":1, "Shields|2":5, "Shields|3":4, "Shields|4":5, "Shields|5":5, "Shields|6":5, "Shields|8":5}},
+     blurb:'Build de referencia a nivel 60, pensada para pelear contra un dragón — buen equilibrio entre aguante y soporte de escudos.'},
+  ],
+  hunter: [
+    {key:'paradragon', label:'Para Dragón', exact:{dlvl:{"Short Bows":1, "Long Bows":15, "Tricks":19, "Evasion":19, "Scouting":19, "Pets":1, "Hunter WM":15}, ranks:{"Long Bows|0":4, "Long Bows|2":4, "Long Bows|7":4, "Tricks|1":5, "Tricks|3":5, "Tricks|5":5, "Tricks|7":5, "Evasion|0":2, "Evasion|2":5, "Evasion|4":5, "Evasion|5":5, "Evasion|6":5, "Evasion|7":5, "Evasion|8":1, "Evasion|9":5, "Scouting|0":5, "Scouting|1":5, "Scouting|5":5, "Scouting|6":5}},
+     blurb:'Build de referencia a nivel 60, pensada para pelear contra un dragón — arcos largos, evasión y exploración al tope.'},
+  ],
+  marksman: [
+    {key:'paradragon', label:'Para Dragón', exact:{dlvl:{"Short Bows":19, "Long Bows":15, "Tricks":19, "Evasion":19, "Arrow Mastery":15, "Aiming Mastery":9, "Marksman WM":11}, ranks:{"Short Bows|1":5, "Short Bows|3":5, "Short Bows|5":5, "Short Bows|7":5, "Long Bows|7":4, "Tricks|1":5, "Tricks|3":5, "Tricks|5":5, "Tricks|7":5, "Evasion|0":1, "Evasion|1":3, "Evasion|2":5, "Evasion|4":5, "Evasion|5":5, "Evasion|6":5, "Evasion|7":5, "Evasion|8":1, "Evasion|9":5, "Arrow Mastery|0":4, "Aiming Mastery|3":2}},
+     blurb:'Build de referencia a nivel 60, pensada para pelear contra un dragón — arcos cortos y evasión al tope.'},
+  ],
+  warlock: [
+    {key:'paradragon', label:'Para Dragón', exact:{dlvl:{"Mental":1, "Mana Control":19, "Staff Mastery":1, "Enchantments":19, "Arcania":19, "Necromancy":19, "Elements":19, "Warlock WM":13}, ranks:{"Mana Control|0":5, "Mana Control|2":5, "Mana Control|3":5, "Mana Control|4":1, "Mana Control|5":5, "Mana Control|6":5, "Mana Control|7":5, "Mana Control|8":5, "Mana Control|9":5, "Enchantments|1":5, "Enchantments|3":5, "Enchantments|4":5, "Enchantments|5":5, "Enchantments|6":5, "Enchantments|9":5, "Arcania|7":5, "Necromancy|0":2, "Necromancy|2":5, "Elements|3":5, "Elements|6":5}},
+     blurb:'Build de referencia a nivel 60, pensada para pelear contra un dragón — control de maná y encantamientos al tope.'},
+  ],
+  barbarian: [
+    {key:'paradragon', label:'Para Dragón', exact:{dlvl:{"Slashing Weapons":19, "Blunt Weapons":1, "Piercing Weapons":1, "Tactics":19, "Warcries":19, "Two Handed Mastery":19, "Barbarian WM":13}, ranks:{"Slashing Weapons|1":5, "Slashing Weapons|3":5, "Slashing Weapons|4":5, "Slashing Weapons|8":5, "Tactics|4":1, "Tactics|6":5, "Tactics|8":5, "Tactics|9":4, "Warcries|0":5, "Warcries|1":5, "Warcries|2":5, "Warcries|3":5, "Warcries|4":5, "Warcries|6":5, "Warcries|7":5, "Warcries|9":5, "Two Handed Mastery|7":5, "Two Handed Mastery|8":5}},
+     blurb:'Build de referencia a nivel 60, pensada para pelear contra un dragón — gritos de guerra y armas a dos manos al tope.'},
+  ],
+  conjurer: [
+    {key:'paradragon', label:'Para Dragón', exact:{dlvl:{"Mental":1, "Mana Control":19, "Staff Mastery":1, "Enchantments":19, "Life":19, "Summon":1, "Sorcery":19, "Conjurer WM":19}, ranks:{"Mana Control|0":5, "Mana Control|2":5, "Mana Control|4":1, "Mana Control|5":5, "Mana Control|6":5, "Mana Control|7":5, "Mana Control|8":5, "Mana Control|9":5, "Enchantments|3":5, "Enchantments|5":5, "Enchantments|9":5, "Life|0":5, "Life|1":5, "Life|2":3, "Life|3":5, "Life|6":5, "Life|7":5, "Life|8":2, "Life|9":1, "Sorcery|3":5, "Sorcery|6":5, "Sorcery|7":1}},
+     blurb:'Build de referencia a nivel 60, pensada para pelear contra un dragón — sanación y hechicería al tope.'},
   ],
 };
 
@@ -320,11 +351,23 @@ function renderArchetypeSuggestions(){
 }
 let manualActiveArchetypeLabel = null;
 function applyArchetypeToManual(preset){
-  const build = computeBuild(manualState.level, ctxCustom({
-    context: preset.context, role: preset.role, priorityDiscipline: preset.priorityDiscipline
-  }), null, true);
-  manualState.dlvl = {...build.dlvl};
-  manualState.ranks = {...build.ranks};
+  if(preset.exact){
+    // Build calcada punto por punto de una referencia real (ver
+    // ARCHETYPE_PRESETS) -- nada de heurística acá, se vuelca tal cual.
+    // Solo tiene sentido a nivel 60 (de ahí sale el DP/PP disponible que
+    // esos puntos ya usan al tope), así que fuerza el nivel también, por
+    // si quedó en otro nivel de una build manual anterior.
+    manualState.level = 60;
+    document.getElementById('pc-level').value = 60;
+    manualState.dlvl = {...preset.exact.dlvl};
+    manualState.ranks = {...preset.exact.ranks};
+  } else {
+    const build = computeBuild(manualState.level, ctxCustom({
+      context: preset.context, role: preset.role, priorityDiscipline: preset.priorityDiscipline
+    }), null, true);
+    manualState.dlvl = {...build.dlvl};
+    manualState.ranks = {...build.ranks};
+  }
   manualActiveArchetypeLabel = preset.label;
   expandedManualKeys.clear();
   renderManualPanel();
