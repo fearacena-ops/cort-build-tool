@@ -116,6 +116,10 @@
      chico que como quedaba antes la más alta (Daen Rha, sin este tope
      llegaba a unos 317px de alto). */
   .epico-popup-img{display:block;width:170px;height:220px;object-fit:contain;margin:0 auto 6px;border-radius:6px;}
+  /* Fondo gris en vez del blanco por defecto de Leaflet -- el dibujo de
+     Evendim tiene rayos blancos que quedaban invisibles contra blanco. */
+  .epico-popup .leaflet-popup-content-wrapper,
+  .epico-popup .leaflet-popup-tip{background:#b8b8b8;}
   /* Mismos colores que ya usa el selector de reino arriba, para que un
      vistazo alcance para saber de qué reino es un NPC/fuerte/castillo. */
   .realm-color-syrtis{color:#7fae5a;}
