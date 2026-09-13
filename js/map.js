@@ -1023,9 +1023,13 @@ function iconFor(m){
   // 5/4) y por tamaño (el épico mantiene el tamaño de siempre, los otros
   // dos son un poco más chicos), no por color -- las tres comparten el
   // mismo mismo estilo a propósito.
-  if(m.tipo === 'epico') return L.divIcon({className:'regnum-marker regnum-marker-epico', html:'<div class="regnum-star regnum-star-6"></div>', iconSize:[26,26]});
-  if(m.tipo === 'legendario') return L.divIcon({className:'regnum-marker regnum-marker-legendario', html:'<div class="regnum-star regnum-star-5"></div>', iconSize:[20,20]});
-  if(m.tipo === 'campeon') return L.divIcon({className:'regnum-marker regnum-marker-campeon', html:'<div class="regnum-star regnum-star-4"></div>', iconSize:[20,20]});
+  // Cada una lleva dos divs superpuestos con la misma forma (ver
+  // .regnum-star-glow/.regnum-star en css/map.css): uno de atrás, más
+  // grande y desenfocado, hace de aura brillante, y uno de adelante,
+  // del tamaño real y con contorno negro, da la silueta nítida.
+  if(m.tipo === 'epico') return L.divIcon({className:'regnum-marker regnum-marker-epico', html:'<div class="regnum-star-glow regnum-star-6"></div><div class="regnum-star regnum-star-6"></div>', iconSize:[26,26]});
+  if(m.tipo === 'legendario') return L.divIcon({className:'regnum-marker regnum-marker-legendario', html:'<div class="regnum-star-glow regnum-star-5"></div><div class="regnum-star regnum-star-5"></div>', iconSize:[20,20]});
+  if(m.tipo === 'campeon') return L.divIcon({className:'regnum-marker regnum-marker-campeon', html:'<div class="regnum-star-glow regnum-star-4"></div><div class="regnum-star regnum-star-4"></div>', iconSize:[20,20]});
   // ciudad/lugar: la forma sale de la categoría (Ciudad/Fuerte/Castillo/...)
   const shape = PLACE_SHAPE[m.categoria] || 'ciudad';
   const size = PLACE_SIZE[shape] || 34;
@@ -1287,7 +1291,7 @@ function applyZoneFilters(){
 function editableFieldsFor(m){
   if(m.tipo === 'npc') return [['nombre','Nombre'], ['profesion','Profesión'], ['zona','Zona'], ['reino','Reino']];
   if(m.tipo === 'ciudad') return [['nombre','Nombre'], ['categoria','Categoría'], ['zona','Zona'], ['reino','Reino']];
-  if(m.tipo === 'epico') return [['nombre','Nombre'], ['zona','Zona'], ['reino','Reino'], ['drop','Drop']];
+  if(m.tipo === 'epico') return [['nombre','Nombre'], ['nivel','Nivel'], ['zona','Zona'], ['reino','Reino'], ['drop','Drop']];
   if(m.tipo === 'legendario' || m.tipo === 'campeon') return [['nombre','Nombre'], ['nivel','Nivel'], ['zona','Zona'], ['reino','Reino'], ['drop','Drop']];
   return [['nombre','Nombre'], ['nivel','Nivel'], ['la_da','La da'], ['xp','XP'], ['oro','Oro']];
 }
@@ -1441,17 +1445,17 @@ function buildEpicoPopupHTML(m){
   const sp = epicoNextSpawn(m.bossKey);
   const spawnTxt = sp ? formatEpicoCountdown(sp.next - Math.floor(Date.now()/1000)) : '?';
   const img = m.imagen ? `<img class="epico-popup-img" src="${m.imagen}" alt="${m.nombre}">` : '';
+  const nivel = m.nivel ? `<br>Nv. ${m.nivel}` : '';
   // Zona/Reino/Drop quedan ocultos por ahora (a pedido) -- el dato sigue
   // en m.zona/m.reino/m.drop por si se decide mostrarlo más adelante,
   // esta función nada más no los imprime todavía.
-  return `${img}<b>${m.nombre}</b><br><b>Aparece en:</b> ${spawnTxt}`;
+  return `${img}<b>${m.nombre}</b>${nivel}<br><b>Aparece en:</b> ${spawnTxt}`;
 }
 
-// Legendarios y Campeones: misma tarjeta que el épico (imagen + nombre),
-// pero sin cuenta regresiva -- no hay fórmula de spawn para estos todavía
-// (a diferencia del épico, que la toma de cort.ovh). Se agrega el nivel,
-// que el épico no muestra. Zona/Reino/Drop quedan ocultos por ahora,
-// mismo criterio que buildEpicoPopupHTML.
+// Legendarios y Campeones: misma tarjeta que el épico (imagen + nombre +
+// nivel), pero sin cuenta regresiva -- no hay fórmula de spawn para estos
+// todavía (a diferencia del épico, que la toma de cort.ovh). Zona/Reino/
+// Drop quedan ocultos por ahora, mismo criterio que buildEpicoPopupHTML.
 function buildTierBossPopupHTML(m){
   const img = m.imagen ? `<img class="epico-popup-img" src="${m.imagen}" alt="${m.nombre}">` : '';
   return `${img}<b>${m.nombre}</b><br>Nv. ${m.nivel}`;
@@ -1776,7 +1780,7 @@ function wireRegnumSearchAndFilters(){
         const m = match.m;
         return `<div class="map-result-item" data-kind="marker" data-idx="${regnumAllMarkerObjs.indexOf(m)}">
           <div class="mri-name">${searchGlyph(m)} ${m.nombre}</div>
-          <div class="mri-meta">${m.tipo==='npc' ? (m.profesion||m.clase||'') : m.tipo==='ciudad' ? (m.categoria==='Altar' && m.zona ? m.zona : m.categoria) : m.tipo==='epico' ? ('Épico · '+m.zona) : m.tipo==='legendario' ? ('Legendario · Nv.'+m.nivel+' · '+m.zona) : m.tipo==='campeon' ? ('Campeón · Nv.'+m.nivel+' · '+m.zona) : 'Nivel '+m.nivel+' · La da: '+m.la_da} · ${m.reino}</div>
+          <div class="mri-meta">${m.tipo==='npc' ? (m.profesion||m.clase||'') : m.tipo==='ciudad' ? (m.categoria==='Altar' && m.zona ? m.zona : m.categoria) : m.tipo==='epico' ? ('Épico · Nv.'+m.nivel+' · '+m.zona) : m.tipo==='legendario' ? ('Legendario · Nv.'+m.nivel+' · '+m.zona) : m.tipo==='campeon' ? ('Campeón · Nv.'+m.nivel+' · '+m.zona) : 'Nivel '+m.nivel+' · La da: '+m.la_da} · ${m.reino}</div>
         </div>`;
       }
       const nombresZonas = JSON.stringify(match.zonas.map(z=> z.nombre)).replace(/"/g,'&quot;');

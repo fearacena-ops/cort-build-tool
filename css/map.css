@@ -114,11 +114,21 @@
      renderiza igual entre fuentes/sistemas, y acá la cantidad de puntas
      ES el dato que distingue una categoría de otra. El tamaño de cada
      estrella lo pone iconSize en js/map.js (mismo que antes para el
-     épico, un poco más chico para legendario/campeón), esta clase solo
-     define la forma y el color, por eso width/height 100%. */
-  .regnum-star{width:100%;height:100%;background:#c68cff;
-    filter:drop-shadow(1px 0 0 #000) drop-shadow(-1px 0 0 #000) drop-shadow(0 1px 0 #000) drop-shadow(0 -1px 0 #000)
-      drop-shadow(0 0 4px #c68cff) drop-shadow(0 0 9px #a24bff) drop-shadow(0 0 16px #a24bff);}
+     épico, un poco más chico para legendario/campeón).
+
+     Cada marcador son DOS divs con la misma forma superpuestos (ver
+     iconFor en js/map.js), no uno solo: .regnum-star-glow atrás (más
+     grande, desenfocada) hace de aura, .regnum-star adelante (tamaño
+     real, contorno negro) da la silueta nítida -- encadenar el
+     resplandor y el contorno en un solo filter:drop-shadow (como se
+     hizo al principio) los aplica en SERIE, no en paralelo como
+     text-shadow, y el aura salía bastante más apagada que la que tenía
+     el ★ de texto original. Con dos elementos cada efecto queda
+     independiente y el aura se nota bien, como pidió. */
+  .regnum-marker-epico,.regnum-marker-legendario,.regnum-marker-campeon{position:relative;}
+  .regnum-star-glow{position:absolute;inset:-45%;background:#a24bff;filter:blur(5px);opacity:.9;}
+  .regnum-star{position:absolute;inset:0;background:#c68cff;
+    filter:drop-shadow(1px 0 0 #000) drop-shadow(-1px 0 0 #000) drop-shadow(0 1px 0 #000) drop-shadow(0 -1px 0 #000);}
   .regnum-star-6{clip-path:polygon(50% 0%, 61.25% 30.51%, 93.3% 25%, 72.5% 50%, 93.3% 75%, 61.25% 69.49%, 50% 100%, 38.75% 69.49%, 6.7% 75%, 27.5% 50%, 6.7% 25%, 38.75% 30.51%);}
   .regnum-star-5{clip-path:polygon(50% 0%, 63.23% 31.8%, 97.55% 34.55%, 71.4% 56.95%, 79.39% 90.45%, 50% 72.5%, 20.61% 90.45%, 28.6% 56.95%, 2.45% 34.55%, 36.77% 31.8%);}
   .regnum-star-4{clip-path:polygon(50% 0%, 65.91% 34.09%, 100% 50%, 65.91% 65.91%, 50% 100%, 34.09% 65.91%, 0% 50%, 34.09% 34.09%);}
