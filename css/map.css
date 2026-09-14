@@ -102,14 +102,22 @@
   /* Épicos/Legendarios/Campeones/Guardianes: cada categoría usa un
      ícono de marcador dibujado a mano (ver TIER_MARKER_ICON/
      GUARDIAN_MARKER_ICON en js/map.js), no un carácter de texto ni una
-     forma armada con CSS -- un intento anterior con clip-path +
-     filter:drop-shadow para el resplandor quedaba muy grande y opaco
-     (drop-shadow encadenado se aplica en serie, no en paralelo como
-     text-shadow, así que el aura nunca se veía tan bien como la del ★
-     de texto original). El brillo/contorno de cada ícono ya viene
-     "horneado" en el archivo, por eso no hace falta ningún filter acá
-     -- solo hacer que la imagen ocupe todo el marcador. */
+     forma armada con CSS. El contorno negro y el brillo INTERNO del
+     dibujo ya vienen "horneados" en el archivo -- lo único que agrega
+     este filter es un resplandor hacia AFUERA del ícono, como pidieron
+     después de ver la primera versión sin él. */
   .regnum-tier-icon{width:100%;height:100%;object-fit:contain;display:block;}
+  /* Un intento anterior armaba este mismo resplandor con clip-path +
+     drop-shadow MEZCLANDO ahí también el contorno negro (varias sombras
+     nítidas de 0 de blur junto a las de color) -- encadenado así
+     (drop-shadow se aplica en serie, no en paralelo como text-shadow)
+     quedaba grande y opaco. Acá el contorno ya viene aparte, dentro del
+     dibujo -- el filter solo encadena 3 sombras del MISMO color
+     (currentColor, lo fija cada categoría con su propio style="color:")
+     en radios crecientes, y como no hay que mezclar un color distinto
+     para el contorno, el resultado sale limpio: un brillo suave que se
+     nota, no una mancha. */
+  .regnum-tier-icon-glow{filter:drop-shadow(0 0 2px currentColor) drop-shadow(0 0 5px currentColor) drop-shadow(0 0 9px currentColor);}
   /* Tamaño fijo e igual para las 3 -- las fotos no vienen todas con la
      misma proporción (una más angosta y alta, otras más cuadradas), así
      que con solo un max-width cada tarjeta terminaba de una altura

@@ -1035,6 +1035,19 @@ const GUARDIAN_MARKER_ICON = {
   fuego: 'data/icons/guardianes/fuego.webp',
   viento: 'data/icons/guardianes/viento.webp',
 };
+// Color del resplandor de cada guardián -- a diferencia del morado único
+// de Épico/Legendario/Campeón (ver TIER_GLOW_COLOR), acá conviene que el
+// brillo salga del color propio de cada elemento, si no un aura morada
+// alrededor de un ícono de fuego rojo quedaría fuera de lugar. Se pasa
+// como color CSS (currentColor) al mismo filter que usan los otros tres,
+// ver .regnum-tier-icon-glow en css/map.css.
+const GUARDIAN_GLOW_COLOR = {
+  agua: '#4fc3f7',
+  tierra: '#c9a227',
+  fuego: '#ff6a3d',
+  viento: '#7de1f0',
+};
+const TIER_GLOW_COLOR = '#a24bff';
 function iconFor(m){
   if(m.tipo === 'mision') return L.divIcon({className:'regnum-marker regnum-marker-mision', html:'!', iconSize:[10,14]});
   if(m.tipo === 'npc') return L.divIcon({className:`regnum-marker regnum-marker-npc realm-color-${REALM_SLUG[m.reino]||'syrtis'}`, html:'●', iconSize:[14,14]});
@@ -1042,10 +1055,16 @@ function iconFor(m){
   // ya distingue la categoría por sí solo (ver TIER_MARKER_ICON/
   // GUARDIAN_MARKER_ICON), no hace falta recolorear por reino como el
   // resto de los marcadores.
-  if(m.tipo === 'epico') return L.divIcon({className:'regnum-marker regnum-marker-epico', html:`<img class="regnum-tier-icon" src="${TIER_MARKER_ICON.epico}" alt="">`, iconSize:[28,28]});
-  if(m.tipo === 'legendario') return L.divIcon({className:'regnum-marker regnum-marker-legendario', html:`<img class="regnum-tier-icon" src="${TIER_MARKER_ICON.legendario}" alt="">`, iconSize:[26,26]});
-  if(m.tipo === 'campeon') return L.divIcon({className:'regnum-marker regnum-marker-campeon', html:`<img class="regnum-tier-icon" src="${TIER_MARKER_ICON.campeon}" alt="">`, iconSize:[26,26]});
-  if(m.tipo === 'guardian') return L.divIcon({className:'regnum-marker regnum-marker-guardian', html:`<img class="regnum-tier-icon" src="${GUARDIAN_MARKER_ICON[m.elemento]||''}" alt="">`, iconSize:[26,26]});
+  // regnum-tier-icon-glow: resplandor con filter:drop-shadow -- a
+  // diferencia del primer intento (clip-path + drop-shadow, ver el
+  // comentario de más arriba), acá el dibujo YA trae su contorno negro
+  // propio, así que el filter solo agrega capas de color (currentColor,
+  // fijado por el style="color:...") sin mezclar ninguna sombra nítida
+  // de 0 de blur -- por eso no se ve opaco/raro como esa vez.
+  if(m.tipo === 'epico') return L.divIcon({className:'regnum-marker regnum-marker-epico', html:`<img class="regnum-tier-icon regnum-tier-icon-glow" style="color:${TIER_GLOW_COLOR}" src="${TIER_MARKER_ICON.epico}" alt="">`, iconSize:[32,32]});
+  if(m.tipo === 'legendario') return L.divIcon({className:'regnum-marker regnum-marker-legendario', html:`<img class="regnum-tier-icon regnum-tier-icon-glow" style="color:${TIER_GLOW_COLOR}" src="${TIER_MARKER_ICON.legendario}" alt="">`, iconSize:[30,30]});
+  if(m.tipo === 'campeon') return L.divIcon({className:'regnum-marker regnum-marker-campeon', html:`<img class="regnum-tier-icon regnum-tier-icon-glow" style="color:${TIER_GLOW_COLOR}" src="${TIER_MARKER_ICON.campeon}" alt="">`, iconSize:[30,30]});
+  if(m.tipo === 'guardian') return L.divIcon({className:'regnum-marker regnum-marker-guardian', html:`<img class="regnum-tier-icon regnum-tier-icon-glow" style="color:${GUARDIAN_GLOW_COLOR[m.elemento]||TIER_GLOW_COLOR}" src="${GUARDIAN_MARKER_ICON[m.elemento]||''}" alt="">`, iconSize:[30,30]});
   // ciudad/lugar: la forma sale de la categoría (Ciudad/Fuerte/Castillo/...)
   const shape = PLACE_SHAPE[m.categoria] || 'ciudad';
   const size = PLACE_SIZE[shape] || 34;
