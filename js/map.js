@@ -1061,10 +1061,10 @@ function iconFor(m){
   // propio, así que el filter solo agrega capas de color (currentColor,
   // fijado por el style="color:...") sin mezclar ninguna sombra nítida
   // de 0 de blur -- por eso no se ve opaco/raro como esa vez.
-  if(m.tipo === 'epico') return L.divIcon({className:'regnum-marker regnum-marker-epico', html:`<img class="regnum-tier-icon regnum-tier-icon-glow" style="color:${TIER_GLOW_COLOR}" src="${TIER_MARKER_ICON.epico}" alt="">`, iconSize:[32,32]});
-  if(m.tipo === 'legendario') return L.divIcon({className:'regnum-marker regnum-marker-legendario', html:`<img class="regnum-tier-icon regnum-tier-icon-glow" style="color:${TIER_GLOW_COLOR}" src="${TIER_MARKER_ICON.legendario}" alt="">`, iconSize:[30,30]});
-  if(m.tipo === 'campeon') return L.divIcon({className:'regnum-marker regnum-marker-campeon', html:`<img class="regnum-tier-icon regnum-tier-icon-glow" style="color:${TIER_GLOW_COLOR}" src="${TIER_MARKER_ICON.campeon}" alt="">`, iconSize:[30,30]});
-  if(m.tipo === 'guardian') return L.divIcon({className:'regnum-marker regnum-marker-guardian', html:`<img class="regnum-tier-icon regnum-tier-icon-glow" style="color:${GUARDIAN_GLOW_COLOR[m.elemento]||TIER_GLOW_COLOR}" src="${GUARDIAN_MARKER_ICON[m.elemento]||''}" alt="">`, iconSize:[30,30]});
+  if(m.tipo === 'epico') return L.divIcon({className:'regnum-marker regnum-marker-epico', html:`<img class="regnum-tier-icon regnum-tier-icon-glow" style="color:${TIER_GLOW_COLOR}" src="${TIER_MARKER_ICON.epico}" alt="">`, iconSize:[28,28]});
+  if(m.tipo === 'legendario') return L.divIcon({className:'regnum-marker regnum-marker-legendario', html:`<img class="regnum-tier-icon regnum-tier-icon-glow-sm" style="color:${TIER_GLOW_COLOR}" src="${TIER_MARKER_ICON.legendario}" alt="">`, iconSize:[26,26]});
+  if(m.tipo === 'campeon') return L.divIcon({className:'regnum-marker regnum-marker-campeon', html:`<img class="regnum-tier-icon regnum-tier-icon-glow-sm" style="color:${TIER_GLOW_COLOR}" src="${TIER_MARKER_ICON.campeon}" alt="">`, iconSize:[26,26]});
+  if(m.tipo === 'guardian') return L.divIcon({className:'regnum-marker regnum-marker-guardian', html:`<img class="regnum-tier-icon regnum-tier-icon-glow-sm" style="color:${GUARDIAN_GLOW_COLOR[m.elemento]||TIER_GLOW_COLOR}" src="${GUARDIAN_MARKER_ICON[m.elemento]||''}" alt="">`, iconSize:[26,26]});
   // ciudad/lugar: la forma sale de la categoría (Ciudad/Fuerte/Castillo/...)
   const shape = PLACE_SHAPE[m.categoria] || 'ciudad';
   const size = PLACE_SIZE[shape] || 34;

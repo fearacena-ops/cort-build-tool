@@ -117,7 +117,10 @@
      en radios crecientes, y como no hay que mezclar un color distinto
      para el contorno, el resultado sale limpio: un brillo suave que se
      nota, no una mancha. */
-  .regnum-tier-icon-glow{filter:drop-shadow(0 0 2px currentColor) drop-shadow(0 0 5px currentColor) drop-shadow(0 0 9px currentColor);}
+  .regnum-tier-icon-glow{filter:drop-shadow(0 0 1.5px currentColor) drop-shadow(0 0 3.5px currentColor) drop-shadow(0 0 6px currentColor);}
+  /* Mismo truco, radios más chicos -- para Legendario/Campeón/Guardián,
+     que ya de por sí tienen el ícono un poco más chico que el Épico. */
+  .regnum-tier-icon-glow-sm{filter:drop-shadow(0 0 1.5px currentColor) drop-shadow(0 0 3px currentColor) drop-shadow(0 0 5px currentColor);}
   /* Tamaño fijo e igual para las 3 -- las fotos no vienen todas con la
      misma proporción (una más angosta y alta, otras más cuadradas), así
      que con solo un max-width cada tarjeta terminaba de una altura
