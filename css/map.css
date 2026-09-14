@@ -99,39 +99,17 @@
   .muralla-icon-wrap{width:100%;height:100%;filter:drop-shadow(0 0 1.2px #000) drop-shadow(0 0 1.2px #000);}
   .muralla-icon{width:100%;height:100%;background-color:currentColor;-webkit-mask-image:url(../data/icons/muralla.svg);mask-image:url(../data/icons/muralla.svg);-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:center;mask-position:center;-webkit-mask-size:contain;mask-size:contain;}
   .regnum-marker-altar{font-size:24px;}
-  /* Épicos/Legendarios/Campeones: mismo estilo (estrella morada con
-     resplandor, sin color de reino) para las 3 categorías de jefe "de
-     mundo" que tienen marcador propio en el mapa -- se distinguen por la
-     cantidad de puntas de la estrella, no por color: 6 puntas los
-     épicos, 5 los legendarios (la forma que ya tenía el épico antes de
-     este cambio), 4 los campeones. Mismo morado que ya distinguía a los
-     jefes en el tooltip de zona (GUARDIAN_COLOR en map.js, ex
-     JEFE_COLOR) -- ese tooltip quedó ahora solo para los Guardianes, que
-     no pasaron a marcador propio.
-
-     Se dibuja con clip-path (no un carácter ★ de texto) para poder fijar
-     la cantidad exacta de puntas -- una estrella Unicode no siempre
-     renderiza igual entre fuentes/sistemas, y acá la cantidad de puntas
-     ES el dato que distingue una categoría de otra. El tamaño de cada
-     estrella lo pone iconSize en js/map.js (mismo que antes para el
-     épico, un poco más chico para legendario/campeón).
-
-     Cada marcador son DOS divs con la misma forma superpuestos (ver
-     iconFor en js/map.js), no uno solo: .regnum-star-glow atrás (más
-     grande, desenfocada) hace de aura, .regnum-star adelante (tamaño
-     real, contorno negro) da la silueta nítida -- encadenar el
-     resplandor y el contorno en un solo filter:drop-shadow (como se
-     hizo al principio) los aplica en SERIE, no en paralelo como
-     text-shadow, y el aura salía bastante más apagada que la que tenía
-     el ★ de texto original. Con dos elementos cada efecto queda
-     independiente y el aura se nota bien, como pidió. */
-  .regnum-marker-epico,.regnum-marker-legendario,.regnum-marker-campeon{position:relative;}
-  .regnum-star-glow{position:absolute;inset:-45%;background:#a24bff;filter:blur(5px);opacity:.9;}
-  .regnum-star{position:absolute;inset:0;background:#c68cff;
-    filter:drop-shadow(1px 0 0 #000) drop-shadow(-1px 0 0 #000) drop-shadow(0 1px 0 #000) drop-shadow(0 -1px 0 #000);}
-  .regnum-star-6{clip-path:polygon(50% 0%, 61.25% 30.51%, 93.3% 25%, 72.5% 50%, 93.3% 75%, 61.25% 69.49%, 50% 100%, 38.75% 69.49%, 6.7% 75%, 27.5% 50%, 6.7% 25%, 38.75% 30.51%);}
-  .regnum-star-5{clip-path:polygon(50% 0%, 63.23% 31.8%, 97.55% 34.55%, 71.4% 56.95%, 79.39% 90.45%, 50% 72.5%, 20.61% 90.45%, 28.6% 56.95%, 2.45% 34.55%, 36.77% 31.8%);}
-  .regnum-star-4{clip-path:polygon(50% 0%, 65.91% 34.09%, 100% 50%, 65.91% 65.91%, 50% 100%, 34.09% 65.91%, 0% 50%, 34.09% 34.09%);}
+  /* Épicos/Legendarios/Campeones/Guardianes: cada categoría usa un
+     ícono de marcador dibujado a mano (ver TIER_MARKER_ICON/
+     GUARDIAN_MARKER_ICON en js/map.js), no un carácter de texto ni una
+     forma armada con CSS -- un intento anterior con clip-path +
+     filter:drop-shadow para el resplandor quedaba muy grande y opaco
+     (drop-shadow encadenado se aplica en serie, no en paralelo como
+     text-shadow, así que el aura nunca se veía tan bien como la del ★
+     de texto original). El brillo/contorno de cada ícono ya viene
+     "horneado" en el archivo, por eso no hace falta ningún filter acá
+     -- solo hacer que la imagen ocupe todo el marcador. */
+  .regnum-tier-icon{width:100%;height:100%;object-fit:contain;display:block;}
   /* Tamaño fijo e igual para las 3 -- las fotos no vienen todas con la
      misma proporción (una más angosta y alta, otras más cuadradas), así
      que con solo un max-width cada tarjeta terminaba de una altura

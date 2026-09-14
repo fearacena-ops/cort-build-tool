@@ -1014,22 +1014,38 @@ const PLACE_GLYPH = {ciudad:HOUSE_SVG, pueblo:HOUSE_SVG, aldea:HOUSE_SVG, murall
 // reino real de siempre (ver iconFor), no queda "sin color".
 let wzLiveFortOwner = {};
 
+// Íconos de marcador (no confundir con m.imagen, la foto/retrato que
+// se ve en el popup de Legendarios/Campeones/Épicos): un solo dibujo
+// por categoría, no uno por jefe -- los 3 Épicos comparten el mismo
+// ícono de estrella, etc. Dibujados a mano (con su propio contorno y
+// brillo ya "horneados" en el archivo), no generados con CSS -- un
+// intento anterior con clip-path + filter quedó muy grande/opaco.
+const TIER_MARKER_ICON = {
+  epico: 'data/icons/marcadores/epico.webp',
+  legendario: 'data/icons/marcadores/legendario.webp',
+  campeon: 'data/icons/marcadores/campeon.webp',
+};
+// Guardianes: no tienen foto de retrato (a diferencia de Legendarios/
+// Campeones/Épicos), pero cada elemento (agua/tierra/fuego/viento)
+// tiene su propio ícono de marcador distinto -- cuál usar lo dice
+// m.elemento de cada guardián.
+const GUARDIAN_MARKER_ICON = {
+  agua: 'data/icons/guardianes/agua.webp',
+  tierra: 'data/icons/guardianes/tierra.webp',
+  fuego: 'data/icons/guardianes/fuego.webp',
+  viento: 'data/icons/guardianes/viento.webp',
+};
 function iconFor(m){
   if(m.tipo === 'mision') return L.divIcon({className:'regnum-marker regnum-marker-mision', html:'!', iconSize:[10,14]});
   if(m.tipo === 'npc') return L.divIcon({className:`regnum-marker regnum-marker-npc realm-color-${REALM_SLUG[m.reino]||'syrtis'}`, html:'●', iconSize:[14,14]});
-  // Épico/Legendario/Campeón: sin color de reino (ver .regnum-star en
-  // css/map.css) -- el morado brillante identifica la categoría, no de
-  // quién es. Se distinguen por la cantidad de puntas de la estrella (6/
-  // 5/4) y por tamaño (el épico mantiene el tamaño de siempre, los otros
-  // dos son un poco más chicos), no por color -- las tres comparten el
-  // mismo mismo estilo a propósito.
-  // Cada una lleva dos divs superpuestos con la misma forma (ver
-  // .regnum-star-glow/.regnum-star en css/map.css): uno de atrás, más
-  // grande y desenfocado, hace de aura brillante, y uno de adelante,
-  // del tamaño real y con contorno negro, da la silueta nítida.
-  if(m.tipo === 'epico') return L.divIcon({className:'regnum-marker regnum-marker-epico', html:'<div class="regnum-star-glow regnum-star-6"></div><div class="regnum-star regnum-star-6"></div>', iconSize:[26,26]});
-  if(m.tipo === 'legendario') return L.divIcon({className:'regnum-marker regnum-marker-legendario', html:'<div class="regnum-star-glow regnum-star-5"></div><div class="regnum-star regnum-star-5"></div>', iconSize:[20,20]});
-  if(m.tipo === 'campeon') return L.divIcon({className:'regnum-marker regnum-marker-campeon', html:'<div class="regnum-star-glow regnum-star-4"></div><div class="regnum-star regnum-star-4"></div>', iconSize:[20,20]});
+  // Épico/Legendario/Campeón/Guardián: sin color de reino -- el dibujo
+  // ya distingue la categoría por sí solo (ver TIER_MARKER_ICON/
+  // GUARDIAN_MARKER_ICON), no hace falta recolorear por reino como el
+  // resto de los marcadores.
+  if(m.tipo === 'epico') return L.divIcon({className:'regnum-marker regnum-marker-epico', html:`<img class="regnum-tier-icon" src="${TIER_MARKER_ICON.epico}" alt="">`, iconSize:[28,28]});
+  if(m.tipo === 'legendario') return L.divIcon({className:'regnum-marker regnum-marker-legendario', html:`<img class="regnum-tier-icon" src="${TIER_MARKER_ICON.legendario}" alt="">`, iconSize:[22,22]});
+  if(m.tipo === 'campeon') return L.divIcon({className:'regnum-marker regnum-marker-campeon', html:`<img class="regnum-tier-icon" src="${TIER_MARKER_ICON.campeon}" alt="">`, iconSize:[22,22]});
+  if(m.tipo === 'guardian') return L.divIcon({className:'regnum-marker regnum-marker-guardian', html:`<img class="regnum-tier-icon" src="${GUARDIAN_MARKER_ICON[m.elemento]||''}" alt="">`, iconSize:[22,22]});
   // ciudad/lugar: la forma sale de la categoría (Ciudad/Fuerte/Castillo/...)
   const shape = PLACE_SHAPE[m.categoria] || 'ciudad';
   const size = PLACE_SIZE[shape] || 34;
@@ -1065,7 +1081,7 @@ function applyWzFortStatus(forts){
 function buildRegnumMarkers(){
   regnumMarkersLayer.clearLayers();
   regnumAllMarkerObjs = [];
-  const todos = [...regnumMapData.npcs, ...regnumMapData.misiones, ...(regnumMapData.ciudades||[]), ...(regnumMapData.epicos||[]), ...(regnumMapData.legendarios||[]), ...(regnumMapData.campeones||[])];
+  const todos = [...regnumMapData.npcs, ...regnumMapData.misiones, ...(regnumMapData.ciudades||[]), ...(regnumMapData.epicos||[]), ...(regnumMapData.legendarios||[]), ...(regnumMapData.campeones||[]), ...(regnumMapData.guardianes||[])];
   // Dónde quedó cada NPC ya calculado, por nombre — para que una misión sin
   // posición propia corregida use la de su dador en vez de su x/y original
   // (misiones y NPCs se corrigen por separado, así que si no hiciéramos
@@ -1124,6 +1140,11 @@ function buildRegnumMarkers(){
       // regresiva de spawn -- no hay fórmula para estos todavía, ver
       // buildTierBossPopupHTML.
       marker.bindPopup(() => buildTierBossPopupHTML(m), {autoPan:false, maxWidth:190, className:'epico-popup'});
+    } else if(m.tipo === 'guardian'){
+      // Sin retrato (a diferencia de Legendario/Campeón/Épico) ni drop
+      // -- tarjeta simple con el estilo por defecto, no la oscura de
+      // .epico-popup (esa se pensó para acompañar una foto grande).
+      marker.bindPopup(buildGuardianPopupHTML(m), {autoPan:false});
     } else {
       marker.bindPopup(buildRegnumPopupHTML(m), {autoPan:false});
     }
@@ -1140,27 +1161,19 @@ function buildRegnumMarkers(){
 // materiales) como era antes.
 const ZONE_COLOR_REINO = { Syrtis: '#7fae5a', Alsius: '#5b9cc9', Ignis: '#c9622f' };
 const ZONE_COLOR_DEFAULT = '#a09a8c'; // por si a alguna zona le faltara el reino
-// Morado para los guardianes en el tooltip -- a propósito distinto de los
-// colores de reino (que ya significan otra cosa acá) para que un jefe
-// especial resalte de un vistazo en el detalle de la zona. Primero
-// #a56dd6 (muy fuerte), después #9b85c4 (quedó muy apagado) -- este es
-// un morado eléctrico más oscuro, a medio camino entre los dos. (Ex
-// JEFE_COLOR: Campeones y Legendarios pasaron a marcador propio en el
-// mapa -- ver iconFor/.regnum-star -- así que este color y el tooltip de
-// abajo quedaron solo para los Guardianes, que siguen viviendo adentro
-// de z.jefes.)
+// Morado que distinguía a los jefes en el tooltip de zona -- ya no se ve
+// en ningún lado en la práctica: Guardián/Campeón/Legendario (las tres
+// etiquetas que vivían en z.jefes) terminaron todas con marcador propio
+// en el mapa (ver TIER_MARKER_ICON/GUARDIAN_MARKER_ICON en iconFor), así
+// que a esta altura ninguna zona debería tener nada cargado en z.jefes.
+// Se deja la función/constante y el bloque de abajo sin borrar (no
+// cuesta nada tenerlos) por si en el futuro hiciera falta cargar algún
+// mob especial de zona por este mismo mecanismo.
 const GUARDIAN_COLOR = '#8035e0';
 const MATERIAL_COLOR = '#8a6d00';
 
 function zoneHasMobs(z){ return (z.mobs||[]).length > 0; }
 function zoneHasMateriales(z){ return (z.materiales||[]).length > 0; }
-// Guardianes: mobs especiales con etiqueta de rareza "Guardián" -- viven
-// en su propio array (z.jefes, nombre de campo sin tocar en los datos
-// aunque ahora solo guarde Guardianes) separado de z.mobs para poder
-// prenderlos/apagarlos con su propio checkbox independiente. Campeón y
-// Legendario ERAN otras dos etiquetas que también vivían acá, pero
-// pasaron a tener marcador propio en el mapa (ver iconFor) y ya no se
-// agregan a z.jefes.
 function zoneHasGuardianes(z){ return (z.jefes||[]).length > 0; }
 
 // Orden por nivel para mostrar (mobs y jefes): "nivel" es texto libre (en
@@ -1293,6 +1306,7 @@ function editableFieldsFor(m){
   if(m.tipo === 'ciudad') return [['nombre','Nombre'], ['categoria','Categoría'], ['zona','Zona'], ['reino','Reino']];
   if(m.tipo === 'epico') return [['nombre','Nombre'], ['nivel','Nivel'], ['zona','Zona'], ['reino','Reino'], ['drop','Drop']];
   if(m.tipo === 'legendario' || m.tipo === 'campeon') return [['nombre','Nombre'], ['nivel','Nivel'], ['zona','Zona'], ['reino','Reino'], ['drop','Drop']];
+  if(m.tipo === 'guardian') return [['nombre','Nombre'], ['nivel','Nivel'], ['zona','Zona'], ['reino','Reino'], ['elemento','Elemento']];
   return [['nombre','Nombre'], ['nivel','Nivel'], ['la_da','La da'], ['xp','XP'], ['oro','Oro']];
 }
 
@@ -1461,6 +1475,13 @@ function buildTierBossPopupHTML(m){
   return `${img}<b>${m.nombre}</b><br>Nv. ${m.nivel}`;
 }
 
+// Guardianes: sin retrato ni drop, así que la tarjeta es solo texto --
+// estilo por defecto (el mismo que NPCs/misiones), no el fondo oscuro de
+// .epico-popup pensado para una foto grande.
+function buildGuardianPopupHTML(m){
+  return `<b>${m.nombre}</b><br>Nv. ${m.nivel}`;
+}
+
 function buildRegnumPopupHTML(m){
   if(m.tipo === 'ciudad'){
     // Los altares comparten el mismo nombre ("Altar de Resurrección") —
@@ -1596,6 +1617,10 @@ function passesRegnumFilters(m){
   const showEpico = document.getElementById('map-toggle-epico').checked;
   const showLegendario = document.getElementById('map-toggle-legendario').checked;
   const showCampeon = document.getElementById('map-toggle-campeon').checked;
+  // Los Guardianes ya no viven en el tooltip de zona (ver
+  // zoneHasGuardianes) -- este mismo checkbox ahora controla su
+  // marcador propio en el mapa.
+  const showGuardian = document.getElementById('map-toggle-guardianes').checked;
   const reino = document.getElementById('map-filter-reino').value;
   const prof = document.getElementById('map-filter-profesion').value;
   const nivel = document.getElementById('map-filter-nivel').value;
@@ -1605,6 +1630,7 @@ function passesRegnumFilters(m){
   if(m.tipo === 'epico' && !showEpico) return false;
   if(m.tipo === 'legendario' && !showLegendario) return false;
   if(m.tipo === 'campeon' && !showCampeon) return false;
+  if(m.tipo === 'guardian' && !showGuardian) return false;
   if(m.tipo === 'ciudad'){
     // Cada categoría de lugar (Aldea/Pueblo/Ciudad/Fuerte/Castillo/
     // Muralla/Altar) tiene su propio checkbox — ver PLACE_TOGGLE_ID.
@@ -1618,7 +1644,7 @@ function passesRegnumFilters(m){
   // sí tienen nivel, pero es el mismo dropdown que arma sus opciones a
   // partir de niveles de NPC/misión -- se los deja afuera para que
   // aparezcan siempre que su checkbox esté prendido, igual que el épico).
-  if(m.tipo !== 'ciudad' && m.tipo !== 'epico' && m.tipo !== 'legendario' && m.tipo !== 'campeon'){
+  if(m.tipo !== 'ciudad' && m.tipo !== 'epico' && m.tipo !== 'legendario' && m.tipo !== 'campeon' && m.tipo !== 'guardian'){
     if(prof && m.profesion !== prof) return false;
     if(nivel && String(m.nivel) !== nivel) return false;
   }
@@ -1653,13 +1679,14 @@ function wireRegnumSearchAndFilters(){
   function searchGlyph(m){
     if(m.tipo === 'mision') return '!';
     if(m.tipo === 'npc') return '●';
-    // Distinto carácter por categoría, a ojo con la misma cantidad de
-    // puntas que su marcador real en el mapa (ver .regnum-star en
-    // css/map.css) -- acá alcanza con texto plano porque es solo un
-    // prefijo en la lista de resultados, no el marcador en sí.
+    // Distinto carácter por categoría, a ojo con la cantidad de puntas
+    // de su marcador real en el mapa -- acá alcanza con texto plano
+    // porque es solo un prefijo en la lista de resultados, no el
+    // marcador en sí (ver TIER_MARKER_ICON/GUARDIAN_MARKER_ICON).
     if(m.tipo === 'epico') return '✶';
     if(m.tipo === 'legendario') return '★';
     if(m.tipo === 'campeon') return '✦';
+    if(m.tipo === 'guardian') return '◈';
     return PLACE_GLYPH[PLACE_SHAPE[m.categoria] || 'ciudad'];
   }
   // Además de NPCs/misiones/lugares, el buscador encuentra zonas por su
@@ -1760,6 +1787,7 @@ function wireRegnumSearchAndFilters(){
     if(m.tipo === 'epico') return 'map-toggle-epico';
     if(m.tipo === 'legendario') return 'map-toggle-legendario';
     if(m.tipo === 'campeon') return 'map-toggle-campeon';
+    if(m.tipo === 'guardian') return 'map-toggle-guardianes';
     return PLACE_TOGGLE_ID[m.categoria];
   }
   input.addEventListener('input', ()=>{
@@ -1780,7 +1808,7 @@ function wireRegnumSearchAndFilters(){
         const m = match.m;
         return `<div class="map-result-item" data-kind="marker" data-idx="${regnumAllMarkerObjs.indexOf(m)}">
           <div class="mri-name">${searchGlyph(m)} ${m.nombre}</div>
-          <div class="mri-meta">${m.tipo==='npc' ? (m.profesion||m.clase||'') : m.tipo==='ciudad' ? (m.categoria==='Altar' && m.zona ? m.zona : m.categoria) : m.tipo==='epico' ? ('Épico · Nv.'+m.nivel+' · '+m.zona) : m.tipo==='legendario' ? ('Legendario · Nv.'+m.nivel+' · '+m.zona) : m.tipo==='campeon' ? ('Campeón · Nv.'+m.nivel+' · '+m.zona) : 'Nivel '+m.nivel+' · La da: '+m.la_da} · ${m.reino}</div>
+          <div class="mri-meta">${m.tipo==='npc' ? (m.profesion||m.clase||'') : m.tipo==='ciudad' ? (m.categoria==='Altar' && m.zona ? m.zona : m.categoria) : m.tipo==='epico' ? ('Épico · Nv.'+m.nivel+' · '+m.zona) : m.tipo==='legendario' ? ('Legendario · Nv.'+m.nivel+' · '+m.zona) : m.tipo==='campeon' ? ('Campeón · Nv.'+m.nivel+' · '+m.zona) : m.tipo==='guardian' ? ('Guardián · Nv.'+m.nivel+' · '+m.zona) : 'Nivel '+m.nivel+' · La da: '+m.la_da} · ${m.reino}</div>
         </div>`;
       }
       const nombresZonas = JSON.stringify(match.zonas.map(z=> z.nombre)).replace(/"/g,'&quot;');
