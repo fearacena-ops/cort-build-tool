@@ -1043,9 +1043,9 @@ function iconFor(m){
   // GUARDIAN_MARKER_ICON), no hace falta recolorear por reino como el
   // resto de los marcadores.
   if(m.tipo === 'epico') return L.divIcon({className:'regnum-marker regnum-marker-epico', html:`<img class="regnum-tier-icon" src="${TIER_MARKER_ICON.epico}" alt="">`, iconSize:[28,28]});
-  if(m.tipo === 'legendario') return L.divIcon({className:'regnum-marker regnum-marker-legendario', html:`<img class="regnum-tier-icon" src="${TIER_MARKER_ICON.legendario}" alt="">`, iconSize:[22,22]});
-  if(m.tipo === 'campeon') return L.divIcon({className:'regnum-marker regnum-marker-campeon', html:`<img class="regnum-tier-icon" src="${TIER_MARKER_ICON.campeon}" alt="">`, iconSize:[22,22]});
-  if(m.tipo === 'guardian') return L.divIcon({className:'regnum-marker regnum-marker-guardian', html:`<img class="regnum-tier-icon" src="${GUARDIAN_MARKER_ICON[m.elemento]||''}" alt="">`, iconSize:[22,22]});
+  if(m.tipo === 'legendario') return L.divIcon({className:'regnum-marker regnum-marker-legendario', html:`<img class="regnum-tier-icon" src="${TIER_MARKER_ICON.legendario}" alt="">`, iconSize:[26,26]});
+  if(m.tipo === 'campeon') return L.divIcon({className:'regnum-marker regnum-marker-campeon', html:`<img class="regnum-tier-icon" src="${TIER_MARKER_ICON.campeon}" alt="">`, iconSize:[26,26]});
+  if(m.tipo === 'guardian') return L.divIcon({className:'regnum-marker regnum-marker-guardian', html:`<img class="regnum-tier-icon" src="${GUARDIAN_MARKER_ICON[m.elemento]||''}" alt="">`, iconSize:[26,26]});
   // ciudad/lugar: la forma sale de la categoría (Ciudad/Fuerte/Castillo/...)
   const shape = PLACE_SHAPE[m.categoria] || 'ciudad';
   const size = PLACE_SIZE[shape] || 34;
