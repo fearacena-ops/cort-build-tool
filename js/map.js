@@ -1082,10 +1082,12 @@ function iconFor(m){
   if(m.tipo === 'legendario') return L.divIcon({className:'regnum-marker regnum-marker-legendario', html:`<img class="regnum-tier-icon regnum-tier-icon-glow-sm" style="color:${TIER_GLOW_COLOR}" src="${TIER_MARKER_ICON.legendario}" alt="">`, iconSize:[26,26]});
   if(m.tipo === 'campeon') return L.divIcon({className:'regnum-marker regnum-marker-campeon', html:`<img class="regnum-tier-icon regnum-tier-icon-glow-sm" style="color:${TIER_GLOW_COLOR}" src="${TIER_MARKER_ICON.campeon}" alt="">`, iconSize:[26,26]});
   if(m.tipo === 'guardian') return L.divIcon({className:'regnum-marker regnum-marker-guardian', html:`<img class="regnum-tier-icon regnum-tier-icon-glow-sm" style="color:${GUARDIAN_GLOW_COLOR[m.elemento]||TIER_GLOW_COLOR}" src="${GUARDIAN_MARKER_ICON[m.elemento]||''}" alt="">`, iconSize:[26,26]});
-  // Un poco más grande que los Guardianes (26px + glow chico) -- mismo
-  // tamaño/resplandor que usa el Épico (28px + glow grande), a propósito:
-  // un dragón de mazmorra pesa al menos tanto como un épico.
-  if(m.tipo === 'dragon') return L.divIcon({className:'regnum-marker regnum-marker-dragon', html:`<img class="regnum-tier-icon regnum-tier-icon-glow" style="color:${DRAGON_GLOW_COLOR[m.dragonKey]||TIER_GLOW_COLOR}" src="${DRAGON_MARKER_ICON[m.dragonKey]||''}" alt="">`, iconSize:[28,28]});
+  // Al doble del resto de esta familia (56px, el Épico tiene 28px) --
+  // a pedido, para que un dragón de mazmorra se note bien de lejos.
+  // Glow grande también (.regnum-tier-icon-glow-lg, radios al doble de
+  // los del Épico) para que el aura no quede chica en proporción al
+  // ícono ya agrandado.
+  if(m.tipo === 'dragon') return L.divIcon({className:'regnum-marker regnum-marker-dragon', html:`<img class="regnum-tier-icon regnum-tier-icon-glow-lg" style="color:${DRAGON_GLOW_COLOR[m.dragonKey]||TIER_GLOW_COLOR}" src="${DRAGON_MARKER_ICON[m.dragonKey]||''}" alt="">`, iconSize:[56,56]});
   // ciudad/lugar: la forma sale de la categoría (Ciudad/Fuerte/Castillo/...)
   const shape = PLACE_SHAPE[m.categoria] || 'ciudad';
   const size = PLACE_SIZE[shape] || 34;

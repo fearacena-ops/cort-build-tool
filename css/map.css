@@ -121,6 +121,9 @@
   /* Mismo truco, radios más chicos -- para Legendario/Campeón/Guardián,
      que ya de por sí tienen el ícono un poco más chico que el Épico. */
   .regnum-tier-icon-glow-sm{filter:drop-shadow(0 0 1.5px currentColor) drop-shadow(0 0 3px currentColor) drop-shadow(0 0 5px currentColor);}
+  /* Mismo truco, radios al doble -- para Dragones, cuyo ícono también
+     quedó al doble de tamaño (56px) que el resto de esta familia. */
+  .regnum-tier-icon-glow-lg{filter:drop-shadow(0 0 3px currentColor) drop-shadow(0 0 7px currentColor) drop-shadow(0 0 12px currentColor);}
   /* Tamaño fijo e igual para las 3 -- las fotos no vienen todas con la
      misma proporción (una más angosta y alta, otras más cuadradas), así
      que con solo un max-width cada tarjeta terminaba de una altura
