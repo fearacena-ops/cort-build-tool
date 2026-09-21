@@ -143,17 +143,11 @@ function wzRenderGems(gems) {
       const tenida = g !== 'gem_0.png';
       const identidad = WZ_GEM_IDENTITY[i];
       const icon = tenida ? WZ_GEM_ICON[identidad.realm][identidad.variant] : WZ_GEM_ICON.none[0];
-      // Si el DUEÑO ORIGINAL de esta identidad es el MISMO reino de la
-      // fila, no es que la tenga un enemigo -- es una gema que
-      // capturaron y ya recuperó su propio reino (vuelve a su color de
-      // siempre, pero CoRT la distingue igual de una que nunca se
-      // tocó). Decir "Capturada por Ignis" para una gema DE Ignis que
-      // ya está de vuelta en casa sonaba a que seguía en poder de un
-      // enemigo.
-      const titulo = !tenida ? `Gema de ${identidad.realm} (a salvo)`
-        : identidad.realm === reino ? `Gema de ${identidad.realm} (recuperada)`
-        : `Gema de ${identidad.realm}, capturada por ${reino}`;
-      return `<img class="wz-gem-icon" src="${icon}" alt="${titulo}" title="${titulo}">`;
+      // Sin "title" a propósito -- el hover con el detalle (de quién es,
+      // si está a salvo/recuperada/capturada) se sacó a pedido, no
+      // aportaba nada. "alt" queda solo para accesibilidad, no dispara
+      // ningún tooltip visual.
+      return `<img class="wz-gem-icon" src="${icon}" alt="Gema de ${identidad.realm}">`;
     }).join('');
     return `<div class="wz-gems-row">
       <span class="wz-gems-label" style="color:${WZ_REALM_COLOR[reino]}">${reino}</span>

@@ -1024,6 +1024,7 @@ const TIER_MARKER_ICON = {
   epico: 'data/icons/marcadores/epico.webp',
   legendario: 'data/icons/marcadores/legendario.webp',
   campeon: 'data/icons/marcadores/campeon.webp',
+  cupido: 'data/icons/marcadores/cupido.webp',
 };
 // Guardianes: no tienen foto de retrato (a diferencia de Legendarios/
 // Campeones/Épicos), pero cada elemento (agua/tierra/fuego/viento)
@@ -1048,6 +1049,12 @@ const GUARDIAN_GLOW_COLOR = {
   viento: '#7de1f0',
 };
 const TIER_GLOW_COLOR = '#a24bff';
+// Cupido: categoría nueva y todavía chica (por ahora solo 3 estatuas,
+// sin nivel/drop cargados) -- checkbox propio, un solo ícono compartido
+// (como Épico/Legendario/Campeón, no uno por reino/elemento como
+// Guardianes/Dragones) y resplandor rosado a tono con el corazón del
+// dibujo en vez del morado genérico de las otras tres.
+const CUPIDO_GLOW_COLOR = '#ff4d7a';
 // Dragones: jefes de mazmorra, categoría nueva y separada de Épico/
 // Legendario/Campeón (checkbox propio, debajo de Legendarios). Igual que
 // Guardianes, cada uno tiene su propio ícono de marcador (m.dragonKey
@@ -1082,6 +1089,7 @@ function iconFor(m){
   if(m.tipo === 'legendario') return L.divIcon({className:'regnum-marker regnum-marker-legendario', html:`<img class="regnum-tier-icon regnum-tier-icon-glow-sm" style="color:${TIER_GLOW_COLOR}" src="${TIER_MARKER_ICON.legendario}" alt="">`, iconSize:[26,26]});
   if(m.tipo === 'campeon') return L.divIcon({className:'regnum-marker regnum-marker-campeon', html:`<img class="regnum-tier-icon regnum-tier-icon-glow-sm" style="color:${TIER_GLOW_COLOR}" src="${TIER_MARKER_ICON.campeon}" alt="">`, iconSize:[26,26]});
   if(m.tipo === 'guardian') return L.divIcon({className:'regnum-marker regnum-marker-guardian', html:`<img class="regnum-tier-icon regnum-tier-icon-glow-sm" style="color:${GUARDIAN_GLOW_COLOR[m.elemento]||TIER_GLOW_COLOR}" src="${GUARDIAN_MARKER_ICON[m.elemento]||''}" alt="">`, iconSize:[26,26]});
+  if(m.tipo === 'cupido') return L.divIcon({className:'regnum-marker regnum-marker-cupido', html:`<img class="regnum-tier-icon regnum-tier-icon-glow-sm" style="color:${CUPIDO_GLOW_COLOR}" src="${TIER_MARKER_ICON.cupido}" alt="">`, iconSize:[26,26]});
   // Al doble del resto de esta familia (56px, el Épico tiene 28px) --
   // a pedido, para que un dragón de mazmorra se note bien de lejos.
   // Glow grande también (.regnum-tier-icon-glow-lg, radios al doble de
@@ -1123,7 +1131,7 @@ function applyWzFortStatus(forts){
 function buildRegnumMarkers(){
   regnumMarkersLayer.clearLayers();
   regnumAllMarkerObjs = [];
-  const todos = [...regnumMapData.npcs, ...regnumMapData.misiones, ...(regnumMapData.ciudades||[]), ...(regnumMapData.epicos||[]), ...(regnumMapData.legendarios||[]), ...(regnumMapData.campeones||[]), ...(regnumMapData.guardianes||[]), ...(regnumMapData.dragones||[])];
+  const todos = [...regnumMapData.npcs, ...regnumMapData.misiones, ...(regnumMapData.ciudades||[]), ...(regnumMapData.epicos||[]), ...(regnumMapData.legendarios||[]), ...(regnumMapData.campeones||[]), ...(regnumMapData.guardianes||[]), ...(regnumMapData.dragones||[]), ...(regnumMapData.cupidos||[])];
   // Dónde quedó cada NPC ya calculado, por nombre — para que una misión sin
   // posición propia corregida use la de su dador en vez de su x/y original
   // (misiones y NPCs se corrigen por separado, así que si no hiciéramos
@@ -1192,6 +1200,10 @@ function buildRegnumMarkers(){
       // si lo tiene) -- por ahora a varios dragones les falta nivel/zona,
       // buildTierBossPopupHTML ya los omite cuando no están.
       marker.bindPopup(() => buildTierBossPopupHTML(m), {autoPan:false, maxWidth:190, className:'epico-popup'});
+    } else if(m.tipo === 'cupido'){
+      // Sin retrato ni drop, como los Guardianes -- categoría nueva y
+      // chica por ahora, mismo estilo simple de tarjeta.
+      marker.bindPopup(buildCupidoPopupHTML(m), {autoPan:false});
     } else {
       marker.bindPopup(buildRegnumPopupHTML(m), {autoPan:false});
     }
@@ -1355,6 +1367,7 @@ function editableFieldsFor(m){
   if(m.tipo === 'legendario' || m.tipo === 'campeon') return [['nombre','Nombre'], ['nivel','Nivel'], ['zona','Zona'], ['reino','Reino'], ['drop','Drop']];
   if(m.tipo === 'guardian') return [['nombre','Nombre'], ['nivel','Nivel'], ['zona','Zona'], ['reino','Reino'], ['elemento','Elemento']];
   if(m.tipo === 'dragon') return [['nombre','Nombre'], ['nivel','Nivel'], ['zona','Zona'], ['reino','Reino'], ['drop','Drop'], ['dragonKey','Dragón (ícono)']];
+  if(m.tipo === 'cupido') return [['nombre','Nombre'], ['zona','Zona'], ['reino','Reino']];
   return [['nombre','Nombre'], ['nivel','Nivel'], ['la_da','La da'], ['xp','XP'], ['oro','Oro']];
 }
 
@@ -1515,16 +1528,18 @@ function buildEpicoPopupHTML(m){
 }
 
 // Legendarios y Campeones: misma tarjeta que el épico (imagen + nombre +
-// nivel), pero sin cuenta regresiva -- no hay fórmula de spawn para estos
-// todavía (a diferencia del épico, que la toma de cort.ovh). Zona/Reino/
-// Drop quedan ocultos por ahora, mismo criterio que buildEpicoPopupHTML.
+// nivel + drop), pero sin cuenta regresiva -- no hay fórmula de spawn
+// para estos todavía (a diferencia del épico, que la toma de cort.ovh).
+// Zona/Reino siguen ocultos por ahora, mismo criterio que
+// buildEpicoPopupHTML -- el Drop sí se pidió mostrar acá.
 function buildTierBossPopupHTML(m){
   const img = m.imagen ? `<img class="epico-popup-img" src="${m.imagen}" alt="${m.nombre}">` : '';
-  // m.nivel puede faltar todavía (p.ej. dragones recién agregados sin
-  // datos completos) -- en ese caso se omite la línea entera en vez de
-  // mostrar "Nv. undefined".
+  // m.nivel/m.drop pueden faltar todavía (p.ej. dragones recién
+  // agregados sin datos completos) -- en ese caso se omite la línea
+  // entera en vez de mostrar "Nv. undefined" o "Drop: undefined".
   const nivel = m.nivel ? `<br>Nv. ${m.nivel}` : '';
-  return `${img}<b>${m.nombre}</b>${nivel}`;
+  const drop = m.drop ? `<br>Drop: ${m.drop}` : '';
+  return `${img}<b>${m.nombre}</b>${nivel}${drop}`;
 }
 
 // Guardianes: sin retrato ni drop, así que la tarjeta es solo texto --
@@ -1532,6 +1547,15 @@ function buildTierBossPopupHTML(m){
 // .epico-popup pensado para una foto grande.
 function buildGuardianPopupHTML(m){
   return `<b>${m.nombre}</b><br>Nv. ${m.nivel}`;
+}
+
+// Cupido: mismo criterio de tarjeta simple que Guardianes (sin retrato
+// ni drop) -- categoría nueva y chica por ahora, sin nivel cargado
+// todavía, así que la tarjeta por ahora es solo el nombre (más la zona,
+// si no está "PENDIENTE").
+function buildCupidoPopupHTML(m){
+  const zona = m.zona && m.zona !== 'PENDIENTE' ? `<br>${m.zona}` : '';
+  return `<b>${m.nombre}</b>${zona}`;
 }
 
 function buildRegnumPopupHTML(m){
@@ -1674,6 +1698,7 @@ function passesRegnumFilters(m){
   // marcador propio en el mapa.
   const showGuardian = document.getElementById('map-toggle-guardianes').checked;
   const showDragon = document.getElementById('map-toggle-dragon').checked;
+  const showCupido = document.getElementById('map-toggle-cupido').checked;
   const reino = document.getElementById('map-filter-reino').value;
   const prof = document.getElementById('map-filter-profesion').value;
   const nivel = document.getElementById('map-filter-nivel').value;
@@ -1685,6 +1710,7 @@ function passesRegnumFilters(m){
   if(m.tipo === 'campeon' && !showCampeon) return false;
   if(m.tipo === 'guardian' && !showGuardian) return false;
   if(m.tipo === 'dragon' && !showDragon) return false;
+  if(m.tipo === 'cupido' && !showCupido) return false;
   if(m.tipo === 'ciudad'){
     // Cada categoría de lugar (Aldea/Pueblo/Ciudad/Fuerte/Castillo/
     // Muralla/Altar) tiene su propio checkbox — ver PLACE_TOGGLE_ID.
@@ -1698,7 +1724,7 @@ function passesRegnumFilters(m){
   // sí tienen nivel, pero es el mismo dropdown que arma sus opciones a
   // partir de niveles de NPC/misión -- se los deja afuera para que
   // aparezcan siempre que su checkbox esté prendido, igual que el épico).
-  if(m.tipo !== 'ciudad' && m.tipo !== 'epico' && m.tipo !== 'legendario' && m.tipo !== 'campeon' && m.tipo !== 'guardian' && m.tipo !== 'dragon'){
+  if(m.tipo !== 'ciudad' && m.tipo !== 'epico' && m.tipo !== 'legendario' && m.tipo !== 'campeon' && m.tipo !== 'guardian' && m.tipo !== 'dragon' && m.tipo !== 'cupido'){
     if(prof && m.profesion !== prof) return false;
     if(nivel && String(m.nivel) !== nivel) return false;
   }
@@ -1717,7 +1743,7 @@ function wireRegnumSearchAndFilters(){
   // los dos, y no cuesta nada reconstruir marcadores de más cuando cambia
   // un checkbox que en realidad es solo de zonas (o viceversa).
   function refreshMapLayers(){ applyRegnumFilters(); applyZoneFilters(); }
-  [...PLACE_TOGGLE_IDS,'map-toggle-npc','map-toggle-mision','map-toggle-epico','map-toggle-legendario','map-toggle-campeon','map-toggle-dragon','map-toggle-mobs','map-toggle-guardianes','map-toggle-materiales','map-filter-reino','map-filter-profesion','map-filter-nivel'].forEach(id=>{
+  [...PLACE_TOGGLE_IDS,'map-toggle-npc','map-toggle-mision','map-toggle-epico','map-toggle-legendario','map-toggle-campeon','map-toggle-dragon','map-toggle-cupido','map-toggle-mobs','map-toggle-guardianes','map-toggle-materiales','map-filter-reino','map-filter-profesion','map-filter-nivel'].forEach(id=>{
     document.getElementById(id).addEventListener('change', refreshMapLayers);
   });
 
@@ -1742,6 +1768,7 @@ function wireRegnumSearchAndFilters(){
     if(m.tipo === 'campeon') return '✦';
     if(m.tipo === 'guardian') return '◈';
     if(m.tipo === 'dragon') return '🐉';
+    if(m.tipo === 'cupido') return '💘';
     return PLACE_GLYPH[PLACE_SHAPE[m.categoria] || 'ciudad'];
   }
   // Además de NPCs/misiones/lugares, el buscador encuentra zonas por su
@@ -1844,6 +1871,7 @@ function wireRegnumSearchAndFilters(){
     if(m.tipo === 'campeon') return 'map-toggle-campeon';
     if(m.tipo === 'guardian') return 'map-toggle-guardianes';
     if(m.tipo === 'dragon') return 'map-toggle-dragon';
+    if(m.tipo === 'cupido') return 'map-toggle-cupido';
     return PLACE_TOGGLE_ID[m.categoria];
   }
   input.addEventListener('input', ()=>{
@@ -1864,7 +1892,7 @@ function wireRegnumSearchAndFilters(){
         const m = match.m;
         return `<div class="map-result-item" data-kind="marker" data-idx="${regnumAllMarkerObjs.indexOf(m)}">
           <div class="mri-name">${searchGlyph(m)} ${m.nombre}</div>
-          <div class="mri-meta">${m.tipo==='npc' ? (m.profesion||m.clase||'') : m.tipo==='ciudad' ? (m.categoria==='Altar' && m.zona ? m.zona : m.categoria) : m.tipo==='epico' ? ('Épico · Nv.'+m.nivel+' · '+m.zona) : m.tipo==='legendario' ? ('Legendario · Nv.'+m.nivel+' · '+m.zona) : m.tipo==='campeon' ? ('Campeón · Nv.'+m.nivel+' · '+m.zona) : m.tipo==='guardian' ? ('Guardián · Nv.'+m.nivel+' · '+m.zona) : m.tipo==='dragon' ? ('Dragón'+(m.nivel?' · Nv.'+m.nivel:'')+(m.zona?' · '+m.zona:'')) : 'Nivel '+m.nivel+' · La da: '+m.la_da} · ${m.reino}</div>
+          <div class="mri-meta">${m.tipo==='npc' ? (m.profesion||m.clase||'') : m.tipo==='ciudad' ? (m.categoria==='Altar' && m.zona ? m.zona : m.categoria) : m.tipo==='epico' ? ('Épico · Nv.'+m.nivel+' · '+m.zona) : m.tipo==='legendario' ? ('Legendario · Nv.'+m.nivel+' · '+m.zona) : m.tipo==='campeon' ? ('Campeón · Nv.'+m.nivel+' · '+m.zona) : m.tipo==='guardian' ? ('Guardián · Nv.'+m.nivel+' · '+m.zona) : m.tipo==='dragon' ? ('Dragón'+(m.nivel?' · Nv.'+m.nivel:'')+(m.zona?' · '+m.zona:'')) : m.tipo==='cupido' ? ('Cupido'+(m.zona && m.zona!=='PENDIENTE'?' · '+m.zona:'')) : 'Nivel '+m.nivel+' · La da: '+m.la_da} · ${m.reino}</div>
         </div>`;
       }
       const nombresZonas = JSON.stringify(match.zonas.map(z=> z.nombre)).replace(/"/g,'&quot;');
