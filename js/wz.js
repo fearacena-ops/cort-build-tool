@@ -136,7 +136,16 @@ function wzRenderGems(gems) {
       ocurrencias[clave] = ocurrencia + 1;
       const iconos = WZ_GEM_ICON[clave];
       const icon = iconos[ocurrencia % iconos.length];
-      const titulo = holder ? `Capturada por ${holder}` : `Gema de ${reino} (a salvo)`;
+      // Si el "dueño" de este color es el MISMO reino de la fila, no es
+      // que la tenga un enemigo -- es una gema que capturaron y ya
+      // recuperó su propio reino (vuelve a su color de siempre, pero
+      // CoRT la distingue igual de una que nunca se tocó, ver el
+      // comentario grande de WZ_GEM_HOLDER más arriba). Decir
+      // "Capturada por Ignis" para una gema DE Ignis que ya está de
+      // vuelta en casa sonaba a que seguía en poder de un enemigo.
+      const titulo = !holder ? `Gema de ${reino} (a salvo)`
+        : holder === reino ? `Gema de ${reino} (recuperada)`
+        : `Capturada por ${holder}`;
       return `<img class="wz-gem-icon" src="${icon}" alt="${titulo}" title="${titulo}">`;
     }).join('');
     return `<div class="wz-gems-row">
