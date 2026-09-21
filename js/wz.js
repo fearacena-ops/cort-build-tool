@@ -15,24 +15,38 @@
 // repetidos acá (no hay forma simple de compartir constantes entre estos
 // dos scripts sueltos) para no depender de que map.js se haya cargado.
 const WZ_REALM_COLOR = { Alsius: '#5b9cc9', Ignis: '#c9622f', Syrtis: '#7fae5a' };
-// gem_0.png = todavía en su reino de origen (gris, "a salvo"). gem_1/2/3
-// identifican qué reino la tiene ahora — Ignis/Alsius/Syrtis en ESE orden
-// fijo, no según la posición de la gema (así lo arma el propio wztools.js
-// de CoRT: js/wztools/wztools.js, generate_gem(realm_colors[...])).
-const WZ_GEM_HOLDER = { 'gem_0.png': null, 'gem_1.png': 'Ignis', 'gem_2.png': 'Alsius', 'gem_3.png': 'Syrtis' };
+// Hay 6 gemas en TOTAL en el juego (no 18) -- 2 por reino, cada una con
+// su propio color fijo de siempre (no cambia aunque la capture otro
+// reino). El array de 18 que manda CoRT son esas mismas 6 identidades
+// repetidas una vez por cada posible reino TENEDOR: values[reino*6 + i]
+// dice si ESE reino tiene ahora mismo la identidad #i -- "gem_0.png" si
+// no la tiene, cualquier otro valor si sí. Quién la tiene ahora se
+// entera por en QUÉ BLOQUE de 6 aparece el valor no-cero, no por el
+// valor en sí (el valor (1/2/3) es el reino DUEÑO ORIGINAL de esa
+// identidad -- información redundante con la posición, no del tenedor
+// actual; confirmado cruzando un caso real con capturas visibles en el
+// juego, ver commit).
+const WZ_GEM_IDENTITY = [
+  { realm: 'Syrtis', variant: 0 }, // posición 0: Syrtis Gema #1 (verde oscuro)
+  { realm: 'Alsius', variant: 0 }, // posición 1: Alsius Gema #1 (celeste)
+  { realm: 'Ignis',  variant: 0 }, // posición 2: Ignis  Gema #1 (rojo)
+  { realm: 'Alsius', variant: 1 }, // posición 3: Alsius Gema #2 (azul oscuro)
+  { realm: 'Ignis',  variant: 1 }, // posición 4: Ignis  Gema #2 (amarillo)
+  { realm: 'Syrtis', variant: 1 }, // posición 5: Syrtis Gema #2 (verde claro)
+];
 // Íconos de gema reales (no puntos de color) — data/icons/gem-*.png. Dos
-// variantes por reino (se alternan según la posición de cada gema en su
-// fila de 6, solo para que no queden seis copias idénticas en línea).
+// por reino, uno por cada identidad fija de WZ_GEM_IDENTITY (variant
+// 0/1) -- ya NO se alternan por orden de aparición, cada identidad
+// siempre usa el mismo ícono venga de donde venga.
 const WZ_GEM_ICON = {
   none: ['data/icons/gem-none.png'],
   Ignis: ['data/icons/gem-ignis-1.png', 'data/icons/gem-ignis-2.png'],
   Alsius: ['data/icons/gem-alsius-1.png', 'data/icons/gem-alsius-2.png'],
   Syrtis: ['data/icons/gem-syrtis-1.png', 'data/icons/gem-syrtis-2.png'],
 };
-// Las 18 gemas del JSON vienen en un solo array plano: las primeras 6 son
-// las de Alsius, las siguientes 6 las de Ignis, las últimas 6 las de
-// Syrtis (mismo orden que los <span id="wz-gems-N"> del wz.html
-// original, agrupados de a 6 por reino).
+// Las 18 gemas del JSON vienen en un solo array plano: las primeras 6
+// dicen qué tiene Alsius (de las 6 identidades de WZ_GEM_IDENTITY), las
+// siguientes 6 qué tiene Ignis, las últimas 6 qué tiene Syrtis.
 const WZ_GEM_REALMS = [
   ['Alsius', 0, 6],
   ['Ignis', 6, 12],
@@ -122,30 +136,23 @@ function wzRenderGems(gems) {
   const box = document.getElementById('wz-gems');
   if (!box || !Array.isArray(gems)) return;
   box.innerHTML = WZ_GEM_REALMS.map(([reino, from, to]) => {
-    // La variante (1/2) alterna según el ORDEN en que aparece cada gema
-    // de un mismo dueño, de izquierda a derecha — no según su posición
-    // absoluta en la fila de 6. Con la posición absoluta, las dos gemas
-    // capturadas de un reino podían caer las dos en índice par (o las
-    // dos en impar) y terminaban mostrando la misma variante, en vez de
-    // alternar como se ve en el juego.
-    const ocurrencias = {};
-    const dots = gems.slice(from, to).map(g => {
-      const holder = WZ_GEM_HOLDER[g];
-      const clave = holder || 'none';
-      const ocurrencia = ocurrencias[clave] || 0;
-      ocurrencias[clave] = ocurrencia + 1;
-      const iconos = WZ_GEM_ICON[clave];
-      const icon = iconos[ocurrencia % iconos.length];
-      // Si el "dueño" de este color es el MISMO reino de la fila, no es
-      // que la tenga un enemigo -- es una gema que capturaron y ya
-      // recuperó su propio reino (vuelve a su color de siempre, pero
-      // CoRT la distingue igual de una que nunca se tocó, ver el
-      // comentario grande de WZ_GEM_HOLDER más arriba). Decir
-      // "Capturada por Ignis" para una gema DE Ignis que ya está de
-      // vuelta en casa sonaba a que seguía en poder de un enemigo.
-      const titulo = !holder ? `Gema de ${reino} (a salvo)`
-        : holder === reino ? `Gema de ${reino} (recuperada)`
-        : `Capturada por ${holder}`;
+    const dots = gems.slice(from, to).map((g, i) => {
+      // Tiene esta identidad ESTA fila (reino) ahora mismo, sí o no --
+      // el valor de "g" (gem_0/1/2/3) más allá de "es gem_0 o no" no se
+      // usa acá, ver el comentario grande de WZ_GEM_IDENTITY más arriba.
+      const tenida = g !== 'gem_0.png';
+      const identidad = WZ_GEM_IDENTITY[i];
+      const icon = tenida ? WZ_GEM_ICON[identidad.realm][identidad.variant] : WZ_GEM_ICON.none[0];
+      // Si el DUEÑO ORIGINAL de esta identidad es el MISMO reino de la
+      // fila, no es que la tenga un enemigo -- es una gema que
+      // capturaron y ya recuperó su propio reino (vuelve a su color de
+      // siempre, pero CoRT la distingue igual de una que nunca se
+      // tocó). Decir "Capturada por Ignis" para una gema DE Ignis que
+      // ya está de vuelta en casa sonaba a que seguía en poder de un
+      // enemigo.
+      const titulo = !tenida ? `Gema de ${identidad.realm} (a salvo)`
+        : identidad.realm === reino ? `Gema de ${identidad.realm} (recuperada)`
+        : `Gema de ${identidad.realm}, capturada por ${reino}`;
       return `<img class="wz-gem-icon" src="${icon}" alt="${titulo}" title="${titulo}">`;
     }).join('');
     return `<div class="wz-gems-row">
