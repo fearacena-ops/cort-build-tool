@@ -1521,25 +1521,32 @@ function buildEpicoPopupHTML(m){
   const spawnTxt = sp ? formatEpicoCountdown(sp.next - Math.floor(Date.now()/1000)) : '?';
   const img = m.imagen ? `<img class="epico-popup-img" src="${m.imagen}" alt="${m.nombre}">` : '';
   const nivel = m.nivel ? `<br>Nv. ${m.nivel}` : '';
-  // Zona/Reino/Drop quedan ocultos por ahora (a pedido) -- el dato sigue
-  // en m.zona/m.reino/m.drop por si se decide mostrarlo más adelante,
-  // esta función nada más no los imprime todavía.
-  return `${img}<b>${m.nombre}</b>${nivel}<br><b>Aparece en:</b> ${spawnTxt}`;
+  const zona = m.zona ? `<br>${m.zona}` : '';
+  // Reino/Drop siguen ocultos por ahora -- el dato sigue en m.reino/
+  // m.drop por si se decide mostrarlo más adelante, esta función nada
+  // más no los imprime todavía. La Zona sí se agregó a pedido.
+  return `${img}<b>${m.nombre}</b>${nivel}${zona}<br><b>Aparece en:</b> ${spawnTxt}`;
 }
 
 // Legendarios y Campeones: misma tarjeta que el épico (imagen + nombre +
-// nivel + drop), pero sin cuenta regresiva -- no hay fórmula de spawn
-// para estos todavía (a diferencia del épico, que la toma de cort.ovh).
-// Zona/Reino siguen ocultos por ahora, mismo criterio que
-// buildEpicoPopupHTML -- el Drop sí se pidió mostrar acá.
+// nivel + zona + drop), pero sin cuenta regresiva -- no hay fórmula de
+// spawn para estos todavía (a diferencia del épico, que la toma de
+// cort.ovh). Reino sigue oculto por ahora.
+// Campeón/Legendario llevan la categoría entre paréntesis al lado del
+// nombre ("Rizofag (Campeón)") para diferenciarlos de un vistazo --
+// Dragón no (no se pidió) y Épico tampoco (queda con su nombre solo,
+// ver buildEpicoPopupHTML).
+const TIER_SUFFIX = { campeon: ' (Campeón)', legendario: ' (Legendario)' };
 function buildTierBossPopupHTML(m){
   const img = m.imagen ? `<img class="epico-popup-img" src="${m.imagen}" alt="${m.nombre}">` : '';
-  // m.nivel/m.drop pueden faltar todavía (p.ej. dragones recién
+  // m.nivel/m.zona/m.drop pueden faltar todavía (p.ej. dragones recién
   // agregados sin datos completos) -- en ese caso se omite la línea
   // entera en vez de mostrar "Nv. undefined" o "Drop: undefined".
+  const nombre = m.nombre + (TIER_SUFFIX[m.tipo] || '');
   const nivel = m.nivel ? `<br>Nv. ${m.nivel}` : '';
+  const zona = m.zona ? `<br>${m.zona}` : '';
   const drop = m.drop ? `<br>Drop: ${m.drop}` : '';
-  return `${img}<b>${m.nombre}</b>${nivel}${drop}`;
+  return `${img}<b>${nombre}</b>${nivel}${zona}${drop}`;
 }
 
 // Guardianes: sin retrato ni drop, así que la tarjeta es solo texto --
