@@ -434,6 +434,14 @@ function initRegnumMapIfNeeded(){
       img.addEventListener('load', ()=>{ e.popup.update(); nudgePopupInsideFrame(e.popup); }, {once:true});
     }
   });
+  // Al hacer zoom con una tarjeta abierta, Leaflet la reposiciona sola
+  // (nueva posición en pantalla para el marcador al nuevo zoom) pero
+  // pisa el corrimiento manual de nudgePopupInsideFrame de arriba, así
+  // que puede terminar tapada por el borde del recuadro otra vez. Más
+  // simple que perseguir la posición en cada paso del zoom: cerrarla
+  // apenas empieza a hacerse zoom (con la rueda, los botones +/- o
+  // doble click) — a pedido, no hacía falta que sobreviva al zoom.
+  regnumMap.on('zoomstart', ()=> regnumMap.closePopup());
 
   // Herramienta de referencia, oculta: agregando ?refpick=1 a la URL, un
   // click en el mapa (en un lugar vacío, no sobre un marcador) muestra el
