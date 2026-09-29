@@ -636,6 +636,10 @@ function initRegnumMapIfNeeded(){
     let ztMobs = [];
     let ztJefes = [];
     let ztMats = [];
+    // z.etiqueta (ver buildZonePopupHTML) distingue zonas que repiten
+    // nombre -- esta herramienta no tiene un campo para editarla, pero
+    // "Cargar" + "Guardar" no debe perderla de pisada si ya la tenía.
+    let ztEtiqueta = null;
 
     function ztRefreshChangesCount(){
       document.getElementById('zt-changes-count').textContent = zoneToolChanges.length;
@@ -720,9 +724,17 @@ function initRegnumMapIfNeeded(){
     function ztRefreshZoneList(){
       const sel = document.getElementById('zt-list');
       const zonas = regnumMapData.zonas || [];
-      sel.innerHTML = zonas.map(z=>
-        `<option value="${z.nombre.replace(/"/g,'&quot;')}">${z.nombre} (${z.reino}) — ${(z.mobs||[]).length} mobs, ${(z.jefes||[]).length} jefes, ${(z.materiales||[]).length} mat.</option>`
-      ).join('');
+      // Si la zona usa z.piezas (mobs/materiales propios de cada polígono,
+      // ver buildRegnumZones), los conteos a nivel zona quedan vacíos a
+      // propósito -- se suman las piezas para que el cartel no muestre
+      // "0 mobs" en una zona que en realidad sí tiene.
+      sel.innerHTML = zonas.map(z=>{
+        const nMobs = (z.mobs||[]).length + (z.piezas||[]).reduce((s,p)=> s+(p.mobs||[]).length, 0);
+        const nJefes = (z.jefes||[]).length + (z.piezas||[]).reduce((s,p)=> s+(p.jefes||[]).length, 0);
+        const nMats = (z.materiales||[]).length + (z.piezas||[]).reduce((s,p)=> s+(p.materiales||[]).length, 0);
+        const etiquetaZona = z.etiqueta ? ` (${z.etiqueta})` : '';
+        return `<option value="${z.nombre.replace(/"/g,'&quot;')}">${z.nombre}${etiquetaZona} (${z.reino}) — ${nMobs} mobs, ${nJefes} jefes, ${nMats} mat.</option>`;
+      }).join('');
     }
     // Si se edita el nombre a mano, la lista de piezas se refresca — así
     // la etiqueta "de tal zona" (que se oculta cuando coincide con el
@@ -772,6 +784,7 @@ function initRegnumMapIfNeeded(){
       }
       document.getElementById('zt-name').value = nombre;
       document.getElementById('zt-reino').value = z.reino || 'Syrtis';
+      ztEtiqueta = z.etiqueta || null;
       ztMobs = (z.mobs||[]).map(it=>({...it}));
       ztJefes = (z.jefes||[]).map(it=>({...it}));
       ztMats = (z.materiales||[]).map(it=>({...it}));
@@ -838,7 +851,7 @@ function initRegnumMapIfNeeded(){
       // verdad con jefes (faltaba resetear ztJefes después de guardar, ver
       // más abajo) y corrompía la zona anterior en vez de afectar solo a
       // la nueva.
-      const entradas = [{nombre, reino, poligonos, mobs: ztMobs.map(it=>({...it})), jefes: ztJefes.map(it=>({...it})), materiales: ztMats.map(it=>({...it}))}];
+      const entradas = [{nombre, reino, poligonos, mobs: ztMobs.map(it=>({...it})), jefes: ztJefes.map(it=>({...it})), materiales: ztMats.map(it=>({...it})), ...(ztEtiqueta ? {etiqueta: ztEtiqueta} : {})}];
       // Si alguna pieza tildada vino de OTRA zona ya existente (se trajo
       // acá con "Cargar" y se reusa con un nombre distinto), esa pieza
       // se saca también de la zona de origen — si no, queda viviendo
@@ -903,6 +916,7 @@ function initRegnumMapIfNeeded(){
       ztMobs = [];
       ztJefes = [];
       ztMats = [];
+      ztEtiqueta = null;
       ztRefreshLists();
       refreshRefpickPanel();
       alert(`"${nombre}" ya se ve en el mapa (y quedó sumada a los cambios pendientes, ${zoneToolChanges.length} en total, para cuando quieras exportarlos). Las piezas y datos del formulario ya se limpiaron para la próxima zona.`);
@@ -1285,7 +1299,12 @@ function buildZonePopupHTML(z, forzarTodo, pieza){
   const mobsOn = forzarTodo || document.getElementById('map-toggle-mobs').checked;
   const matsOn = forzarTodo || document.getElementById('map-toggle-materiales').checked;
   const guardianesOn = forzarTodo || document.getElementById('map-toggle-guardianes').checked;
-  const partes = [`<b>${z.nombre}</b>`, z.reino];
+  // z.etiqueta: distingue zonas que repiten nombre en el juego (por
+  // ejemplo "Playa Oculta" existe tanto en zona segura como en zona de
+  // guerra) -- se muestra entre paréntesis junto al nombre para no
+  // confundirlas al pasar el mouse.
+  const etiquetaZona = z.etiqueta ? ` (${z.etiqueta})` : '';
+  const partes = [`<b>${z.nombre}${etiquetaZona}</b>`, z.reino];
   // Si tenés solo Mobs prendido no hace falta ver los materiales de la
   // zona (y viceversa) — el tooltip muestra nada más lo que se está
   // filtrando en ese momento, no todo lo que la zona tenga cargado.
