@@ -1299,12 +1299,11 @@ function buildZonePopupHTML(z, forzarTodo, pieza){
   const mobsOn = forzarTodo || document.getElementById('map-toggle-mobs').checked;
   const matsOn = forzarTodo || document.getElementById('map-toggle-materiales').checked;
   const guardianesOn = forzarTodo || document.getElementById('map-toggle-guardianes').checked;
-  // z.etiqueta: distingue zonas que repiten nombre en el juego (por
-  // ejemplo "Playa Oculta" existe tanto en zona segura como en zona de
-  // guerra) -- se muestra entre paréntesis junto al nombre para no
-  // confundirlas al pasar el mouse.
-  const etiquetaZona = z.etiqueta ? ` (${z.etiqueta})` : '';
-  const partes = [`<b>${z.nombre}${etiquetaZona}</b>`, z.reino];
+  // z.etiqueta (ZS/ZG) distingue zonas que repiten nombre en el juego,
+  // pero es un dato interno -- no se muestra en el tooltip del mapa
+  // (solo en el desplegable de la herramienta de edición, donde hace
+  // falta para no cargar la zona equivocada).
+  const partes = [`<b>${z.nombre}</b>`, z.reino];
   // Si tenés solo Mobs prendido no hace falta ver los materiales de la
   // zona (y viceversa) — el tooltip muestra nada más lo que se está
   // filtrando en ese momento, no todo lo que la zona tenga cargado.
