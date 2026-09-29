@@ -763,6 +763,13 @@ function initRegnumMapIfNeeded(){
       // piezas que ya se le dieron a otra zona nueva.
       const z = ztGetCurrentZone(nombre);
       if(!z) return;
+      // Esta herramienta todavía edita mobs/jefes/materiales a nivel zona
+      // nada más -- si la zona tiene z.piezas (contenido propio por
+      // polígono, ver buildRegnumZones en el mapa), guardarla desde aquí
+      // sin querer aplastaría esa distinción en un solo listado combinado.
+      if(Array.isArray(z.piezas) && z.piezas.length){
+        alert(`"${nombre}" tiene mobs/materiales distintos por pieza (no todas comparten la misma lista). Esta herramienta todavía no edita eso por separado: si la guardás desde aquí se pierde esa distinción y queda un solo listado combinado para todas las piezas. Para cambiar algo, mejor pedíselo directamente a Claude.`);
+      }
       document.getElementById('zt-name').value = nombre;
       document.getElementById('zt-reino').value = z.reino || 'Syrtis';
       ztMobs = (z.mobs||[]).map(it=>({...it}));
@@ -1239,9 +1246,13 @@ const ZONE_COLOR_DEFAULT = '#a09a8c'; // por si a alguna zona le faltara el rein
 const GUARDIAN_COLOR = '#8035e0';
 const MATERIAL_COLOR = '#8a6d00';
 
-function zoneHasMobs(z){ return (z.mobs||[]).length > 0; }
-function zoneHasMateriales(z){ return (z.materiales||[]).length > 0; }
-function zoneHasGuardianes(z){ return (z.jefes||[]).length > 0; }
+// Si la zona tiene z.piezas (mobs/materiales/jefes distintos por
+// polígono, ver buildRegnumZones), lo que cuenta para los checkboxes de
+// filtro es la suma de TODAS las piezas, no la lista a nivel zona (que
+// en ese caso queda vacía a propósito).
+function zoneHasMobs(z){ return (z.mobs||[]).length > 0 || (z.piezas||[]).some(p=> (p.mobs||[]).length > 0); }
+function zoneHasMateriales(z){ return (z.materiales||[]).length > 0 || (z.piezas||[]).some(p=> (p.materiales||[]).length > 0); }
+function zoneHasGuardianes(z){ return (z.jefes||[]).length > 0 || (z.piezas||[]).some(p=> (p.jefes||[]).length > 0); }
 
 // Orden por nivel para mostrar (mobs y jefes): "nivel" es texto libre (en
 // general un número como "22", pero el campo del editor no fuerza formato,
@@ -1265,7 +1276,12 @@ function zoneColor(z){
 // ahí, se le muestra todo el contenido aunque el checkbox de Mobs o
 // Materiales esté apagado — si no, buscar un material y que el tooltip
 // no lo muestre por tener Materiales apagado sería muy raro.
-function buildZonePopupHTML(z, forzarTodo){
+// pieza: cuando la zona usa z.piezas (mobs/materiales/jefes propios de
+// UN polígono, no compartidos con el resto de la zona -- ver
+// buildRegnumZones), el tooltip de ESE polígono se arma solo con los
+// datos de su pieza, no con los de z entero.
+function buildZonePopupHTML(z, forzarTodo, pieza){
+  const datos = pieza || z;
   const mobsOn = forzarTodo || document.getElementById('map-toggle-mobs').checked;
   const matsOn = forzarTodo || document.getElementById('map-toggle-materiales').checked;
   const guardianesOn = forzarTodo || document.getElementById('map-toggle-guardianes').checked;
@@ -1275,15 +1291,15 @@ function buildZonePopupHTML(z, forzarTodo){
   // filtrando en ese momento, no todo lo que la zona tenga cargado.
   // Ordenados por nivel (ver nivelSortKey/sortedPorNivel) para que el
   // detalle de la zona se lea de más fácil a más difícil.
-  if(zoneHasMobs(z) && mobsOn){
-    partes.push('<u>Mobs</u><br>' + sortedPorNivel(z.mobs).map(it=> `${it.nombre}${it.nivel ? ' · Nv. '+it.nivel : ''}`).join('<br>'));
+  if(zoneHasMobs(datos) && mobsOn){
+    partes.push('<u>Mobs</u><br>' + sortedPorNivel(datos.mobs).map(it=> `${it.nombre}${it.nivel ? ' · Nv. '+it.nivel : ''}`).join('<br>'));
   }
-  if(zoneHasGuardianes(z) && guardianesOn){
-    const listaJefes = sortedPorNivel(z.jefes).map(it=> `${it.nombre} (${it.etiqueta})${it.nivel ? ' · Nv. '+it.nivel : ''}`).join('<br>');
+  if(zoneHasGuardianes(datos) && guardianesOn){
+    const listaJefes = sortedPorNivel(datos.jefes).map(it=> `${it.nombre} (${it.etiqueta})${it.nivel ? ' · Nv. '+it.nivel : ''}`).join('<br>');
     partes.push(`<span style="color:${GUARDIAN_COLOR}"><u>Guardianes</u><br>${listaJefes}</span>`);
   }
-  if(zoneHasMateriales(z) && matsOn){
-    partes.push(`<span style="color:${MATERIAL_COLOR}"><u>Materiales</u><br>${z.materiales.map(it=> it.nombre).join('<br>')}</span>`);
+  if(zoneHasMateriales(datos) && matsOn){
+    partes.push(`<span style="color:${MATERIAL_COLOR}"><u>Materiales</u><br>${datos.materiales.map(it=> it.nombre).join('<br>')}</span>`);
   }
   return partes.join('<br>');
 }
@@ -1293,30 +1309,53 @@ function buildZonePopupHTML(z, forzarTodo){
 // marcadores — se cargan y filtran aparte de buildRegnumMarkers. Cada zona
 // puede tener varias piezas separadas (z.poligonos es un array de anillos
 // de puntos, no un solo anillo) para el caso de un área que una ciudad
-// corta al medio — Leaflet dibuja eso como un solo polígono (multipolígono
-// nativo), con un solo popup, aunque se vea partido en pantalla.
+// corta al medio. Por defecto todas las piezas comparten un solo
+// mobs/jefes/materiales (z.mobs/z.jefes/z.materiales) y Leaflet las dibuja
+// como UN solo polígono (multipolígono nativo) con un solo tooltip, aunque
+// se vea partido en pantalla. Si la zona trae z.piezas (mismo largo que
+// z.poligonos, un {mobs,jefes,materiales} por anillo) es porque cada
+// polígono tiene su PROPIO contenido -- ahí se dibuja un L.polygon por
+// pieza, cada uno con su propio tooltip, en vez de uno combinado.
 function buildRegnumZones(){
   regnumZonesLayer.clearLayers();
   regnumAllZoneObjs = [];
   (regnumMapData.zonas||[]).forEach(z=>{
-    const anillos = (z.poligonos||[]).filter(anillo => anillo && anillo.length >= 3);
-    if(anillos.length === 0) return; // cada pieza necesita al menos 3 puntos
-    const latlngRings = anillos.map(anillo => anillo.map(p=> tileToLatLng(p.col, p.row)));
+    const poligonos = z.poligonos||[];
     const color = zoneColor(z);
-    const polygon = L.polygon(latlngRings, {color, fillColor:color, weight:2, fillOpacity:0.22});
-    // Tooltip (con el mouse encima) en vez de popup (con click): a
-    // diferencia de un marcador puntual, pasar el mouse por un área es más
-    // natural que tener que acertarle con un click — y así no compite con
-    // el resto de la lógica de click de marcadores/edición.
-    polygon.bindTooltip(buildZonePopupHTML(z), {sticky:true});
-    // El tooltip "sticky" sigue al mouse — si se abre cerca de un borde
-    // del recuadro del mapa, sale del contenedor y queda cortado (el
-    // contenedor tiene overflow hidden). Se corrige igual que el popup
-    // de arriba (mismo cálculo de margen), pero acá hay que repetirlo en
-    // cada mousemove, no solo al abrir, porque Leaflet reposiciona el
-    // tooltip todo el tiempo mientras el mouse se mueve sobre la zona.
-    polygon.on('mousemove tooltipopen', ()=> nudgeZoneTooltip(polygon));
-    z._leaflet = polygon;
+    const usaPiezas = Array.isArray(z.piezas) && z.piezas.length === poligonos.length;
+    z._leaflet = [];
+    if(usaPiezas){
+      poligonos.forEach((anillo, i)=>{
+        if(!anillo || anillo.length < 3) return; // cada pieza necesita al menos 3 puntos
+        const latlngRing = [anillo.map(p=> tileToLatLng(p.col, p.row))];
+        const polygon = L.polygon(latlngRing, {color, fillColor:color, weight:2, fillOpacity:0.22});
+        polygon.bindTooltip(buildZonePopupHTML(z, false, z.piezas[i]), {sticky:true});
+        polygon.on('mousemove tooltipopen', ()=> nudgeZoneTooltip(polygon));
+        polygon._piezaData = z.piezas[i];
+        z._leaflet.push(polygon);
+      });
+    } else {
+      const anillos = poligonos.filter(anillo => anillo && anillo.length >= 3);
+      if(anillos.length > 0){
+        const latlngRings = anillos.map(anillo => anillo.map(p=> tileToLatLng(p.col, p.row)));
+        const polygon = L.polygon(latlngRings, {color, fillColor:color, weight:2, fillOpacity:0.22});
+        // Tooltip (con el mouse encima) en vez de popup (con click): a
+        // diferencia de un marcador puntual, pasar el mouse por un área es
+        // más natural que tener que acertarle con un click — y así no
+        // compite con el resto de la lógica de click de marcadores/edición.
+        polygon.bindTooltip(buildZonePopupHTML(z), {sticky:true});
+        // El tooltip "sticky" sigue al mouse — si se abre cerca de un borde
+        // del recuadro del mapa, sale del contenedor y queda cortado (el
+        // contenedor tiene overflow hidden). Se corrige igual que el popup
+        // de arriba (mismo cálculo de margen), pero acá hay que repetirlo
+        // en cada mousemove, no solo al abrir, porque Leaflet reposiciona
+        // el tooltip todo el tiempo mientras el mouse se mueve sobre la
+        // zona.
+        polygon.on('mousemove tooltipopen', ()=> nudgeZoneTooltip(polygon));
+        z._leaflet.push(polygon);
+      }
+    }
+    if(z._leaflet.length === 0) return;
     regnumAllZoneObjs.push(z);
   });
   applyZoneFilters();
@@ -1362,9 +1401,14 @@ function applyZoneFilters(){
     // El contenido del tooltip depende de qué checkbox está prendido
     // (ver buildZonePopupHTML) — se rearma acá para que quede al día
     // cada vez que se toca Mobs/Materiales, no solo la primera vez que
-    // se construyó la zona.
-    z._leaflet.setTooltipContent(buildZonePopupHTML(z));
-    if(passesZoneFilters(z)) z._leaflet.addTo(regnumZonesLayer);
+    // se construyó la zona. z._leaflet es siempre un array (una pieza
+    // sola en el caso normal, varias si la zona usa z.piezas) -- cada
+    // capa recuerda su propia pieza en _piezaData (undefined si es la
+    // combinada de siempre).
+    z._leaflet.forEach(layer=>{
+      layer.setTooltipContent(buildZonePopupHTML(z, false, layer._piezaData));
+      if(passesZoneFilters(z)) layer.addTo(regnumZonesLayer);
+    });
   });
 }
 
@@ -1797,9 +1841,20 @@ function wireRegnumSearchAndFilters(){
     const entries = [];
     regnumAllZoneObjs.forEach(z=>{
       entries.push({kind:'zona', zona:z, label:z.nombre});
-      (z.mobs||[]).forEach(mob=> entries.push({kind:'mob', zona:z, label:mob.nombre, nivel:mob.nivel}));
-      (z.jefes||[]).forEach(jefe=> entries.push({kind:'jefe', zona:z, label:jefe.nombre, nivel:jefe.nivel, etiqueta:jefe.etiqueta}));
-      (z.materiales||[]).forEach(mat=> entries.push({kind:'material', zona:z, label:mat.nombre}));
+      // Si la zona usa z.piezas, el mob/jefe/material buscado puede vivir
+      // en una sola pieza y no a nivel zona (que ahí queda vacío a
+      // propósito) -- se recorren las piezas en vez de z directamente. Un
+      // mismo nombre puede repetirse en más de una pieza (a propósito,
+      // como el Escarabajo Dorado Gigante en Cataratas Doradas) -- se
+      // deduplica por zona para no listar la misma zona dos veces en el
+      // mismo resultado de búsqueda.
+      const fuentes = (Array.isArray(z.piezas) && z.piezas.length) ? z.piezas : [z];
+      const vistos = new Set();
+      fuentes.forEach(fuente=>{
+        (fuente.mobs||[]).forEach(mob=>{ const k='mob|'+mob.nombre; if(vistos.has(k)) return; vistos.add(k); entries.push({kind:'mob', zona:z, label:mob.nombre, nivel:mob.nivel}); });
+        (fuente.jefes||[]).forEach(jefe=>{ const k='jefe|'+jefe.nombre; if(vistos.has(k)) return; vistos.add(k); entries.push({kind:'jefe', zona:z, label:jefe.nombre, nivel:jefe.nivel, etiqueta:jefe.etiqueta}); });
+        (fuente.materiales||[]).forEach(mat=>{ const k='mat|'+mat.nombre; if(vistos.has(k)) return; vistos.add(k); entries.push({kind:'material', zona:z, label:mat.nombre}); });
+      });
     });
     return entries;
   }
@@ -1850,7 +1905,7 @@ function wireRegnumSearchAndFilters(){
       const z = regnumAllZoneObjs.find(zz=> zz.nombre === nombre);
       if(z && z._leaflet){
         const color = zoneColor(z);
-        z._leaflet.setStyle({color, fillColor:color, weight:2, fillOpacity:0.22, dashArray:null});
+        z._leaflet.forEach(layer=> layer.setStyle({color, fillColor:color, weight:2, fillOpacity:0.22, dashArray:null}));
       }
     });
     highlightedZoneKeys = new Set();
@@ -1867,8 +1922,10 @@ function wireRegnumSearchAndFilters(){
     let bounds = null;
     zonas.forEach(z=>{
       highlightedZoneKeys.add(z.nombre);
-      z._leaflet.setStyle({color:ZONE_SEARCH_HIGHLIGHT_COLOR, fillColor:ZONE_SEARCH_HIGHLIGHT_COLOR, weight:4, fillOpacity:0.35, dashArray:'6 4'});
-      bounds = bounds ? bounds.extend(z._leaflet.getBounds()) : z._leaflet.getBounds();
+      z._leaflet.forEach(layer=>{
+        layer.setStyle({color:ZONE_SEARCH_HIGHLIGHT_COLOR, fillColor:ZONE_SEARCH_HIGHLIGHT_COLOR, weight:4, fillOpacity:0.35, dashArray:'6 4'});
+        bounds = bounds ? bounds.extend(layer.getBounds()) : layer.getBounds();
+      });
     });
     regnumMap.fitBounds(bounds.pad(0.2));
   }
