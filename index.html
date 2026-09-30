@@ -47,7 +47,6 @@ if('serviceWorker' in navigator){
 <link rel="stylesheet" href="css/layout.css">
 <link rel="stylesheet" href="css/build.css">
 <link rel="stylesheet" href="css/map.css">
-<link rel="stylesheet" href="css/calc.css">
 </head>
 <body>
 
@@ -134,101 +133,10 @@ if('serviceWorker' in navigator){
   <div class="main-tabs">
     <button class="main-tab active" data-panel="panel-manual">Tu build</button>
     <button class="main-tab" data-panel="panel-map">Mapa interactivo</button>
-    <button class="main-tab" data-panel="panel-calc">Calculador de daños</button>
-    <button class="main-tab" data-panel="panel-progress" style="display:none">Progreso de leveo</button>
-    <button class="main-tab" data-panel="panel-custom" style="display:none">Build a medida</button>
   </div>
   <div class="notice" id="notice-build" style="margin-bottom:20px">
     <div class="mark">✦</div>
     <div id="notice-build-text">Arma tu build a mano, habilidad por habilidad, y expórtala como imagen para compartir.</div>
-  </div>
-
-  <!-- ===================== TAB A: PROGRESO ===================== -->
-  <div class="main-panel" id="panel-progress">
-    <div class="panel">
-      <h2><span class="num">1</span> Tu progreso</h2>
-      <div class="row">
-        <div class="field">
-          <label>Nivel actual del personaje</label>
-          <div class="num-inputs"><input type="number" id="pa-current" min="10" max="59" value="10"></div>
-          <div class="hint">El nivel en el que estás parado ahora mismo.</div>
-        </div>
-        <div class="field">
-          <label>Nivel al que quieres llegar</label>
-          <div class="num-inputs"><input type="number" id="pa-goal" min="11" max="60" value="60"></div>
-          <div class="hint">La build se calcula por pisos de a 10 niveles hasta esta meta.</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="panel">
-      <h2><span class="num">2</span> Cómo juegas</h2>
-      <div class="row">
-        <div class="field" id="pa-weapon-panel"></div>
-        <div class="field">
-          <label>¿Levéas solo o en grupo?</label>
-          <div class="choice-group" id="pa-mode">
-            <button class="choice-btn active" data-v="solo">Solo</button>
-            <button class="choice-btn" data-v="group">En grupo</button>
-          </div>
-          <div class="hint" id="pa-mode-hint">Solo: supervivencia. Grupo: daño en área.</div>
-        </div>
-      </div>
-      <button class="go-btn" id="pa-go">Generar progresión</button>
-    </div>
-
-    <div id="pa-output"></div>
-  </div>
-
-  <!-- ===================== TAB B: BUILD A MEDIDA ===================== -->
-  <div class="main-panel" id="panel-custom">
-    <div class="hint" style="margin-bottom:20px">Estas builds se muestran a <b style="color:var(--bronze)">nivel 60</b>, tope de personaje, para comparar el potencial completo de cada configuración.</div>
-
-    <div class="panel" id="pb-weapon-section">
-      <h2><span class="num" id="pb-num-weapon">1</span> Arma</h2>
-      <div class="choice-group" id="pb-bow"></div>
-    </div>
-
-    <div class="panel">
-      <h2><span class="num" id="pb-num-context">2</span> ¿Cómo la vas a usar?</h2>
-      <div class="choice-group" id="pb-context">
-        <button class="choice-btn" data-v="group_pve">Grupo PvE</button>
-        <button class="choice-btn" data-v="group_pvp">Grupo PvP</button>
-        <button class="choice-btn active" data-v="rvr">RvR</button>
-        <button class="choice-btn" data-v="solo_pvp">Solo PvP</button>
-        <button class="choice-btn" data-v="solo_pve">Solo PvE</button>
-      </div>
-      <div class="hint">Grupo y RvR le dan más peso a las habilidades en área y de utilidad grupal.</div>
-    </div>
-
-    <div class="panel">
-      <h2><span class="num" id="pb-num-priority">3</span> Prioriza una disciplina <span style="color:var(--ink-faint);font-weight:400">(opcional)</span></h2>
-      <select class="styled" id="pb-priority">
-        <option value="">Ninguna en particular</option>
-      </select>
-      <div class="hint">Esa disciplina recibe más puntos; el resto de la build se ordena para apoyarla.</div>
-    </div>
-
-    <div class="panel">
-      <h2><span class="num" id="pb-num-role">4</span> Rol <span style="color:var(--ink-faint);font-weight:400">(opcional)</span></h2>
-      <div class="choice-group" id="pb-role">
-        <button class="choice-btn active" data-v="">Sin preferencia</button>
-        <button class="choice-btn" data-v="dps">DPS</button>
-        <button class="choice-btn" data-v="tank">Tanque</button>
-        <button class="choice-btn" data-v="healer">Curador</button>
-        <button class="choice-btn" data-v="support">Soporte</button>
-        <button class="choice-btn" data-v="cc">Control</button>
-      </div>
-      <div class="hint">Cada rol agrupa varias habilidades que cumplen esa función, aunque tengan otra etiqueta principal.</div>
-      <label class="check-row" style="margin-top:14px">
-        <input type="checkbox" id="pb-include-wm" checked>
-        Incluir Maestría en Guerra
-      </label>
-      <div class="hint">Desmarcá esto para ver cómo queda la build compitiendo esos puntos entre el resto de las disciplinas, sin Maestría en Guerra.</div>
-      <button class="go-btn" id="pb-go">Generar build</button>
-    </div>
-
-    <div id="pb-output"></div>
   </div>
 
   <!-- ===================== TAB C: TU BUILD (MANUAL) ===================== -->
@@ -280,36 +188,6 @@ if('serviceWorker' in navigator){
       </div>
     </div>
     <div id="wz-sidebar-anchor"></div>
-  </div>
-
-  <div class="main-panel" id="panel-calc">
-    <div class="panel">
-      <h2><span class="num">1</span> Equipamiento</h2>
-      <div class="hint" style="margin-top:-8px;margin-bottom:14px">Elegí una pieza de la lista y cargá lo que diga su tooltip como stats sueltos (atributo, daño, resistencia, calidad de protección, etc) -- no hace falta el nombre del ítem, lo que importa es lo que da.</div>
-      <div id="calc-slots-grid"></div>
-    </div>
-
-    <div class="panel" id="calc-result-panel">
-      <h2><span class="num">2</span> Daño infligido</h2>
-      <div class="summary-grid" id="calc-result-summary"></div>
-      <button class="toggle-full" id="calc-toggle-detail">Ver desglose por tipo de daño</button>
-      <div class="full-build" id="calc-detail-box"></div>
-      <div class="callout" id="calc-companion-note" style="display:none;margin-top:16px"></div>
-    </div>
-
-    <div class="panel" id="calc-armor-panel">
-      <h2><span class="num">3</span> Armadura y resistencias</h2>
-      <div class="hint" style="margin-top:-8px;margin-bottom:14px">Protección por tipo de daño (según Armadura, calidad de cada pieza y tu Clase de Armadura) y las resistencias que hayas cargado en el equipamiento.</div>
-      <div class="summary-grid" id="calc-armor-summary"></div>
-      <button class="toggle-full" id="calc-toggle-armor-detail">Ver desglose por tipo de daño</button>
-      <div class="full-build" id="calc-armor-detail-box"></div>
-    </div>
-
-    <div class="panel" id="calc-derived-panel">
-      <h2><span class="num">4</span> Estadísticas derivadas</h2>
-      <div class="hint" style="margin-top:-8px;margin-bottom:14px">Combate y resistencias a estados adversos que no vienen directo de un ítem, sino de tus atributos (Constitución, Fuerza y Concentración pasan los primeros 70/70/40 puntos) sumadas a lo que hayan dado los ítems.</div>
-      <div class="summary-grid" id="calc-derived-summary"></div>
-    </div>
   </div>
 
   <div class="foot-note">
@@ -372,37 +250,6 @@ if('serviceWorker' in navigator){
     </div>
    </div>
 
-   <div class="rail-page rail-page-calc" id="calc-sidebar" hidden>
-    <div class="panel">
-      <div class="field">
-        <label>Elegir Subclase</label>
-        <div class="choice-group" id="calc-subclass-switch">
-          <button class="choice-btn" data-v="brujo">Brujo</button>
-          <button class="choice-btn" data-v="tirador">Tirador</button>
-          <button class="choice-btn" data-v="barbaro">Bárbaro</button>
-          <button class="choice-btn" data-v="conjurador">Conjurador</button>
-          <button class="choice-btn active" data-v="cazador">Cazador</button>
-          <button class="choice-btn" data-v="caballero">Caballero</button>
-        </div>
-        <div class="hint" id="calc-subclass-hint"></div>
-      </div>
-    </div>
-    <div class="panel">
-      <div class="field">
-        <label>Atributos</label>
-        <div id="calc-attrs-row"></div>
-      </div>
-      <div class="hint">Puntos base, sin contar equipamiento -- los bonos de cada ítem se suman aparte, desde el equipamiento del centro.</div>
-    </div>
-    <div class="panel">
-      <div class="field">
-        <label>Compañero (opcional)</label>
-        <select class="styled" id="calc-companion"></select>
-        <div class="hint" id="calc-companion-hint"></div>
-      </div>
-    </div>
-   </div>
-
    <div class="rail-page rail-page-map" id="wz-sidebar" hidden>
     <div class="panel wz-panel">
       <div class="wz-panel-head">
@@ -433,6 +280,5 @@ if('serviceWorker' in navigator){
 <script src="vendor/leaflet/leaflet.js" defer></script>
 <script src="js/map.js" defer></script>
 <script src="js/wz.js" defer></script>
-<script src="js/calc.js" defer></script>
 </body>
 </html>

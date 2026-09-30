@@ -26,202 +26,6 @@ function getChoiceValue(id){
   return el ? el.dataset.v : null;
 }
 
-function renderWeaponPanel(containerId, hideTargetId){
-  const container = document.getElementById(containerId);
-  const hideTarget = hideTargetId ? document.getElementById(hideTargetId) : container;
-  const groups = CLASS.weaponGroups || [];
-  if(groups.length === 0){
-    container.innerHTML = '';
-    hideTarget.style.display = 'none';
-    return;
-  }
-  hideTarget.style.display = '';
-  let html = '';
-  groups.forEach((group)=>{
-    html += `<label style="display:block;font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-faint);margin-bottom:10px;font-family:var(--font-mono)">${group.label}</label>`;
-    html += `<div class="choice-group" data-glabel="${group.label}">`;
-    group.options.forEach((opt,oi)=>{
-      html += `<button class="choice-btn${oi===0?' active':''}" data-v="${opt.key}">${opt.label}</button>`;
-    });
-    html += `</div>`;
-  });
-  html += `<div class="hint" data-role="weapon-hint">Excluyentes en combate — la build solo invierte en la opción activa.</div>`;
-  container.innerHTML = html;
-
-  if(currentClass === 'barbarian'){
-    wireBarbarianWeaponPanel(container);
-  } else {
-    container.querySelectorAll('.choice-group').forEach(cg=>{
-      cg.querySelectorAll('.choice-btn').forEach(btn=>{
-        btn.addEventListener('click', ()=>{
-          cg.querySelectorAll('.choice-btn').forEach(b=>b.classList.remove('active'));
-          btn.classList.add('active');
-        });
-      });
-    });
-  }
-}
-
-function wireBarbarianWeaponPanel(container){
-  const gripGroup = container.querySelector('.choice-group[data-glabel="Empuñadura"]');
-  const typeGroup = container.querySelector('.choice-group[data-glabel="Tipo de arma"]');
-  const hint = container.querySelector('[data-role="weapon-hint"]');
-  if(!gripGroup || !typeGroup) return;
-
-  function refreshHint(){
-    const grip = gripGroup.querySelector('.choice-btn.active').dataset.v;
-    hint.textContent = grip === 'dual'
-      ? 'Con dos armas de una mano puedes marcar hasta 2 tipos — si dejas solo uno activo, se asume que ambas armas son de ese tipo.'
-      : 'El arma a dos manos usa un único tipo de daño.';
-  }
-
-  gripGroup.querySelectorAll('.choice-btn').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      gripGroup.querySelectorAll('.choice-btn').forEach(b=>b.classList.remove('active'));
-      btn.classList.add('active');
-      if(btn.dataset.v === 'twohand'){
-        // collapse weapon-type selection down to a single choice
-        const active = Array.from(typeGroup.querySelectorAll('.choice-btn.active'));
-        active.slice(1).forEach(b=>b.classList.remove('active'));
-        if(active.length === 0) typeGroup.querySelector('.choice-btn').classList.add('active');
-      }
-      refreshHint();
-    });
-  });
-
-  typeGroup.querySelectorAll('.choice-btn').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      const grip = gripGroup.querySelector('.choice-btn.active').dataset.v;
-      const allBtns = Array.from(typeGroup.querySelectorAll('.choice-btn'));
-
-      if(grip === 'twohand'){
-        allBtns.forEach(b=>b.classList.remove('active'));
-        btn.classList.add('active');
-        return;
-      }
-      // dual-wield: up to 2 active, at least 1 always active
-      const activeBtns = allBtns.filter(b=>b.classList.contains('active'));
-      if(btn.classList.contains('active')){
-        if(activeBtns.length > 1) btn.classList.remove('active'); // never let it drop to 0
-        return;
-      }
-      if(activeBtns.length >= 2) activeBtns[0].classList.remove('active');
-      btn.classList.add('active');
-    });
-  });
-
-  refreshHint();
-}
-
-function getWeaponChoice(containerId){
-  const container = document.getElementById(containerId);
-  const choice = {};
-  container.querySelectorAll('.choice-group').forEach(cg=>{
-    const label = cg.dataset.glabel;
-    const actives = Array.from(cg.querySelectorAll('.choice-btn.active')).map(b=>b.dataset.v);
-    choice[label] = actives.length > 1 ? actives : (actives[0] || null);
-  });
-  return choice;
-}
-
-let stageCounter = 0;
-let progressionExportConfigs = [];
-
-let pisoContents = [];
-let pisoActiveIdx = 0;
-function renderProgression(scroll){
-  const current = Math.max(10, Math.min(59, parseInt(document.getElementById('pa-current').value) || 10));
-  const goal = Math.max(current+1, Math.min(60, parseInt(document.getElementById('pa-goal').value) || 60));
-  const weaponChoice = getWeaponChoice('pa-weapon-panel');
-  const mode = getChoiceValue('pa-mode');
-  const ctxFn = ctxLeveling(mode, weaponChoice);
-  const checkpoints = getCheckpoints(current, goal);
-  const sequence = buildLevelSequence(current, goal, ctxFn);
-  const out = document.getElementById('pa-output');
-  out.innerHTML = '';
-  progressionExportConfigs = [];
-  pisoContents = [];
-  pisoActiveIdx = 0;
-  let strip = `<div class="path-strip"><span class="lvl">Nv.${current}</span>`;
-  checkpoints.forEach(cp=>{ strip += ` <span class="sep">→</span> <span class="lvl">Nv.${cp}</span>`; });
-  strip += `</div>`;
-  out.insertAdjacentHTML('beforeend', strip);
-  const calloutText = mode === 'solo' ? CLASS.soloCallout : CLASS.groupCallout;
-  out.insertAdjacentHTML('beforeend', `<div class="callout"><div class="mark">✦</div><div>${calloutText}</div></div>`);
-  let prevBuild = sequence[current];
-  let prevLevel = current;
-  checkpoints.forEach((cp, i)=>{
-    const build = sequence[cp];
-    const items = diffBuilds(prevBuild, build);
-    stageCounter++;
-    const fullId = `full-a-${stageCounter}`;
-    const lvlId = `lvl-a-${stageCounter}`;
-    const exportIdx = progressionExportConfigs.length;
-    progressionExportConfigs.push({build, label: `Piso ${i+1} · Nivel ${cp}`, suffix: `leveo_piso${i+1}_nv${cp}`});
-    const html = `<div class="stage">
-      <div class="stage-head">
-        <div class="stage-title"><h3>Hasta nivel ${cp}</h3></div>
-        <div class="stage-stats"><span><b>${build.dpBudget-build.dpLeft}</b>/${build.dpBudget} disciplina</span><span><b>${build.ppBudget-build.ppLeft}</b>/${build.ppBudget} poder</span></div>
-      </div>
-      <div class="stage-body">
-        <div class="diff-title">Qué agregar / cambiar desde ${i===0?'tu nivel actual':'el piso anterior'}</div>
-        ${renderDiff(items)}
-        <button class="toggle-full" onclick="document.getElementById('${fullId}').classList.toggle('open')">Ver build completa en este piso ▾</button>
-        <div class="full-build" id="${fullId}">${renderFullBuild(build)}</div>
-        <button class="toggle-full" onclick="document.getElementById('${lvlId}').classList.toggle('open')">Ver nivel a nivel (Nv.${prevLevel}→${cp}) ▾</button>
-        <div class="full-build lvl-breakdown" id="${lvlId}">${renderLevelByLevel(prevLevel, cp, sequence)}</div>
-        <button class="toggle-full" onclick="exportProgressionStage(${exportIdx})">Exportar este piso como imagen ⬇</button>
-      </div>
-    </div>`;
-    pisoContents.push(html);
-    prevBuild = build;
-    prevLevel = cp;
-  });
-  let tabs = `<div class="piso-tabs">`;
-  checkpoints.forEach((cp,i)=>{ tabs += `<button class="piso-tab${i===0?' active':''}" onclick="selectPiso(${i})">Piso ${i+1}</button>`; });
-  tabs += `</div>`;
-  out.insertAdjacentHTML('beforeend', tabs);
-  out.insertAdjacentHTML('beforeend', `<div id="piso-content">${pisoContents[0]||''}</div>`);
-  out.insertAdjacentHTML('beforeend', `<div id="pa-export-msg" class="hint"></div>`);
-  if(scroll && out.scrollIntoView) out.scrollIntoView({behavior:'smooth', block:'start'});
-}
-
-function exportProgressionStage(idx){
-  const cfg = progressionExportConfigs[idx];
-  if(!cfg) return;
-  exportBuildAsImage(cfg.build, cfg.build.level, `Progreso de leveo · ${cfg.label}`, cfg.suffix, 'pa-export-msg');
-}
-function selectPiso(idx){
-  pisoActiveIdx = idx;
-  document.querySelectorAll('.piso-tab').forEach((btn,i)=> btn.classList.toggle('active', i===idx));
-  document.getElementById('piso-content').innerHTML = pisoContents[idx] || '';
-}
-
-const prioritySelect = document.getElementById('pb-priority');
-
-function populatePriorityDropdown(){
-  prioritySelect.innerHTML = '<option value="">Ninguna en particular</option>';
-  DISC_NAMES.filter(n=> CLASS.disciplines[n].group !== 'wm').forEach(name=>{
-    const opt = document.createElement('option');
-    opt.value = name; opt.textContent = CLASS.disciplines[name].es;
-    prioritySelect.appendChild(opt);
-  });
-}
-
-const CONTEXT_LABEL = {group_pve:"grupo PvE", group_pvp:"grupo PvP", rvr:"RvR", solo_pvp:"solo PvP", solo_pve:"solo PvE"};
-function weaponSummaryLabel(weaponChoice){
-  const groups = CLASS.weaponGroups || [];
-  if(groups.length === 0) return null;
-  return groups.map(g=>{
-    const chosen = weaponChoice[g.label];
-    const keys = Array.isArray(chosen) ? chosen : [chosen];
-    const labels = keys.map(k=>{
-      const opt = g.options.find(o=>o.key===k);
-      return opt ? opt.label.toLowerCase() : '';
-    }).filter(Boolean);
-    return labels.join(' + ');
-  }).filter(Boolean).join(', ');
-}
 // Named community archetypes — shown as quick-start suggestions in "Tu build" (Tab C)
 // La mayoría (tank/defender/paladin de Caballero) son heurísticas: se le
 // pasan context/role/priorityDiscipline a computeBuild() y el algoritmo
@@ -264,49 +68,6 @@ const ARCHETYPE_PRESETS = {
      blurb:'Build de referencia a nivel 60, pensada para pelear contra un dragón — sanación y hechicería al tope.'},
   ],
 };
-
-function renumberPanelsB(){
-  const weaponVisible = (CLASS.weaponGroups||[]).length > 0;
-  let n = 1;
-  const wNum = document.getElementById('pb-num-weapon');
-  const wSection = document.getElementById('pb-weapon-section');
-  if(weaponVisible){ wSection.style.display=''; wNum.textContent = n++; }
-  else { wSection.style.display='none'; }
-  document.getElementById('pb-num-context').textContent = n++;
-  document.getElementById('pb-num-priority').textContent = n++;
-  document.getElementById('pb-num-role').textContent = n++;
-}
-
-let lastCustomBuild = null;
-
-function renderCustomBuild(scroll){
-  const level = 60;
-  const weaponChoice = getWeaponChoice('pb-bow');
-  const context = getChoiceValue('pb-context');
-  const role = getChoiceValue('pb-role');
-  const priorityDiscipline = prioritySelect.value || null;
-  const excludeWM = !document.getElementById('pb-include-wm').checked;
-  const build = computeBuild(level, ctxCustom({weaponChoice, context, role, priorityDiscipline, excludeWM}), null, true);
-  lastCustomBuild = build;
-  const out = document.getElementById('pb-output');
-  out.innerHTML = '';
-  let summary = `Build a nivel <b>${build.level}</b> pensada para <b>${CONTEXT_LABEL[context]}</b>`;
-  const wLabel = weaponSummaryLabel(weaponChoice);
-  if(wLabel) summary += `, usando <b>${wLabel}</b>`;
-  if(role) summary += `, con rol de <b>${ROLE_LABEL[role]}</b>`;
-  if(priorityDiscipline) summary += `, priorizando <b>${CLASS.disciplines[priorityDiscipline].es}</b> y apoyándola con el resto de disciplinas`;
-  summary += '.';
-  summary += ' Incluye la rama de Maestría en Guerra, disponible solo a nivel 60.';
-  out.insertAdjacentHTML('beforeend', `<div class="callout"><div class="mark">✦</div><div>${summary}</div></div>`);
-  out.insertAdjacentHTML('beforeend', `<div class="stage"><div class="stage-body">${renderFullBuild(build)}</div></div>`);
-  out.insertAdjacentHTML('beforeend', `<div class="export-row"><button class="go-btn secondary" onclick="exportCustomBuild()">Exportar como imagen</button></div><div id="pb-export-msg" class="hint"></div>`);
-  if(scroll && out.scrollIntoView) out.scrollIntoView({behavior:'smooth', block:'start'});
-}
-
-function exportCustomBuild(){
-  if(!lastCustomBuild) return;
-  exportBuildAsImage(lastCustomBuild, lastCustomBuild.level, 'Build a medida · Nivel 60', `medida_nv60`, 'pb-export-msg');
-}
 
 let manualState = { level: 60, dlvl: {}, ranks: {} };
 let expandedManualKeys = new Set();
@@ -787,19 +548,13 @@ function updateRealmShield(realmKey){
   img.alt = REALM_LABEL[realmKey] || realmKey;
 }
 
-// La barra lateral solo vive al costado en pantallas anchas (ver el
-// breakpoint de 1440px en el CSS) — ahí, en vez de un padding fijo que se
-// desalinea apenas cambia algo arriba (el header, un aviso, etc), se mide
-// dónde arranca de verdad el contenido principal de la pestaña ACTIVA y se
-// empareja con eso. Cada pestaña tiene su propia ancla (el "stage" de "Tu
-// build", el primer panel del calculador) -- sin esto, alinear solo
-// pasaba en "Tu build" y las otras pestañas heredaban el margen que haya
-// quedado de la última vez que SÍ se alineó, a veces pegado arriba.
-const RAIL_ALIGN_ANCHOR = {'panel-manual':'#pc-capture', 'panel-calc':'#panel-calc .panel'};
+// La barra de Subclase/Nivel/Nombre solo vive al costado en pantallas anchas
+// (ver el breakpoint de 1440px en el CSS) — ahí, en vez de un padding fijo
+// que se desalinea apenas cambia algo arriba (el header, un aviso, etc), se
+// mide dónde arranca de verdad el panel de disciplinas y se empareja con eso.
 function alignConfigRail(){
   const rail = document.querySelector('.config-rail');
-  const activeId = document.querySelector('.main-tab.active')?.dataset.panel;
-  const stage = document.querySelector(RAIL_ALIGN_ANCHOR[activeId] || '#pc-capture');
+  const stage = document.getElementById('pc-capture');
   if(!rail || !stage) return;
   // Si "Tu build" no está visible ahora mismo (display:none en
   // .main-panel, ver css/layout.css), el stage da un rect todo en cero —
@@ -895,50 +650,28 @@ function updateSharedChromeForTab(panelId){
   const notice = document.getElementById('notice-build');
   const railPageBuild = document.getElementById('rail-page-build');
   const wzRail = document.getElementById('wz-sidebar');
-  const calcRail = document.getElementById('calc-sidebar');
   const mapLayers = document.getElementById('map-layers-block');
   const isMapTab = panelId === 'panel-map';
-  const isCalcTab = panelId === 'panel-calc';
-  const isRegnumTitleTab = isMapTab || isCalcTab;
-  if(eyebrow) eyebrow.textContent = isMapTab ? 'Mapa Interactivo' : isCalcTab ? 'Calculador de daños' : 'Constructor de builds';
+  if(eyebrow) eyebrow.textContent = isMapTab ? 'Mapa Interactivo' : 'Constructor de builds';
   if(noticeText) noticeText.textContent = isMapTab
     ? 'Buscá NPCs y misiones, filtrá por reino o profesión, y hacé clic en un marcador para ver el detalle.'
-    : isCalcTab
-    ? 'Elegí tu subclase, cargá tu equipamiento y tus atributos, y calculá el daño resultante según la fórmula oficial.'
     : 'Arma tu build a mano, habilidad por habilidad, y expórtala como imagen para compartir.';
-  // En el mapa (y acá en el calculador) el recuadro de aviso ocupaba
-  // espacio vertical que conviene aprovechar -- el texto de arriba
-  // (eyebrow) ya cumple ese rol de encabezado, así que en esas pestañas
-  // se oculta.
-  if(notice) notice.style.display = isRegnumTitleTab ? 'none' : '';
+  // En el mapa el recuadro de aviso ocupaba espacio vertical que conviene
+  // aprovechar para el buscador/chips/mapa — el texto de arriba (eyebrow)
+  // ya cumple ese rol de encabezado, así que en esta pestaña se oculta.
+  if(notice) notice.style.display = isMapTab ? 'none' : '';
   // El título grande ahora siempre muestra algo (ícono+subclase en "Tu
-  // build", ícono+"Regnum" en el mapa Y en el calculador) — un solo <h1>
-  // visible a la vez.
-  if(titleH1) titleH1.style.display = isBuildTab ? '' : 'none';
-  if(titleMap) titleMap.style.display = isRegnumTitleTab ? '' : 'none';
+  // build", ícono+"Regnum" en el mapa) — un solo <h1> visible a la vez.
+  if(titleH1) titleH1.style.display = isMapTab ? 'none' : '';
+  if(titleMap) titleMap.style.display = isMapTab ? '' : 'none';
   // El carril lateral (#side-rail, ver css/layout.css) es UNO SOLO
-  // compartido entre las pestañas, siempre presente — nunca se mueve ni
-  // cambia de ancho al cambiar de pestaña, así que no hace falta el
-  // truco de "visibility para reservar lugar" que usaba antes. Cada
-  // pestaña tiene su propia página adentro (rail-page-build, wz-sidebar,
-  // calc-sidebar) y solo se muestra la que corresponde.
+  // compartido entre las dos pestañas, siempre presente — nunca se mueve
+  // ni cambia de ancho al cambiar de pestaña, así que no hace falta el
+  // truco de "visibility para reservar lugar" que usaba antes. Lo que
+  // cambia es cuál de las dos páginas de adentro se muestra.
   if(railPageBuild) railPageBuild.style.display = isBuildTab ? '' : 'none';
   if(wzRail) wzRail.style.display = isMapTab ? '' : 'none';
-  if(calcRail) calcRail.style.display = isCalcTab ? '' : 'none';
   if(mapLayers) mapLayers.style.display = isMapTab ? '' : 'none';
-  if(isCalcTab){
-    // calc.js es el último <script defer> del documento -- si el fetch de
-    // game-data.json (dispara initApp/restoreLastTab) resuelve rápido
-    // (caché) puede ganarle la carrera a que calc.js termine de bajar y
-    // registrar window.initCalcIfNeeded, igual que ya pasaba con el mapa
-    // (ver comentario de initRegnumMapIfNeeded más abajo). acá se guarda
-    // la intención en window.calcTabActive -- calc.js se fija ese flag
-    // apenas termina de cargar y se auto-inicializa si ya hacía falta,
-    // así no importa cuál de los dos termina primero.
-    window.calcTabActive = true;
-    window.initCalcIfNeeded?.();
-    scheduleAlignConfigRail();
-  }
   if(isMapTab){
     // Llamado directo acá, no solo confiar en que map.js/wz.js ya hayan
     // enganchado SU PROPIO listener de click en el botón de la pestaña --
@@ -982,22 +715,12 @@ function switchClass(newClass){
   // por cada clic intermedio en el camino.
   clearTimeout(switchClassRenderTimer);
   switchClassRenderTimer = setTimeout(()=>{
-    renderWeaponPanel('pa-weapon-panel');
-    renderWeaponPanel('pb-bow', 'pb-weapon-section');
-    renumberPanelsB();
-    populatePriorityDropdown();
-
     resetManualState(60);
     manualActiveArchetypeLabel = null;
     document.getElementById('pc-level').value = 60;
     manualActiveTab = 0;
     renderArchetypeSuggestions();
 
-    document.getElementById('pa-output').innerHTML = '';
-    document.getElementById('pb-output').innerHTML = '';
-
-    renderProgression(false);
-    renderCustomBuild(false);
     renderManualPanel();
     scheduleAlignConfigRail();
   }, 120);
@@ -1021,7 +744,6 @@ function restoreLastTab(){
    initApp — arranca la aplicación una vez que los datos del juego llegaron
    ========================================================================= */
 function initApp(){
-  // --- Tab A: Progreso ---
   document.querySelectorAll('.main-tab').forEach(btn=>{
     btn.addEventListener('click', ()=>{
       document.querySelectorAll('.main-tab').forEach(b=>b.classList.remove('active'));
@@ -1035,15 +757,8 @@ function initApp(){
       try { localStorage.setItem('cort-last-tab', btn.dataset.panel); } catch(e){}
     });
   });
-  wireChoiceGroup('pa-mode');
-  document.getElementById('pa-go').addEventListener('click', ()=>renderProgression(true));
 
-  // --- Tab B: Build a medida ---
-  wireChoiceGroup('pb-context');
-  wireChoiceGroup('pb-role');
-  document.getElementById('pb-go').addEventListener('click', ()=>renderCustomBuild(true));
-
-  // --- Tab C: Tu build ---
+  // --- Tab: Tu build ---
   resetManualState(60);
   document.getElementById('pc-level').addEventListener('change', ()=>{
     const v = Math.max(10, Math.min(60, parseInt(document.getElementById('pc-level').value) || 60));
@@ -1113,17 +828,22 @@ function initApp(){
   // --- Render inicial ---
   document.getElementById('app-version').textContent = `Herramienta v${APP_VERSION}`;
   updateHeroHeader();
-  renderWeaponPanel('pa-weapon-panel');
-  renderWeaponPanel('pb-bow', 'pb-weapon-section');
-  renumberPanelsB();
-  populatePriorityDropdown();
   renderArchetypeSuggestions();
-  renderProgression(false);
-  renderCustomBuild(false);
   renderManualPanel();
   applyShareLinkIfPresent();
   applyResponsiveLayout(NARROW_QUERY.matches);
-  restoreLastTab();
+  // Modo "solo mapa": con ?editmode=1 (editar posiciones de NPCs/jefes) o
+  // ?refpick=1 (dibujar/crear zonas) en la URL -- las dos herramientas
+  // ocultas de map.js -- la página arranca directo en "Mapa interactivo"
+  // y esconde la barra de pestañas, para no tener que pasar por "Tu
+  // build" ni verla al lado mientras se usan.
+  const mapOnlyMode = /[?&](editmode|refpick)=1(&|$)/.test(location.search);
+  if(mapOnlyMode){
+    document.querySelector('.main-tabs').style.display = 'none';
+    document.querySelector('.main-tab[data-panel="panel-map"]').click();
+  } else {
+    restoreLastTab();
+  }
   // restoreLastTab() ya disparó updateSharedChromeForTab por su cuenta si
   // cambió de pestaña (vía el click simulado) — este llamado cubre tanto
   // ese caso (queda repetido, sin costo) como el default ("Tu build", que

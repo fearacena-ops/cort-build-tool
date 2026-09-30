@@ -27,7 +27,6 @@ function tagLabel(role){ return VOCAB.rolGrande[role] || role; }
 function roleTags(sp){
   return (sp.cat||[]).map(r=> `<span class="tag ${r}">${tagLabel(r)}</span>`).join('');
 }
-const ROLE_LABEL = VOCAB.rolSeleccionableLabel;
 
 const TYPE_LABEL = {Passive:"Pasivo", Constant:"Constante", Direct:"Directo", Activable:"Activable", Aura:"Aura"};
 const GCD_LABEL = {"Very Short":"Muy corto", "Short":"Corto", "Normal":"Normal", "Long":"Largo", "Very Long":"Muy largo"};
@@ -87,176 +86,11 @@ function buildSpellDetailHTML(name, sp, idx, dlvl, rank){
   else html += `<div class="sd-fixed">Efecto pasivo sin valores numéricos publicados por el juego.</div>`;
   return html;
 }
-// Cuando se despliega una o más habilidades dentro de una disciplina, en vez
-// de dejar que toda la página crezca sin límite, el panel de habilidades
-// toma su propio scroll interno una vez que supera la altura que tenía
-// "sin desplegar". Esa altura se mide una sola vez, la primera vez que se
-// toca cualquier fila de ese panel — en ese momento todavía nada está
-// expandido, así que el valor medido es fiel al tamaño original.
-function updatePaneScrollState(pane){
-  if(!pane) return;
-  const hasExpanded = pane.querySelector('.spell-row.expanded') !== null;
-  if(hasExpanded){
-    pane.style.maxHeight = pane.dataset.naturalHeight + 'px';
-    pane.style.overflowY = 'auto';
-    pane.style.paddingRight = '14px';
-  } else {
-    pane.style.maxHeight = '';
-    pane.style.overflowY = '';
-    pane.style.paddingRight = '';
-  }
-}
-function ensureNaturalHeight(pane){
-  if(pane && pane.dataset.naturalHeight === undefined){
-    pane.dataset.naturalHeight = pane.scrollHeight;
-  }
-}
-function toggleSpellDetail(rowEl){
-  const pane = rowEl.closest('.tab-pane');
-  ensureNaturalHeight(pane);
-  rowEl.classList.toggle('expanded');
-  updatePaneScrollState(pane);
-}
-function expandAllInPane(btn){
-  const frame = btn.closest('.tabframe');
-  const pane = frame.querySelector('.tab-pane.active');
-  if(pane){
-    ensureNaturalHeight(pane);
-    pane.querySelectorAll('.spell-row').forEach(r=> r.classList.add('expanded'));
-    updatePaneScrollState(pane);
-  }
-}
-function collapseAllInPane(btn){
-  const frame = btn.closest('.tabframe');
-  const pane = frame.querySelector('.tab-pane.active');
-  if(pane){
-    pane.querySelectorAll('.spell-row').forEach(r=> r.classList.remove('expanded'));
-    updatePaneScrollState(pane);
-  }
-}
-
-let tabUid = 0;
-function renderTabbedDiscs(build){
-  tabUid++;
-  const uid = tabUid;
-  let rail = `<div class="tab-rail">`;
-  let panes = `<div class="tab-panes">
-    <div class="pane-toolbar">
-      <button class="mini-btn" onclick="expandAllInPane(this)">Desplegar todo</button>
-      <button class="mini-btn" onclick="collapseAllInPane(this)">Ocultar todo</button>
-    </div>`;
-  DISC_NAMES.forEach((name, i)=>{
-    const d = CLASS.disciplines[name];
-    const lvl = build.dlvl[name];
-    const pct = Math.round(lvl/MAXDLEVEL*100);
-    const isLocked = build.locked.has(name);
-    rail += `<button class="rail-btn${i===0?' active':''}${isLocked?' locked':''}" onclick="selectDiscTab(this, ${uid}, ${i})">
-      <div class="ricon" style="${iconStyle(d.icon,0,30)}"></div>
-      <div class="rinfo">
-        <div class="rname">${d.es}${isLocked?' <span style=\"color:var(--ink-faint)\">· no usada</span>':''}</div>
-        <div class="rlvl">Disciplina ${lvl}/${MAXDLEVEL}</div>
-        <div class="rbar"><i style="width:${pct}%"></i></div>
-      </div>
-    </button>`;
-    panes += `<div class="tab-pane${i===0?' active':''}" data-uid="${uid}" data-idx="${i}">`;
-    d.spells.forEach((sp, idx)=>{
-      const rank = build.ranks[name+'|'+idx] || 0;
-      const cap = spellCap(name, idx, lvl);
-      let pips = '';
-      for(let p=1;p<=MAXPLEVEL;p++){
-        if(p<=rank) pips += '<div class="pip filled"></div>';
-        else if(p<=cap) pips += '<div class="pip"></div>';
-        else pips += '<div class="pip locked"></div>';
-      }
-      panes += `<div class="spell-row" onclick="toggleSpellDetail(this)">
-        <div class="sicon${rank===0?' dim':''}" style="${iconStyle(d.icon, sp.spriteIdx, 38)}"></div>
-        <div class="rank-pips">${pips}</div>
-        <div class="spell-info">
-          <div class="spell-name">${sp.name} <span class="rk">Nv.${rank}/${MAXPLEVEL}</span> ${roleTags(sp)}${flagChips(sp)}</div>
-          <div class="spell-desc">${sp.desc}</div>
-        </div>
-        <button class="spell-expand" onclick="event.stopPropagation();toggleSpellDetail(this.closest('.spell-row'))">▸</button>
-        <div class="spell-detail">${buildSpellDetailHTML(name, sp, idx, lvl, rank)}</div>
-      </div>`;
-    });
-    panes += `</div>`;
-  });
-  rail += `</div>`;
-  panes += `</div>`;
-  return `<div class="tabframe">${rail}${panes}</div>`;
-}
 function flagChips(sp){
   const cont = sp.contenidoPrincipal || [];
   if(!cont.length) return '';
   const out = cont.map(c=> `<span class="flagchip" title="${c}">${VOCAB.contenidoAbreviaturas[c] || c}</span>`).join('');
   return `<div class="flagchips">${out}</div>`;
-}
-function selectDiscTab(btn, uid, idx){
-  const frame = btn.closest('.tabframe');
-  frame.querySelectorAll('.rail-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  frame.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));
-  frame.querySelector(`.tab-pane[data-uid="${uid}"][data-idx="${idx}"]`).classList.add('active');
-}
-function renderFullBuild(build){
-  let html = `<div class="summary-grid">
-    <div class="stat-card"><div class="label">Nivel</div><div class="value">${build.level}</div></div>
-    <div class="stat-card"><div class="label">Puntos disciplina</div><div class="value">${build.dpBudget-build.dpLeft}<span style="color:var(--ink-faint);font-size:13px"> / ${build.dpBudget}</span></div></div>
-    <div class="stat-card"><div class="label">Puntos poder</div><div class="value">${build.ppBudget-build.ppLeft}<span style="color:var(--ink-faint);font-size:13px"> / ${build.ppBudget}</span></div></div>
-  </div>`;
-  html += renderTabbedDiscs(build);
-  return html;
-}
-
-function renderDiff(items){
-  if(items.length === 0) return `<p class="empty-note">Sin cambios relevantes en este tramo — ya tienes lo esencial cubierto.</p>`;
-  const discItems = items.filter(i=>i.kind==='disc');
-  const spellItems = items.filter(i=>i.kind==='spell');
-  let html = `<div class="diff-list">`;
-  discItems.forEach(it=>{
-    const d = CLASS.disciplines[it.name];
-    html += `<div class="diff-item disc-up">
-      <div class="picon" style="${iconStyle(d.icon,0,34)}"></div>
-      <div class="txt"><div class="h">Sube <b>${d.es}</b> de disciplina ${it.before} → ${it.after}</div><div class="s">Desbloquea más rango en sus poderes.</div></div>
-    </div>`;
-  });
-  spellItems.forEach(it=>{
-    const d = CLASS.disciplines[it.name];
-    html += `<div class="diff-item${it.isNew?' new':''}">
-      <div class="picon" style="${iconStyle(d.icon, it.sp.spriteIdx, 34)}"></div>
-      <div class="txt">
-        <div class="h">${it.isNew?'Agrega':'Sube'} <b>${it.sp.name}</b> ${it.isNew?`(nuevo, rango ${it.after})`:`rango ${it.before} → ${it.after}`} <span style="color:var(--ink-faint);font-size:12px;font-style:normal">· ${d.es}</span></div>
-        <div class="s">${it.sp.desc}</div>
-      </div>
-      <span class="diff-tags">${roleTags(it.sp)}</span>
-    </div>`;
-  });
-  html += `</div>`;
-  return html;
-}
-
-function renderCompactDiff(items){
-  if(items.length===0) return '';
-  return items.map(it=>{
-    if(it.kind==='disc') return `<b>${CLASS.disciplines[it.name].es}</b> disciplina ${it.before}→${it.after}`;
-    const rankTxt = it.isNew ? `nuevo, rango ${it.after}` : `rango ${it.before}→${it.after}`;
-    return `<b>${it.sp.name}</b> <span style="color:var(--ink-faint)">(${CLASS.disciplines[it.name].es})</span> ${rankTxt}`;
-  }).join(' · ');
-}
-
-function renderLevelByLevel(startLevel, endLevel, sequence){
-  let html = '';
-  let prevBuild = sequence[startLevel];
-  for(let lvl = startLevel+1; lvl <= endLevel; lvl++){
-    const build = sequence[lvl];
-    const items = diffBuilds(prevBuild, build);
-    const changes = items.length > 0
-      ? renderCompactDiff(items)
-      : `<span class="lvl-nochange">Sin cambios — seguí como estabas.</span>`;
-    html += `<div class="lvl-row"><span class="lvl-badge">Nv.${lvl}</span><div class="lvl-changes">${changes}</div></div>`;
-    prevBuild = build;
-  }
-  return html || `<p class="empty-note">No hay ranuras nuevas de disciplina o poder en este tramo — ya tenías todo lo disponible reservado.</p>`;
 }
 
 // Builds the shared export-card HTML from any {dlvl, ranks} build-like object
