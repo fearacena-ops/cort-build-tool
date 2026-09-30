@@ -1,22 +1,30 @@
 /* ========================================================================
    calc.css — pestaña "Calculador de daños": grilla de slots de
-   equipamiento y el desglose de resultado. El resto de los controles
-   (atributos, poderes, resultado) reutiliza las clases de build.css
-   (.panel, .field, .row, .choice-group, select.styled, .summary-grid).
+   equipamiento (con sus filas de stats genéricas) y las tablas de
+   desglose de resultado. El resto de los controles (atributos, carril
+   lateral, resultado) reutiliza las clases de build.css (.panel, .field,
+   .choice-group, select.styled, .summary-grid).
    ======================================================================== */
 
-  .calc-slots-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;}
+  .calc-slots-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;}
   .calc-slot{background:var(--bg-0);border:1px solid var(--line);border-radius:5px;padding:12px 14px;}
   .calc-slot-head{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
   .calc-slot-icon{font-size:22px;line-height:1;width:32px;text-align:center;flex-shrink:0;}
   .calc-slot-name{font-family:var(--font-display);font-size:14px;color:var(--ink);}
-  .calc-slot-row{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap;}
-  .calc-slot-row:last-child{margin-bottom:0;}
-  .calc-slot-row label{font-family:var(--font-mono);font-size:9.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-faint);display:block;margin-bottom:4px;}
-  .calc-slot-row input, .calc-slot-row select{width:100%;background:var(--bg-1);border:1px solid var(--line);color:var(--ink);font-family:var(--font-body);font-size:12.5px;padding:6px 8px;border-radius:3px;}
-  .calc-slot-field{flex:1;min-width:70px;}
-  .calc-slot-field.narrow{flex:0 0 64px;min-width:64px;}
   .calc-slot-unavailable{color:var(--ink-faint);font-style:italic;font-size:13px;padding:20px 0;text-align:center;}
+
+  .calc-stat-row{display:flex;gap:6px;margin-bottom:6px;align-items:center;}
+  .calc-stat-row:last-child{margin-bottom:0;}
+  .calc-stat-row select, .calc-stat-row input{background:var(--bg-1);border:1px solid var(--line);color:var(--ink);font-family:var(--font-body);font-size:11.5px;padding:5px 6px;border-radius:3px;}
+  .calc-stat-kind{flex:1 1 42%;min-width:0;}
+  .calc-stat-sub{flex:1 1 26%;min-width:0;}
+  .calc-stat-value{flex:0 0 52px;width:52px;text-align:right;}
+
+  /* Atributos en el carril lateral: dos por fila, más compacto que
+     .num-inputs (que es para inputs sueltos en el panel principal). */
+  .calc-attrs-rail{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px;}
+  .calc-attrs-rail .field label{margin-bottom:4px;}
+  .calc-attrs-rail input[type=number]{width:100%;background:var(--bg-0);border:1px solid var(--line);color:var(--ink);font-family:var(--font-mono);font-size:14px;padding:8px 9px;border-radius:3px;}
 
   .calc-detail-table{width:100%;border-collapse:collapse;font-family:var(--font-mono);font-size:11.5px;margin-top:12px;}
   .calc-detail-table th, .calc-detail-table td{padding:6px 8px;text-align:right;border-bottom:1px solid var(--line);}
@@ -26,4 +34,6 @@
 
   @media (max-width:460px){
     .calc-slots-grid{grid-template-columns:1fr;}
+    .calc-attrs-rail{grid-template-columns:1fr;}
+    .calc-stat-kind{flex-basis:100%;}
   }

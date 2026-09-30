@@ -1,20 +1,23 @@
 /* ========================================================================
    calc.js — pestaña "Calculador de daños". Implementa la fórmula oficial
-   de daño publicada por NGD (ver FormulaDañoRegnumOficial.txt): PASO 1
-   (daño de arma por tipo), PASO 2 (bono de atributo + BCMT repartido
-   proporcionalmente) y PASO 3 (daño final, min/max en vez de tirada
-   aleatoria — igual que la Hoja de Personaje). La fórmula de Armadura y
-   Resistencias (daño RECIBIDO) no está implementada todavía: esto calcula
-   el daño que el personaje INFLIGE, que es lo que se pidió primero.
+   de daño publicada por NGD (ver FormulaDañoRegnumOficial.txt):
+   - Daño infligido: PASO 1 (daño de arma por tipo), PASO 2 (bono de
+     atributo + BCMT repartido proporcionalmente) y PASO 3 (daño final,
+     min/max en vez de tirada aleatoria -- igual que la Hoja de
+     Personaje). Verificado exacto contra el caso de uso oficial del
+     documento (Espada Ancestral -> 918-964).
+   - Armadura y resistencias: PASO 1 (protección por tipo, según PBA +
+     calidad de cada pieza + Clase de Armadura) y PASO 2 (resistencias
+     porcentuales, tal cual se cargaron). No simula un golpe recibido
+     (necesitaría modelar un atacante) -- muestra el perfil defensivo
+     propio, como "Armor Bonus%"/"Resist%" en calculadoras de referencia
+     (ver poludnica.shinyapps.io/rcalc).
 
-   Verificación: los pasos 1-3 se probaron contra el caso de uso oficial
-   del documento (Espada Ancestral, resultado 918-964) y coinciden exacto.
-   Contra el equipo real de Cazador que se cargó de ejemplo NO coincide
-   con el 153-184 que muestra la Hoja de Personaje del juego -- el
-   supuesto más dudoso es cómo cuentan los anillos con "Daño: X-Y" (acá
-   se toma esa línea una sola vez, ignorando la línea repetida "Daño
-   <tipo> +X/Y" para no duplicarla). Si el desfasaje viene de ahí, avisale
-   a Claude con el mecanismo real para ajustar el cálculo.
+   Cada pieza de equipo es genérica: hasta 7 filas de "stat suelto"
+   (catálogo STAT_CATALOG más abajo) en vez de nombre de ítem + campos
+   fijos -- así no importa que dos ítems compartan nombre con distinto
+   nivel/rareza, y cubre piezas de armadura reales (Armadura + las 6
+   calidades de protección por tipo = 7 líneas, visto en tooltips reales).
    ======================================================================== */
 (function(){
 
@@ -26,8 +29,10 @@
     brujo:     {attr:'INT', mult:1.75},
     conjurador:{attr:'INT', mult:1.3},
   };
+  const ARMOR_CLASS = {barbaro:1.40, caballero:1.40, tirador:1.35, cazador:1.30, conjurador:1.20, brujo:1.20};
   const SUBCLASS_LABEL = {barbaro:'Bárbaro', caballero:'Caballero', tirador:'Tirador', cazador:'Cazador', brujo:'Brujo', conjurador:'Conjurador'};
   const SUBCLASS_CLASS = {barbaro:'Guerrero', caballero:'Guerrero', tirador:'Arquero', cazador:'Arquero', brujo:'Mago', conjurador:'Mago'};
+  const ATTR_LABEL = {INT:'Inteligencia', DXT:'Destreza', CONC:'Concentración', STR:'Fuerza', CON:'Constitución'};
 
   const DAMAGE_TYPES = [
     {key:'cortante', label:'Cortante'},
@@ -37,27 +42,79 @@
     {key:'frio', label:'Frío'},
     {key:'electrico', label:'Eléctrico'},
   ];
+  const QUALITY_LEVELS = ['Muy Mala','Mala','Normal','Buena','Muy Buena'];
+  const QUALITY_FACTOR = {'Muy Mala':0.2, 'Mala':0.35, 'Normal':0.5, 'Buena':0.65, 'Muy Buena':0.8};
 
-  const ATTRS = [
-    {key:'INT', label:'Inteligencia'},
-    {key:'DXT', label:'Destreza'},
-    {key:'CONC', label:'Concentración'},
-    {key:'STR', label:'Fuerza'},
-    {key:'CON', label:'Constitución'},
+  // Cuánto aporta cada pieza de armadura a la Armadura total (ver PASO 1a
+  // de la fórmula de Armadura y Resistencias) -- "role" en CALC_SLOTS
+  // referencia esta tabla, no el nombre del slot, para que subclases
+  // futuras con otros nombres de pieza reusen lo mismo.
+  const ROLE_DISTRIBUTION = {torso:0.28, cabeza:0.24, piernas:0.20, brazos:0.16, guanteletes:0.12, escudo:0.25, manoderecha:0.20};
+
+  const STAT_ROWS_PER_SLOT = 7; // ver comentario de arriba: PBA + 6 calidades de protección es el máximo real visto
+
+  // Catálogo de stats sueltos que puede dar CUALQUIER pieza. "kind" define
+  // qué sub-campos pide la fila:
+  //  - flatAttr: sub = atributo (INT/DXT/CONC/STR/CON), value = número
+  //  - typedRange: sub = tipo de daño, value/value2 = mínimo/máximo
+  //  - typedFlat: sub = tipo de daño, value = número
+  //  - typedQuality: sub = tipo de daño, value = una de QUALITY_LEVELS
+  //  - plain: value = número, sin sub-campo
+  const STAT_CATALOG = [
+    {key:'flatAttr', label:'Atributo (+X)', kind:'flatAttr', group:'Atributos'},
+    {key:'armorBase', label:'Armadura (PBA) +X', kind:'plain', group:'Armadura'},
+    {key:'protectionQuality', label:'Calidad de protección (tipo)', kind:'typedQuality', group:'Armadura'},
+    {key:'weaponQuality', label:'Calidad de ítem / BCMT (+X)', kind:'plain', group:'Armadura y daño'},
+    {key:'dmgRange', label:'Daño de arma (mín-máx, tipo)', kind:'typedRange', group:'Daño'},
+    {key:'dmgExtraFlat', label:'Daño adicional (tipo) +X', kind:'typedFlat', group:'Daño'},
+    {key:'dmgPercentType', label:'+% Daño (tipo)', kind:'typedFlat', group:'Daño'},
+    {key:'gemDamage', label:'Daño de gema (tipo) +X', kind:'typedFlat', group:'Daño'},
+    {key:'weaponDamagePercentGlobal', label:'+% Daño de Arma (global)', kind:'plain', group:'Daño'},
+    {key:'damageBonusFlat', label:'Bonus de Daño +X (plano)', kind:'plain', group:'Daño'},
+    {key:'damageBonusPercent', label:'Bonus de Daño +%', kind:'plain', group:'Daño'},
+    {key:'critChance', label:'Chance de crítico +%', kind:'plain', group:'Combate'},
+    {key:'critDamagePercent', label:'Daño crítico +%', kind:'plain', group:'Combate'},
+    {key:'evasion', label:'Chance de evasión +%', kind:'plain', group:'Combate'},
+    {key:'block', label:'Chance de bloqueo +%', kind:'plain', group:'Combate'},
+    {key:'attackSpeedPercent', label:'Velocidad de ataque +%', kind:'plain', group:'Combate'},
+    {key:'armorBonusPercent', label:'+% Bono de Armadura (global)', kind:'plain', group:'Resistencias'},
+    {key:'protectionBonusTyped', label:'+% Protección (tipo)', kind:'typedFlat', group:'Resistencias'},
+    {key:'physResist', label:'Resistencia a Daño Físico +%', kind:'plain', group:'Resistencias'},
+    {key:'magResist', label:'Resistencia a Daño Mágico +%', kind:'plain', group:'Resistencias'},
+    {key:'resistTyped', label:'Resistencia a Daño (tipo) +%', kind:'typedFlat', group:'Resistencias'},
+    {key:'receivedDamagePercent', label:'Daño recibido +% (negativo reduce)', kind:'plain', group:'Resistencias'},
+    {key:'powerResist', label:'Resistencia a Poderes +%', kind:'plain', group:'Resistencias'},
+    {key:'knockResist', label:'Resistencia a Noqueo +%', kind:'plain', group:'Resistencias'},
+    {key:'stunResist', label:'Resistencia a Aturdir +%', kind:'plain', group:'Resistencias'},
+    {key:'paralyzeResist', label:'Resistencia a Paralizar +%', kind:'plain', group:'Resistencias'},
+    {key:'dazeResist', label:'Resistencia a Marear +%', kind:'plain', group:'Resistencias'},
+    {key:'immobilizeResist', label:'Resistencia a Inmovilizar +%', kind:'plain', group:'Resistencias'},
+    {key:'cantAttackResist', label:'Resistencia a No puede atacar +%', kind:'plain', group:'Resistencias'},
+    {key:'healthFlat', label:'Salud +X', kind:'plain', group:'Vitalidad y velocidad'},
+    {key:'manaFlat', label:'Maná +X', kind:'plain', group:'Vitalidad y velocidad'},
+    {key:'healthRegenPercent', label:'Regeneración de salud +%', kind:'plain', group:'Vitalidad y velocidad'},
+    {key:'manaRegenPercent', label:'Regeneración de maná +%', kind:'plain', group:'Vitalidad y velocidad'},
+    {key:'moveSpeedPercent', label:'Velocidad de movimiento +%', kind:'plain', group:'Vitalidad y velocidad'},
+    {key:'summonSpeedPercent', label:'Bonus velocidad de invocación +%', kind:'plain', group:'Vitalidad y velocidad'},
+    {key:'healBonusPercent', label:'Bonus de curación +%', kind:'plain', group:'Vitalidad y velocidad'},
   ];
+  const STAT_BY_KEY = {}; STAT_CATALOG.forEach(s=> STAT_BY_KEY[s.key] = s);
+  const STAT_GROUPS = [...new Set(STAT_CATALOG.map(s=> s.group))];
 
   // Solo Cazador tiene slots cargados por ahora (pedido explícito: "por
   // ahora probemos con el cazador"). Las demás subclases quedan con []
-  // hasta que se sume su carpeta de equipamiento.
+  // hasta que se sume su carpeta de equipamiento. "role" referencia
+  // ROLE_DISTRIBUTION para la fórmula de Armadura -- solo lo tienen las
+  // piezas que de verdad dan puntos de armadura.
   const CALC_SLOTS = {
     cazador: [
       {key:'arco', label:'Arco', emoji:'🏹'},
       {key:'flechas', label:'Flechas', emoji:'🎯'},
-      {key:'yelmo', label:'Yelmo', emoji:'⛑️'},
-      {key:'pechera', label:'Pechera', emoji:'👕'},
-      {key:'hombreras', label:'Hombreras', emoji:'🎽'},
-      {key:'guanteletes', label:'Guanteletes', emoji:'🧤'},
-      {key:'perneras', label:'Perneras', emoji:'👖'},
+      {key:'yelmo', label:'Yelmo', emoji:'⛑️', role:'cabeza'},
+      {key:'pechera', label:'Pechera', emoji:'👕', role:'torso'},
+      {key:'hombreras', label:'Hombreras', emoji:'🎽', role:'brazos'},
+      {key:'guanteletes', label:'Guanteletes', emoji:'🧤', role:'guanteletes'},
+      {key:'perneras', label:'Perneras', emoji:'👖', role:'piernas'},
       {key:'amuleto', label:'Amuleto', emoji:'📿'},
       {key:'anilloIzq', label:'Anillo izquierdo', emoji:'💍'},
       {key:'anilloDer', label:'Anillo derecho', emoji:'💍'},
@@ -65,61 +122,84 @@
   };
 
   // Ejemplo real (Fenrirblack, Cazador nivel 40) para no arrancar con la
-  // grilla vacía -- se puede editar o borrar libremente desde la UI.
+  // grilla vacía. El daño de cada anillo se carga UNA sola vez (15-25
+  // Cortante) porque su tooltip repite la misma cifra en dos líneas
+  // ("Daño: 15-25" y "Daño cortante +15/25") y no hay forma de saber
+  // desde el texto si es la misma línea mostrada dos veces o un bono
+  // real aparte -- si en el juego se suma de nuevo, avisale a Claude.
   const EXAMPLE_GEAR = {
     cazador: {
-      arco:      {nombre:'Arco largo alas de dragón compuesto de Madera blanda (Maestre)', min:88,  max:115, tipo:'punzante', bcmt:13},
-      flechas:   {nombre:'Flecha Sanguinaria',                                             min:35,  max:43,  tipo:'punzante', bcmt:0},
-      anilloIzq: {nombre:'Anillo de visión mortal',                                        min:15,  max:25,  tipo:'cortante',  bcmt:0},
-      anilloDer: {nombre:'Anillo de visión mortal',                                        min:15,  max:25,  tipo:'cortante',  bcmt:0},
-      amuleto:   {nombre:'Amuleto del Arquero Maestro'},
-      yelmo:      {nombre:'Yelmo compuesto de brigantina de Cuero blando (Común)'},
-      pechera:    {nombre:'Pechera de brigantina compuesta de Cuero blando (Común)'},
-      hombreras:  {nombre:'Hombreras de brigantina compuestas de Cuero blando (Común)'},
-      guanteletes:{nombre:'Guanteletes compuestos de brigantina de Cuero blando (Común)'},
-      perneras:   {nombre:'Perneras de Brigantina Compuestas de Cuero blando (Común)'},
+      arco: [
+        {stat:'dmgRange', sub:'punzante', value:88, value2:115},
+        {stat:'weaponQuality', value:13},
+        {stat:'dmgExtraFlat', sub:'punzante', value:9},
+        {stat:'critChance', value:10},
+      ],
+      flechas: [
+        {stat:'dmgRange', sub:'punzante', value:35, value2:43},
+      ],
+      anilloIzq: [
+        {stat:'dmgRange', sub:'cortante', value:15, value2:25},
+      ],
+      anilloDer: [
+        {stat:'dmgRange', sub:'cortante', value:15, value2:25},
+      ],
+      amuleto: [
+        {stat:'flatAttr', sub:'DXT', value:4},
+      ],
+      yelmo: armorSetRows(),
+      pechera: armorSetRows(),
+      hombreras: armorSetRows(),
+      guanteletes: armorSetRows(),
+      perneras: armorSetRows(),
     },
   };
-  const EXAMPLE_ATTRS = {cazador: {INT:44, DXT:70, CONC:67, STR:49, CON:63}};
+  // Las 5 piezas de armadura del ejemplo son del mismo set (mismo PBA=168
+  // y misma calidad por tipo) -- se genera una sola vez para no repetir.
+  function armorSetRows(){
+    return [
+      {stat:'armorBase', value:168},
+      {stat:'protectionQuality', sub:'cortante', value:'Normal'},
+      {stat:'protectionQuality', sub:'punzante', value:'Buena'},
+      {stat:'protectionQuality', sub:'aplastante', value:'Muy Buena'},
+      {stat:'protectionQuality', sub:'fuego', value:'Mala'},
+      {stat:'protectionQuality', sub:'frio', value:'Muy Mala'},
+      {stat:'protectionQuality', sub:'electrico', value:'Normal'},
+    ];
+  }
 
   const COMPANIONS = [
     {key:'', label:'Ninguno'},
     {key:'tchulu', label:'Tchulu', desc:'Intercambia 10 de Concentración por 5 de Atributo de clase', apply(st){ st.conc-=10; st.classAttrFlat+=5; }, affectsCalc:true},
-    {key:'faethie', label:'Faethie', desc:'Intercambia 10% de daño de arma por 10% de resistencia a daño físico', apply(st){ st.weaponPercentGlobalDelta-=10; }, affectsCalc:true, note:'La resistencia a daño físico no se ve reflejada acá (este cálculo es de daño infligido, no recibido).'},
-    {key:'soldado_zombie', label:'Compañero Soldado Zombie', desc:'Intercambia 250 de salud por 125 de mana', affectsCalc:false},
-    {key:'na_thar', label:'Na Thar', desc:'Intercambia 15 de concentración por 5% de regeneración de salud', apply(st){ st.conc-=15; }, affectsCalc:false},
-    {key:'zul_nah', label:'Zul Nah', desc:'Intercambia 30% de chance de crítico por 300 de salud', affectsCalc:false},
-    {key:'mukharr', label:'Mukharr', desc:'Intercambia 5% de velocidad de ataque por 10% de protección', affectsCalc:false},
-    {key:'tortugo', label:'Tortugo', desc:'Intercambia 75 de mana por 10 de constitución', apply(st){ st.con+=10; }, affectsCalc:false},
-    {key:'zoathie', label:'Zoathie', desc:'Intercambia 10 de Concentración por 25% de daño crítico', apply(st){ st.conc-=10; }, affectsCalc:false},
-    {key:'domthan', label:'Domthan', desc:'Intercambia 8% de velocidad de invocación por 15% de bonus de curación', affectsCalc:false},
-    {key:'goblinch', label:'Compañero Goblinch', desc:'Intercambia 50 de salud por 100 de mana', affectsCalc:false},
-    {key:'espiritu_futuro', label:'Espíritu del Futuro', desc:'Intercambia 15 de concentración por 275 de salud', apply(st){ st.conc-=15; }, affectsCalc:false},
-    {key:'fenvetir', label:'Fenvetir', desc:'Intercambia 30% de chance de crítico por 150 de mana', affectsCalc:false},
-    {key:'mohere', label:'Mohere', desc:'Intercambia 150 de salud por 10 de Atributo de clase', apply(st){ st.classAttrFlat+=10; }, affectsCalc:true},
+    {key:'faethie', label:'Faethie', desc:'Intercambia 10% de daño de arma por 10% de resistencia a daño físico', apply(st){ st.weaponPercentGlobalDelta-=10; st.physResistDelta+=10; }, affectsCalc:true},
+    {key:'soldado_zombie', label:'Compañero Soldado Zombie', desc:'Intercambia 250 de salud por 125 de mana', apply(st){ st.healthDelta-=250; st.manaDelta+=125; }, affectsCalc:true},
+    {key:'na_thar', label:'Na Thar', desc:'Intercambia 15 de concentración por 5% de regeneración de salud', apply(st){ st.conc-=15; st.healthRegenDelta+=5; }, affectsCalc:true},
+    {key:'zul_nah', label:'Zul Nah', desc:'Intercambia 30% de chance de crítico por 300 de salud', apply(st){ st.critChanceDelta-=30; st.healthDelta+=300; }, affectsCalc:true},
+    {key:'mukharr', label:'Mukharr', desc:'Intercambia 5% de velocidad de ataque por 10% de protección', apply(st){ st.attackSpeedDelta-=5; st.armorBonusPercentDelta+=10; }, affectsCalc:true},
+    {key:'tortugo', label:'Tortugo', desc:'Intercambia 75 de mana por 10 de constitución', apply(st){ st.manaDelta-=75; st.con+=10; }, affectsCalc:true},
+    {key:'zoathie', label:'Zoathie', desc:'Intercambia 10 de Concentración por 25% de daño critico', apply(st){ st.conc-=10; st.critDamageDelta+=25; }, affectsCalc:true},
+    {key:'domthan', label:'Domthan', desc:'Intercambia 8% de velocidad de invocación por 15% de bonus de curación', apply(st){ st.summonSpeedDelta-=8; st.healBonusDelta+=15; }, affectsCalc:true},
+    {key:'goblinch', label:'Compañero Goblinch', desc:'Intercambia 50 de salud por 100 de mana', apply(st){ st.healthDelta-=50; st.manaDelta+=100; }, affectsCalc:true},
+    {key:'espiritu_futuro', label:'Espíritu del Futuro', desc:'Intercambia 15 de concentración por 275 de salud', apply(st){ st.conc-=15; st.healthDelta+=275; }, affectsCalc:true},
+    {key:'fenvetir', label:'Fenvetir', desc:'Intercambia 30% de chance de crítico por 150 de mana', apply(st){ st.critChanceDelta-=30; st.manaDelta+=150; }, affectsCalc:true},
+    {key:'mohere', label:'Mohere', desc:'Intercambia 150 de salud por 10 de Atributo de clase', apply(st){ st.healthDelta-=150; st.classAttrFlat+=10; }, affectsCalc:true},
   ];
 
   let calcInited = false;
   let currentSubclass = 'cazador';
-  let slotState = {}; // slotKey -> {nombre,min,max,tipo,bcmt,gemaMin? no, gema single value, gemaTipo}
+  let slotState = {}; // slotKey -> [{stat,sub,value,value2}, ...]
 
   function slotsForCurrent(){ return CALC_SLOTS[currentSubclass] || []; }
+  function num(v){ const n = Number(v); return isNaN(n) ? 0 : n; }
 
   function seedSlotState(subclass){
     const slots = CALC_SLOTS[subclass] || [];
     const example = EXAMPLE_GEAR[subclass] || {};
     slotState = {};
     slots.forEach(s=>{
-      const ex = example[s.key] || {};
-      slotState[s.key] = {
-        nombre: ex.nombre || '',
-        min: ex.min != null ? ex.min : '',
-        max: ex.max != null ? ex.max : '',
-        tipo: ex.tipo || 'punzante',
-        bcmt: ex.bcmt != null ? ex.bcmt : '',
-        gema: '',
-        gemaTipo: 'punzante',
-      };
+      const rows = (example[s.key] || []).map(r=> ({...r}));
+      while(rows.length < STAT_ROWS_PER_SLOT) rows.push({stat:'', sub:'', value:'', value2:''});
+      slotState[s.key] = rows.slice(0, STAT_ROWS_PER_SLOT);
     });
   }
 
@@ -128,51 +208,96 @@
     if(!hint) return;
     const clase = SUBCLASS_CLASS[currentSubclass];
     const f = ATTR_BONUS_FORMULA[currentSubclass];
-    const attrLabel = {STR:'Fuerza', DXT:'Destreza', INT:'Inteligencia'}[f.attr];
-    hint.textContent = `Clase: ${clase}. Bono de atributo: (${attrLabel} - 20) × ${f.mult}.`;
+    hint.textContent = `Clase: ${clase}. Bono de atributo: (${ATTR_LABEL[f.attr]} - 20) × ${f.mult}. Clase de Armadura: ${ARMOR_CLASS[currentSubclass]}.`;
   }
 
   function renderAttrs(){
     const row = document.getElementById('calc-attrs-row');
     if(!row) return;
-    const defaults = EXAMPLE_ATTRS[currentSubclass] || {};
-    row.innerHTML = ATTRS.map(a=>`
-      <div class="field" style="min-width:110px;flex:0 0 auto">
-        <label>${a.label}</label>
-        <div class="num-inputs"><input type="number" class="calc-attr-input" data-attr="${a.key}" value="${defaults[a.key] != null ? defaults[a.key] : ''}"></div>
+    row.className = 'calc-attrs-rail';
+    row.innerHTML = Object.keys(ATTR_LABEL).map(k=>`
+      <div class="field">
+        <label>${ATTR_LABEL[k]}</label>
+        <input type="number" class="calc-attr-input" data-attr="${k}" value="">
       </div>
     `).join('');
     row.querySelectorAll('.calc-attr-input').forEach(inp=> inp.addEventListener('input', recomputeAndRender));
   }
 
-  function slotRowHTML(slot){
-    const st = slotState[slot.key] || {};
-    const typeOptions = DAMAGE_TYPES.map(t=>`<option value="${t.key}" ${st.tipo===t.key?'selected':''}>${t.label}</option>`).join('');
-    const gemaTypeOptions = DAMAGE_TYPES.map(t=>`<option value="${t.key}" ${st.gemaTipo===t.key?'selected':''}>${t.label}</option>`).join('');
+  function statSubFieldHTML(row, idx, kind){
+    if(kind === 'flatAttr'){
+      return `<select class="calc-stat-sub" data-idx="${idx}">${Object.keys(ATTR_LABEL).map(k=>`<option value="${k}" ${row.sub===k?'selected':''}>${ATTR_LABEL[k]}</option>`).join('')}</select>`;
+    }
+    if(kind === 'typedRange' || kind === 'typedFlat' || kind === 'typedQuality'){
+      return `<select class="calc-stat-sub" data-idx="${idx}">${DAMAGE_TYPES.map(t=>`<option value="${t.key}" ${row.sub===t.key?'selected':''}>${t.label}</option>`).join('')}</select>`;
+    }
+    return '';
+  }
+
+  function statValueFieldHTML(row, idx, kind){
+    if(kind === 'typedQuality'){
+      return `<select class="calc-stat-value" data-idx="${idx}" style="flex:1 1 auto">${QUALITY_LEVELS.map(q=>`<option value="${q}" ${row.value===q?'selected':''}>${q}</option>`).join('')}</select>`;
+    }
+    if(kind === 'typedRange'){
+      return `<input type="number" class="calc-stat-value" data-idx="${idx}" value="${row.value}" placeholder="mín">
+              <input type="number" class="calc-stat-value2" data-idx="${idx}" value="${row.value2}" placeholder="máx">`;
+    }
+    if(!kind) return `<input type="number" class="calc-stat-value" data-idx="${idx}" value="" disabled placeholder="—">`;
+    return `<input type="number" class="calc-stat-value" data-idx="${idx}" value="${row.value}">`;
+  }
+
+  function statRowHTML(row, idx){
+    const kind = row.stat ? STAT_BY_KEY[row.stat].kind : null;
+    const options = STAT_GROUPS.map(g=>
+      `<optgroup label="${g}">${STAT_CATALOG.filter(s=> s.group===g).map(s=> `<option value="${s.key}" ${row.stat===s.key?'selected':''}>${s.label}</option>`).join('')}</optgroup>`
+    ).join('');
+    return `
+      <div class="calc-stat-row" data-idx="${idx}">
+        <select class="calc-stat-kind" data-idx="${idx}"><option value="">(sin usar)</option>${options}</select>
+        ${statSubFieldHTML(row, idx, kind)}
+        ${statValueFieldHTML(row, idx, kind)}
+      </div>
+    `;
+  }
+
+  function slotRowsHTML(slot){
+    const rows = slotState[slot.key] || [];
     return `
       <div class="calc-slot" data-slot="${slot.key}">
         <div class="calc-slot-head">
           <span class="calc-slot-icon">${slot.emoji}</span>
           <span class="calc-slot-name">${slot.label}</span>
         </div>
-        <div class="calc-slot-row">
-          <div class="calc-slot-field" style="flex:1 1 100%">
-            <label>Ítem (referencia)</label>
-            <input type="text" class="calc-slot-nombre" value="${(st.nombre||'').replace(/"/g,'&quot;')}" placeholder="Nombre del ítem equipado">
-          </div>
-        </div>
-        <div class="calc-slot-row">
-          <div class="calc-slot-field narrow"><label>Daño mín.</label><input type="number" class="calc-slot-min" value="${st.min}"></div>
-          <div class="calc-slot-field narrow"><label>Daño máx.</label><input type="number" class="calc-slot-max" value="${st.max}"></div>
-          <div class="calc-slot-field"><label>Tipo</label><select class="calc-slot-tipo">${typeOptions}</select></div>
-          <div class="calc-slot-field narrow"><label>BCMT (+X)</label><input type="number" class="calc-slot-bcmt" value="${st.bcmt}"></div>
-        </div>
-        <div class="calc-slot-row">
-          <div class="calc-slot-field narrow"><label>Gema (+X)</label><input type="number" class="calc-slot-gema" value="${st.gema}"></div>
-          <div class="calc-slot-field"><label>Tipo de gema</label><select class="calc-slot-gema-tipo">${gemaTypeOptions}</select></div>
-        </div>
+        ${rows.map((r,i)=> statRowHTML(r,i)).join('')}
       </div>
     `;
+  }
+
+  function wireSlotEl(el, slotKey){
+    function rerenderRow(idx){
+      const rowEl = el.querySelector(`.calc-stat-row[data-idx="${idx}"]`);
+      rowEl.outerHTML = statRowHTML(slotState[slotKey][idx], idx);
+      wireRow(idx);
+    }
+    function wireRow(idx){
+      const rowEl = el.querySelector(`.calc-stat-row[data-idx="${idx}"]`);
+      const kindSel = rowEl.querySelector('.calc-stat-kind');
+      kindSel.addEventListener('change', ()=>{
+        slotState[slotKey][idx].stat = kindSel.value;
+        slotState[slotKey][idx].sub = '';
+        slotState[slotKey][idx].value = '';
+        slotState[slotKey][idx].value2 = '';
+        rerenderRow(idx);
+        recomputeAndRender();
+      });
+      const subSel = rowEl.querySelector('.calc-stat-sub');
+      if(subSel) subSel.addEventListener('change', ()=>{ slotState[slotKey][idx].sub = subSel.value; recomputeAndRender(); });
+      const valInp = rowEl.querySelector('.calc-stat-value');
+      if(valInp) valInp.addEventListener('input', ()=>{ slotState[slotKey][idx].value = valInp.value; recomputeAndRender(); });
+      const val2Inp = rowEl.querySelector('.calc-stat-value2');
+      if(val2Inp) val2Inp.addEventListener('input', ()=>{ slotState[slotKey][idx].value2 = val2Inp.value; recomputeAndRender(); });
+    }
+    slotState[slotKey].forEach((_,idx)=> wireRow(idx));
   }
 
   function renderSlots(){
@@ -183,24 +308,8 @@
       grid.innerHTML = `<div class="calc-slot-unavailable">Todavía no cargamos el equipamiento de ${SUBCLASS_LABEL[currentSubclass]} — por ahora está disponible para Cazador.</div>`;
       return;
     }
-    grid.innerHTML = slots.map(slotRowHTML).join('');
-    grid.querySelectorAll('.calc-slot').forEach(el=>{
-      const key = el.dataset.slot;
-      const bind = (sel, field, isNumber)=>{
-        const input = el.querySelector(sel);
-        input.addEventListener('input', ()=>{
-          slotState[key][field] = input.value;
-          recomputeAndRender();
-        });
-      };
-      bind('.calc-slot-nombre', 'nombre');
-      bind('.calc-slot-min', 'min');
-      bind('.calc-slot-max', 'max');
-      bind('.calc-slot-tipo', 'tipo');
-      bind('.calc-slot-bcmt', 'bcmt');
-      bind('.calc-slot-gema', 'gema');
-      bind('.calc-slot-gema-tipo', 'gemaTipo');
-    });
+    grid.innerHTML = slots.map(slotRowsHTML).join('');
+    grid.querySelectorAll('.calc-slot').forEach(el=> wireSlotEl(el, el.dataset.slot));
   }
 
   function renderCompanionSelect(){
@@ -215,71 +324,100 @@
     });
   }
 
-  function renderTypePercentSelect(){
-    const sel = document.getElementById('calc-type-percent-type');
-    if(!sel || sel.options.length) return;
-    sel.innerHTML = DAMAGE_TYPES.map(t=> `<option value="${t.key}">${t.label}</option>`).join('');
-    sel.addEventListener('change', recomputeAndRender);
-  }
-
-  function num(v){ const n = Number(v); return isNaN(n) ? 0 : n; }
-
-  // Implementa PASOS 1-3 de FormulaDañoRegnumOficial.txt. Verificado
-  // contra el caso de uso oficial (Espada Ancestral -> 918-964, exacto).
-  function computeDamage(){
+  // Recorre todas las piezas y junta cada stat suelto en las estructuras
+  // que después usan computeAttack()/computeArmor(). Una sola pasada,
+  // reutilizada por las dos.
+  function gatherStats(){
     const types = DAMAGE_TYPES.map(t=> t.key);
     const slots = slotsForCurrent();
+    const itemAttrBonus = {INT:0, DXT:0, CONC:0, STR:0, CON:0};
+    const weaponDamage = {}; types.forEach(t=> weaponDamage[t] = {min:0, max:0});
+    const dmgPercentByType = {}; types.forEach(t=> dmgPercentByType[t] = 0);
+    const specialByType = {}; types.forEach(t=> specialByType[t] = 0);
+    const resistByType = {}; types.forEach(t=> resistByType[t] = 0);
+    const protectionBonusByType = {}; types.forEach(t=> protectionBonusByType[t] = 0);
+    const protectionQuality = {}; // slotKey -> {type: 'Normal'|...}
+    const armorBase = {}; // slotKey -> number
+    const slotBCMT = {}; // slotKey -> number
+    let totalBCMT = 0;
+    const totals = {}; // stat key -> summed value, para los "plain"
 
-    // Estado de atributos + compañero (PASO 2a: bono de atributo).
-    const attrInputs = {};
-    document.querySelectorAll('.calc-attr-input').forEach(inp=> attrInputs[inp.dataset.attr] = num(inp.value));
+    slots.forEach(slot=>{
+      const rows = slotState[slot.key] || [];
+      protectionQuality[slot.key] = {};
+      armorBase[slot.key] = 0;
+      slotBCMT[slot.key] = 0;
+      rows.forEach(r=>{
+        if(!r.stat) return;
+        const def = STAT_BY_KEY[r.stat];
+        if(!def) return;
+        const v = num(r.value);
+        if(def.kind === 'flatAttr'){
+          if(r.sub && itemAttrBonus[r.sub] != null) itemAttrBonus[r.sub] += v;
+        } else if(r.stat === 'armorBase'){
+          armorBase[slot.key] += v;
+        } else if(r.stat === 'protectionQuality'){
+          if(r.sub) protectionQuality[slot.key][r.sub] = r.value || 'Normal';
+        } else if(r.stat === 'weaponQuality'){
+          slotBCMT[slot.key] += v; totalBCMT += v;
+        } else if(r.stat === 'dmgRange'){
+          if(r.sub){ weaponDamage[r.sub].min += v; weaponDamage[r.sub].max += num(r.value2); }
+        } else if(r.stat === 'dmgExtraFlat'){
+          if(r.sub){ weaponDamage[r.sub].min += v; weaponDamage[r.sub].max += v; }
+        } else if(r.stat === 'dmgPercentType'){
+          if(r.sub) dmgPercentByType[r.sub] += v;
+        } else if(r.stat === 'gemDamage'){
+          if(r.sub) specialByType[r.sub] += v;
+        } else if(r.stat === 'resistTyped'){
+          if(r.sub) resistByType[r.sub] += v;
+        } else if(r.stat === 'protectionBonusTyped'){
+          if(r.sub) protectionBonusByType[r.sub] += v;
+        } else {
+          totals[r.stat] = (totals[r.stat] || 0) + v;
+        }
+      });
+    });
+
+    return {types, itemAttrBonus, weaponDamage, dmgPercentByType, specialByType, resistByType, protectionBonusByType, protectionQuality, armorBase, slotBCMT, totalBCMT, totals};
+  }
+
+  function getCompanionState(){
     const companionKey = document.getElementById('calc-companion')?.value || '';
     const companion = COMPANIONS.find(c=> c.key === companionKey);
-    const st = {conc:attrInputs.CONC||0, con:attrInputs.CON||0, classAttrFlat:0, weaponPercentGlobalDelta:0};
+    const st = {conc:0, con:0, classAttrFlat:0, weaponPercentGlobalDelta:0, physResistDelta:0, healthDelta:0, manaDelta:0,
+      healthRegenDelta:0, critChanceDelta:0, armorBonusPercentDelta:0, critDamageDelta:0, summonSpeedDelta:0, healBonusDelta:0, attackSpeedDelta:0};
     if(companion && companion.apply) companion.apply(st);
+    return {companion, st};
+  }
 
+  // PASOS 1-3 de la fórmula de Daño (daño INFLIGIDO). Verificado contra
+  // el caso de uso oficial (Espada Ancestral -> 918-964, exacto).
+  function computeAttack(gathered, attrTotals, companionSt){
+    const {types, weaponDamage, dmgPercentByType, specialByType, totalBCMT, totals} = gathered;
     const attrFormula = ATTR_BONUS_FORMULA[currentSubclass];
-    const baseAttrValue = attrInputs[attrFormula.attr] || 0;
-    const attrValue = baseAttrValue + st.classAttrFlat;
-    const attributeBonus = (attrValue - 20) * attrFormula.mult;
+    const attributeBonus = (attrTotals[attrFormula.attr] - 20) * attrFormula.mult;
 
-    // PASO 1a: sumar daño nominal de cada pieza equipada, por tipo.
-    const raw = {}; types.forEach(t=> raw[t] = {min:0, max:0});
-    let totalBCMT = 0;
-    const specialByType = {}; types.forEach(t=> specialByType[t] = 0);
-    slots.forEach(slot=>{
-      const s = slotState[slot.key];
-      if(!s) return;
-      const t = s.tipo || 'punzante';
-      raw[t].min += num(s.min);
-      raw[t].max += num(s.max);
-      totalBCMT += num(s.bcmt);
-      if(num(s.gema)) specialByType[s.gemaTipo || 'punzante'] += num(s.gema);
+    const totalDamageMaxStep1a = types.reduce((sum,t)=> sum + weaponDamage[t].max, 0);
+
+    // PASO 1b: +% Daño (tipo) -- puede venir de varias piezas, se suman.
+    const boosted = {};
+    types.forEach(t=>{
+      const pct = dmgPercentByType[t];
+      boosted[t] = {min: weaponDamage[t].min + weaponDamage[t].min/100*pct, max: weaponDamage[t].max + weaponDamage[t].max/100*pct};
     });
-    const totalDamageMaxStep1a = types.reduce((sum,t)=> sum + raw[t].max, 0);
 
-    // PASO 1b: Daño de Arma por Tipo % (un solo modificador de poder, ej.
-    // "Atlético +10% Daño Cortante").
-    const typePercentType = document.getElementById('calc-type-percent-type')?.value;
-    const typePercentValue = num(document.getElementById('calc-type-percent-value')?.value);
-    const boosted = {}; types.forEach(t=> boosted[t] = {min:raw[t].min, max:raw[t].max});
-    if(typePercentType && typePercentValue){
-      boosted[typePercentType].min += raw[typePercentType].min / 100 * typePercentValue;
-      boosted[typePercentType].max += raw[typePercentType].max / 100 * typePercentValue;
-    }
-
-    // PASO 2b: extra_damage_per_type, repartido proporcional al daño
+    // PASO 2b: bono de atributo + BCMT, repartido proporcional al daño
     // máximo (post 1b) de cada tipo sobre el total (pre 1b -- así lo
-    // hace el caso de uso oficial, ver el comentario de más arriba).
+    // hace el caso de uso oficial).
     const extraPerType = {};
     types.forEach(t=>{
       const ratio = totalDamageMaxStep1a > 0 ? (boosted[t].max / totalDamageMaxStep1a) : 0;
       extraPerType[t] = (attributeBonus + totalBCMT) * ratio;
     });
 
-    const weaponPercentGlobal = num(document.getElementById('calc-weapon-percent')?.value) + st.weaponPercentGlobalDelta;
-    const damageBonus = num(document.getElementById('calc-damage-bonus')?.value);
-    const damageBonusPercent = num(document.getElementById('calc-damage-bonus-percent')?.value);
+    const weaponPercentGlobal = (totals.weaponDamagePercentGlobal || 0) + companionSt.weaponPercentGlobalDelta;
+    const damageBonus = totals.damageBonusFlat || 0;
+    const damageBonusPercent = totals.damageBonusPercent || 0;
 
     function computeEnd(which){
       const perType = {};
@@ -298,49 +436,116 @@
 
     const minResult = computeEnd('min');
     const maxResult = computeEnd('max');
-    return {
-      min: minResult.total, max: maxResult.total,
-      perTypeMin: minResult.perType, perTypeMax: maxResult.perType,
-      attributeBonus, totalBCMT, raw, boosted, specialByType, types, companion,
-    };
+    return {min:minResult.total, max:maxResult.total, perTypeMin:minResult.perType, perTypeMax:maxResult.perType, attributeBonus, totalBCMT, raw:weaponDamage, types};
+  }
+
+  // PASO 1-2 de la fórmula de Armadura y Resistencias: protección por
+  // tipo (propia, sin simular un ataque recibido) + resistencias tal
+  // cual se cargaron.
+  function computeArmor(gathered){
+    const {types, protectionQuality, armorBase, slotBCMT, resistByType, protectionBonusByType, totals} = gathered;
+    const slots = slotsForCurrent();
+    const ca = ARMOR_CLASS[currentSubclass];
+    const protection = {}; types.forEach(t=> protection[t] = 0);
+    slots.filter(s=> s.role).forEach(slot=>{
+      const dist = ROLE_DISTRIBUTION[slot.role] || 0;
+      const pba = armorBase[slot.key] || 0;
+      const bcmt = slotBCMT[slot.key] || 0;
+      const quality = protectionQuality[slot.key] || {};
+      types.forEach(t=>{
+        const factor = QUALITY_FACTOR[quality[t]] != null ? QUALITY_FACTOR[quality[t]] : QUALITY_FACTOR['Normal'];
+        let piece = Math.ceil(pba * dist * factor) + bcmt; // 1a, 1b
+        piece *= ca; // 1e (se aplica por pieza, ver caso de uso oficial)
+        protection[t] += piece;
+      });
+    });
+    // 1c/1d: bonos porcentuales de protección, por tipo y globales.
+    types.forEach(t=>{
+      protection[t] += protection[t] * (protectionBonusByType[t]||0) / 100;
+      protection[t] += protection[t] * (totals.armorBonusPercent||0) / 100;
+    });
+    return {protection, resistByType, physResist: totals.physResist||0, magResist: totals.magResist||0, types};
   }
 
   function renderResult(){
-    const result = computeDamage();
+    const gathered = gatherStats();
+    const {companion, st} = getCompanionState();
+    const attrInputs = {};
+    document.querySelectorAll('.calc-attr-input').forEach(inp=> attrInputs[inp.dataset.attr] = num(inp.value));
+    const attrTotals = {};
+    Object.keys(ATTR_LABEL).forEach(k=> attrTotals[k] = attrInputs[k] + gathered.itemAttrBonus[k]);
+    attrTotals.CONC += st.conc; attrTotals.CON += st.con;
+    const attrFormula = ATTR_BONUS_FORMULA[currentSubclass];
+    attrTotals[attrFormula.attr] += st.classAttrFlat;
+
+    const attack = computeAttack(gathered, attrTotals, st);
+    const armor = computeArmor(gathered);
+
     const summary = document.getElementById('calc-result-summary');
     if(summary){
       summary.innerHTML = `
-        <div class="stat-card"><div class="label">Daño</div><div class="value">${result.min} - ${result.max}</div></div>
-        <div class="stat-card"><div class="label">Bono de atributo</div><div class="value">${result.attributeBonus.toFixed(1)}</div></div>
-        <div class="stat-card"><div class="label">BCMT total</div><div class="value">${result.totalBCMT}</div></div>
+        <div class="stat-card"><div class="label">Daño</div><div class="value">${attack.min} - ${attack.max}</div></div>
+        <div class="stat-card"><div class="label">Bono de atributo</div><div class="value">${attack.attributeBonus.toFixed(1)}</div></div>
+        <div class="stat-card"><div class="label">BCMT total</div><div class="value">${attack.totalBCMT}</div></div>
       `;
     }
     const detailBox = document.getElementById('calc-detail-box');
     if(detailBox){
-      const rows = result.types.map(t=>{
+      const rows = attack.types.map(t=>{
         const label = DAMAGE_TYPES.find(dt=> dt.key===t).label;
-        const rawMax = result.raw[t].max;
-        const cls = rawMax === 0 ? 'zero' : '';
-        return `<tr><td class="${cls}">${label}</td><td class="${cls}">${result.raw[t].min}-${result.raw[t].max}</td><td class="${cls}">${Math.round(result.perTypeMin[t])}</td><td class="${cls}">${Math.round(result.perTypeMax[t])}</td></tr>`;
+        const cls = attack.raw[t].max === 0 ? 'zero' : '';
+        return `<tr><td class="${cls}">${label}</td><td class="${cls}">${attack.raw[t].min}-${attack.raw[t].max}</td><td class="${cls}">${Math.round(attack.perTypeMin[t])}</td><td class="${cls}">${Math.round(attack.perTypeMax[t])}</td></tr>`;
       }).join('');
-      detailBox.innerHTML = `
-        <table class="calc-detail-table">
-          <thead><tr><th>Tipo</th><th>Daño de arma</th><th>Resultado mín.</th><th>Resultado máx.</th></tr></thead>
-          <tbody>${rows}</tbody>
-        </table>
-      `;
+      detailBox.innerHTML = `<table class="calc-detail-table"><thead><tr><th>Tipo</th><th>Daño de arma</th><th>Resultado mín.</th><th>Resultado máx.</th></tr></thead><tbody>${rows}</tbody></table>`;
     }
     const note = document.getElementById('calc-companion-note');
     if(note){
-      if(result.companion && result.companion.note){
+      if(companion && companion.key){
         note.style.display = '';
-        note.innerHTML = `<div class="mark">✦</div><div>${result.companion.note}</div>`;
-      } else if(result.companion && result.companion.affectsCalc === false && result.companion.key){
-        note.style.display = '';
-        note.innerHTML = `<div class="mark">✦</div><div>El intercambio de "${result.companion.label}" no mueve el resultado de este cálculo (afecta salud, maná, velocidad u otro stat que la fórmula de daño infligido no usa).</div>`;
-      } else {
-        note.style.display = 'none';
-      }
+        note.innerHTML = `<div class="mark">✦</div><div>"${companion.label}": ${companion.desc}.</div>`;
+      } else note.style.display = 'none';
+    }
+
+    const armorSummary = document.getElementById('calc-armor-summary');
+    if(armorSummary){
+      armorSummary.innerHTML = `
+        <div class="stat-card"><div class="label">Resist. Física</div><div class="value">${armor.physResist}%</div></div>
+        <div class="stat-card"><div class="label">Resist. Mágica</div><div class="value">${armor.magResist}%</div></div>
+      `;
+    }
+    const armorDetail = document.getElementById('calc-armor-detail-box');
+    if(armorDetail){
+      const rows = armor.types.map(t=>{
+        const label = DAMAGE_TYPES.find(dt=> dt.key===t).label;
+        return `<tr><td>${label}</td><td>${Math.round(armor.protection[t])}</td><td>${armor.resistByType[t]||0}%</td></tr>`;
+      }).join('');
+      armorDetail.innerHTML = `<table class="calc-detail-table"><thead><tr><th>Tipo</th><th>Protección</th><th>Resistencia</th></tr></thead><tbody>${rows}</tbody></table>`;
+    }
+
+    // Estadísticas derivadas: lo que viene de los ítems (gathered.totals)
+    // más las 4 reglas de atributo pasado cierto umbral.
+    const derived = document.getElementById('calc-derived-summary');
+    if(derived){
+      const t = gathered.totals;
+      const stunResist = (t.stunResist||0) + Math.max(0, attrTotals.CON - 70) * 0.2;
+      const knockResist = (t.knockResist||0) + Math.max(0, attrTotals.STR - 70) * 0.2;
+      const summonSpeed = (t.summonSpeedPercent||0) + st.summonSpeedDelta + Math.max(0, attrTotals.CONC - 70) * 0.2;
+      const critChance = (t.critChance||0) + st.critChanceDelta + Math.max(0, attrTotals.CONC - 40) * 0.1;
+      const cards = [
+        ['Chance de crítico', critChance.toFixed(1)+'%'],
+        ['Daño crítico', ((t.critDamagePercent||0)+st.critDamageDelta)+'%'],
+        ['Chance de evasión', (t.evasion||0)+'%'],
+        ['Chance de bloqueo', (t.block||0)+'%'],
+        ['Velocidad de ataque', ((t.attackSpeedPercent||0)+st.attackSpeedDelta)+'%'],
+        ['Resistencia a Aturdir', stunResist.toFixed(1)+'%'],
+        ['Resistencia a Noqueo', knockResist.toFixed(1)+'%'],
+        ['Bonus vel. invocación', summonSpeed.toFixed(1)+'%'],
+        ['Salud', (t.healthFlat||0)+st.healthDelta],
+        ['Maná', (t.manaFlat||0)+st.manaDelta],
+        ['Regen. de salud', ((t.healthRegenPercent||0)+st.healthRegenDelta)+'%'],
+        ['Regen. de maná', (t.manaRegenPercent||0)+'%'],
+      ];
+      derived.innerHTML = cards.map(([label,value])=> `<div class="stat-card"><div class="label">${label}</div><div class="value" style="font-size:16px">${value}</div></div>`).join('');
     }
   }
 
@@ -354,16 +559,9 @@
         currentSubclass = btn.dataset.v;
         seedSlotState(currentSubclass);
         renderSubclassHint();
-        renderAttrs();
         renderSlots();
         recomputeAndRender();
       });
-    });
-  }
-
-  function wirePowerInputs(){
-    ['calc-type-percent-value','calc-weapon-percent','calc-damage-bonus','calc-damage-bonus-percent'].forEach(id=>{
-      document.getElementById(id)?.addEventListener('input', recomputeAndRender);
     });
   }
 
@@ -375,15 +573,16 @@
     renderAttrs();
     renderSlots();
     renderCompanionSelect();
-    renderTypePercentSelect();
     wireSubclassSwitch();
-    wirePowerInputs();
-    const toggleBtn = document.getElementById('calc-toggle-detail');
-    const detailBox = document.getElementById('calc-detail-box');
-    toggleBtn?.addEventListener('click', ()=>{
-      detailBox.classList.toggle('open');
-      toggleBtn.textContent = detailBox.classList.contains('open') ? 'Ocultar desglose por tipo de daño' : 'Ver desglose por tipo de daño';
-    });
+    const wireToggle = (btnId, boxId, labelOn, labelOff)=>{
+      const btn = document.getElementById(btnId), box = document.getElementById(boxId);
+      btn?.addEventListener('click', ()=>{
+        box.classList.toggle('open');
+        btn.textContent = box.classList.contains('open') ? labelOn : labelOff;
+      });
+    };
+    wireToggle('calc-toggle-detail', 'calc-detail-box', 'Ocultar desglose por tipo de daño', 'Ver desglose por tipo de daño');
+    wireToggle('calc-toggle-armor-detail', 'calc-armor-detail-box', 'Ocultar desglose por tipo de daño', 'Ver desglose por tipo de daño');
     recomputeAndRender();
   };
 })();

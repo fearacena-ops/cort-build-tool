@@ -284,74 +284,36 @@ if('serviceWorker' in navigator){
 
   <div class="main-panel" id="panel-calc">
     <div class="panel">
-      <h2><span class="num">1</span> Clase y subclase</h2>
-      <div class="row">
-        <div class="field">
-          <label>Subclase</label>
-          <div class="choice-group" id="calc-subclass-switch">
-            <button class="choice-btn" data-v="barbaro">Bárbaro</button>
-            <button class="choice-btn" data-v="caballero">Caballero</button>
-            <button class="choice-btn" data-v="tirador">Tirador</button>
-            <button class="choice-btn active" data-v="cazador">Cazador</button>
-            <button class="choice-btn" data-v="brujo">Brujo</button>
-            <button class="choice-btn" data-v="conjurador">Conjurador</button>
-          </div>
-          <div class="hint" id="calc-subclass-hint"></div>
-        </div>
-        <div class="field">
-          <label>Compañero (opcional)</label>
-          <select class="styled" id="calc-companion"></select>
-          <div class="hint" id="calc-companion-hint"></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="panel">
-      <h2><span class="num">2</span> Atributos</h2>
-      <div class="row" id="calc-attrs-row"></div>
-      <div class="hint">Usá los valores que muestra tu Hoja de Personaje (ya incluyen los bonos de equipamiento).</div>
-    </div>
-
-    <div class="panel">
-      <h2><span class="num">3</span> Equipamiento</h2>
-      <div class="hint" style="margin-top:-8px;margin-bottom:14px">Completá el daño y la Bonificación de Calidad-Material-Tipo (BCMT, el "(+X)" del tooltip) de cada pieza que corresponda. Las piezas de armadura sin daño se pueden dejar en blanco.</div>
+      <h2><span class="num">1</span> Equipamiento</h2>
+      <div class="hint" style="margin-top:-8px;margin-bottom:14px">Por pieza, cargá lo que diga su tooltip como stats sueltos (atributo, daño, resistencia, calidad de protección, etc) -- no hace falta el nombre del ítem, lo que importa es lo que da.</div>
       <div id="calc-slots-grid" class="calc-slots-grid"></div>
-    </div>
-
-    <div class="panel">
-      <h2><span class="num">4</span> Modificadores de poderes activos <span style="color:var(--ink-faint);font-weight:400">(opcional)</span></h2>
-      <div class="row">
-        <div class="field">
-          <label>Daño de Arma por Tipo (%)</label>
-          <div style="display:flex;gap:8px">
-            <select class="styled" id="calc-type-percent-type"></select>
-            <input type="number" id="calc-type-percent-value" placeholder="0" style="width:90px">
-          </div>
-          <div class="hint">Ej: pasiva "Atlético +10% Daño Cortante".</div>
-        </div>
-        <div class="field">
-          <label>Daño de Arma % (global)</label>
-          <input type="number" id="calc-weapon-percent" placeholder="0">
-        </div>
-      </div>
-      <div class="row" style="margin-top:18px">
-        <div class="field">
-          <label>Bonus de Daño (+X, plano)</label>
-          <input type="number" id="calc-damage-bonus" placeholder="0">
-        </div>
-        <div class="field">
-          <label>Bonus de Daño (+%)</label>
-          <input type="number" id="calc-damage-bonus-percent" placeholder="0">
-        </div>
+      <div class="field" style="margin-top:20px;max-width:320px">
+        <label>Compañero (opcional)</label>
+        <select class="styled" id="calc-companion"></select>
+        <div class="hint" id="calc-companion-hint"></div>
       </div>
     </div>
 
     <div class="panel" id="calc-result-panel">
-      <h2><span class="num">5</span> Daño resultante</h2>
+      <h2><span class="num">2</span> Daño infligido</h2>
       <div class="summary-grid" id="calc-result-summary"></div>
       <button class="toggle-full" id="calc-toggle-detail">Ver desglose por tipo de daño</button>
       <div class="full-build" id="calc-detail-box"></div>
       <div class="callout" id="calc-companion-note" style="display:none;margin-top:16px"></div>
+    </div>
+
+    <div class="panel" id="calc-armor-panel">
+      <h2><span class="num">3</span> Armadura y resistencias</h2>
+      <div class="hint" style="margin-top:-8px;margin-bottom:14px">Protección por tipo de daño (según Armadura, calidad de cada pieza y tu Clase de Armadura) y las resistencias que hayas cargado en el equipamiento.</div>
+      <div class="summary-grid" id="calc-armor-summary"></div>
+      <button class="toggle-full" id="calc-toggle-armor-detail">Ver desglose por tipo de daño</button>
+      <div class="full-build" id="calc-armor-detail-box"></div>
+    </div>
+
+    <div class="panel" id="calc-derived-panel">
+      <h2><span class="num">4</span> Estadísticas derivadas</h2>
+      <div class="hint" style="margin-top:-8px;margin-bottom:14px">Combate y resistencias a estados adversos que no vienen directo de un ítem, sino de tus atributos (Constitución, Fuerza y Concentración pasan los primeros 70/70/40 puntos) sumadas a lo que hayan dado los ítems.</div>
+      <div class="summary-grid" id="calc-derived-summary"></div>
     </div>
   </div>
 
@@ -412,6 +374,30 @@ if('serviceWorker' in navigator){
       <div class="hint" style="margin-top:-8px;margin-bottom:14px">Configuraciones que la comunidad ha compartido.</div>
       <div class="choice-group" id="pc-archetype-presets"></div>
       <div id="pc-archetype-blurb" class="hint" style="margin-top:10px"></div>
+    </div>
+   </div>
+
+   <div class="rail-page rail-page-calc" id="calc-sidebar" hidden>
+    <div class="panel">
+      <div class="field">
+        <label>Elegir Subclase</label>
+        <div class="choice-group" id="calc-subclass-switch">
+          <button class="choice-btn" data-v="brujo">Brujo</button>
+          <button class="choice-btn" data-v="tirador">Tirador</button>
+          <button class="choice-btn" data-v="barbaro">Bárbaro</button>
+          <button class="choice-btn" data-v="conjurador">Conjurador</button>
+          <button class="choice-btn active" data-v="cazador">Cazador</button>
+          <button class="choice-btn" data-v="caballero">Caballero</button>
+        </div>
+        <div class="hint" id="calc-subclass-hint"></div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="field">
+        <label>Atributos</label>
+        <div id="calc-attrs-row"></div>
+      </div>
+      <div class="hint">Puntos base, sin contar equipamiento -- los bonos de cada ítem se suman aparte, desde la grilla del centro.</div>
     </div>
    </div>
 

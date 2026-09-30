@@ -889,6 +889,7 @@ function updateSharedChromeForTab(panelId){
   const notice = document.getElementById('notice-build');
   const railPageBuild = document.getElementById('rail-page-build');
   const wzRail = document.getElementById('wz-sidebar');
+  const calcRail = document.getElementById('calc-sidebar');
   const mapLayers = document.getElementById('map-layers-block');
   const isMapTab = panelId === 'panel-map';
   const isCalcTab = panelId === 'panel-calc';
@@ -912,11 +913,12 @@ function updateSharedChromeForTab(panelId){
   // El carril lateral (#side-rail, ver css/layout.css) es UNO SOLO
   // compartido entre las pestañas, siempre presente — nunca se mueve ni
   // cambia de ancho al cambiar de pestaña, así que no hace falta el
-  // truco de "visibility para reservar lugar" que usaba antes. El
-  // calculador no usa ninguna de las dos páginas del carril (todos sus
-  // controles están en el panel principal), así que ambas se ocultan.
+  // truco de "visibility para reservar lugar" que usaba antes. Cada
+  // pestaña tiene su propia página adentro (rail-page-build, wz-sidebar,
+  // calc-sidebar) y solo se muestra la que corresponde.
   if(railPageBuild) railPageBuild.style.display = isBuildTab ? '' : 'none';
   if(wzRail) wzRail.style.display = isMapTab ? '' : 'none';
+  if(calcRail) calcRail.style.display = isCalcTab ? '' : 'none';
   if(mapLayers) mapLayers.style.display = isMapTab ? '' : 'none';
   if(isCalcTab) window.initCalcIfNeeded?.();
   if(isMapTab){
