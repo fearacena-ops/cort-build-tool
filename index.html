@@ -47,6 +47,7 @@ if('serviceWorker' in navigator){
 <link rel="stylesheet" href="css/layout.css">
 <link rel="stylesheet" href="css/build.css">
 <link rel="stylesheet" href="css/map.css">
+<link rel="stylesheet" href="css/calc.css">
 </head>
 <body>
 
@@ -133,6 +134,7 @@ if('serviceWorker' in navigator){
   <div class="main-tabs">
     <button class="main-tab active" data-panel="panel-manual">Tu build</button>
     <button class="main-tab" data-panel="panel-map">Mapa interactivo</button>
+    <button class="main-tab" data-panel="panel-calc">Calculador de daños</button>
     <button class="main-tab" data-panel="panel-progress" style="display:none">Progreso de leveo</button>
     <button class="main-tab" data-panel="panel-custom" style="display:none">Build a medida</button>
   </div>
@@ -280,6 +282,79 @@ if('serviceWorker' in navigator){
     <div id="wz-sidebar-anchor"></div>
   </div>
 
+  <div class="main-panel" id="panel-calc">
+    <div class="panel">
+      <h2><span class="num">1</span> Clase y subclase</h2>
+      <div class="row">
+        <div class="field">
+          <label>Subclase</label>
+          <div class="choice-group" id="calc-subclass-switch">
+            <button class="choice-btn" data-v="barbaro">Bárbaro</button>
+            <button class="choice-btn" data-v="caballero">Caballero</button>
+            <button class="choice-btn" data-v="tirador">Tirador</button>
+            <button class="choice-btn active" data-v="cazador">Cazador</button>
+            <button class="choice-btn" data-v="brujo">Brujo</button>
+            <button class="choice-btn" data-v="conjurador">Conjurador</button>
+          </div>
+          <div class="hint" id="calc-subclass-hint"></div>
+        </div>
+        <div class="field">
+          <label>Compañero (opcional)</label>
+          <select class="styled" id="calc-companion"></select>
+          <div class="hint" id="calc-companion-hint"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2><span class="num">2</span> Atributos</h2>
+      <div class="row" id="calc-attrs-row"></div>
+      <div class="hint">Usá los valores que muestra tu Hoja de Personaje (ya incluyen los bonos de equipamiento).</div>
+    </div>
+
+    <div class="panel">
+      <h2><span class="num">3</span> Equipamiento</h2>
+      <div class="hint" style="margin-top:-8px;margin-bottom:14px">Completá el daño y la Bonificación de Calidad-Material-Tipo (BCMT, el "(+X)" del tooltip) de cada pieza que corresponda. Las piezas de armadura sin daño se pueden dejar en blanco.</div>
+      <div id="calc-slots-grid" class="calc-slots-grid"></div>
+    </div>
+
+    <div class="panel">
+      <h2><span class="num">4</span> Modificadores de poderes activos <span style="color:var(--ink-faint);font-weight:400">(opcional)</span></h2>
+      <div class="row">
+        <div class="field">
+          <label>Daño de Arma por Tipo (%)</label>
+          <div style="display:flex;gap:8px">
+            <select class="styled" id="calc-type-percent-type"></select>
+            <input type="number" id="calc-type-percent-value" placeholder="0" style="width:90px">
+          </div>
+          <div class="hint">Ej: pasiva "Atlético +10% Daño Cortante".</div>
+        </div>
+        <div class="field">
+          <label>Daño de Arma % (global)</label>
+          <input type="number" id="calc-weapon-percent" placeholder="0">
+        </div>
+      </div>
+      <div class="row" style="margin-top:18px">
+        <div class="field">
+          <label>Bonus de Daño (+X, plano)</label>
+          <input type="number" id="calc-damage-bonus" placeholder="0">
+        </div>
+        <div class="field">
+          <label>Bonus de Daño (+%)</label>
+          <input type="number" id="calc-damage-bonus-percent" placeholder="0">
+        </div>
+      </div>
+    </div>
+
+    <div class="panel" id="calc-result-panel">
+      <h2><span class="num">5</span> Daño resultante</h2>
+      <div class="summary-grid" id="calc-result-summary"></div>
+      <button class="toggle-full" id="calc-toggle-detail">Ver desglose por tipo de daño</button>
+      <div class="full-build" id="calc-detail-box"></div>
+      <div class="callout" id="calc-companion-note" style="display:none;margin-top:16px"></div>
+    </div>
+  </div>
+
   <div class="foot-note">
     <div>Datos base extraídos de <code>trainerdata.json</code> (CoRT, licencia AGPLv3). Esta es una página hecha por fans, sin afiliación oficial con NGD Studios ni Champions of Regnum.</div>
     <div id="app-version">Herramienta v1.0.0</div>
@@ -370,5 +445,6 @@ if('serviceWorker' in navigator){
 <script src="vendor/leaflet/leaflet.js" defer></script>
 <script src="js/map.js" defer></script>
 <script src="js/wz.js" defer></script>
+<script src="js/calc.js" defer></script>
 </body>
 </html>

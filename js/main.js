@@ -891,26 +891,34 @@ function updateSharedChromeForTab(panelId){
   const wzRail = document.getElementById('wz-sidebar');
   const mapLayers = document.getElementById('map-layers-block');
   const isMapTab = panelId === 'panel-map';
-  if(eyebrow) eyebrow.textContent = isMapTab ? 'Mapa Interactivo' : 'Constructor de builds';
+  const isCalcTab = panelId === 'panel-calc';
+  const isRegnumTitleTab = isMapTab || isCalcTab;
+  if(eyebrow) eyebrow.textContent = isMapTab ? 'Mapa Interactivo' : isCalcTab ? 'Calculador de daños' : 'Constructor de builds';
   if(noticeText) noticeText.textContent = isMapTab
     ? 'Buscá NPCs y misiones, filtrá por reino o profesión, y hacé clic en un marcador para ver el detalle.'
+    : isCalcTab
+    ? 'Elegí tu subclase, cargá tu equipamiento y tus atributos, y calculá el daño resultante según la fórmula oficial.'
     : 'Arma tu build a mano, habilidad por habilidad, y expórtala como imagen para compartir.';
-  // En el mapa el recuadro de aviso ocupaba espacio vertical que conviene
-  // aprovechar para el buscador/chips/mapa — el texto de arriba (eyebrow)
-  // ya cumple ese rol de encabezado, así que en esta pestaña se oculta.
-  if(notice) notice.style.display = isMapTab ? 'none' : '';
+  // En el mapa (y acá en el calculador) el recuadro de aviso ocupaba
+  // espacio vertical que conviene aprovechar -- el texto de arriba
+  // (eyebrow) ya cumple ese rol de encabezado, así que en esas pestañas
+  // se oculta.
+  if(notice) notice.style.display = isRegnumTitleTab ? 'none' : '';
   // El título grande ahora siempre muestra algo (ícono+subclase en "Tu
-  // build", ícono+"Regnum" en el mapa) — un solo <h1> visible a la vez.
+  // build", ícono+"Regnum" en el mapa Y en el calculador) — un solo <h1>
+  // visible a la vez.
   if(titleH1) titleH1.style.display = isBuildTab ? '' : 'none';
-  if(titleMap) titleMap.style.display = isMapTab ? '' : 'none';
+  if(titleMap) titleMap.style.display = isRegnumTitleTab ? '' : 'none';
   // El carril lateral (#side-rail, ver css/layout.css) es UNO SOLO
-  // compartido entre las dos pestañas, siempre presente — nunca se mueve
-  // ni cambia de ancho al cambiar de pestaña, así que no hace falta el
-  // truco de "visibility para reservar lugar" que usaba antes. Lo que
-  // cambia es cuál de las dos páginas de adentro se muestra.
+  // compartido entre las pestañas, siempre presente — nunca se mueve ni
+  // cambia de ancho al cambiar de pestaña, así que no hace falta el
+  // truco de "visibility para reservar lugar" que usaba antes. El
+  // calculador no usa ninguna de las dos páginas del carril (todos sus
+  // controles están en el panel principal), así que ambas se ocultan.
   if(railPageBuild) railPageBuild.style.display = isBuildTab ? '' : 'none';
   if(wzRail) wzRail.style.display = isMapTab ? '' : 'none';
   if(mapLayers) mapLayers.style.display = isMapTab ? '' : 'none';
+  if(isCalcTab) window.initCalcIfNeeded?.();
   if(isMapTab){
     // Llamado directo acá, no solo confiar en que map.js/wz.js ya hayan
     // enganchado SU PROPIO listener de click en el botón de la pestaña --

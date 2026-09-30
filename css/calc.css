@@ -1,0 +1,29 @@
+/* ========================================================================
+   calc.css — pestaña "Calculador de daños": grilla de slots de
+   equipamiento y el desglose de resultado. El resto de los controles
+   (atributos, poderes, resultado) reutiliza las clases de build.css
+   (.panel, .field, .row, .choice-group, select.styled, .summary-grid).
+   ======================================================================== */
+
+  .calc-slots-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;}
+  .calc-slot{background:var(--bg-0);border:1px solid var(--line);border-radius:5px;padding:12px 14px;}
+  .calc-slot-head{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+  .calc-slot-icon{font-size:22px;line-height:1;width:32px;text-align:center;flex-shrink:0;}
+  .calc-slot-name{font-family:var(--font-display);font-size:14px;color:var(--ink);}
+  .calc-slot-row{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap;}
+  .calc-slot-row:last-child{margin-bottom:0;}
+  .calc-slot-row label{font-family:var(--font-mono);font-size:9.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-faint);display:block;margin-bottom:4px;}
+  .calc-slot-row input, .calc-slot-row select{width:100%;background:var(--bg-1);border:1px solid var(--line);color:var(--ink);font-family:var(--font-body);font-size:12.5px;padding:6px 8px;border-radius:3px;}
+  .calc-slot-field{flex:1;min-width:70px;}
+  .calc-slot-field.narrow{flex:0 0 64px;min-width:64px;}
+  .calc-slot-unavailable{color:var(--ink-faint);font-style:italic;font-size:13px;padding:20px 0;text-align:center;}
+
+  .calc-detail-table{width:100%;border-collapse:collapse;font-family:var(--font-mono);font-size:11.5px;margin-top:12px;}
+  .calc-detail-table th, .calc-detail-table td{padding:6px 8px;text-align:right;border-bottom:1px solid var(--line);}
+  .calc-detail-table th:first-child, .calc-detail-table td:first-child{text-align:left;}
+  .calc-detail-table thead th{color:var(--ink-faint);font-weight:400;}
+  .calc-detail-table td.zero{color:var(--ink-faint);}
+
+  @media (max-width:460px){
+    .calc-slots-grid{grid-template-columns:1fr;}
+  }
