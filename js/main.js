@@ -787,13 +787,19 @@ function updateRealmShield(realmKey){
   img.alt = REALM_LABEL[realmKey] || realmKey;
 }
 
-// La barra de Subclase/Nivel/Nombre solo vive al costado en pantallas anchas
-// (ver el breakpoint de 1440px en el CSS) — ahí, en vez de un padding fijo
-// que se desalinea apenas cambia algo arriba (el header, un aviso, etc), se
-// mide dónde arranca de verdad el panel de disciplinas y se empareja con eso.
+// La barra lateral solo vive al costado en pantallas anchas (ver el
+// breakpoint de 1440px en el CSS) — ahí, en vez de un padding fijo que se
+// desalinea apenas cambia algo arriba (el header, un aviso, etc), se mide
+// dónde arranca de verdad el contenido principal de la pestaña ACTIVA y se
+// empareja con eso. Cada pestaña tiene su propia ancla (el "stage" de "Tu
+// build", el primer panel del calculador) -- sin esto, alinear solo
+// pasaba en "Tu build" y las otras pestañas heredaban el margen que haya
+// quedado de la última vez que SÍ se alineó, a veces pegado arriba.
+const RAIL_ALIGN_ANCHOR = {'panel-manual':'#pc-capture', 'panel-calc':'#panel-calc .panel'};
 function alignConfigRail(){
   const rail = document.querySelector('.config-rail');
-  const stage = document.getElementById('pc-capture');
+  const activeId = document.querySelector('.main-tab.active')?.dataset.panel;
+  const stage = document.querySelector(RAIL_ALIGN_ANCHOR[activeId] || '#pc-capture');
   if(!rail || !stage) return;
   // Si "Tu build" no está visible ahora mismo (display:none en
   // .main-panel, ver css/layout.css), el stage da un rect todo en cero —
@@ -931,6 +937,7 @@ function updateSharedChromeForTab(panelId){
     // así no importa cuál de los dos termina primero.
     window.calcTabActive = true;
     window.initCalcIfNeeded?.();
+    scheduleAlignConfigRail();
   }
   if(isMapTab){
     // Llamado directo acá, no solo confiar en que map.js/wz.js ya hayan
