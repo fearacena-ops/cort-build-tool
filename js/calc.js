@@ -127,55 +127,6 @@
     ],
   };
 
-  // Ejemplo real (Fenrirblack, Cazador) para no arrancar con la grilla
-  // vacía. El daño de cada anillo se carga UNA sola vez (15-25 Cortante,
-  // la línea azul "Daño cortante +15/25" del tooltip -- confirmado que
-  // es la que cuenta) y cada anillo es independiente (izquierdo/derecho
-  // se suman por separado, confirmado también). Las piezas de armadura
-  // van con armorSetRows(): Armadura (PBA) primero, las 6 calidades
-  // después, mismo orden que exige el layout fijo de abajo.
-  const EXAMPLE_GEAR = {
-    cazador: {
-      arco: [
-        {stat:'dmgRange', sub:'punzante', value:88, value2:115, bcmt:13},
-        {stat:'dmgExtraFlat', sub:'punzante', value:9},
-        {stat:'critChance', value:10},
-      ],
-      flechas: [
-        {stat:'dmgRange', sub:'punzante', value:35, value2:43},
-      ],
-      anilloIzq: [
-        {stat:'dmgRange', sub:'cortante', value:15, value2:25},
-      ],
-      anilloDer: [
-        {stat:'dmgRange', sub:'cortante', value:15, value2:25},
-      ],
-      amuleto: [
-        {stat:'flatAttr', sub:'DXT', value:4},
-      ],
-      yelmo: armorSetRows(),
-      pechera: armorSetRows(),
-      hombreras: armorSetRows(),
-      guanteletes: armorSetRows(),
-      perneras: armorSetRows(),
-    },
-  };
-  // Las 5 piezas de armadura del ejemplo son del mismo set (mismo PBA=168,
-  // sin BCMT, y misma calidad por tipo) -- se genera una sola vez para no
-  // repetir. El orden importa: tiene que calzar con ARMOR_FIXED_ROWS
-  // (índice 0 = Armadura, índices 1-6 = DAMAGE_TYPES en orden).
-  function armorSetRows(){
-    return [
-      {stat:'armorBase', value:168, bcmt:''},
-      {stat:'protectionQuality', sub:'cortante', value:'Normal'},
-      {stat:'protectionQuality', sub:'punzante', value:'Buena'},
-      {stat:'protectionQuality', sub:'aplastante', value:'Muy Buena'},
-      {stat:'protectionQuality', sub:'fuego', value:'Mala'},
-      {stat:'protectionQuality', sub:'frio', value:'Muy Mala'},
-      {stat:'protectionQuality', sub:'electrico', value:'Normal'},
-    ];
-  }
-
   const COMPANIONS = [
     {key:'', label:'Ninguno'},
     {key:'tchulu', label:'Tchulu', desc:'Intercambia 10 de Concentración por 5 de Atributo de clase', apply(st){ st.conc-=10; st.classAttrFlat+=5; }, affectsCalc:true},
@@ -195,6 +146,7 @@
 
   let calcInited = false;
   let currentSubclass = 'cazador';
+  let currentSlotKey = null; // qué pieza está mostrando el panel de detalle ahora
   let slotState = {};       // slotKey -> [{stat,sub,value,value2,bcmt}, ...]
   let slotExtraShown = {};  // slotKey -> cuántas filas SUELTAS (más allá de las fijas) están visibles
 
@@ -203,26 +155,28 @@
   function baseRowCount(slot){ return slot.role ? ARMOR_FIXED_ROWS : 1; }
   function emptyRow(){ return {stat:'', sub:'', value:'', value2:'', bcmt:''}; }
 
+  // Todo arranca en cero/sin usar: los números en 0 (no en blanco) y las
+  // 6 calidades de protección de cada pieza de armadura en "Normal" --
+  // nada de datos de ejemplo precargados.
   function seedSlotState(subclass){
     const slots = CALC_SLOTS[subclass] || [];
-    const example = EXAMPLE_GEAR[subclass] || {};
     slotState = {};
     slotExtraShown = {};
     slots.forEach(s=>{
       const base = baseRowCount(s);
       const maxRows = base + EXTRA_ROWS_MAX;
-      const rows = (example[s.key] || []).map(r=> ({...emptyRow(), ...r}));
-      while(rows.length < maxRows) rows.push(emptyRow());
-      slotState[s.key] = rows.slice(0, maxRows);
-      // Cuántas filas sueltas (después de las "base") ya traen datos del
-      // ejemplo -- esas quedan visibles de entrada, no hace falta tocar
-      // "+ Agregar" para verlas.
-      let extra = 0;
-      for(let i = maxRows - 1; i >= base; i--){
-        if(slotState[s.key][i].stat){ extra = i - base + 1; break; }
+      const rows = [];
+      if(s.role){
+        rows.push({...emptyRow(), stat:'armorBase', value:0, bcmt:0});
+        DAMAGE_TYPES.forEach(t=> rows.push({...emptyRow(), stat:'protectionQuality', sub:t.key, value:'Normal'}));
+      } else {
+        rows.push(emptyRow());
       }
-      slotExtraShown[s.key] = extra;
+      while(rows.length < maxRows) rows.push(emptyRow());
+      slotState[s.key] = rows;
+      slotExtraShown[s.key] = 0;
     });
+    currentSlotKey = slots[0]?.key || null;
   }
 
   function renderSubclassHint(){
@@ -240,7 +194,7 @@
     row.innerHTML = Object.keys(ATTR_LABEL).map(k=>`
       <div class="calc-attr-field">
         <label>${ATTR_LABEL[k]}</label>
-        <input type="number" class="calc-attr-input" data-attr="${k}" value="">
+        <input type="number" class="calc-attr-input" data-attr="${k}" value="0">
       </div>
     `).join('');
     row.querySelectorAll('.calc-attr-input').forEach(inp=> inp.addEventListener('input', recomputeAndRender));
@@ -265,9 +219,10 @@
     return `<input type="number" class="calc-stat-value" data-idx="${idx}" value="${row.value}">`;
   }
 
-  // Fila libre: selector de stat + sub-campo + valor. Si es "Daño de
-  // arma", se le agrega debajo la Calidad de ítem/BCMT bundleada (no
-  // cuenta como una fila más -- es del mismo ítem).
+  // Fila libre: selector de stat + sub-campo + valor + X para vaciarla
+  // de una. Si es "Daño de arma", se le agrega debajo la Calidad de
+  // ítem/BCMT bundleada (no cuenta como una fila más -- es del mismo
+  // ítem).
   function freeformRowHTML(row, idx){
     const kind = row.stat ? STAT_BY_KEY[row.stat].kind : null;
     const options = STAT_GROUPS.map(g=>
@@ -278,6 +233,7 @@
         <select class="calc-stat-kind" data-idx="${idx}"><option value="">(sin usar)</option>${options}</select>
         ${statSubFieldHTML(row, idx, kind)}
         ${statValueFieldHTML(row, idx, kind)}
+        <button type="button" class="calc-stat-remove" data-idx="${idx}" title="Quitar">✕</button>
       </div>
     `;
     if(row.stat === 'dmgRange'){
@@ -333,36 +289,111 @@
     return inner;
   }
 
-  function slotCardHTML(slot){
+  // Cuántos stats sueltos tiene cargados una pieza -- se muestra en la
+  // lista de la izquierda para saber de un vistazo cuáles ya tienen algo
+  // cargado. En armadura, la calidad "Normal" (el default) no cuenta
+  // como cargada, ni la Armadura en 0.
+  function slotStatCount(slot){
+    const rows = slotState[slot.key] || [];
+    const base = baseRowCount(slot);
+    let count = 0;
+    if(slot.role){
+      if(num(rows[0].value) || num(rows[0].bcmt)) count++;
+      for(let i=1;i<=DAMAGE_TYPES.length;i++) if(rows[i].value && rows[i].value !== 'Normal') count++;
+    } else if(rows[0].stat){
+      // En piezas sin armadura, la fila 0 es libre (no una fija aparte
+      // como en armadura) -- también cuenta si tiene algo cargado.
+      count++;
+    }
+    for(let i=base;i<rows.length;i++) if(rows[i].stat) count++;
+    return count;
+  }
+
+  // Lista de piezas a la izquierda ("Tu build" hace lo mismo con las
+  // disciplinas) -- clickear una muestra su formulario al lado, así no
+  // hay que ver las 10 piezas apretadas a la vez.
+  function railBtnHTML(slot){
+    const n = slotStatCount(slot);
     return `
-      <div class="calc-slot" data-slot="${slot.key}">
-        <div class="calc-slot-head">
-          <span class="calc-slot-icon">${slot.emoji}</span>
-          <span class="calc-slot-name">${slot.label}</span>
+      <button type="button" class="rail-btn calc-slot-btn${slot.key===currentSlotKey?' active':''}" data-slot="${slot.key}">
+        <div class="ricon calc-slot-ricon">${slot.emoji}</div>
+        <div class="rinfo">
+          <div class="rname">${slot.label}</div>
+          <div class="rlvl">${n ? n+' stat'+(n===1?'':'s') : 'vacío'}</div>
         </div>
-        ${slotInnerHTML(slot)}
-      </div>
+      </button>
     `;
   }
 
-  function renderAndWireSlot(slotKey){
-    const grid = document.getElementById('calc-slots-grid');
-    if(!grid) return;
+  // Actualiza el contador de UNA fila de la lista sin re-renderizarla
+  // entera -- se usa en cada tecla escrita en un valor (a diferencia de
+  // refreshActiveSlot(), que reconstruye todo y se reserva para cambios
+  // "estructurales" como agregar/quitar/cambiar de stat).
+  function updateRailCountBadge(slotKey){
+    const btn = document.querySelector(`#calc-slot-rail .calc-slot-btn[data-slot="${slotKey}"]`);
+    if(!btn) return;
     const slot = slotsForCurrent().find(s=> s.key === slotKey);
     if(!slot) return;
-    const old = grid.querySelector(`.calc-slot[data-slot="${slotKey}"]`);
-    if(old) old.outerHTML = slotCardHTML(slot);
-    wireSlotEl(slotKey);
+    const n = slotStatCount(slot);
+    const rlvl = btn.querySelector('.rlvl');
+    if(rlvl) rlvl.textContent = n ? n+' stat'+(n===1?'':'s') : 'vacío';
+  }
+
+  function renderRail(){
+    const rail = document.getElementById('calc-slot-rail');
+    if(!rail) return;
+    rail.innerHTML = slotsForCurrent().map(railBtnHTML).join('');
+    rail.querySelectorAll('.calc-slot-btn').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        currentSlotKey = btn.dataset.slot;
+        rail.querySelectorAll('.calc-slot-btn').forEach(b=> b.classList.toggle('active', b.dataset.slot === currentSlotKey));
+        renderActiveSlotPane();
+      });
+    });
+  }
+
+  function renderActiveSlotPane(){
+    const pane = document.getElementById('calc-slot-pane');
+    if(!pane) return;
+    const slot = slotsForCurrent().find(s=> s.key === currentSlotKey);
+    if(!slot){ pane.innerHTML = ''; return; }
+    pane.innerHTML = `
+      <div class="calc-slot-pane-head">
+        <span class="calc-slot-icon">${slot.emoji}</span>
+        <span class="calc-slot-name">${slot.label}</span>
+      </div>
+      ${slotInnerHTML(slot)}
+    `;
+    wireSlotEl(slot.key);
+  }
+
+  // Re-renderiza la pieza activa Y su fila en la lista (el contador de
+  // stats cargados puede haber cambiado) -- se llama después de
+  // cualquier cambio "estructural" (agregar/quitar/cambiar qué stat es
+  // una fila), no en cada tecla escrita en un valor.
+  function refreshActiveSlot(){
+    renderActiveSlotPane();
+    renderRail();
   }
 
   function wireSlotEl(slotKey){
-    const el = document.querySelector(`#calc-slots-grid .calc-slot[data-slot="${slotKey}"]`);
+    const el = document.getElementById('calc-slot-pane');
     if(!el) return;
     el.querySelectorAll('.calc-stat-kind').forEach(sel=>{
       sel.addEventListener('change', ()=>{
         const idx = +sel.dataset.idx;
-        slotState[slotKey][idx] = {...emptyRow(), stat: sel.value};
-        renderAndWireSlot(slotKey);
+        const newStat = sel.value;
+        const def = STAT_BY_KEY[newStat];
+        // El <select> de tipo/atributo siempre muestra ALGO tildado (el
+        // navegador marca la primera opción sola si no se le dice otra
+        // cosa) -- sin este default, el estado quedaba con sub:'' aunque
+        // la pantalla ya mostrara "Cortante" o "Inteligencia", y cargar
+        // el valor sin tocar ese dropdown no hacía nada.
+        let sub = '';
+        if(def && def.kind === 'flatAttr') sub = Object.keys(ATTR_LABEL)[0];
+        else if(def && (def.kind === 'typedRange' || def.kind === 'typedFlat')) sub = DAMAGE_TYPES[0].key;
+        slotState[slotKey][idx] = {...emptyRow(), stat: newStat, sub};
+        refreshActiveSlot();
         recomputeAndRender();
       });
     });
@@ -374,33 +405,50 @@
       // fijas de calidad de armadura usan un <select> -- ahí el evento
       // que dispara de verdad es 'change', no 'input' (según navegador),
       // así que se escuchan los dos para cubrir ambos casos.
-      const handler = ()=>{ slotState[slotKey][+inp.dataset.idx].value = inp.value; recomputeAndRender(); };
+      const handler = ()=>{ slotState[slotKey][+inp.dataset.idx].value = inp.value; updateRailCountBadge(slotKey); recomputeAndRender(); };
       inp.addEventListener('input', handler);
       inp.addEventListener('change', handler);
     });
     el.querySelectorAll('.calc-stat-value2').forEach(inp=>{
-      inp.addEventListener('input', ()=>{ slotState[slotKey][+inp.dataset.idx].value2 = inp.value; recomputeAndRender(); });
+      inp.addEventListener('input', ()=>{ slotState[slotKey][+inp.dataset.idx].value2 = inp.value; updateRailCountBadge(slotKey); recomputeAndRender(); });
     });
     el.querySelectorAll('.calc-stat-bcmt').forEach(inp=>{
-      inp.addEventListener('input', ()=>{ slotState[slotKey][+inp.dataset.idx].bcmt = inp.value; recomputeAndRender(); });
+      inp.addEventListener('input', ()=>{ slotState[slotKey][+inp.dataset.idx].bcmt = inp.value; updateRailCountBadge(slotKey); recomputeAndRender(); });
+    });
+    el.querySelectorAll('.calc-stat-remove').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        slotState[slotKey][+btn.dataset.idx] = emptyRow();
+        refreshActiveSlot();
+        recomputeAndRender();
+      });
     });
     el.querySelector('.calc-add-stat')?.addEventListener('click', ()=>{
       slotExtraShown[slotKey] = Math.min(EXTRA_ROWS_MAX, slotExtraShown[slotKey] + 1);
-      renderAndWireSlot(slotKey);
+      refreshActiveSlot();
       recomputeAndRender();
     });
   }
 
+  // Lista de piezas a la izquierda + panel de detalle a la derecha
+  // (mismo patrón que "Tu build" con disciplinas/habilidades, ver
+  // .tabframe/.tab-rail/.tab-panes en build.css) -- mostrar las 10
+  // piezas a la vez con todas sus filas quedaba muy apretado.
   function renderSlots(){
-    const grid = document.getElementById('calc-slots-grid');
-    if(!grid) return;
+    const container = document.getElementById('calc-slots-grid');
+    if(!container) return;
     const slots = slotsForCurrent();
     if(slots.length === 0){
-      grid.innerHTML = `<div class="calc-slot-unavailable">Todavía no cargamos el equipamiento de ${SUBCLASS_LABEL[currentSubclass]} — por ahora está disponible para Cazador.</div>`;
+      container.innerHTML = `<div class="calc-slot-unavailable">Todavía no cargamos el equipamiento de ${SUBCLASS_LABEL[currentSubclass]} — por ahora está disponible para Cazador.</div>`;
       return;
     }
-    grid.innerHTML = slots.map(slotCardHTML).join('');
-    slots.forEach(s=> wireSlotEl(s.key));
+    container.innerHTML = `
+      <div class="tabframe">
+        <div class="tab-rail" id="calc-slot-rail"></div>
+        <div class="tab-panes"><div id="calc-slot-pane"></div></div>
+      </div>
+    `;
+    renderRail();
+    renderActiveSlotPane();
   }
 
   function renderCompanionSelect(){
@@ -631,6 +679,12 @@
       const t = gathered.totals;
       const stunResist = (t.stunResist||0) + Math.max(0, attrTotals.CON - 70) * 0.2;
       const knockResist = (t.knockResist||0) + Math.max(0, attrTotals.STR - 70) * 0.2;
+      // Destreza: "el atributo primario de los arqueros... da resistencia
+      // a inmovilizar en arqueros" (tooltip in-game). Confirmado con un
+      // caso real: DXT 69->0% pero DXT 73 (69+4 de un amuleto)->0.60%,
+      // que da exacto con (73-70)×0.2 -- mismo patrón que CON/Aturdir y
+      // STR/Noqueo, así que se aplica igual acá.
+      const immobilizeResist = (t.immobilizeResist||0) + Math.max(0, attrTotals.DXT - 70) * 0.2;
       const summonSpeed = (t.summonSpeedPercent||0) + st.summonSpeedDelta + Math.max(0, attrTotals.CONC - 70) * 0.2;
       const critChance = (t.critChance||0) + st.critChanceDelta + Math.max(0, attrTotals.CONC - 40) * 0.1;
       const cards = [
@@ -640,6 +694,7 @@
         ['Velocidad de ataque', ((t.attackSpeedPercent||0)+st.attackSpeedDelta)+'%'],
         ['Resistencia a Aturdir', stunResist.toFixed(1)+'%'],
         ['Resistencia a Noqueo', knockResist.toFixed(1)+'%'],
+        ['Resistencia a Inmovilizar', immobilizeResist.toFixed(1)+'%'],
         ['Bonus vel. invocación', summonSpeed.toFixed(1)+'%'],
         ['Salud', (t.healthFlat||0)+st.healthDelta],
         ['Maná', (t.manaFlat||0)+st.manaDelta],

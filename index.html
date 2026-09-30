@@ -285,13 +285,8 @@ if('serviceWorker' in navigator){
   <div class="main-panel" id="panel-calc">
     <div class="panel">
       <h2><span class="num">1</span> Equipamiento</h2>
-      <div class="hint" style="margin-top:-8px;margin-bottom:14px">Por pieza, cargá lo que diga su tooltip como stats sueltos (atributo, daño, resistencia, calidad de protección, etc) -- no hace falta el nombre del ítem, lo que importa es lo que da.</div>
-      <div id="calc-slots-grid" class="calc-slots-grid"></div>
-      <div class="field" style="margin-top:20px;max-width:320px">
-        <label>Compañero (opcional)</label>
-        <select class="styled" id="calc-companion"></select>
-        <div class="hint" id="calc-companion-hint"></div>
-      </div>
+      <div class="hint" style="margin-top:-8px;margin-bottom:14px">Elegí una pieza de la lista y cargá lo que diga su tooltip como stats sueltos (atributo, daño, resistencia, calidad de protección, etc) -- no hace falta el nombre del ítem, lo que importa es lo que da.</div>
+      <div id="calc-slots-grid"></div>
     </div>
 
     <div class="panel" id="calc-result-panel">
@@ -397,7 +392,14 @@ if('serviceWorker' in navigator){
         <label>Atributos</label>
         <div id="calc-attrs-row"></div>
       </div>
-      <div class="hint">Puntos base, sin contar equipamiento -- los bonos de cada ítem se suman aparte, desde la grilla del centro.</div>
+      <div class="hint">Puntos base, sin contar equipamiento -- los bonos de cada ítem se suman aparte, desde el equipamiento del centro.</div>
+    </div>
+    <div class="panel">
+      <div class="field">
+        <label>Compañero (opcional)</label>
+        <select class="styled" id="calc-companion"></select>
+        <div class="hint" id="calc-companion-hint"></div>
+      </div>
     </div>
    </div>
 

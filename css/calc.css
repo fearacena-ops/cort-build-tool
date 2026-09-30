@@ -1,9 +1,10 @@
 /* ========================================================================
-   calc.css — pestaña "Calculador de daños": grilla de slots de
-   equipamiento (con sus filas de stats genéricas) y las tablas de
-   desglose de resultado. El resto de los controles (carril lateral,
-   resultado) reutiliza las clases de build.css (.panel, .choice-group,
-   select.styled, .summary-grid).
+   calc.css — pestaña "Calculador de daños": lista de piezas + panel de
+   detalle de equipamiento (mismo patrón que "Tu build" con disciplinas/
+   habilidades: .tabframe/.tab-rail/.tab-panes, ver build.css) y las
+   tablas de desglose de resultado. El resto de los controles (carril
+   lateral, resultado) reutiliza las clases de build.css (.panel,
+   .choice-group, select.styled, .summary-grid).
    ======================================================================== */
 
   /* El carril lateral (.config-rail) es de ancho fijo (320px, ver
@@ -15,39 +16,57 @@
   #calc-subclass-switch{gap:6px;}
   #calc-subclass-switch .choice-btn{flex:1 1 30%;text-align:center;padding:9px 8px;font-size:12.5px;}
 
-  .calc-slots-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;}
-  .calc-slot{background:var(--bg-0);border:1px solid var(--line);border-radius:5px;padding:12px 14px;}
-  .calc-slot-head{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+  /* .ricon normalmente pinta un sprite de fondo (ver build.css) -- acá
+     es un emoji, así que se centra como texto en vez de background. */
+  .calc-slot-ricon{display:flex;align-items:center;justify-content:center;font-size:16px;}
+  .calc-slot-btn .rlvl{text-transform:none;letter-spacing:0;}
+
+  .calc-slot-pane-head{display:flex;align-items:center;gap:10px;padding:10px 2px 12px;}
   .calc-slot-icon{font-size:22px;line-height:1;width:32px;text-align:center;flex-shrink:0;}
-  .calc-slot-name{font-family:var(--font-display);font-size:14px;color:var(--ink);}
+  .calc-slot-name{font-family:var(--font-display);font-size:15px;color:var(--ink);}
   .calc-slot-unavailable{color:var(--ink-faint);font-style:italic;font-size:13px;padding:20px 0;text-align:center;}
 
   .calc-stat-row{display:flex;gap:6px;margin-bottom:6px;align-items:center;}
   .calc-stat-row:last-child{margin-bottom:0;}
-  .calc-stat-row select, .calc-stat-row input{background:var(--bg-1);border:1px solid var(--line);color:var(--ink);font-family:var(--font-body);font-size:11.5px;padding:5px 6px;border-radius:3px;}
+  .calc-stat-row select, .calc-stat-row input{background:var(--bg-1);border:1px solid var(--line);color:var(--ink);font-family:var(--font-body);font-size:12px;padding:6px 7px;border-radius:3px;}
   .calc-stat-kind{flex:1 1 42%;min-width:0;}
-  .calc-stat-sub{flex:1 1 26%;min-width:0;}
+  .calc-stat-sub{flex:1 1 24%;min-width:0;}
   /* Números del equipamiento achicados a propósito -- no necesitan tanto
-     lugar como el resto de los campos (2-3 dígitos, como mucho). */
-  .calc-stat-value{flex:0 0 40px;width:40px;text-align:right;padding-left:2px;padding-right:2px;}
+     lugar como el resto de los campos (2-3 dígitos, como mucho). Las
+     flechitas nativas del navegador quedan ocultas: con tan poco ancho
+     terminaban tapando el número en vez de quedar al lado. */
+  .calc-stat-value{flex:0 0 42px;width:42px;text-align:right;padding-left:2px;padding-right:2px;}
   select.calc-stat-value{flex:1 1 auto;width:auto;text-align:left;}
-  .calc-stat-value2{flex:0 0 40px;width:40px;text-align:right;padding-left:2px;padding-right:2px;}
+  .calc-stat-value2{flex:0 0 42px;width:42px;text-align:right;padding-left:2px;padding-right:2px;}
+  input[type=number].calc-stat-value, .calc-stat-value2, .calc-stat-bcmt, .calc-attr-field input[type=number]{-moz-appearance:textfield;}
+  input[type=number].calc-stat-value::-webkit-inner-spin-button, .calc-stat-value2::-webkit-inner-spin-button,
+  input[type=number].calc-stat-value::-webkit-outer-spin-button, .calc-stat-value2::-webkit-outer-spin-button,
+  .calc-stat-bcmt::-webkit-inner-spin-button, .calc-stat-bcmt::-webkit-outer-spin-button,
+  .calc-attr-field input[type=number]::-webkit-inner-spin-button, .calc-attr-field input[type=number]::-webkit-outer-spin-button{
+    -webkit-appearance:none; margin:0;
+  }
+
+  /* X para vaciar una fila de una -- mismo look que .mbtn (build.css)
+     pero más chico, para no competir en ancho con el resto de la fila. */
+  .calc-stat-remove{flex:0 0 20px;width:20px;height:20px;padding:0;background:var(--bg-1);border:1px solid var(--line);color:var(--ink-faint);font-size:10px;border-radius:3px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+  .calc-stat-remove:hover{border-color:var(--blood);color:var(--blood);}
 
   /* Filas fijas de armadura (Armadura + las 6 calidades): sin selector de
      stat, una etiqueta de ancho fijo en su lugar -- ninguna de las dos
-     se puede cambiar a otra cosa, siempre son estas 7. */
-  .calc-stat-locked .calc-stat-label{flex:1 1 42%;min-width:0;font-size:11.5px;color:var(--ink-dim);}
+     se puede cambiar a otra cosa, siempre son estas 7 (y no llevan X,
+     no se pueden vaciar). */
+  .calc-stat-locked .calc-stat-label{flex:1 1 42%;min-width:0;font-size:12px;color:var(--ink-dim);}
   .calc-stat-locked select.calc-stat-value{flex:1 1 auto;}
 
   /* Calidad de ítem/BCMT bundleada bajo una fila de Daño de arma (o
      dentro de la fila fija de Armadura): "(+X)" tal cual se ve en el
      tooltip del juego, no es una fila más del catálogo. */
   .calc-stat-subrow{display:flex;align-items:center;gap:6px;margin:-2px 0 6px 0;padding-left:4px;}
-  .calc-stat-subrow label{font-size:10px;color:var(--ink-faint);}
-  .calc-bcmt-paren{font-size:11.5px;color:var(--ink-faint);display:inline-flex;align-items:center;}
-  .calc-stat-bcmt{width:36px;background:var(--bg-1);border:1px solid var(--line);color:var(--ink);font-family:var(--font-body);font-size:11.5px;padding:4px 5px;border-radius:3px;text-align:right;}
+  .calc-stat-subrow label{font-size:10.5px;color:var(--ink-faint);}
+  .calc-bcmt-paren{font-size:12px;color:var(--ink-faint);display:inline-flex;align-items:center;}
+  .calc-stat-bcmt{width:40px;background:var(--bg-1);border:1px solid var(--line);color:var(--ink);font-family:var(--font-body);font-size:12px;padding:5px 6px;border-radius:3px;text-align:right;}
 
-  .calc-add-stat{display:block;width:100%;margin-top:2px;background:none;border:1px dashed var(--line);color:var(--ink-faint);font-family:var(--font-mono);font-size:10.5px;padding:6px;border-radius:3px;cursor:pointer;}
+  .calc-add-stat{display:block;width:100%;margin-top:2px;background:none;border:1px dashed var(--line);color:var(--ink-faint);font-family:var(--font-mono);font-size:11px;padding:7px;border-radius:3px;cursor:pointer;}
   .calc-add-stat:hover{border-color:var(--moss);color:var(--moss);}
 
   /* Atributos en el carril lateral: uno por fila (no necesitan mucho
@@ -56,7 +75,7 @@
   .calc-attrs-rail{display:flex;flex-direction:column;gap:8px;margin-top:8px;}
   .calc-attr-field{display:flex;align-items:center;justify-content:space-between;gap:10px;}
   .calc-attr-field label{font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-faint);font-family:var(--font-mono);}
-  .calc-attr-field input[type=number]{width:56px;flex-shrink:0;background:var(--bg-0);border:1px solid var(--line);color:var(--ink);font-family:var(--font-mono);font-size:14px;padding:6px 8px;border-radius:3px;text-align:right;}
+  .calc-attr-field input[type=number]{width:52px;flex-shrink:0;background:var(--bg-0);border:1px solid var(--line);color:var(--ink);font-family:var(--font-mono);font-size:14px;padding:6px 8px;border-radius:3px;text-align:right;}
 
   .calc-detail-table{width:100%;border-collapse:collapse;font-family:var(--font-mono);font-size:11.5px;margin-top:12px;}
   .calc-detail-table th, .calc-detail-table td{padding:6px 8px;text-align:right;border-bottom:1px solid var(--line);}
@@ -65,6 +84,5 @@
   .calc-detail-table td.zero{color:var(--ink-faint);}
 
   @media (max-width:460px){
-    .calc-slots-grid{grid-template-columns:1fr;}
     .calc-stat-kind{flex-basis:100%;}
   }
