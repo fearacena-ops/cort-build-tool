@@ -585,4 +585,11 @@
     wireToggle('calc-toggle-armor-detail', 'calc-armor-detail-box', 'Ocultar desglose por tipo de daño', 'Ver desglose por tipo de daño');
     recomputeAndRender();
   };
+  // Este script es el último <script defer> del documento -- si al
+  // llegar acá main.js ya pasó por la pestaña "Calculador de daños"
+  // (dejó la marca window.calcTabActive porque el fetch de
+  // game-data.json le ganó la carrera a que este archivo terminara de
+  // bajar), hay que inicializar ahora mismo en vez de esperar a un
+  // click que ya pasó.
+  if(window.calcTabActive) window.initCalcIfNeeded();
 })();

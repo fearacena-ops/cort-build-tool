@@ -22,7 +22,13 @@
 
   .page-flex{display:flex;gap:28px;justify-content:center;max-width:1780px;margin:0 auto;padding:0 22px 80px;}
   .shield-rail{flex:0 0 240px;display:flex;flex-direction:column;align-items:center;gap:22px;padding-top:14px;}
-  .config-rail{flex:0 0 320px;padding-top:0;opacity:1;transition:opacity .15s ease;}
+  /* min-width:0 pisa el "auto" que un flex item usa por default: sin
+     esto, cualquier contenido de adentro (por ejemplo un <input
+     type=number> nativo, que pide bastante ancho mínimo propio) puede
+     empujar este carril más ancho que los 320px fijos, robándole ancho
+     a .wrap -- pasó de verdad con la grilla de atributos del
+     calculador. */
+  .config-rail{flex:0 0 320px;min-width:0;padding-top:0;opacity:1;transition:opacity .15s ease;}
   .config-rail.rail-measuring{opacity:0;}
   .rail-page{display:flex;flex-direction:column;gap:20px;}
   .rail-page-map{gap:12px;}

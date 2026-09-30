@@ -920,7 +920,18 @@ function updateSharedChromeForTab(panelId){
   if(wzRail) wzRail.style.display = isMapTab ? '' : 'none';
   if(calcRail) calcRail.style.display = isCalcTab ? '' : 'none';
   if(mapLayers) mapLayers.style.display = isMapTab ? '' : 'none';
-  if(isCalcTab) window.initCalcIfNeeded?.();
+  if(isCalcTab){
+    // calc.js es el último <script defer> del documento -- si el fetch de
+    // game-data.json (dispara initApp/restoreLastTab) resuelve rápido
+    // (caché) puede ganarle la carrera a que calc.js termine de bajar y
+    // registrar window.initCalcIfNeeded, igual que ya pasaba con el mapa
+    // (ver comentario de initRegnumMapIfNeeded más abajo). acá se guarda
+    // la intención en window.calcTabActive -- calc.js se fija ese flag
+    // apenas termina de cargar y se auto-inicializa si ya hacía falta,
+    // así no importa cuál de los dos termina primero.
+    window.calcTabActive = true;
+    window.initCalcIfNeeded?.();
+  }
   if(isMapTab){
     // Llamado directo acá, no solo confiar en que map.js/wz.js ya hayan
     // enganchado SU PROPIO listener de click en el botón de la pestaña --

@@ -6,6 +6,15 @@
    .choice-group, select.styled, .summary-grid).
    ======================================================================== */
 
+  /* El carril lateral (.config-rail) es de ancho fijo (320px, ver
+     layout.css) en las 3 pestañas -- #class-switch (subclase de "Tu
+     build") fuerza sus 6 botones a 3 por fila con este mismo ancho de
+     letra chica; sin este mismo ajuste acá, los botones de subclase del
+     calculador (más largos, sin achicar) no entraban 3 por fila y el
+     carril se ensanchaba de más, robándole ancho a la columna central. */
+  #calc-subclass-switch{gap:6px;}
+  #calc-subclass-switch .choice-btn{flex:1 1 30%;text-align:center;padding:9px 8px;font-size:12.5px;}
+
   .calc-slots-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;}
   .calc-slot{background:var(--bg-0);border:1px solid var(--line);border-radius:5px;padding:12px 14px;}
   .calc-slot-head{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
@@ -21,10 +30,17 @@
   .calc-stat-value{flex:0 0 52px;width:52px;text-align:right;}
 
   /* Atributos en el carril lateral: dos por fila, más compacto que
-     .num-inputs (que es para inputs sueltos en el panel principal). */
+     .num-inputs (que es para inputs sueltos en el panel principal).
+     min-width:0 en las columnas es necesario: sin eso, un <input
+     type=number> pide un ancho mínimo propio (más de 200px en algunos
+     navegadores, por las flechitas nativas) y el grid, en vez de
+     achicarlo, empuja TODO el carril lateral (320px fijos) más ancho de
+     lo que debería -- eso fue justo lo que le pasó ancho a la columna
+     central. */
   .calc-attrs-rail{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px;}
+  .calc-attrs-rail .field{min-width:0;}
   .calc-attrs-rail .field label{margin-bottom:4px;}
-  .calc-attrs-rail input[type=number]{width:100%;background:var(--bg-0);border:1px solid var(--line);color:var(--ink);font-family:var(--font-mono);font-size:14px;padding:8px 9px;border-radius:3px;}
+  .calc-attrs-rail input[type=number]{width:100%;min-width:0;background:var(--bg-0);border:1px solid var(--line);color:var(--ink);font-family:var(--font-mono);font-size:14px;padding:8px 9px;border-radius:3px;}
 
   .calc-detail-table{width:100%;border-collapse:collapse;font-family:var(--font-mono);font-size:11.5px;margin-top:12px;}
   .calc-detail-table th, .calc-detail-table td{padding:6px 8px;text-align:right;border-bottom:1px solid var(--line);}
