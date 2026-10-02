@@ -48,35 +48,10 @@
      (.shield-rail) y se mueven acá abajo del buscador en las angostas —
      mismo patrón que ya usa el escudo y el rail de subclase. */
   .map-layers{display:flex;flex-direction:column;gap:10px;}
-  /* Botón que despliega las capas en angosto -- oculto en pantallas anchas,
-     donde los checkboxes ya están siempre a la vista bajo el escudo. */
-  .map-layers-toggle{display:none;}
-  .map-layers-bar{position:relative;}
-  @media (max-width:1440px){
-    .map-layers-toggle{display:flex;align-items:center;gap:6px;margin:0 0 12px;background:var(--bg-0);border:1px solid var(--line);border-radius:20px;padding:8px 16px;color:var(--ink-dim);font-size:13px;cursor:pointer;}
-    .map-layers-toggle:hover{border-color:var(--moss);color:var(--moss);}
-    .map-layers-toggle-arrow{transition:transform .15s;}
-    .map-layers-toggle.is-open .map-layers-toggle-arrow{transform:rotate(180deg);}
-    /* En angosto los checkboxes eran una fila larga envuelta ARRIBA del
-       mapa, empujándolo bien abajo -- ahora son un desplegable que flota
-       SOBRE el mapa (mismo recurso que .map-results, position:absolute +
-       z-index), colapsado hasta que se toca el botón de arriba, así no
-       ocupan lugar fijo en la página. Las reglas de abajo pisan el
-       display:flex de base con !important porque ese estilo lo pone
-       directo en línea updateSharedChromeForTab (según la pestaña activa,
-       no según si está desplegado) -- sin el !important, abrir la pestaña
-       del mapa siempre lo mostraría igual, desplegado o no. */
-    .map-layers.map-layers-inline{
-      display:none !important;
-      position:absolute;top:100%;left:0;right:0;z-index:1500;
-      flex-direction:row;flex-wrap:wrap;gap:8px 18px;
-      margin:0;padding:14px 16px;
-      background:var(--bg-1);border:1px solid var(--line);border-radius:6px;
-      max-height:60vh;overflow-y:auto;
-      box-shadow:0 10px 24px rgba(0,0,0,.35);
-    }
-    .map-layers.map-layers-inline.is-open{display:flex !important;}
-  }
+  /* flex-wrap:wrap — sin esto los 9 checkboxes en fila no entran en
+     pantallas angostas (celular) y desbordan hacia la derecha, agrandando
+     el ancho de toda la página (scroll horizontal en vez de acomodarse). */
+  .map-layers.map-layers-inline{flex-direction:row;flex-wrap:wrap;gap:8px 18px;margin-bottom:14px;}
   .leaflet-popup-content{font-family:var(--font-body);font-size:13px;}
   .leaflet-popup-content b{color:var(--bronze);}
   /* Contorno negro parejo de 1px alrededor de cada ícono (8 sombras sin
