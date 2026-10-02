@@ -59,7 +59,6 @@ if('serviceWorker' in navigator){
   <aside class="shield-rail">
     <img id="hero-realm-shield" class="hero-realm-shield" src="" alt="">
     <div class="map-layers" id="map-layers-block" style="display:none">
-      <button type="button" id="map-layers-close" class="map-layers-close">Cerrar ✕</button>
       <label class="check-row"><input type="checkbox" id="map-toggle-npc"> NPCs</label>
       <label class="check-row"><input type="checkbox" id="map-toggle-mision"> Misiones</label>
       <label class="check-row" style="margin-top:8px"><input type="checkbox" id="map-toggle-aldea"> Aldeas</label>
@@ -178,10 +177,9 @@ if('serviceWorker' in navigator){
       <div class="map-results" id="map-search-results"></div>
     </div>
     <div class="map-layers-bar">
-      <button type="button" id="map-layers-toggle" class="map-layers-toggle">☰ Capas</button>
+      <button type="button" id="map-layers-toggle" class="map-layers-toggle">Capas <span class="map-layers-toggle-arrow">▾</span></button>
       <div id="map-layers-anchor"></div>
     </div>
-    <div class="map-layers-backdrop" id="map-layers-backdrop"></div>
     <div class="map-frame">
       <div id="regnum-map"></div>
       <div class="map-zoom-badge" id="map-zoom-badge"></div>

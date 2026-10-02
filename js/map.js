@@ -1824,22 +1824,21 @@ function wireRegnumSearchAndFilters(){
     document.getElementById(id).addEventListener('change', refreshMapLayers);
   });
 
-  // Botón "Capas" (solo angosto, ver css/map.css) -- abre un menú lateral
-  // con los checkboxes en vez de tenerlos siempre ocupando lugar arriba
-  // del mapa. El fondo oscuro (backdrop) es lo que cierra al tocar afuera,
-  // igual que el botón "Cerrar" de adentro del propio menú.
+  // Botón "Capas" (solo angosto, ver css/map.css) -- despliega/colapsa los
+  // checkboxes en vez de tenerlos siempre ocupando lugar arriba del mapa.
   const layersToggle = document.getElementById('map-layers-toggle');
   const layersBlock = document.getElementById('map-layers-block');
-  const layersClose = document.getElementById('map-layers-close');
-  const layersBackdrop = document.getElementById('map-layers-backdrop');
-  if(layersToggle && layersBlock && layersBackdrop){
-    function setLayersOpen(open){
-      layersBlock.classList.toggle('is-open', open);
-      layersBackdrop.classList.toggle('is-open', open);
-    }
-    layersToggle.addEventListener('click', ()=> setLayersOpen(!layersBlock.classList.contains('is-open')));
-    layersClose?.addEventListener('click', ()=> setLayersOpen(false));
-    layersBackdrop.addEventListener('click', ()=> setLayersOpen(false));
+  if(layersToggle && layersBlock){
+    layersToggle.addEventListener('click', ()=>{
+      const open = layersBlock.classList.toggle('is-open');
+      layersToggle.classList.toggle('is-open', open);
+    });
+    document.addEventListener('click', (e)=>{
+      if(!e.target.closest('.map-layers-bar')){
+        layersBlock.classList.remove('is-open');
+        layersToggle.classList.remove('is-open');
+      }
+    });
   }
 
   const input = document.getElementById('map-search');
