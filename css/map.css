@@ -9,6 +9,14 @@
   #map-search{flex:1 1 240px;background:var(--bg-0);border:1px solid var(--line);border-radius:20px;padding:9px 16px;color:var(--ink);font-size:13.5px;}
   .map-filters{display:flex;gap:8px;flex-wrap:wrap;}
   .map-filters select{background:var(--bg-0);border:1px solid var(--line);border-radius:20px;padding:8px 12px;color:var(--ink-dim);font-size:12.5px;}
+  /* En angosto el buscador ya ocupa su propia fila entera (flex-basis de
+     arriba) -- los 3 select, en cambio, quedaban envueltos de a uno por
+     fila (3 filas sueltas, mucho alto). Una grilla fija de 2 columnas los
+     deja en 2 filas prolijas (2 arriba, 1 abajo) en vez de uno por fila. */
+  @media (max-width:1440px){
+    .map-filters{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%;}
+    .map-filters select{width:100%;}
+  }
   /* z-index bien por encima de 1000: los controles propios de Leaflet
      (zoom +/-, atribución, etc., dentro de .map-frame) también usan 1000
      -- con el mismo valor, empatan y gana quien aparece después en el
@@ -48,34 +56,56 @@
      (.shield-rail) y se mueven acá abajo del buscador en las angostas —
      mismo patrón que ya usa el escudo y el rail de subclase. */
   .map-layers{display:flex;flex-direction:column;gap:10px;}
-  /* Botón que despliega las capas en angosto -- oculto en pantallas anchas,
-     donde los checkboxes ya están siempre a la vista bajo el escudo. */
+  /* Botón que abre el menú lateral en angosto -- oculto en pantallas
+     anchas, donde los checkboxes ya están siempre a la vista bajo el
+     escudo. */
   .map-layers-toggle{display:none;}
+  .map-layers-close{display:none;}
+  .map-layers-backdrop{display:none;}
   .map-layers-bar{position:relative;}
   @media (max-width:1440px){
     .map-layers-toggle{display:flex;align-items:center;gap:6px;margin:0 0 12px;background:var(--bg-0);border:1px solid var(--line);border-radius:20px;padding:8px 16px;color:var(--ink-dim);font-size:13px;cursor:pointer;}
     .map-layers-toggle:hover{border-color:var(--moss);color:var(--moss);}
-    .map-layers-toggle-arrow{transition:transform .15s;}
-    .map-layers-toggle.is-open .map-layers-toggle-arrow{transform:rotate(180deg);}
-    /* En angosto los checkboxes eran una fila larga envuelta ARRIBA del
-       mapa, empujándolo bien abajo -- ahora son un desplegable que flota
-       SOBRE el mapa (mismo recurso que .map-results, position:absolute +
-       z-index), colapsado hasta que se toca el botón de arriba, así no
-       ocupan lugar fijo en la página. Las reglas de abajo pisan el
-       display:flex de base con !important porque ese estilo lo pone
-       directo en línea updateSharedChromeForTab (según la pestaña activa,
-       no según si está desplegado) -- sin el !important, abrir la pestaña
-       del mapa siempre lo mostraría igual, desplegado o no. */
-    .map-layers.map-layers-inline{
-      display:none !important;
-      position:absolute;top:100%;left:0;right:0;z-index:1500;
-      flex-direction:row;flex-wrap:wrap;gap:8px 18px;
-      margin:0;padding:14px 16px;
-      background:var(--bg-1);border:1px solid var(--line);border-radius:6px;
-      max-height:60vh;overflow-y:auto;
-      box-shadow:0 10px 24px rgba(0,0,0,.35);
+    /* Fondo oscuro detrás del menú, cubriendo mapa y resto de la página --
+       clickearlo cierra el menú, igual que clickear afuera de cualquier
+       panel lateral. display:none normal (sin !important: este elemento
+       es propio, nada más lo toca) hasta que se le agrega .is-open. */
+    .map-layers-backdrop{
+      display:block;position:fixed;inset:0;z-index:2000;
+      background:rgba(0,0,0,.55);
+      opacity:0;pointer-events:none;
+      transition:opacity .2s ease;
     }
-    .map-layers.map-layers-inline.is-open{display:flex !important;}
+    .map-layers-backdrop.is-open{opacity:1;pointer-events:auto;}
+    /* El menú en sí: un panel lateral que entra desde la derecha (mismo
+       recurso que un cajón de navegación de celular), no un desplegable
+       flotando debajo del botón. display:flex siempre puesto (no
+       alternado por JS/clase) para que el deslizamiento con transform se
+       vea -- lo que lo mete/saca de la pantalla es el transform, no el
+       display. Queda oculto igual cuando no es la pestaña del mapa porque
+       todo #panel-map (su ancestro acá) pasa a display:none por su cuenta
+       (ver .main-panel en layout.css), position:fixed y todo. */
+    .map-layers.map-layers-inline{
+      display:flex !important;
+      flex-direction:column;flex-wrap:nowrap;
+      position:fixed;top:0;right:0;bottom:0;z-index:2001;
+      width:80vw;max-width:300px;
+      margin:0;padding:64px 20px 24px;
+      gap:4px;
+      background:var(--bg-1);border-left:1px solid var(--line);
+      overflow-y:auto;
+      box-shadow:-10px 0 30px rgba(0,0,0,.4);
+      transform:translateX(100%);
+      transition:transform .25s ease;
+    }
+    .map-layers.map-layers-inline.is-open{transform:translateX(0);}
+    .map-layers-close{
+      display:flex;align-items:center;justify-content:center;gap:6px;
+      position:absolute;top:16px;left:20px;right:20px;
+      background:var(--bg-0);border:1px solid var(--line);border-radius:20px;
+      padding:8px 16px;color:var(--ink-dim);font-size:13px;cursor:pointer;
+    }
+    .map-layers-close:hover{border-color:var(--blood);color:var(--blood);}
   }
   .leaflet-popup-content{font-family:var(--font-body);font-size:13px;}
   .leaflet-popup-content b{color:var(--bronze);}
