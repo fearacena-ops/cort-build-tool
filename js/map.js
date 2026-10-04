@@ -604,6 +604,12 @@ function initRegnumMapIfNeeded(){
         <option value="Alsius">Alsius</option>
         <option value="Ignis">Ignis</option>
       </select>
+      <div>Etiqueta <span style="color:#9fae95">(para distinguir zonas que repiten nombre, ej. "Playa Oculta" ZS/ZG)</span>:</div>
+      <select id="zt-etiqueta" style="width:100%;box-sizing:border-box;margin:2px 0 6px">
+        <option value="">(sin etiqueta)</option>
+        <option value="ZS">ZS — Zona Segura</option>
+        <option value="ZG">ZG — Zona de Guerra</option>
+      </select>
       <div style="color:#9fae95">Piezas dibujadas (tildadas = se guardan con esta zona; el panel de abajo es para dibujar más):</div>
       <div id="zt-piece-list" style="max-height:110px;overflow-y:auto;margin:4px 0 6px;padding:4px;background:#161d17;border:1px solid #2c3a2a;border-radius:4px"></div>
       <div style="margin-top:8px"><b>Mobs</b></div>
@@ -637,9 +643,13 @@ function initRegnumMapIfNeeded(){
     let ztJefes = [];
     let ztMats = [];
     // z.etiqueta (ver buildZonePopupHTML) distingue zonas que repiten
-    // nombre -- esta herramienta no tiene un campo para editarla, pero
-    // "Cargar" + "Guardar" no debe perderla de pisada si ya la tenía.
-    let ztEtiqueta = null;
+    // nombre (ej. "Playa Oculta" ZS/ZG) -- junto con el nombre, es la
+    // clave real de una zona en toda esta herramienta (ztGetCurrentZone,
+    // el <select> de arriba, etc). El propio <select id="zt-etiqueta"> es
+    // la fuente de verdad, se lee directo de ahí cuando hace falta -- no
+    // se duplica en una variable aparte (eso fue justo lo que se
+    // desincronizaba antes).
+    function ztEtiquetaActual(){ return document.getElementById('zt-etiqueta').value || ''; }
 
     function ztRefreshChangesCount(){
       document.getElementById('zt-changes-count').textContent = zoneToolChanges.length;
@@ -669,7 +679,10 @@ function initRegnumMapIfNeeded(){
       // persiste de verdad es "Exportar cambios".
       regnumMapData.zonas = regnumMapData.zonas || [];
       if(entry.eliminar){
-        regnumMapData.zonas = regnumMapData.zonas.filter(z=> z.nombre !== entry.eliminar);
+        // nombre Y etiqueta -- si no, eliminar una de dos zonas con el
+        // mismo nombre (ej. "Playa Oculta" ZS/ZG) borraba las dos.
+        const etiqElim = entry.eliminarEtiqueta || '';
+        regnumMapData.zonas = regnumMapData.zonas.filter(z=> !(z.nombre === entry.eliminar && (z.etiqueta||'') === etiqElim));
       } else {
         // Copia aparte, no el mismo objeto que se guardó en
         // zoneToolChanges: buildRegnumZones() le cuelga un ._leaflet (el
@@ -678,22 +691,31 @@ function initRegnumMapIfNeeded(){
         // cambios" (JSON.stringify de zoneToolChanges) reventaba con
         // "Converting circular structure to JSON".
         const copia = {...entry};
-        const idx = regnumMapData.zonas.findIndex(z=> z.nombre === entry.nombre);
+        // nombre Y etiqueta -- sin la etiqueta, guardar una zona nueva con
+        // un nombre que YA existe (ej. otra "Playa Oculta") reemplazaba a
+        // la primera en vez de sumar una segunda.
+        const etiqEntry = entry.etiqueta || '';
+        const idx = regnumMapData.zonas.findIndex(z=> z.nombre === entry.nombre && (z.etiqueta||'') === etiqEntry);
         if(idx >= 0) regnumMapData.zonas[idx] = copia;
         else regnumMapData.zonas.push(copia);
       }
     }
-    function ztGetCurrentZone(nombre){
+    function ztGetCurrentZone(nombre, etiqueta){
       // El estado "actual" de una zona: si en esta misma sesión ya hay
-      // un cambio pendiente para ese nombre (se le sacaron piezas para
-      // armar otra zona, se le editaron mobs, etc.), se parte de ahí —
-      // si no, del dato ya cargado. Sin esto, usar la misma zona de
-      // origen dos veces seguidas en una sesión "olvida" lo que ya se
-      // le había sacado la primera vez.
+      // un cambio pendiente para ese nombre+etiqueta (se le sacaron
+      // piezas para armar otra zona, se le editaron mobs, etc.), se
+      // parte de ahí -- si no, del dato ya cargado. Sin esto, usar la
+      // misma zona de origen dos veces seguidas en una sesión "olvida" lo
+      // que ya se le había sacado la primera vez. Se matchea por nombre Y
+      // etiqueta (no nombre solo) porque dos zonas pueden compartir
+      // nombre a propósito (ej. "Playa Oculta" ZS y ZG) -- matchear solo
+      // por nombre encontraría siempre la primera de las dos.
+      const etiq = etiqueta || '';
       for(let i = zoneToolChanges.length - 1; i >= 0; i--){
-        if(zoneToolChanges[i].nombre === nombre) return zoneToolChanges[i];
+        const e = zoneToolChanges[i];
+        if(e.nombre === nombre && (e.etiqueta||'') === etiq) return e;
       }
-      return (regnumMapData.zonas||[]).find(zz=> zz.nombre === nombre) || null;
+      return (regnumMapData.zonas||[]).find(zz=> zz.nombre === nombre && (zz.etiqueta||'') === etiq) || null;
     }
     function ztRenderPieceList(){
       const box = document.getElementById('zt-piece-list');
@@ -728,13 +750,27 @@ function initRegnumMapIfNeeded(){
       // ver buildRegnumZones), los conteos a nivel zona quedan vacíos a
       // propósito -- se suman las piezas para que el cartel no muestre
       // "0 mobs" en una zona que en realidad sí tiene.
+      // data-etiqueta (no solo el texto visible) es lo que de verdad
+      // distingue dos <option> con el mismo "value" (mismo nombre de
+      // zona) -- "Cargar"/"Eliminar" leen la opción SELECCIONADA, no solo
+      // el value, así las dos entradas de una zona repetida (ej. "Playa
+      // Oculta" ZS y ZG) quedan cada una alcanzable por separado.
       sel.innerHTML = zonas.map(z=>{
         const nMobs = (z.mobs||[]).length + (z.piezas||[]).reduce((s,p)=> s+(p.mobs||[]).length, 0);
         const nJefes = (z.jefes||[]).length + (z.piezas||[]).reduce((s,p)=> s+(p.jefes||[]).length, 0);
         const nMats = (z.materiales||[]).length + (z.piezas||[]).reduce((s,p)=> s+(p.materiales||[]).length, 0);
         const etiquetaZona = z.etiqueta ? ` (${z.etiqueta})` : '';
-        return `<option value="${z.nombre.replace(/"/g,'&quot;')}">${z.nombre}${etiquetaZona} (${z.reino}) — ${nMobs} mobs, ${nJefes} jefes, ${nMats} mat.</option>`;
+        return `<option value="${z.nombre.replace(/"/g,'&quot;')}" data-etiqueta="${z.etiqueta||''}">${z.nombre}${etiquetaZona} (${z.reino}) — ${nMobs} mobs, ${nJefes} jefes, ${nMats} mat.</option>`;
       }).join('');
+    }
+    // Lee nombre+etiqueta de la opción REALMENTE seleccionada en la
+    // lista (no solo sel.value, que puede repetirse entre dos <option> de
+    // zonas con el mismo nombre) -- ver ztRefreshZoneList.
+    function ztSelectedZoneKey(){
+      const sel = document.getElementById('zt-list');
+      const opt = sel.selectedOptions && sel.selectedOptions[0];
+      if(!opt) return {nombre: sel.value, etiqueta: ''};
+      return {nombre: sel.value, etiqueta: opt.dataset.etiqueta || ''};
     }
     // Si se edita el nombre a mano, la lista de piezas se refresca — así
     // la etiqueta "de tal zona" (que se oculta cuando coincide con el
@@ -768,12 +804,12 @@ function initRegnumMapIfNeeded(){
       ztRefreshLists();
     });
     document.getElementById('zt-load').addEventListener('click', ()=>{
-      const nombre = document.getElementById('zt-list').value;
+      const {nombre, etiqueta: etiquetaSel} = ztSelectedZoneKey();
       // Se usa el estado más actualizado (si ya se le sacaron piezas o
       // se le cambiaron mobs/materiales en esta misma sesión, eso es lo
       // que se carga) — no el dato original, para no volver a ofrecer
       // piezas que ya se le dieron a otra zona nueva.
-      const z = ztGetCurrentZone(nombre);
+      const z = ztGetCurrentZone(nombre, etiquetaSel);
       if(!z) return;
       // Esta herramienta todavía edita mobs/jefes/materiales a nivel zona
       // nada más -- si la zona tiene z.piezas (contenido propio por
@@ -784,7 +820,7 @@ function initRegnumMapIfNeeded(){
       }
       document.getElementById('zt-name').value = nombre;
       document.getElementById('zt-reino').value = z.reino || 'Syrtis';
-      ztEtiqueta = z.etiqueta || null;
+      document.getElementById('zt-etiqueta').value = z.etiqueta || '';
       ztMobs = (z.mobs||[]).map(it=>({...it}));
       ztJefes = (z.jefes||[]).map(it=>({...it}));
       ztMats = (z.materiales||[]).map(it=>({...it}));
@@ -808,25 +844,28 @@ function initRegnumMapIfNeeded(){
       refreshRefpickPanel();
     });
     document.getElementById('zt-delete').addEventListener('click', ()=>{
-      const nombre = document.getElementById('zt-list').value;
+      const {nombre, etiqueta} = ztSelectedZoneKey();
       if(!nombre) return;
+      const etiquetaTxt = etiqueta ? ` (${etiqueta})` : '';
       // Si la zona ya existía en el sitio real antes de esta sesión, hay
       // que avisarle (queda un {eliminar} en cambios pendientes, para
       // exportar y mandar). Pero si es una zona que se creó DE CERO en
       // esta misma sesión (nunca llegó a existir en el sitio real todavía),
       // "eliminar" no tiene nada que avisarle a nadie -- alcanza con sacarla
       // de los cambios pendientes tal cual, sin dejar ningún rastro que
-      // haya que exportar ni mandar.
-      const existiaEnElSitio = ztBaselineZoneNames.has(nombre);
+      // haya que exportar ni mandar. Clave compuesta nombre+etiqueta: dos
+      // zonas pueden compartir nombre (ej. "Playa Oculta" ZS/ZG) y una
+      // existir de verdad en el sitio sin que la otra exista todavía.
+      const existiaEnElSitio = ztBaselineZoneNames.has(nombre + '\u0000' + etiqueta);
       if(existiaEnElSitio){
-        if(!confirm(`¿Marcar "${nombre}" para eliminar? La saca ya mismo del mapa que estás viendo (para probar) — el archivo de datos real recién cambia cuando se exporten los cambios y se apliquen.`)) return;
-        const entry = {eliminar: nombre};
+        if(!confirm(`¿Marcar "${nombre}${etiquetaTxt}" para eliminar? La saca ya mismo del mapa que estás viendo (para probar) — el archivo de datos real recién cambia cuando se exporten los cambios y se apliquen.`)) return;
+        const entry = {eliminar: nombre, eliminarEtiqueta: etiqueta};
         zoneToolChanges.push(entry);
         ztApplyLive(entry);
       } else {
-        if(!confirm(`"${nombre}" todavía no existe en el sitio real (la creaste en esta misma sesión) -- ¿descartarla del todo? No queda nada pendiente por exportar ni mandar para esta zona.`)) return;
-        zoneToolChanges = zoneToolChanges.filter(e=> e.nombre !== nombre);
-        ztApplyLive({eliminar: nombre}); // solo para sacarla del mapa que se está viendo ahora
+        if(!confirm(`"${nombre}${etiquetaTxt}" todavía no existe en el sitio real (la creaste en esta misma sesión) -- ¿descartarla del todo? No queda nada pendiente por exportar ni mandar para esta zona.`)) return;
+        zoneToolChanges = zoneToolChanges.filter(e=> !(e.nombre === nombre && (e.etiqueta||'') === etiqueta));
+        ztApplyLive({eliminar: nombre, eliminarEtiqueta: etiqueta}); // solo para sacarla del mapa que se está viendo ahora
       }
       saveZoneToolChanges();
       ztRefreshChangesCount();
@@ -851,7 +890,8 @@ function initRegnumMapIfNeeded(){
       // verdad con jefes (faltaba resetear ztJefes después de guardar, ver
       // más abajo) y corrompía la zona anterior en vez de afectar solo a
       // la nueva.
-      const entradas = [{nombre, reino, poligonos, mobs: ztMobs.map(it=>({...it})), jefes: ztJefes.map(it=>({...it})), materiales: ztMats.map(it=>({...it})), ...(ztEtiqueta ? {etiqueta: ztEtiqueta} : {})}];
+      const etiquetaNueva = ztEtiquetaActual();
+      const entradas = [{nombre, reino, poligonos, mobs: ztMobs.map(it=>({...it})), jefes: ztJefes.map(it=>({...it})), materiales: ztMats.map(it=>({...it})), ...(etiquetaNueva ? {etiqueta: etiquetaNueva} : {})}];
       // Si alguna pieza tildada vino de OTRA zona ya existente (se trajo
       // acá con "Cargar" y se reusa con un nombre distinto), esa pieza
       // se saca también de la zona de origen — si no, queda viviendo
@@ -866,20 +906,29 @@ function initRegnumMapIfNeeded(){
         }
       });
       porOrigen.forEach((piezasASacar, srcNombre)=>{
+        // Esta búsqueda no sabe la etiqueta de la zona de origen (solo se
+        // guarda su nombre en refpickPieceSource, ver más arriba) -- si
+        // esa zona tiene ZS/ZG, esto no la encuentra. Mejor no tocarla
+        // (queda la pieza duplicada en las dos, hay que sacarla a mano
+        // después) que arriesgarse a marcarla para eliminar por error.
         const srcActual = ztGetCurrentZone(srcNombre);
-        const restantes = (srcActual?.poligonos||[]).filter(r=> !piezasASacar.has(r));
-        const srcMobs = srcActual ? (srcActual.mobs||[]) : [];
-        const srcJefes = srcActual ? (srcActual.jefes||[]) : [];
-        const srcMats = srcActual ? (srcActual.materiales||[]) : [];
+        if(!srcActual){
+          console.warn(`No se encontró "${srcNombre}" para sacarle piezas (¿tiene etiqueta ZS/ZG? esta búsqueda todavía no la tiene en cuenta acá) -- quedan sin tocar, sacalas a mano si hace falta.`);
+          return;
+        }
+        const restantes = (srcActual.poligonos||[]).filter(r=> !piezasASacar.has(r));
+        const srcMobs = srcActual.mobs||[];
+        const srcJefes = srcActual.jefes||[];
+        const srcMats = srcActual.materiales||[];
         if(restantes.length === 0 && srcMobs.length === 0 && srcJefes.length === 0 && srcMats.length === 0){
           // no le queda nada propio: se marca para eliminar en vez de
           // dejar un cascarón vacío dando vueltas.
-          entradas.push({eliminar: srcNombre});
+          entradas.push({eliminar: srcNombre, eliminarEtiqueta: srcActual.etiqueta || ''});
         } else {
           // Mismo motivo que arriba: copias de srcMobs/srcJefes/srcMats,
           // no las referencias tal cual (podrían venir de una zona que se
           // vuelva a tocar más tarde).
-          entradas.push({nombre: srcNombre, reino: srcActual ? srcActual.reino : reino, poligonos: restantes, mobs: srcMobs.map(it=>({...it})), jefes: srcJefes.map(it=>({...it})), materiales: srcMats.map(it=>({...it}))});
+          entradas.push({nombre: srcNombre, reino: srcActual.reino, poligonos: restantes, mobs: srcMobs.map(it=>({...it})), jefes: srcJefes.map(it=>({...it})), materiales: srcMats.map(it=>({...it})), ...(srcActual.etiqueta ? {etiqueta: srcActual.etiqueta} : {})});
         }
       });
       // Cada entrada se suma a los cambios pendientes (lo que se manda a
@@ -913,10 +962,10 @@ function initRegnumMapIfNeeded(){
       // mobs/materiales cargados acá también se colarían en la próxima
       // por el mismo motivo.
       document.getElementById('zt-name').value = '';
+      document.getElementById('zt-etiqueta').value = '';
       ztMobs = [];
       ztJefes = [];
       ztMats = [];
-      ztEtiqueta = null;
       ztRefreshLists();
       refreshRefpickPanel();
       alert(`"${nombre}" ya se ve en el mapa (y quedó sumada a los cambios pendientes, ${zoneToolChanges.length} en total, para cuando quieras exportarlos). Las piezas y datos del formulario ya se limpiaron para la próxima zona.`);
@@ -953,7 +1002,7 @@ function initRegnumMapIfNeeded(){
       // Recién acá existe de verdad regnumMapData (ver el fetch más abajo)
       // -- antes de esto ztBaselineZoneNames se calculaba contra datos
       // todavía sin llegar.
-      ztBaselineZoneNames = new Set((regnumMapData.zonas||[]).map(z=> z.nombre));
+      ztBaselineZoneNames = new Set((regnumMapData.zonas||[]).map(z=> z.nombre + '\u0000' + (z.etiqueta||'')));
       ztRefreshZoneList();
     };
   }
