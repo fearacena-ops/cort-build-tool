@@ -1269,10 +1269,11 @@ function buildRegnumMarkers(){
       // buildTierBossPopupHTML.
       marker.bindPopup(() => buildTierBossPopupHTML(m), {autoPan:false, maxWidth:190, className:'epico-popup'});
     } else if(m.tipo === 'guardian'){
-      // Sin retrato (a diferencia de Legendario/Campeón/Épico) ni drop
-      // -- tarjeta simple con el estilo por defecto, no la oscura de
-      // .epico-popup (esa se pensó para acompañar una foto grande).
-      marker.bindPopup(buildGuardianPopupHTML(m), {autoPan:false});
+      // Mismo estilo de tarjeta oscura que Legendario/Campeón/Épico,
+      // ahora que tienen retrato (el mismo por elemento, da igual el
+      // reino) -- sin drop, por eso usa su propia función en vez de
+      // buildTierBossPopupHTML.
+      marker.bindPopup(() => buildGuardianPopupHTML(m), {autoPan:false, maxWidth:190, className:'epico-popup'});
     } else if(m.tipo === 'dragon'){
       // Misma tarjeta que Legendario/Campeón (retrato + nombre + nivel
       // si lo tiene) -- por ahora a varios dragones les falta nivel/zona,
@@ -1668,11 +1669,12 @@ function buildTierBossPopupHTML(m){
   return `${img}<b>${nombre}</b>${nivel}${zona}${drop}`;
 }
 
-// Guardianes: sin retrato ni drop, así que la tarjeta es solo texto --
-// estilo por defecto (el mismo que NPCs/misiones), no el fondo oscuro de
-// .epico-popup pensado para una foto grande.
+// Guardianes: retrato (el mismo por elemento, sin importar el reino) +
+// nombre + nivel + zona. Sin drop.
 function buildGuardianPopupHTML(m){
-  return `<b>${m.nombre}</b><br>Nv. ${m.nivel}`;
+  const img = m.imagen ? `<img class="epico-popup-img" src="${m.imagen}" alt="${m.nombre}">` : '';
+  const zona = m.zona ? `<br>${m.zona}` : '';
+  return `${img}<b>${m.nombre}</b><br>Nv. ${m.nivel}${zona}`;
 }
 
 // Cupido: mismo criterio de tarjeta simple que Guardianes (sin retrato
@@ -1686,13 +1688,16 @@ function buildCupidoPopupHTML(m){
 
 function buildRegnumPopupHTML(m){
   if(m.tipo === 'ciudad'){
-    // Los altares comparten el mismo nombre ("Altar de Resurrección") —
-    // ahí conviene mostrar la zona en vez de repetir "Altar" en todos.
-    const linea2 = m.categoria === 'Altar' && m.zona ? m.zona : m.categoria;
-    return `<b>${m.nombre}</b><br>${linea2}<br>${m.reino}`;
+    // Categoría y Reino quedan ocultos a pedido -- para Altar, que
+    // comparte nombre en todos ("Altar de Resurrección"), se muestra la
+    // zona en su lugar; el resto (Aldea/Pueblo/Puerto/Ciudad/Castillo/
+    // Fuerte/Muralla) queda solo con el nombre.
+    const linea2 = m.categoria === 'Altar' && m.zona ? `<br>${m.zona}` : '';
+    return `<b>${m.nombre}</b>${linea2}`;
   }
   if(m.tipo === 'npc'){
-    return `<b>${m.nombre}</b><br>${m.profesion || m.clase || ''}${m.zona ? ' · '+m.zona : ''}<br>${m.reino}`;
+    // Reino queda oculto a pedido.
+    return `<b>${m.nombre}</b><br>${m.profesion || m.clase || ''}${m.zona ? ' · '+m.zona : ''}`;
   }
   const pasos = m.pasos ? `<br><span style="font-size:11.5px">${m.pasos}</span>` : '';
   return `<b>${m.nombre}</b><br>Nivel ${m.nivel} · La da: ${m.la_da}<br>${m.xp||0} XP · ${m.oro||0} oro${pasos}`;
