@@ -1696,8 +1696,11 @@ function buildRegnumPopupHTML(m){
     return `<b>${m.nombre}</b>${linea2}`;
   }
   if(m.tipo === 'npc'){
-    // Reino queda oculto a pedido.
-    return `<b>${m.nombre}</b><br>${m.profesion || m.clase || ''}${m.zona ? ' · '+m.zona : ''}`;
+    // Reino queda oculto a pedido. Nombre/Profesión/Zona van cada uno en
+    // su propia línea (antes profesión y zona compartían línea con " · ").
+    const profesion = m.profesion || m.clase || '';
+    const zona = m.zona ? `<br>${m.zona}` : '';
+    return `<b>${m.nombre}</b>${profesion ? '<br>'+profesion : ''}${zona}`;
   }
   const pasos = m.pasos ? `<br><span style="font-size:11.5px">${m.pasos}</span>` : '';
   return `<b>${m.nombre}</b><br>Nivel ${m.nivel} · La da: ${m.la_da}<br>${m.xp||0} XP · ${m.oro||0} oro${pasos}`;
