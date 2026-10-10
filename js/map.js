@@ -171,6 +171,14 @@ function initRegnumMapIfNeeded(){
     maxBoundsViscosity: 1.0,
   });
 
+  // En las herramientas de edición (?editmode=1 para marcar ubicaciones,
+  // ?refpick=1 para dibujar zonas) la mano de arrastre (cursor normal del
+  // mapa) no deja ver bien dónde va a caer el clic -- se cambia a una
+  // cruz/punto fino para apuntar con más precisión. La clase ya viene
+  // definida en leaflet.css (pensada para L.Draw) y gana por orden de
+  // cascada sobre .leaflet-grab al tener la misma especificidad.
+  if(EDIT_MODE || REFPICK_MODE) regnumMap.getContainer().classList.add('leaflet-crosshair');
+
   // Indicador visual del nivel de zoom — el número crudo de Leaflet (que
   // puede ser negativo y cambia de mínimo según el tamaño del recuadro) no
   // dice mucho por sí solo, así que se muestra como "escalón X de Y".
