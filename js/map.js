@@ -1161,6 +1161,12 @@ const DRAGON_GLOW_COLOR = {
 function iconFor(m){
   if(m.tipo === 'mision') return L.divIcon({className:'regnum-marker regnum-marker-mision', html:'!', iconSize:[10,14]});
   if(m.tipo === 'npc') return L.divIcon({className:`regnum-marker regnum-marker-npc realm-color-${REALM_SLUG[m.reino]||'syrtis'}`, html:'●', iconSize:[14,14]});
+  // Tareas del Reino: categoría nueva y chica por ahora (una sola, van a
+  // sumarse más) -- glifo de texto como Misión/NPC, no un ícono dibujado
+  // a mano como Épico/Legendario/Campeón, así no depende de un archivo
+  // de imagen que todavía no existe. "▤" para que se lea como una hoja
+  // con líneas (a pedido), coloreable vía CSS a diferencia de un emoji.
+  if(m.tipo === 'tarea') return L.divIcon({className:'regnum-marker regnum-marker-tarea', html:'▤', iconSize:[16,16]});
   // Épico/Legendario/Campeón/Guardián: sin color de reino -- el dibujo
   // ya distingue la categoría por sí solo (ver TIER_MARKER_ICON/
   // GUARDIAN_MARKER_ICON), no hace falta recolorear por reino como el
@@ -1217,7 +1223,7 @@ function applyWzFortStatus(forts){
 function buildRegnumMarkers(){
   regnumMarkersLayer.clearLayers();
   regnumAllMarkerObjs = [];
-  const todos = [...regnumMapData.npcs, ...regnumMapData.misiones, ...(regnumMapData.ciudades||[]), ...(regnumMapData.epicos||[]), ...(regnumMapData.legendarios||[]), ...(regnumMapData.campeones||[]), ...(regnumMapData.guardianes||[]), ...(regnumMapData.dragones||[]), ...(regnumMapData.cupidos||[])];
+  const todos = [...regnumMapData.npcs, ...regnumMapData.misiones, ...(regnumMapData.ciudades||[]), ...(regnumMapData.epicos||[]), ...(regnumMapData.legendarios||[]), ...(regnumMapData.campeones||[]), ...(regnumMapData.guardianes||[]), ...(regnumMapData.dragones||[]), ...(regnumMapData.cupidos||[]), ...(regnumMapData.tareas||[])];
   // Dónde quedó cada NPC ya calculado, por nombre — para que una misión sin
   // posición propia corregida use la de su dador en vez de su x/y original
   // (misiones y NPCs se corrigen por separado, así que si no hiciéramos
@@ -1291,6 +1297,8 @@ function buildRegnumMarkers(){
       // Sin retrato ni drop, como los Guardianes -- categoría nueva y
       // chica por ahora, mismo estilo simple de tarjeta.
       marker.bindPopup(buildCupidoPopupHTML(m), {autoPan:false});
+    } else if(m.tipo === 'tarea'){
+      marker.bindPopup(buildTareaPopupHTML(m), {autoPan:false});
     } else {
       marker.bindPopup(buildRegnumPopupHTML(m), {autoPan:false});
     }
@@ -1496,6 +1504,7 @@ function editableFieldsFor(m){
   if(m.tipo === 'guardian') return [['nombre','Nombre'], ['nivel','Nivel'], ['zona','Zona'], ['reino','Reino'], ['elemento','Elemento']];
   if(m.tipo === 'dragon') return [['nombre','Nombre'], ['nivel','Nivel'], ['zona','Zona'], ['reino','Reino'], ['drop','Drop'], ['dragonKey','Dragón (ícono)']];
   if(m.tipo === 'cupido') return [['nombre','Nombre'], ['zona','Zona'], ['reino','Reino']];
+  if(m.tipo === 'tarea') return [['nombre','Nombre'], ['zona','Zona'], ['reino','Reino']];
   return [['nombre','Nombre'], ['nivel','Nivel'], ['la_da','La da'], ['xp','XP'], ['oro','Oro']];
 }
 
@@ -1694,6 +1703,15 @@ function buildCupidoPopupHTML(m){
   return `<b>${m.nombre}</b>${zona}`;
 }
 
+// Tareas del Reino: categoría nueva (misiones repetibles que da un NPC,
+// a diferencia de las Misiones de siempre que ya tienen su propio tipo
+// 'mision') -- mismo criterio simple que Cupido/Guardianes, nombre y
+// debajo la zona.
+function buildTareaPopupHTML(m){
+  const zona = m.zona ? `<br>${m.zona}` : '';
+  return `<b>${m.nombre}</b>${zona}`;
+}
+
 function buildRegnumPopupHTML(m){
   if(m.tipo === 'ciudad'){
     // Categoría y Reino quedan ocultos a pedido -- para Altar, que
@@ -1841,6 +1859,7 @@ function passesRegnumFilters(m){
   const showGuardian = document.getElementById('map-toggle-guardianes').checked;
   const showDragon = document.getElementById('map-toggle-dragon').checked;
   const showCupido = document.getElementById('map-toggle-cupido').checked;
+  const showTarea = document.getElementById('map-toggle-tarea').checked;
   const reino = document.getElementById('map-filter-reino').value;
   const prof = document.getElementById('map-filter-profesion').value;
   const nivel = document.getElementById('map-filter-nivel').value;
@@ -1853,6 +1872,7 @@ function passesRegnumFilters(m){
   if(m.tipo === 'guardian' && !showGuardian) return false;
   if(m.tipo === 'dragon' && !showDragon) return false;
   if(m.tipo === 'cupido' && !showCupido) return false;
+  if(m.tipo === 'tarea' && !showTarea) return false;
   if(m.tipo === 'ciudad'){
     // Cada categoría de lugar (Aldea/Pueblo/Ciudad/Fuerte/Castillo/
     // Muralla/Altar) tiene su propio checkbox — ver PLACE_TOGGLE_ID.
@@ -1866,7 +1886,7 @@ function passesRegnumFilters(m){
   // sí tienen nivel, pero es el mismo dropdown que arma sus opciones a
   // partir de niveles de NPC/misión -- se los deja afuera para que
   // aparezcan siempre que su checkbox esté prendido, igual que el épico).
-  if(m.tipo !== 'ciudad' && m.tipo !== 'epico' && m.tipo !== 'legendario' && m.tipo !== 'campeon' && m.tipo !== 'guardian' && m.tipo !== 'dragon' && m.tipo !== 'cupido'){
+  if(m.tipo !== 'ciudad' && m.tipo !== 'epico' && m.tipo !== 'legendario' && m.tipo !== 'campeon' && m.tipo !== 'guardian' && m.tipo !== 'dragon' && m.tipo !== 'cupido' && m.tipo !== 'tarea'){
     if(prof && m.profesion !== prof) return false;
     if(nivel && String(m.nivel) !== nivel) return false;
   }
@@ -1885,7 +1905,7 @@ function wireRegnumSearchAndFilters(){
   // los dos, y no cuesta nada reconstruir marcadores de más cuando cambia
   // un checkbox que en realidad es solo de zonas (o viceversa).
   function refreshMapLayers(){ applyRegnumFilters(); applyZoneFilters(); }
-  [...PLACE_TOGGLE_IDS,'map-toggle-npc','map-toggle-mision','map-toggle-epico','map-toggle-legendario','map-toggle-campeon','map-toggle-dragon','map-toggle-cupido','map-toggle-mobs','map-toggle-guardianes','map-toggle-materiales','map-filter-reino','map-filter-profesion','map-filter-nivel'].forEach(id=>{
+  [...PLACE_TOGGLE_IDS,'map-toggle-npc','map-toggle-mision','map-toggle-epico','map-toggle-legendario','map-toggle-campeon','map-toggle-dragon','map-toggle-cupido','map-toggle-tarea','map-toggle-mobs','map-toggle-guardianes','map-toggle-materiales','map-filter-reino','map-filter-profesion','map-filter-nivel'].forEach(id=>{
     document.getElementById(id).addEventListener('change', refreshMapLayers);
   });
 
@@ -1911,6 +1931,7 @@ function wireRegnumSearchAndFilters(){
     if(m.tipo === 'guardian') return '◈';
     if(m.tipo === 'dragon') return '🐉';
     if(m.tipo === 'cupido') return '💘';
+    if(m.tipo === 'tarea') return '▤';
     return PLACE_GLYPH[PLACE_SHAPE[m.categoria] || 'ciudad'];
   }
   // Además de NPCs/misiones/lugares, el buscador encuentra zonas por su
@@ -2027,6 +2048,7 @@ function wireRegnumSearchAndFilters(){
     if(m.tipo === 'guardian') return 'map-toggle-guardianes';
     if(m.tipo === 'dragon') return 'map-toggle-dragon';
     if(m.tipo === 'cupido') return 'map-toggle-cupido';
+    if(m.tipo === 'tarea') return 'map-toggle-tarea';
     return PLACE_TOGGLE_ID[m.categoria];
   }
   input.addEventListener('input', ()=>{
@@ -2047,7 +2069,7 @@ function wireRegnumSearchAndFilters(){
         const m = match.m;
         return `<div class="map-result-item" data-kind="marker" data-idx="${regnumAllMarkerObjs.indexOf(m)}">
           <div class="mri-name">${searchGlyph(m)} ${m.nombre}</div>
-          <div class="mri-meta">${m.tipo==='npc' ? (m.profesion||m.clase||'') : m.tipo==='ciudad' ? (m.categoria==='Altar' && m.zona ? m.zona : m.categoria) : m.tipo==='epico' ? ('Épico · Nv.'+m.nivel+' · '+m.zona) : m.tipo==='legendario' ? ('Legendario · Nv.'+m.nivel+' · '+m.zona) : m.tipo==='campeon' ? ('Campeón · Nv.'+m.nivel+' · '+m.zona) : m.tipo==='guardian' ? ('Guardián · Nv.'+m.nivel+' · '+m.zona) : m.tipo==='dragon' ? ('Dragón'+(m.nivel?' · Nv.'+m.nivel:'')+(m.zona?' · '+m.zona:'')) : m.tipo==='cupido' ? ('Cupido'+(m.zona && m.zona!=='PENDIENTE'?' · '+m.zona:'')) : 'Nivel '+m.nivel+' · La da: '+m.la_da} · ${m.reino}</div>
+          <div class="mri-meta">${m.tipo==='npc' ? (m.profesion||m.clase||'') : m.tipo==='ciudad' ? (m.categoria==='Altar' && m.zona ? m.zona : m.categoria) : m.tipo==='epico' ? ('Épico · Nv.'+m.nivel+' · '+m.zona) : m.tipo==='legendario' ? ('Legendario · Nv.'+m.nivel+' · '+m.zona) : m.tipo==='campeon' ? ('Campeón · Nv.'+m.nivel+' · '+m.zona) : m.tipo==='guardian' ? ('Guardián · Nv.'+m.nivel+' · '+m.zona) : m.tipo==='dragon' ? ('Dragón'+(m.nivel?' · Nv.'+m.nivel:'')+(m.zona?' · '+m.zona:'')) : m.tipo==='cupido' ? ('Cupido'+(m.zona && m.zona!=='PENDIENTE'?' · '+m.zona:'')) : m.tipo==='tarea' ? ('Tarea'+(m.zona?' · '+m.zona:'')) : 'Nivel '+m.nivel+' · La da: '+m.la_da} · ${m.reino}</div>
         </div>`;
       }
       const nombresZonas = JSON.stringify(match.zonas.map(z=> z.nombre)).replace(/"/g,'&quot;');
