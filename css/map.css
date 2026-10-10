@@ -196,3 +196,16 @@
      este panel se muda justo debajo del recuadro del mapa en vez de ir al
      costado — sin este margen queda pegado directo al borde del mapa. */
   #wz-sidebar-anchor #wz-sidebar{margin-top:16px;}
+
+  /* Cursor de las herramientas de edición (?editmode=1 / ?refpick=1, ver
+     map.js) -- un punto chico en vez de la cruz, para marcar justo dónde
+     cae el clic. Se pisa .leaflet-crosshair (de leaflet.css, cargado
+     antes) en vez de cambiar la clase que le pone map.js: mismo selector,
+     gana por orden de cascada. El SVG va embebido así no depende de un
+     archivo de ícono aparte; hotspot en el centro (6 6) para que el punto
+     quede exactamente bajo el puntero, con crosshair de respaldo por si
+     el navegador no soporta cursores a medida.*/
+  .leaflet-crosshair,
+  .leaflet-crosshair .leaflet-interactive{
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13"><circle cx="6.5" cy="6.5" r="4" fill="white" stroke="black" stroke-width="1.5"/></svg>') 6 6, crosshair;
+  }
