@@ -1111,6 +1111,7 @@ const TIER_MARKER_ICON = {
   legendario: 'data/icons/marcadores/legendario.webp',
   campeon: 'data/icons/marcadores/campeon.webp',
   cupido: 'data/icons/marcadores/cupido.webp',
+  tarea: 'data/icons/marcadores/tarea.webp',
 };
 // Guardianes: no tienen foto de retrato (a diferencia de Legendarios/
 // Campeones/Épicos), pero cada elemento (agua/tierra/fuego/viento)
@@ -1141,6 +1142,9 @@ const TIER_GLOW_COLOR = '#a24bff';
 // Guardianes/Dragones) y resplandor rosado a tono con el corazón del
 // dibujo en vez del morado genérico de las otras tres.
 const CUPIDO_GLOW_COLOR = '#ff4d7a';
+// Tareas del Reino: ícono propio (pergamino con corona) que comparten los
+// 3 reinos por igual, resplandor dorado a tono con el dibujo.
+const TAREA_GLOW_COLOR = '#e8c14a';
 // Dragones: jefes de mazmorra, categoría nueva y separada de Épico/
 // Legendario/Campeón (checkbox propio, debajo de Legendarios). Igual que
 // Guardianes, cada uno tiene su propio ícono de marcador (m.dragonKey
@@ -1161,12 +1165,10 @@ const DRAGON_GLOW_COLOR = {
 function iconFor(m){
   if(m.tipo === 'mision') return L.divIcon({className:'regnum-marker regnum-marker-mision', html:'!', iconSize:[10,14]});
   if(m.tipo === 'npc') return L.divIcon({className:`regnum-marker regnum-marker-npc realm-color-${REALM_SLUG[m.reino]||'syrtis'}`, html:'●', iconSize:[14,14]});
-  // Tareas del Reino: categoría nueva y chica por ahora (una sola, van a
-  // sumarse más) -- glifo de texto como Misión/NPC, no un ícono dibujado
-  // a mano como Épico/Legendario/Campeón, así no depende de un archivo
-  // de imagen que todavía no existe. "▤" para que se lea como una hoja
-  // con líneas (a pedido), coloreable vía CSS a diferencia de un emoji.
-  if(m.tipo === 'tarea') return L.divIcon({className:'regnum-marker regnum-marker-tarea', html:'▤', iconSize:[16,16]});
+  // Tareas del Reino: mismo criterio que Cupido -- un solo ícono
+  // compartido por los 3 reinos (pergamino con corona), tamaño a tono
+  // con los lugares tipo Pueblo (26px, ver .regnum-marker-pueblo).
+  if(m.tipo === 'tarea') return L.divIcon({className:'regnum-marker regnum-marker-tarea', html:`<img class="regnum-tier-icon regnum-tier-icon-glow-sm" style="color:${TAREA_GLOW_COLOR}" src="${TIER_MARKER_ICON.tarea}" alt="">`, iconSize:[26,26]});
   // Épico/Legendario/Campeón/Guardián: sin color de reino -- el dibujo
   // ya distingue la categoría por sí solo (ver TIER_MARKER_ICON/
   // GUARDIAN_MARKER_ICON), no hace falta recolorear por reino como el

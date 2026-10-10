@@ -63,10 +63,6 @@
   .regnum-marker{display:flex;align-items:center;justify-content:center;font-size:13px;line-height:1;
     text-shadow:1px 0 0 #000,-1px 0 0 #000,0 1px 0 #000,0 -1px 0 #000,1px 1px 0 #000,-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000;}
   .regnum-marker-mision{color:#ffd23f;font-weight:700;}
-  /* Tareas del Reino: mismo criterio de glifo de texto que Misión, tono
-     distinto (parchment/dorado apagado) para no confundirse con el "!"
-     de las misiones de siempre. */
-  .regnum-marker-tarea{color:#c9a876;font-weight:700;}
   /* El color de reino se lo pone la clase realm-color-* de más abajo (según
      el reino real de CADA lugar, vía JS) — acá solo el contorno. Ojo: no es
      lo mismo que var(--bronze), esa variable cambia según el tema de reino
