@@ -1078,6 +1078,11 @@ const PLACE_SHAPE = {Ciudad:'ciudad', Pueblo:'pueblo', Puerto:'pueblo', Aldea:'a
 const PLACE_SIZE = {ciudad:34, pueblo:26, aldea:18, castillo:44, fuerte:32, altar:24, muralla:42};
 // Cada categoría se filtra con su propio checkbox — ver #map-layers-block.
 const PLACE_TOGGLE_ID = {Ciudad:'map-toggle-ciudad', Pueblo:'map-toggle-pueblo', Puerto:'map-toggle-pueblo', Aldea:'map-toggle-aldea', Villa:'map-toggle-aldea', Fuerte:'map-toggle-fuerte', Castillo:'map-toggle-castillo', Muralla:'map-toggle-muralla', Altar:'map-toggle-altar'};
+// Orden de apilado fijo por categoría, a pedido -- Tareas del Reino por
+// encima de todo (NPCs incluidos), NPCs por encima del resto (lugares,
+// mobs, etc). Lo que no está acá (offset 0, el default de Leaflet) sigue
+// apilándose como siempre según posición en el mapa.
+const MARKER_Z_OFFSET = {tarea: 2000, npc: 1000};
 // El carácter de texto "⌂" sale hueco (solo el contorno) en la mayoría de
 // las fuentes — no hay forma de "rellenarlo" solo con color de texto. Un
 // SVG con fill:currentColor sí queda relleno del color que le pongamos.
@@ -1342,7 +1347,13 @@ function buildRegnumMarkers(){
       ? npcLatLngByName[m.la_da]
       : m.tipo === 'ciudad' ? tileToLatLng(m.col, m.row) : pixelToLatLng(m.x, m.y);
     if(m.tipo === 'npc') npcLatLngByName[m.nombre] = latlng;
-    const marker = L.marker(latlng, {icon: iconFor(m), draggable: EDIT_MODE});
+    // Por defecto Leaflet apila los marcadores según su posición en el
+    // mapa (más al sur, más arriba en el z-index) sin importar el tipo --
+    // por eso un castillo (grande, shape 'castillo') podía taparle el
+    // marcador a un NPC o una Tarea del Reino que cayera encima suyo. A
+    // pedido: NPCs siempre por encima de lugares/el resto, y Tareas del
+    // Reino por encima de todo, NPCs incluidos (ver MARKER_Z_OFFSET).
+    const marker = L.marker(latlng, {icon: iconFor(m), draggable: EDIT_MODE, zIndexOffset: MARKER_Z_OFFSET[m.tipo] || 0});
     // autoPan:false — por defecto Leaflet mueve todo el mapa para hacerle
     // lugar al popup, pero al zoom mínimo (el mapa completo ya cubre el
     // recuadro) no hay a dónde correrlo: lo intenta, maxBounds lo frena de
