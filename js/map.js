@@ -1100,6 +1100,38 @@ const PLACE_GLYPH = {ciudad:HOUSE_SVG, pueblo:HOUSE_SVG, aldea:HOUSE_SVG, murall
 // reino real de siempre (ver iconFor), no queda "sin color".
 let wzLiveFortOwner = {};
 
+// Mismas 6 identidades fijas de gema que usa js/wz.js (ver el comentario
+// grande junto a WZ_GEM_IDENTITY ahí -- no se comparte la constante entre
+// los dos scripts a propósito, mismo criterio que WZ_REALM_COLOR/
+// REALM_SLUG). GEM_IDENTITY_INDEX[reino][variante] da la posición (0-5)
+// de esa gema dentro del array plano de 18 que manda /api/wz, para poder
+// cruzarla con wzLiveGemHolder más abajo. variante sale de gemVariantIndex
+// ("Gema#1" -> 0, "Gema#2" -> 1).
+const GEM_IDENTITY_INDEX = {
+  Syrtis: [0, 5],
+  Alsius: [1, 3],
+  Ignis: [2, 4],
+};
+const GEM_MARKER_ICON = {
+  Syrtis: ['data/icons/gem-syrtis-1.png', 'data/icons/gem-syrtis-2.png'],
+  Alsius: ['data/icons/gem-alsius-1.png', 'data/icons/gem-alsius-2.png'],
+  Ignis: ['data/icons/gem-ignis-1.png', 'data/icons/gem-ignis-2.png'],
+  none: 'data/icons/gem-none.png',
+};
+// Quién tiene AHORA MISMO cada una de las 6 identidades de gema, por su
+// índice (0-5) -- alimentado por applyWzGemStatus más abajo, llamada
+// desde js/wz.js junto con applyWzFortStatus. Vacío hasta el primer dato
+// (o si CoRT no responde): en ese caso currentGemHolderRealm cae al reino
+// dueño de siempre, igual que wzLiveFortOwner para fuertes/castillos.
+let wzLiveGemHolder = {};
+function gemVariantIndex(m){ return m.nombre === 'Gema#2' ? 1 : 0; }
+function currentGemHolderRealm(m){
+  const porReino = GEM_IDENTITY_INDEX[m.reino];
+  if(!porReino) return m.reino;
+  const idx = porReino[gemVariantIndex(m)];
+  return wzLiveGemHolder[idx] || m.reino;
+}
+
 // Íconos de marcador (no confundir con m.imagen, la foto/retrato que
 // se ve en el popup de Legendarios/Campeones/Épicos): un solo dibujo
 // por categoría, no uno por jefe -- los 3 Épicos comparten el mismo
@@ -1164,7 +1196,28 @@ const DRAGON_GLOW_COLOR = {
 };
 function iconFor(m){
   if(m.tipo === 'mision') return L.divIcon({className:'regnum-marker regnum-marker-mision', html:'!', iconSize:[10,14]});
-  if(m.tipo === 'npc') return L.divIcon({className:`regnum-marker regnum-marker-npc realm-color-${REALM_SLUG[m.reino]||'syrtis'}`, html:'●', iconSize:[14,14]});
+  if(m.tipo === 'npc'){
+    // Si el NPC vive en un fuerte/castillo/muralla (m.zona calza con un
+    // nombre de WZ_FORT_NAME_MAP, mismo diccionario que ya recolorea esos
+    // marcadores, ver más abajo), se pinta del dueño actual en vez de su
+    // reino de origen -- a pedido, para los NPCs de los castillos. Sin
+    // dato en vivo todavía (o NPC fuera de un fuerte/castillo/muralla),
+    // wzLiveFortOwner[m.zona] da undefined y se cae al reino real de
+    // siempre, igual que el resto de esta función.
+    const liveOwner = wzLiveFortOwner[m.zona];
+    return L.divIcon({className:`regnum-marker regnum-marker-npc realm-color-${REALM_SLUG[liveOwner || m.reino]||'syrtis'}`, html:'●', iconSize:[14,14]});
+  }
+  if(m.tipo === 'gema'){
+    // Icono real de la gema (el mismo que ya se usa en el panel de
+    // Estado de guerra) mientras la tenga su reino de origen; si otro
+    // reino la capturó se pinta la muesca vacía en su lugar de siempre
+    // en el mapa (la gema no "se mueve" al mapa del reino captor, solo
+    // cambia de ícono) -- quién la tiene se ve en el globo, ver
+    // buildGemaPopupHTML.
+    const holder = currentGemHolderRealm(m);
+    const icon = holder === m.reino ? GEM_MARKER_ICON[m.reino][gemVariantIndex(m)] : GEM_MARKER_ICON.none;
+    return L.divIcon({className:'regnum-marker regnum-marker-gema', html:`<img class="regnum-tier-icon" src="${icon}" alt="${m.nombre} de ${m.reino}">`, iconSize:[22,22]});
+  }
   // Tareas del Reino: mismo criterio que Cupido -- un solo ícono
   // compartido por los 3 reinos (pergamino con corona), tamaño a tono
   // con los lugares tipo Pueblo (26px, ver .regnum-marker-pueblo).
@@ -1219,13 +1272,37 @@ function applyWzFortStatus(forts){
     if(m.tipo === 'ciudad' && wzLiveFortOwner[m.nombre] !== undefined && m._leaflet){
       m._leaflet.setIcon(iconFor(m));
     }
+    // NPCs que viven dentro de un fuerte/castillo/muralla (m.zona calza
+    // con el nombre del lugar) se repintan igual, ver iconFor.
+    if(m.tipo === 'npc' && wzLiveFortOwner[m.zona] !== undefined && m._leaflet){
+      m._leaflet.setIcon(iconFor(m));
+    }
+  });
+}
+
+// Mismo criterio que applyWzFortStatus pero para las 6 gemas -- llamada
+// desde js/wz.js junto con esa, a partir del mismo array plano de 18 que
+// ya arma wzRenderGems (ver WZ_GEM_IDENTITY/WZ_GEM_REALMS ahí). Acá no
+// hace falta reconstruir ese slicing entero, alcanza con saber, para
+// cada una de las 6 identidades, en qué posición (si alguna) aparece un
+// valor "tenido" (!= 'gem_0.png') entre los 3 bloques de 6.
+function applyWzGemStatus(gems){
+  if(!Array.isArray(gems) || gems.length < 18) return;
+  wzLiveGemHolder = {};
+  const bloques = [['Alsius', 0], ['Ignis', 6], ['Syrtis', 12]];
+  for(let i = 0; i < 6; i++){
+    const tenedor = bloques.find(([, from]) => gems[from + i] !== 'gem_0.png');
+    if(tenedor) wzLiveGemHolder[i] = tenedor[0];
+  }
+  regnumAllMarkerObjs.forEach(m=>{
+    if(m.tipo === 'gema' && m._leaflet) m._leaflet.setIcon(iconFor(m));
   });
 }
 
 function buildRegnumMarkers(){
   regnumMarkersLayer.clearLayers();
   regnumAllMarkerObjs = [];
-  const todos = [...regnumMapData.npcs, ...regnumMapData.misiones, ...(regnumMapData.ciudades||[]), ...(regnumMapData.epicos||[]), ...(regnumMapData.legendarios||[]), ...(regnumMapData.campeones||[]), ...(regnumMapData.guardianes||[]), ...(regnumMapData.dragones||[]), ...(regnumMapData.cupidos||[]), ...(regnumMapData.tareas||[])];
+  const todos = [...regnumMapData.npcs, ...regnumMapData.misiones, ...(regnumMapData.ciudades||[]), ...(regnumMapData.epicos||[]), ...(regnumMapData.legendarios||[]), ...(regnumMapData.campeones||[]), ...(regnumMapData.guardianes||[]), ...(regnumMapData.dragones||[]), ...(regnumMapData.cupidos||[]), ...(regnumMapData.tareas||[]), ...(regnumMapData.gemas||[])];
   // Dónde quedó cada NPC ya calculado, por nombre — para que una misión sin
   // posición propia corregida use la de su dador en vez de su x/y original
   // (misiones y NPCs se corrigen por separado, así que si no hiciéramos
@@ -1301,6 +1378,11 @@ function buildRegnumMarkers(){
       marker.bindPopup(buildCupidoPopupHTML(m), {autoPan:false});
     } else if(m.tipo === 'tarea'){
       marker.bindPopup(buildTareaPopupHTML(m), {autoPan:false});
+    } else if(m.tipo === 'gema'){
+      // Función, no un string fijo -- igual que el Épico, así el globo
+      // sale recalculado con el dueño actual cada vez que se abre, no
+      // con el que había cuando se armó el mapa.
+      marker.bindPopup(() => buildGemaPopupHTML(m), {autoPan:false});
     } else {
       marker.bindPopup(buildRegnumPopupHTML(m), {autoPan:false});
     }
@@ -1507,6 +1589,7 @@ function editableFieldsFor(m){
   if(m.tipo === 'dragon') return [['nombre','Nombre'], ['nivel','Nivel'], ['zona','Zona'], ['reino','Reino'], ['drop','Drop'], ['dragonKey','Dragón (ícono)']];
   if(m.tipo === 'cupido') return [['nombre','Nombre'], ['zona','Zona'], ['reino','Reino']];
   if(m.tipo === 'tarea') return [['nombre','Nombre'], ['zona','Zona'], ['reino','Reino']];
+  if(m.tipo === 'gema') return [['nombre','Nombre'], ['zona','Zona'], ['reino','Reino']];
   return [['nombre','Nombre'], ['nivel','Nivel'], ['la_da','La da'], ['xp','XP'], ['oro','Oro']];
 }
 
@@ -1714,6 +1797,17 @@ function buildTareaPopupHTML(m){
   return `<b>${m.nombre}</b>${zona}`;
 }
 
+// Gemas: nombre + reino de origen + zona, y si otro reino la tiene
+// capturada ahora mismo, una línea aparte con quién (ver
+// currentGemHolderRealm/applyWzGemStatus). Sin dato en vivo todavía
+// cae a su reino de origen, igual que el ícono -- no se muestra como
+// "capturada" por las puras.
+function buildGemaPopupHTML(m){
+  const holder = currentGemHolderRealm(m);
+  const capturada = holder !== m.reino ? `<br>Capturada por ${holder}` : '';
+  return `<b>${m.nombre} de ${m.reino}</b><br>${m.zona}${capturada}`;
+}
+
 function buildRegnumPopupHTML(m){
   if(m.tipo === 'ciudad'){
     // Categoría y Reino quedan ocultos a pedido -- para Altar, que
@@ -1862,6 +1956,7 @@ function passesRegnumFilters(m){
   const showDragon = document.getElementById('map-toggle-dragon').checked;
   const showCupido = document.getElementById('map-toggle-cupido').checked;
   const showTarea = document.getElementById('map-toggle-tarea').checked;
+  const showGema = document.getElementById('map-toggle-gema').checked;
   const reino = document.getElementById('map-filter-reino').value;
   const prof = document.getElementById('map-filter-profesion').value;
   const nivel = document.getElementById('map-filter-nivel').value;
@@ -1875,6 +1970,7 @@ function passesRegnumFilters(m){
   if(m.tipo === 'dragon' && !showDragon) return false;
   if(m.tipo === 'cupido' && !showCupido) return false;
   if(m.tipo === 'tarea' && !showTarea) return false;
+  if(m.tipo === 'gema' && !showGema) return false;
   if(m.tipo === 'ciudad'){
     // Cada categoría de lugar (Aldea/Pueblo/Ciudad/Fuerte/Castillo/
     // Muralla/Altar) tiene su propio checkbox — ver PLACE_TOGGLE_ID.
@@ -1888,7 +1984,7 @@ function passesRegnumFilters(m){
   // sí tienen nivel, pero es el mismo dropdown que arma sus opciones a
   // partir de niveles de NPC/misión -- se los deja afuera para que
   // aparezcan siempre que su checkbox esté prendido, igual que el épico).
-  if(m.tipo !== 'ciudad' && m.tipo !== 'epico' && m.tipo !== 'legendario' && m.tipo !== 'campeon' && m.tipo !== 'guardian' && m.tipo !== 'dragon' && m.tipo !== 'cupido' && m.tipo !== 'tarea'){
+  if(m.tipo !== 'ciudad' && m.tipo !== 'epico' && m.tipo !== 'legendario' && m.tipo !== 'campeon' && m.tipo !== 'guardian' && m.tipo !== 'dragon' && m.tipo !== 'cupido' && m.tipo !== 'tarea' && m.tipo !== 'gema'){
     if(prof && m.profesion !== prof) return false;
     if(nivel && String(m.nivel) !== nivel) return false;
   }
@@ -1907,7 +2003,7 @@ function wireRegnumSearchAndFilters(){
   // los dos, y no cuesta nada reconstruir marcadores de más cuando cambia
   // un checkbox que en realidad es solo de zonas (o viceversa).
   function refreshMapLayers(){ applyRegnumFilters(); applyZoneFilters(); }
-  [...PLACE_TOGGLE_IDS,'map-toggle-npc','map-toggle-mision','map-toggle-epico','map-toggle-legendario','map-toggle-campeon','map-toggle-dragon','map-toggle-cupido','map-toggle-tarea','map-toggle-mobs','map-toggle-guardianes','map-toggle-materiales','map-filter-reino','map-filter-profesion','map-filter-nivel'].forEach(id=>{
+  [...PLACE_TOGGLE_IDS,'map-toggle-npc','map-toggle-mision','map-toggle-epico','map-toggle-legendario','map-toggle-campeon','map-toggle-dragon','map-toggle-cupido','map-toggle-tarea','map-toggle-gema','map-toggle-mobs','map-toggle-guardianes','map-toggle-materiales','map-filter-reino','map-filter-profesion','map-filter-nivel'].forEach(id=>{
     document.getElementById(id).addEventListener('change', refreshMapLayers);
   });
 
@@ -1934,6 +2030,7 @@ function wireRegnumSearchAndFilters(){
     if(m.tipo === 'dragon') return '🐉';
     if(m.tipo === 'cupido') return '💘';
     if(m.tipo === 'tarea') return '▤';
+    if(m.tipo === 'gema') return '◆';
     return PLACE_GLYPH[PLACE_SHAPE[m.categoria] || 'ciudad'];
   }
   // Además de NPCs/misiones/lugares, el buscador encuentra zonas por su
@@ -2051,6 +2148,7 @@ function wireRegnumSearchAndFilters(){
     if(m.tipo === 'dragon') return 'map-toggle-dragon';
     if(m.tipo === 'cupido') return 'map-toggle-cupido';
     if(m.tipo === 'tarea') return 'map-toggle-tarea';
+    if(m.tipo === 'gema') return 'map-toggle-gema';
     return PLACE_TOGGLE_ID[m.categoria];
   }
   input.addEventListener('input', ()=>{
@@ -2071,7 +2169,7 @@ function wireRegnumSearchAndFilters(){
         const m = match.m;
         return `<div class="map-result-item" data-kind="marker" data-idx="${regnumAllMarkerObjs.indexOf(m)}">
           <div class="mri-name">${searchGlyph(m)} ${m.nombre}</div>
-          <div class="mri-meta">${m.tipo==='npc' ? (m.profesion||m.clase||'') : m.tipo==='ciudad' ? (m.categoria==='Altar' && m.zona ? m.zona : m.categoria) : m.tipo==='epico' ? ('Épico · Nv.'+m.nivel+' · '+m.zona) : m.tipo==='legendario' ? ('Legendario · Nv.'+m.nivel+' · '+m.zona) : m.tipo==='campeon' ? ('Campeón · Nv.'+m.nivel+' · '+m.zona) : m.tipo==='guardian' ? ('Guardián · Nv.'+m.nivel+' · '+m.zona) : m.tipo==='dragon' ? ('Dragón'+(m.nivel?' · Nv.'+m.nivel:'')+(m.zona?' · '+m.zona:'')) : m.tipo==='cupido' ? ('Cupido'+(m.zona && m.zona!=='PENDIENTE'?' · '+m.zona:'')) : m.tipo==='tarea' ? ('Tarea'+(m.zona?' · '+m.zona:'')) : 'Nivel '+m.nivel+' · La da: '+m.la_da} · ${m.reino}</div>
+          <div class="mri-meta">${m.tipo==='npc' ? (m.profesion||m.clase||'') : m.tipo==='ciudad' ? (m.categoria==='Altar' && m.zona ? m.zona : m.categoria) : m.tipo==='epico' ? ('Épico · Nv.'+m.nivel+' · '+m.zona) : m.tipo==='legendario' ? ('Legendario · Nv.'+m.nivel+' · '+m.zona) : m.tipo==='campeon' ? ('Campeón · Nv.'+m.nivel+' · '+m.zona) : m.tipo==='guardian' ? ('Guardián · Nv.'+m.nivel+' · '+m.zona) : m.tipo==='dragon' ? ('Dragón'+(m.nivel?' · Nv.'+m.nivel:'')+(m.zona?' · '+m.zona:'')) : m.tipo==='cupido' ? ('Cupido'+(m.zona && m.zona!=='PENDIENTE'?' · '+m.zona:'')) : m.tipo==='tarea' ? ('Tarea'+(m.zona?' · '+m.zona:'')) : m.tipo==='gema' ? ('Gema'+(m.zona?' · '+m.zona:'')) : 'Nivel '+m.nivel+' · La da: '+m.la_da} · ${m.reino}</div>
         </div>`;
       }
       const nombresZonas = JSON.stringify(match.zonas.map(z=> z.nombre)).replace(/"/g,'&quot;');

@@ -242,6 +242,10 @@ async function wzTick() {
     // todavía no corrió (o el usuario nunca abrió el mapa), no existe
     // todavía y no pasa nada.
     if (typeof applyWzFortStatus === 'function') applyWzFortStatus(data.forts);
+    // Mismo criterio que arriba, pero para las 6 gemas del mapa real
+    // (ver applyWzGemStatus en map.js) -- independiente del panel de
+    // abajo (wzRenderGems), que sigue mostrando los puntitos de siempre.
+    if (typeof applyWzGemStatus === 'function') applyWzGemStatus(data.gems);
     const updated = document.getElementById('wz-updated');
     if (updated && data.generated) updated.textContent = wzFormatDateTime(parseInt(data.generated, 10));
   } catch (err) {
