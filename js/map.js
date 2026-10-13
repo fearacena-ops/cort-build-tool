@@ -473,6 +473,16 @@ function initRegnumMapIfNeeded(){
     let refpickPieceSource = []; // paralelo a refpickPieces: null si la dibujaste a mano ahora, o el nombre de la zona de la que vino (via "Cargar")
     let refpickCurrent = []; // anillo que se está dibujando ahora
     let refpickPreview = null;
+    // Edición en vivo de los puntos de una pieza YA CERRADA (dibujada a
+    // mano o traída con "Cargar") sin tener que borrarla y repetirla de
+    // cero -- ver renderVertexEditor más abajo. refpickEditingIndex es el
+    // índice dentro de refpickPieces de la pieza que se está editando
+    // ahora mismo (null = ninguna). Se resetea a null en cualquier punto
+    // donde refpickPieces se reconstruye entero (el índice ya no
+    // significaría lo mismo) -- ver refpick-reset/zt-load/zt-save.
+    let refpickEditingIndex = null;
+    let refpickEditLayer = null; // grupo con los tiradores (vértices + puntos medios) de la pieza en edición
+    let refpickEditPolygon = null; // el contorno de ESA pieza nada más, en un color distinto -- se actualiza con setLatLngs en cada 'drag' (ver renderVertexEditor), sin recrearlo, para no cortar el arrastre a mitad de camino
     const panel = document.createElement('div');
     panel.style.cssText = 'position:fixed;bottom:10px;right:10px;z-index:9999;background:#0f1410;border:1px solid #2c3a2a;color:#e7ecdf;font-family:monospace;font-size:12px;padding:10px;border-radius:6px;max-width:260px;';
     panel.innerHTML = `<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" id="refpick-poly-mode"> Modo polígono (sin globo)</label>
@@ -493,9 +503,12 @@ function initRegnumMapIfNeeded(){
       // Las piezas tildadas (ver lista en "Editor de zonas") se dibujan
       // distinto de las destildadas — así se ve de un vistazo cuáles se
       // van a guardar si se toca "Guardar zona" ahora mismo, y cuáles
-      // quedan aparte (guardadas para otra zona, sin tocar).
-      const checkedRings = refpickPieces.filter((_,i)=> refpickPieceChecked[i] !== false);
-      const uncheckedRings = refpickPieces.filter((_,i)=> refpickPieceChecked[i] === false);
+      // quedan aparte (guardadas para otra zona, sin tocar). La pieza en
+      // edición de puntos (si hay una) se excluye de acá -- su propio
+      // contorno resaltado lo dibuja renderVertexEditor, mostrarla acá
+      // también la duplicaría.
+      const checkedRings = refpickPieces.filter((_,i)=> i !== refpickEditingIndex && refpickPieceChecked[i] !== false);
+      const uncheckedRings = refpickPieces.filter((_,i)=> i !== refpickEditingIndex && refpickPieceChecked[i] === false);
       const armedRings = [...checkedRings, refpickCurrent].filter(a=>a.length>=2);
       const layers = [];
       if(armedRings.length){
@@ -512,6 +525,61 @@ function initRegnumMapIfNeeded(){
       // esta lógica en dos lugares (declarada como function así queda
       // "hoisted" y se puede llamar aunque esté definida más abajo).
       ztRenderPieceList();
+      // Mismo motivo: reconstruye los tiradores de vértice si hay una
+      // pieza en edición (no-op si no hay ninguna). Nunca se llama desde
+      // DENTRO de un 'drag' (ver más abajo) -- ahí se actualiza nada más
+      // el contorno con setLatLngs, sin recrear los tiradores, para no
+      // cortar el arrastre que está en curso.
+      renderVertexEditor();
+    }
+    // Tiradores de la pieza refpickPieces[refpickEditingIndex]: un círculo
+    // arrastrable por vértice (mueve el punto) y un círculo chico en cada
+    // punto medio de borde (click para insertar un punto ahí). Clic
+    // derecho sobre un vértice lo borra (si quedan más de 3). Se vuelve a
+    // llamar completa cada vez que algo cambia de verdad (refreshRefpick
+    // Panel la llama al final) -- salvo durante el arrastre en sí, que
+    // solo mueve ESE marcador (Leaflet ya lo hace solo) y actualiza el
+    // contorno con setLatLngs.
+    function renderVertexEditor(){
+      if(refpickEditLayer){ regnumMap.removeLayer(refpickEditLayer); refpickEditLayer = null; }
+      refpickEditPolygon = null;
+      if(refpickEditingIndex == null) return;
+      const ring = refpickPieces[refpickEditingIndex];
+      if(!ring){ refpickEditingIndex = null; return; }
+      const group = L.layerGroup().addTo(regnumMap);
+      refpickEditPolygon = L.polygon(ring.map(p=>tileToLatLng(p.col,p.row)), {color:'#4fc3f7', weight:2, fillOpacity:0.1, dashArray:'3,3'}).addTo(group);
+      ring.forEach((p,i)=>{
+        const next = ring[(i+1) % ring.length];
+        const midCol = (p.col+next.col)/2, midRow = (p.row+next.row)/2;
+        L.circleMarker(tileToLatLng(midCol, midRow), {radius:4, color:'#4fc3f7', weight:1, fillColor:'#0f1410', fillOpacity:1, className:'refpick-edge-handle'})
+          .addTo(group)
+          .on('click', (e)=>{
+            L.DomEvent.stopPropagation(e);
+            ring.splice(i+1, 0, {col: midCol, row: midRow});
+            refreshRefpickPanel();
+          });
+      });
+      ring.forEach((p,i)=>{
+        const marker = L.marker(tileToLatLng(p.col,p.row), {
+          draggable: true,
+          icon: L.divIcon({className:'refpick-vertex-handle', html:'', iconSize:[12,12], iconAnchor:[6,6]}),
+        }).addTo(group);
+        marker.on('drag', ()=>{
+          const latlng = marker.getLatLng();
+          const pt = regnumMap.project(latlng, 0);
+          ring[i] = {col: Number((pt.x/TILE_SIZE).toFixed(3)), row: Number((pt.y/TILE_SIZE).toFixed(3))};
+          if(refpickEditPolygon) refpickEditPolygon.setLatLngs(ring.map(pp=>tileToLatLng(pp.col,pp.row)));
+        });
+        marker.on('dragend', ()=> refreshRefpickPanel());
+        marker.on('contextmenu', (e)=>{
+          L.DomEvent.preventDefault(e);
+          if(ring.length <= 3) return; // un polígono necesita al menos 3 puntos
+          ring.splice(i, 1);
+          refreshRefpickPanel();
+        });
+        marker.on('click', (e)=> L.DomEvent.stopPropagation(e)); // no abrir el globo de referencia del mapa
+      });
+      refpickEditLayer = group;
     }
     document.getElementById('refpick-undo-point').addEventListener('click', ()=>{
       // Solo saca de la pieza que se está dibujando ahora — las piezas ya
@@ -552,6 +620,7 @@ function initRegnumMapIfNeeded(){
       refpickPieceChecked.length = 0;
       refpickPieceSource.length = 0;
       refpickCurrent = [];
+      refpickEditingIndex = null;
       refreshRefpickPanel();
     });
     // El checkbox decide cuál de las dos cosas hace cada click — antes
@@ -735,10 +804,14 @@ function initRegnumMapIfNeeded(){
         // mostrar el origen es redundante (obvio, es la que se cargó) —
         // solo importa avisar cuando es de OTRA zona distinta.
         const tag = (src && src !== nombreActual) ? ` <span style="color:#9fae95">— de "${src}"</span>` : '';
-        return `<label style="display:flex;align-items:center;gap:6px;padding:2px 0;cursor:pointer">
-           <input type="checkbox" class="zt-piece-chk" data-i="${i}" ${refpickPieceChecked[i] !== false ? 'checked' : ''}>
-           Pieza ${i+1} (${ring.length} puntos)${tag}
-         </label>`;
+        const editando = i === refpickEditingIndex;
+        return `<div style="display:flex;align-items:center;gap:6px;padding:2px 0">
+           <label style="display:flex;align-items:center;gap:6px;cursor:pointer;flex:1;min-width:0">
+             <input type="checkbox" class="zt-piece-chk" data-i="${i}" ${refpickPieceChecked[i] !== false ? 'checked' : ''}>
+             <span style="overflow:hidden;text-overflow:ellipsis">Pieza ${i+1} (${ring.length} puntos)${tag}</span>
+           </label>
+           <button type="button" class="zt-piece-edit" data-i="${i}" title="Arrastrar puntos para reubicarlos, click en un punto medio para agregar uno, click derecho en un vértice para sacarlo" style="flex-shrink:0;${editando ? 'color:#4fc3f7;border-color:#4fc3f7' : ''}">${editando ? '✓ Editando' : '✎ Editar'}</button>
+         </div>`;
       });
       if(refpickCurrent.length >= 3){
         rows.push(`<div style="color:#9fae95;padding:2px 0">Pieza actual sin cerrar (${refpickCurrent.length} puntos) — se incluye siempre</div>`);
@@ -747,6 +820,16 @@ function initRegnumMapIfNeeded(){
       box.querySelectorAll('.zt-piece-chk').forEach(chk=>{
         chk.addEventListener('change', ()=>{
           refpickPieceChecked[+chk.dataset.i] = chk.checked;
+          refreshRefpickPanel();
+        });
+      });
+      // Un solo "click en editar" a la vez -- tocar otro desactiva el
+      // anterior en vez de sumarlo, así los tiradores de dos piezas
+      // distintas nunca se pisan en el mapa.
+      box.querySelectorAll('.zt-piece-edit').forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+          const i = +btn.dataset.i;
+          refpickEditingIndex = refpickEditingIndex === i ? null : i;
           refreshRefpickPanel();
         });
       });
@@ -845,6 +928,10 @@ function initRegnumMapIfNeeded(){
       refpickPieces.length = 0; keepPieces.forEach(p=> refpickPieces.push(p));
       refpickPieceChecked.length = 0; keepChecked.forEach(c=> refpickPieceChecked.push(c));
       refpickPieceSource.length = 0; keepSource.forEach(s=> refpickPieceSource.push(s));
+      // Los índices de refpickPieces se acaban de reacomodar entero --
+      // si había una pieza en edición de puntos, ese índice ya no apunta
+      // a lo mismo (o ya no existe).
+      refpickEditingIndex = null;
       // Y ahora sí sumamos las piezas propias de esta zona, tildadas y
       // etiquetadas con su nombre (para que se vea de dónde vinieron).
       (z.poligonos||[]).forEach(pieza=> { refpickPieces.push(pieza); refpickPieceChecked.push(true); refpickPieceSource.push(nombre); });
@@ -965,6 +1052,7 @@ function initRegnumMapIfNeeded(){
       refpickPieces.length = 0; keepPieces.forEach(p=> refpickPieces.push(p));
       refpickPieceChecked.length = 0; keepChecked.forEach(c=> refpickPieceChecked.push(c));
       refpickPieceSource.length = 0; keepSource.forEach(s=> refpickPieceSource.push(s));
+      refpickEditingIndex = null; // mismo motivo que en "Cargar": los índices ya no significan lo mismo
       if(refpickCurrent.length>=3) refpickCurrent = [];
       // Y el formulario se limpia entero para la próxima zona — si no, los
       // mobs/materiales cargados acá también se colarían en la próxima

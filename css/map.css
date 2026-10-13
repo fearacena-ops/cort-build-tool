@@ -209,3 +209,20 @@
   .leaflet-crosshair .leaflet-interactive{
     cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13"><circle cx="6.5" cy="6.5" r="4" fill="white" stroke="black" stroke-width="1.5"/></svg>') 6 6, crosshair;
   }
+
+  /* Tirador de vértice de la herramienta de zonas (?refpick=1, ver
+     renderVertexEditor en map.js) -- círculo celeste arrastrable para
+     reposicionar un punto ya dibujado sin tener que borrar la pieza
+     entera. El div.html del ícono va vacío a propósito: esta clase es
+     justo la que Leaflet le pone al propio wrapper (ya viene del tamaño
+     de iconSize), así que el círculo se dibuja directo ahí, sin
+     necesitar un hijo. cursor:grab/grabbing para que se note que es
+     arrastrable, distinto del punto fino del resto del mapa en este
+     modo (ver .leaflet-crosshair arriba). */
+  .refpick-vertex-handle{
+    width:12px;height:12px;border-radius:50%;
+    background:#4fc3f7;border:2px solid #0f1410;
+    box-shadow:0 0 0 1px #4fc3f7;
+    cursor:grab;
+  }
+  .leaflet-marker-dragging .refpick-vertex-handle{cursor:grabbing;}
