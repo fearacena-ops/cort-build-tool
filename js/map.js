@@ -1390,7 +1390,7 @@ function initRegnumMapIfNeeded(){
       depApplyLive(entry);
       saveDepositoToolChanges();
       depRefreshChangesCount();
-      if(!document.getElementById('map-toggle-depositos').checked) document.getElementById('map-toggle-depositos').checked = true;
+      if(!document.getElementById('map-toggle-materiales').checked) document.getElementById('map-toggle-materiales').checked = true;
       buildRegnumDepositos();
       depRefreshList();
       depPopulateMaterialList();
@@ -2074,7 +2074,10 @@ function passesDepositoFilters(d){
 
 function applyDepositoFilters(){
   regnumDepositosLayer.clearLayers();
-  if(!document.getElementById('map-toggle-depositos').checked) return;
+  // Mismo checkbox "Materiales" que ya prende/apaga el texto de
+  // materiales en el tooltip de zona -- a pedido, no uno aparte: un
+  // solo botón para las dos formas de ver materiales en el mapa.
+  if(!document.getElementById('map-toggle-materiales').checked) return;
   regnumAllDepositoObjs.forEach(d=>{ if(passesDepositoFilters(d)) d._leaflet.addTo(regnumDepositosLayer); });
 }
 
@@ -2501,7 +2504,7 @@ function wireRegnumSearchAndFilters(){
   // los dos, y no cuesta nada reconstruir marcadores de más cuando cambia
   // un checkbox que en realidad es solo de zonas (o viceversa).
   function refreshMapLayers(){ applyRegnumFilters(); applyZoneFilters(); applyDepositoFilters(); }
-  [...PLACE_TOGGLE_IDS,'map-toggle-npc','map-toggle-mision','map-toggle-epico','map-toggle-legendario','map-toggle-campeon','map-toggle-dragon','map-toggle-cupido','map-toggle-tarea','map-toggle-gema','map-toggle-mobs','map-toggle-guardianes','map-toggle-materiales','map-toggle-depositos','map-filter-reino','map-filter-profesion','map-filter-nivel'].forEach(id=>{
+  [...PLACE_TOGGLE_IDS,'map-toggle-npc','map-toggle-mision','map-toggle-epico','map-toggle-legendario','map-toggle-campeon','map-toggle-dragon','map-toggle-cupido','map-toggle-tarea','map-toggle-gema','map-toggle-mobs','map-toggle-guardianes','map-toggle-materiales','map-filter-reino','map-filter-profesion','map-filter-nivel'].forEach(id=>{
     document.getElementById(id).addEventListener('change', refreshMapLayers);
   });
 
