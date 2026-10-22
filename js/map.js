@@ -1285,7 +1285,7 @@ function initRegnumMapIfNeeded(){
       const sel = document.getElementById('dep-list');
       if(!sel) return;
       const depositos = regnumMapData.depositos || [];
-      sel.innerHTML = depositos.map(d=> `<option value="${d.id}">${d.material} (${d.reino})</option>`).join('');
+      sel.innerHTML = depositos.map(d=> `<option value="${d.id}">${d.material}${d.zona ? ' — '+d.zona : ''} (${d.reino})</option>`).join('');
     }
     // Sugerencias del <input list=...> de material: los materiales que
     // ya tienen color propio (DEPOSITO_COLOR) más los que aparezcan
@@ -1300,6 +1300,18 @@ function initRegnumMapIfNeeded(){
         (z.materiales||[]).forEach(m=> nombres.add(m.nombre));
         (z.piezas||[]).forEach(p=> (p.materiales||[]).forEach(m=> nombres.add(m.nombre)));
       });
+      dl.innerHTML = [...nombres].sort().map(n=> `<option value="${n.replace(/"/g,'&quot;')}">`).join('');
+    }
+    // Mismo criterio que depPopulateMaterialList pero para el campo
+    // Zona: nombres de zona de mobs + lugares (Ciudad/Pueblo/Aldea/...),
+    // nomás como sugerencia -- el campo sigue siendo texto libre, no
+    // tiene que calzar con ninguna zona real.
+    function depPopulateZonaList(){
+      const dl = document.getElementById('dep-zona-list');
+      if(!dl) return;
+      const nombres = new Set();
+      (regnumMapData.zonas||[]).forEach(z=> nombres.add(z.nombre));
+      (regnumMapData.ciudades||[]).forEach(c=> nombres.add(c.nombre));
       dl.innerHTML = [...nombres].sort().map(n=> `<option value="${n.replace(/"/g,'&quot;')}">`).join('');
     }
     function depUpdateSwatch(){
@@ -1331,6 +1343,9 @@ function initRegnumMapIfNeeded(){
         <span id="dep-material-swatch" style="display:inline-block;width:11px;height:11px;border-radius:50%;vertical-align:middle;border:1px solid #444"></span>
         <span id="dep-material-swatch-label" style="color:#9fae95"></span>
       </div>
+      <div style="margin-top:6px">Zona <span style="color:#9fae95">(opcional, sale arriba en el globo)</span>:</div>
+      <input id="dep-zona" list="dep-zona-list" style="width:100%;box-sizing:border-box;margin-top:2px">
+      <datalist id="dep-zona-list"></datalist>
       <div style="margin-top:6px">Reino:</div>
       <select id="dep-reino" style="width:100%;margin-top:2px;box-sizing:border-box">
         <option>Syrtis</option><option>Alsius</option><option>Ignis</option>
@@ -1351,6 +1366,7 @@ function initRegnumMapIfNeeded(){
       const d = depGetCurrent(id);
       if(!d) return;
       document.getElementById('dep-material').value = d.material;
+      document.getElementById('dep-zona').value = d.zona || '';
       document.getElementById('dep-reino').value = d.reino || 'Syrtis';
       depUpdateSwatch();
       depositoCurrent = ((d.poligonos && d.poligonos[0]) || []).map(p=>({...p}));
@@ -1388,11 +1404,12 @@ function initRegnumMapIfNeeded(){
 
     document.getElementById('dep-save').addEventListener('click', ()=>{
       const material = document.getElementById('dep-material').value.trim();
+      const zona = document.getElementById('dep-zona').value.trim();
       const reino = document.getElementById('dep-reino').value;
       if(!material){ alert('Falta el nombre del material.'); return; }
       if(depositoCurrent.length < 3){ alert('Hacen falta al menos 3 puntos -- dibujalos en el mapa con "Modo polígono" prendido y "Dibujando: Depósito" elegido arriba.'); return; }
       const id = depositoEditingId || ('dep_' + Date.now().toString(36) + Math.random().toString(36).slice(2,7));
-      const entry = { id, material, reino, poligonos: [depositoCurrent.map(p=>({...p}))] };
+      const entry = { id, material, reino, ...(zona ? {zona} : {}), poligonos: [depositoCurrent.map(p=>({...p}))] };
       depositoToolChanges.push(entry);
       depApplyLive(entry);
       saveDepositoToolChanges();
@@ -1401,10 +1418,12 @@ function initRegnumMapIfNeeded(){
       buildRegnumDepositos();
       depRefreshList();
       depPopulateMaterialList();
+      depPopulateZonaList();
       const eraNuevo = !depositoEditingId;
       depositoCurrent = [];
       depositoEditingId = null;
       document.getElementById('dep-material').value = '';
+      document.getElementById('dep-zona').value = '';
       depUpdateSwatch();
       refreshDepositoPanel();
       alert(`Depósito de "${material}" ${eraNuevo ? 'guardado' : 'actualizado'} (y sumado a los cambios pendientes, ${depositoToolChanges.length} en total, para cuando quieras exportarlos).`);
@@ -1451,6 +1470,7 @@ function initRegnumMapIfNeeded(){
       depBaselineIds = new Set((regnumMapData.depositos||[]).map(d=> d.id));
       depRefreshList();
       depPopulateMaterialList();
+      depPopulateZonaList();
     };
   }
 
@@ -1928,8 +1948,11 @@ function buildZonePopupHTML(z, forzarTodo, pieza){
   // z.etiqueta (ZS/ZG) distingue zonas que repiten nombre en el juego,
   // pero es un dato interno -- no se muestra en el tooltip del mapa
   // (solo en el desplegable de la herramienta de edición, donde hace
-  // falta para no cargar la zona equivocada).
-  const partes = [`<b>${z.nombre}</b>`, z.reino];
+  // falta para no cargar la zona equivocada). El reino tampoco se
+  // muestra más -- a pedido, ya se distingue solo por el color del
+  // relleno de la zona (ver zoneColor/ZONE_COLOR_REINO), repetirlo en
+  // texto era redundante.
+  const partes = [`<b>${z.nombre}</b>`];
   // Si tenés solo Mobs prendido no hace falta ver los materiales de la
   // zona (y viceversa) — el tooltip muestra nada más lo que se está
   // filtrando en ese momento, no todo lo que la zona tenga cargado.
@@ -1973,7 +1996,7 @@ function buildRegnumZones(){
         if(!anillo || anillo.length < 3) return; // cada pieza necesita al menos 3 puntos
         const latlngRing = [anillo.map(p=> tileToLatLng(p.col, p.row))];
         const polygon = L.polygon(latlngRing, {color, fillColor:color, weight:2, fillOpacity:0.22});
-        polygon.bindTooltip(buildZonePopupHTML(z, false, z.piezas[i]), {sticky:true});
+        polygon.bindTooltip(buildZonePopupHTML(z, false, z.piezas[i]), {sticky:true, className:'map-tooltip-dark'});
         polygon.on('mousemove tooltipopen', ()=> nudgeZoneTooltip(polygon));
         polygon._piezaData = z.piezas[i];
         z._leaflet.push(polygon);
@@ -1987,7 +2010,7 @@ function buildRegnumZones(){
         // diferencia de un marcador puntual, pasar el mouse por un área es
         // más natural que tener que acertarle con un click — y así no
         // compite con el resto de la lógica de click de marcadores/edición.
-        polygon.bindTooltip(buildZonePopupHTML(z), {sticky:true});
+        polygon.bindTooltip(buildZonePopupHTML(z), {sticky:true, className:'map-tooltip-dark'});
         // El tooltip "sticky" sigue al mouse — si se abre cerca de un borde
         // del recuadro del mapa, sale del contenedor y queda cortado (el
         // contenedor tiene overflow hidden). Se corrige igual que el popup
@@ -2065,6 +2088,17 @@ function applyZoneFilters(){
 // depósitos separados en regnumMapData.depositos, no una pieza más de
 // uno solo -- más simple de crear/borrar uno por uno con la
 // herramienta (ver REFPICK_MODE, modo "deposito").
+// Zona arriba (si se cargó, ver el campo "Zona" del editor de
+// depósitos) y el material debajo, todo en el color propio de ESE
+// material -- a pedido, para que las letras combinen con el color del
+// polígono que se está mirando. El fondo oscuro con transparencia lo
+// pone .map-tooltip-dark (ver css/map.css), compartida con el tooltip
+// de zona -- acá solo se pisa el color del texto por instancia.
+function buildDepositoPopupHTML(d){
+  const color = depositoColor(d.material);
+  const zonaLinea = d.zona ? `<b>${d.zona}</b><br>` : '';
+  return `<span style="color:${color}">${zonaLinea}${d.material}</span>`;
+}
 function buildRegnumDepositos(){
   regnumDepositosLayer.clearLayers();
   regnumAllDepositoObjs = [];
@@ -2074,7 +2108,7 @@ function buildRegnumDepositos(){
     const color = depositoColor(d.material);
     const latlngRings = anillos.map(anillo=> anillo.map(p=> tileToLatLng(p.col, p.row)));
     const polygon = L.polygon(latlngRings, {color, fillColor:color, weight:2, fillOpacity:0.22});
-    polygon.bindTooltip(`<b>${d.material}</b>`, {sticky:true});
+    polygon.bindTooltip(buildDepositoPopupHTML(d), {sticky:true, className:'map-tooltip-dark'});
     polygon.on('mousemove tooltipopen', ()=> nudgeZoneTooltip(polygon));
     d._leaflet = polygon;
     regnumAllDepositoObjs.push(d);

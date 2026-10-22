@@ -226,3 +226,22 @@
     cursor:grab;
   }
   .leaflet-marker-dragging .refpick-vertex-handle{cursor:grabbing;}
+
+  /* Tooltip de zona y de depósito: fondo negro con transparencia en vez
+     del blanco por defecto de Leaflet (ver .leaflet-tooltip en
+     vendor/leaflet/leaflet.css) -- a pedido. El color del TEXTO queda
+     en blanco acá (zona); el de depósito lo pisa por instancia con un
+     style inline con el color propio del material (ver
+     buildDepositoPopupHTML), que gana por especificidad. Los :before
+     de abajo son la flechita del tooltip -- sin pisar su color
+     también, quedaría blanca y se vería pegada a una caja negra. */
+  .leaflet-tooltip.map-tooltip-dark{
+    background-color:rgba(10,10,10,.82);
+    border-color:rgba(10,10,10,.82);
+    color:#fff;
+    box-shadow:0 2px 6px rgba(0,0,0,.5);
+  }
+  .map-tooltip-dark.leaflet-tooltip-top:before{border-top-color:rgba(10,10,10,.82);}
+  .map-tooltip-dark.leaflet-tooltip-bottom:before{border-bottom-color:rgba(10,10,10,.82);}
+  .map-tooltip-dark.leaflet-tooltip-left:before{border-left-color:rgba(10,10,10,.82);}
+  .map-tooltip-dark.leaflet-tooltip-right:before{border-right-color:rgba(10,10,10,.82);}
