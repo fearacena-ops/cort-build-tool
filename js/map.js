@@ -1897,6 +1897,7 @@ const DEPOSITO_COLOR = {
   'Roca con Cobre y Casiterita': '#c0392b',
   'Roca con Cobre': '#c38c7f',
   'Roca con Plata': '#7c8a9a',
+  'Roca con Carbón': '#5f6b7a',
   'Tronco de Pino': '#e3821f',
   'Troncos de Pino': '#e3821f',
   'Capullo de Seda': '#e6d74a',
