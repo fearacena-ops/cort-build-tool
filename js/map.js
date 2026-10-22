@@ -1198,7 +1198,14 @@ function initRegnumMapIfNeeded(){
       alert(`"${nombre}" ya se ve en el mapa (y quedó sumada a los cambios pendientes, ${zoneToolChanges.length} en total, para cuando quieras exportarlos). Las piezas y datos del formulario ya se limpiaron para la próxima zona.`);
     });
     document.getElementById('zt-export').addEventListener('click', function(){
-      const json = JSON.stringify(zoneToolChanges, null, 1);
+      // Mismo riesgo que en dep-export (ver el comentario ahí): una
+      // entrada de zoneToolChanges puede ser la MISMA referencia que
+      // regnumMapData.zonas[i], que buildRegnumZones le cuelga
+      // ._leaflet -- el replacer la descarta para que esto nunca
+      // reviente en silencio con "Converting circular structure to
+      // JSON" (no se había visto todavía, pero el mecanismo es
+      // idéntico al que sí rompía en depósitos).
+      const json = JSON.stringify(zoneToolChanges, (k,v)=> k.startsWith('_') ? undefined : v, 1);
       const box = document.createElement('textarea');
       box.value = json;
       box.readOnly = true;
@@ -1404,7 +1411,16 @@ function initRegnumMapIfNeeded(){
     });
 
     document.getElementById('dep-export').addEventListener('click', function(){
-      const json = JSON.stringify({generado: new Date().toISOString(), tipo: 'depositos', cambios: depositoToolChanges.length, detalle: depositoToolChanges}, null, 1);
+      // depApplyLive guarda la MISMA referencia que queda en
+      // depositoToolChanges adentro de regnumMapData.depositos -- y
+      // buildRegnumDepositos le cuelga ._leaflet (el polígono real) a
+      // esa misma referencia. Sin el replacer de acá, JSON.stringify
+      // revienta en silencio ("Converting circular structure to JSON",
+      // el polígono de Leaflet se referencia a sí mismo por adentro) y
+      // el cuadro de texto nunca llega a aparecer -- se descartan las
+      // claves que empiezan con "_" (privadas/internas) en vez de
+      // mandarlas.
+      const json = JSON.stringify({generado: new Date().toISOString(), tipo: 'depositos', cambios: depositoToolChanges.length, detalle: depositoToolChanges}, (k,v)=> k.startsWith('_') ? undefined : v, 1);
       const box = document.createElement('textarea');
       box.value = json;
       box.readOnly = true;
