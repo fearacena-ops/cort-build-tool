@@ -15,6 +15,14 @@ let regnumAllMarkerObjs = []; // {tipo, nombre, ..., leafletMarker}
 // aplica, así que conviene no mezclarlas con regnumAllMarkerObjs.
 let regnumZonesLayer = null;
 let regnumAllZoneObjs = [];
+// Depósitos (áreas de UN material, con color propio por tipo -- ver
+// DEPOSITO_COLOR/buildRegnumDepositos): capa aparte de las zonas de
+// siempre a propósito, aunque se dibujen con el mismo mecanismo. Una
+// zona de mobs y un depósito pueden coincidir en el mismo lugar del
+// mapa sin pisarse -- son dos cosas independientes, cada una con su
+// propio checkbox.
+let regnumDepositosLayer = null;
+let regnumAllDepositoObjs = [];
 
 const TILE_SIZE = 1024;
 const GRID = 18;
@@ -394,6 +402,7 @@ function initRegnumMapIfNeeded(){
 
   regnumMarkersLayer = L.layerGroup().addTo(regnumMap);
   regnumZonesLayer = L.layerGroup().addTo(regnumMap);
+  regnumDepositosLayer = L.layerGroup().addTo(regnumMap);
 
   // Si el globo se abre muy cerca de un borde del recuadro (por ejemplo un
   // marcador cerca del borde del mundo, al zoom mínimo) no entra completo
@@ -467,6 +476,7 @@ function initRegnumMapIfNeeded(){
   // más abajo — por eso arma su función pero la guarda acá para llamarla
   // recién ahí, en vez de armar todo el panel de una.
   let zoneToolSetupFn = null;
+  let depositoToolSetupFn = null;
   if(REFPICK_MODE){
     const refpickPieces = []; // piezas ya cerradas: array de anillos (cada uno, array de {col,row})
     let refpickPieceChecked = []; // paralelo a refpickPieces: cuáles se incluyen al guardar una zona (ver "Editor de zonas")
@@ -483,10 +493,34 @@ function initRegnumMapIfNeeded(){
     let refpickEditingIndex = null;
     let refpickEditLayer = null; // grupo con los tiradores (vértices + puntos medios) de la pieza en edición
     let refpickEditPolygon = null; // el contorno de ESA pieza nada más, en un color distinto -- se actualiza con setLatLngs en cada 'drag' (ver renderVertexEditor), sin recrearlo, para no cortar el arrastre a mitad de camino
+    // Qué arma el dibujo compartido de abajo ahora mismo -- 'zona' (como
+    // siempre, comportamiento sin cambios) o 'deposito' (ver el bloque
+    // "Editor de depósitos" más abajo). Arranca en 'zona' a propósito:
+    // si nunca se toca el selector nuevo, todo se comporta exactamente
+    // igual que antes de agregar depósitos.
+    let refpickTarget = 'zona';
+    // Depósitos: un solo anillo por depósito (no hay "piezas" como en
+    // zonas -- si el mismo material aparece en dos lugares del mapa, son
+    // dos depósitos separados, no uno con dos piezas). depositoCurrent
+    // es a la vez "lo que se está dibujando" Y "lo que se está editando"
+    // -- a diferencia de refpickPieces/refpickEditingIndex (dos cosas
+    // separadas), acá no hace falta esa indirección porque no hay lista
+    // de piezas de por medio.
+    let depositoCurrent = [];
+    let depositoEditingId = null; // id del depósito ya guardado que se está reeditando (null = uno nuevo)
+    let depositoEditLayer = null;
+    let depositoEditPolygon = null;
     const panel = document.createElement('div');
     panel.style.cssText = 'position:fixed;bottom:10px;right:10px;z-index:9999;background:#0f1410;border:1px solid #2c3a2a;color:#e7ecdf;font-family:monospace;font-size:12px;padding:10px;border-radius:6px;max-width:260px;';
-    panel.innerHTML = `<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" id="refpick-poly-mode"> Modo polígono (sin globo)</label>
-      <b>Puntos de zona</b><br>
+    panel.innerHTML = `<label style="display:flex;align-items:center;gap:6px;margin-bottom:6px">
+        <span>Dibujando:</span>
+        <select id="refpick-target" style="flex:1">
+          <option value="zona">Zona (mobs/jefes/materiales)</option>
+          <option value="deposito">Depósito (un material, color propio)</option>
+        </select>
+      </label>
+      <label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" id="refpick-poly-mode"> Modo polígono (sin globo)</label>
+      <b>Puntos</b><br>
       <span id="refpick-count">pieza actual: 0 puntos · piezas cerradas: 0</span><br>
       <button type="button" id="refpick-undo-point" style="margin-top:6px">Eliminar último punto</button>
       <button type="button" id="refpick-clear-current" style="margin-top:6px">Reiniciar pieza actual</button><br>
@@ -495,9 +529,30 @@ function initRegnumMapIfNeeded(){
       <button type="button" id="refpick-reset" style="margin-top:6px">Reiniciar todo</button>`;
     document.body.appendChild(panel);
     const polyModeCheckbox = document.getElementById('refpick-poly-mode');
+    // Una sola etiqueta de conteo para los dos modos -- muestra lo que
+    // corresponda según refpickTarget, así no hace falta un segundo
+    // cartel aparte compitiendo por el mismo espacio.
+    function refreshPointsCount(){
+      const el = document.getElementById('refpick-count');
+      if(!el) return;
+      if(refpickTarget === 'deposito'){
+        el.textContent = `depósito actual: ${depositoCurrent.length} punto${depositoCurrent.length===1?'':'s'}`;
+      } else {
+        el.textContent = `pieza actual: ${refpickCurrent.length} punto${refpickCurrent.length===1?'':'s'} · piezas cerradas: ${refpickPieces.length}`;
+      }
+    }
+    document.getElementById('refpick-target').addEventListener('change', (e)=>{
+      refpickTarget = e.target.value;
+      // "Cerrar pieza y empezar otra" no aplica a depósitos (un solo
+      // anillo, sin lista de piezas) -- se oculta en vez de dejarla ahí
+      // sin hacer nada útil.
+      document.getElementById('refpick-close-piece').style.display = refpickTarget === 'deposito' ? 'none' : '';
+      refreshPointsCount();
+      renderVertexEditor();
+      renderDepositoEditor();
+    });
     function refreshRefpickPanel(){
-      document.getElementById('refpick-count').textContent =
-        `pieza actual: ${refpickCurrent.length} punto${refpickCurrent.length===1?'':'s'} · piezas cerradas: ${refpickPieces.length}`;
+      refreshPointsCount();
       if(refpickPreview) regnumMap.removeLayer(refpickPreview);
       refpickPreview = null;
       // Las piezas tildadas (ver lista en "Editor de zonas") se dibujan
@@ -581,7 +636,67 @@ function initRegnumMapIfNeeded(){
       });
       refpickEditLayer = group;
     }
+    // Mismo mecanismo que renderVertexEditor (arrastrar/insertar/borrar
+    // puntos) pero sobre depositoCurrent directo -- como un depósito es
+    // un solo anillo sin lista de piezas, no hace falta la indirección
+    // de "pieza cerrada en el índice N" de la zona: se edita el anillo
+    // que se está dibujando/cargando ahora mismo, ya sea nuevo o
+    // traído con "Cargar". El color sale del material tipeado en el
+    // formulario (ver dep-material) -- si está vacío usa el violeta por
+    // defecto, igual que el ícono final en el mapa.
+    function renderDepositoEditor(){
+      if(depositoEditLayer){ regnumMap.removeLayer(depositoEditLayer); depositoEditLayer = null; }
+      depositoEditPolygon = null;
+      if(refpickTarget !== 'deposito' || depositoCurrent.length === 0) return;
+      const ring = depositoCurrent;
+      const matInput = document.getElementById('dep-material');
+      const color = depositoColor(matInput ? matInput.value.trim() : '');
+      const group = L.layerGroup().addTo(regnumMap);
+      if(ring.length >= 2){
+        depositoEditPolygon = L.polygon(ring.map(p=>tileToLatLng(p.col,p.row)), {color, fillColor:color, weight:2, fillOpacity:0.15, dashArray:'3,3'}).addTo(group);
+      }
+      if(ring.length >= 3){
+        ring.forEach((p,i)=>{
+          const next = ring[(i+1) % ring.length];
+          const midCol = (p.col+next.col)/2, midRow = (p.row+next.row)/2;
+          L.circleMarker(tileToLatLng(midCol, midRow), {radius:4, color, weight:1, fillColor:'#0f1410', fillOpacity:1, className:'refpick-edge-handle'})
+            .addTo(group)
+            .on('click', (e)=>{
+              L.DomEvent.stopPropagation(e);
+              ring.splice(i+1, 0, {col: midCol, row: midRow});
+              refreshDepositoPanel();
+            });
+        });
+      }
+      ring.forEach((p,i)=>{
+        const marker = L.marker(tileToLatLng(p.col,p.row), {
+          draggable: true,
+          icon: L.divIcon({className:'refpick-vertex-handle', html:'', iconSize:[12,12], iconAnchor:[6,6]}),
+        }).addTo(group);
+        marker.on('drag', ()=>{
+          const latlng = marker.getLatLng();
+          const pt = regnumMap.project(latlng, 0);
+          ring[i] = {col: Number((pt.x/TILE_SIZE).toFixed(3)), row: Number((pt.y/TILE_SIZE).toFixed(3))};
+          if(depositoEditPolygon) depositoEditPolygon.setLatLngs(ring.map(pp=>tileToLatLng(pp.col,pp.row)));
+        });
+        marker.on('dragend', ()=> refreshDepositoPanel());
+        marker.on('contextmenu', (e)=>{
+          L.DomEvent.preventDefault(e);
+          if(ring.length <= 3) return;
+          ring.splice(i, 1);
+          refreshDepositoPanel();
+        });
+        marker.on('click', (e)=> L.DomEvent.stopPropagation(e));
+      });
+      depositoEditLayer = group;
+    }
+    // Los 5 botones de abajo son compartidos entre los dos modos --
+    // cada uno hace lo que corresponda según refpickTarget, en vez de
+    // haber un segundo juego de botones para depósitos (es el mismo
+    // gesto de siempre: sacar el último punto, vaciar lo que se está
+    // dibujando, copiar, reiniciar).
     document.getElementById('refpick-undo-point').addEventListener('click', ()=>{
+      if(refpickTarget === 'deposito'){ depositoCurrent.pop(); refreshDepositoPanel(); return; }
       // Solo saca de la pieza que se está dibujando ahora — las piezas ya
       // cerradas (refpickPieces) no se tocan, para eso está "Reiniciar
       // pieza actual" o "Reiniciar todo" más abajo.
@@ -589,12 +704,15 @@ function initRegnumMapIfNeeded(){
       refreshRefpickPanel();
     });
     document.getElementById('refpick-clear-current').addEventListener('click', ()=>{
+      if(refpickTarget === 'deposito'){ depositoCurrent = []; refreshDepositoPanel(); return; }
       // Igual que el botón de arriba pero de una: vacía la pieza sin
       // cerrar entera, sin tocar las que ya quedaron cerradas.
       refpickCurrent = [];
       refreshRefpickPanel();
     });
     document.getElementById('refpick-close-piece').addEventListener('click', function(){
+      // Oculto en modo depósito (ver el listener de refpick-target) --
+      // un depósito es un solo anillo, no hay "otra pieza" que empezar.
       if(refpickCurrent.length < 3){
         this.textContent = 'Faltan puntos (mín. 3)';
         setTimeout(()=> this.textContent = 'Cerrar pieza y empezar otra', 1200);
@@ -607,15 +725,23 @@ function initRegnumMapIfNeeded(){
       refreshRefpickPanel();
     });
     document.getElementById('refpick-copy-poly').addEventListener('click', function(){
-      // La pieza actual se suma sola si ya tiene forma (3+ puntos) — no
-      // hace falta cerrarla a mano antes de copiar si es la última.
-      const anillos = [...refpickPieces, ...(refpickCurrent.length>=3 ? [refpickCurrent] : [])];
+      const anillos = refpickTarget === 'deposito'
+        ? (depositoCurrent.length>=3 ? [depositoCurrent] : [])
+        // La pieza actual se suma sola si ya tiene forma (3+ puntos) — no
+        // hace falta cerrarla a mano antes de copiar si es la última.
+        : [...refpickPieces, ...(refpickCurrent.length>=3 ? [refpickCurrent] : [])];
       const text = JSON.stringify(anillos);
       navigator.clipboard?.writeText(text).catch(()=>{});
       this.textContent = 'Copiado';
       setTimeout(()=> this.textContent = 'Copiar todo', 1200);
     });
     document.getElementById('refpick-reset').addEventListener('click', ()=>{
+      if(refpickTarget === 'deposito'){
+        depositoCurrent = [];
+        depositoEditingId = null;
+        refreshDepositoPanel();
+        return;
+      }
       refpickPieces.length = 0;
       refpickPieceChecked.length = 0;
       refpickPieceSource.length = 0;
@@ -632,8 +758,13 @@ function initRegnumMapIfNeeded(){
       const col = Number((pt.x/TILE_SIZE).toFixed(3));
       const row = Number((pt.y/TILE_SIZE).toFixed(3));
       if(polyModeCheckbox.checked){
-        refpickCurrent.push({col, row});
-        refreshRefpickPanel();
+        if(refpickTarget === 'deposito'){
+          depositoCurrent.push({col, row});
+          refreshDepositoPanel();
+        } else {
+          refpickCurrent.push({col, row});
+          refreshRefpickPanel();
+        }
         return;
       }
       const text = `col=${col.toFixed(3)} row=${row.toFixed(3)}`;
@@ -1101,6 +1232,210 @@ function initRegnumMapIfNeeded(){
       ztBaselineZoneNames = new Set((regnumMapData.zonas||[]).map(z=> z.nombre + '\u0000' + (z.etiqueta||'')));
       ztRefreshZoneList();
     };
+
+    // ------------------------------------------------------------------
+    // Editor de depósitos: mismo espíritu que el "Editor de zonas" de
+    // arriba (cargar/guardar/eliminar + exportar cambios pendientes a
+    // mano, sin backend), pero mucho más chico -- un depósito es solo
+    // {material, reino, un anillo}, sin mobs/jefes/piezas. Como el
+    // nombre no es único (puede haber varios depósitos del mismo
+    // material en distintos lugares), cada uno lleva un id propio
+    // generado acá (dep_<tiempo><azar>), no por nombre+etiqueta como las
+    // zonas -- ver depApplyLive/depGetCurrent.
+    const DEPOSITO_STORAGE_KEY = 'cort-deposito-tool-changes';
+    let depositoToolChanges = [];
+    try { depositoToolChanges = JSON.parse(localStorage.getItem(DEPOSITO_STORAGE_KEY) || '[]'); } catch(e){ depositoToolChanges = []; }
+    function saveDepositoToolChanges(){
+      try { localStorage.setItem(DEPOSITO_STORAGE_KEY, JSON.stringify(depositoToolChanges)); } catch(e){}
+    }
+    let depBaselineIds = new Set();
+    function depRefreshChangesCount(){
+      const el = document.getElementById('dep-changes-count');
+      if(el) el.textContent = String(depositoToolChanges.length);
+    }
+    // Mismo criterio que ztGetCurrentZone: si ya hay un cambio pendiente
+    // en esta sesión para ese id, se parte de ahí (no del dato original)
+    // -- así "Cargar" después de haber movido un punto trae lo último,
+    // no lo de antes de tocarlo.
+    function depGetCurrent(id){
+      for(let i = depositoToolChanges.length - 1; i >= 0; i--){
+        const e = depositoToolChanges[i];
+        if(e.id === id) return e;
+      }
+      return (regnumMapData.depositos||[]).find(d=> d.id === id) || null;
+    }
+    function depApplyLive(entry){
+      if(!regnumMapData.depositos) regnumMapData.depositos = [];
+      if('eliminarDeposito' in entry){
+        regnumMapData.depositos = regnumMapData.depositos.filter(d=> d.id !== entry.eliminarDeposito);
+        return;
+      }
+      const idx = regnumMapData.depositos.findIndex(d=> d.id === entry.id);
+      if(idx >= 0) regnumMapData.depositos[idx] = entry;
+      else regnumMapData.depositos.push(entry);
+    }
+    function depRefreshList(){
+      const sel = document.getElementById('dep-list');
+      if(!sel) return;
+      const depositos = regnumMapData.depositos || [];
+      sel.innerHTML = depositos.map(d=> `<option value="${d.id}">${d.material} (${d.reino})</option>`).join('');
+    }
+    // Sugerencias del <input list=...> de material: los materiales que
+    // ya tienen color propio (DEPOSITO_COLOR) más los que aparezcan
+    // cargados en z.materiales de alguna zona -- no obliga a elegir de
+    // la lista, es nomás para no tener que escribir el nombre exacto de
+    // memoria.
+    function depPopulateMaterialList(){
+      const dl = document.getElementById('dep-material-list');
+      if(!dl) return;
+      const nombres = new Set(Object.keys(DEPOSITO_COLOR));
+      (regnumMapData.zonas||[]).forEach(z=>{
+        (z.materiales||[]).forEach(m=> nombres.add(m.nombre));
+        (z.piezas||[]).forEach(p=> (p.materiales||[]).forEach(m=> nombres.add(m.nombre)));
+      });
+      dl.innerHTML = [...nombres].sort().map(n=> `<option value="${n.replace(/"/g,'&quot;')}">`).join('');
+    }
+    function depUpdateSwatch(){
+      const v = (document.getElementById('dep-material')?.value || '').trim();
+      const sw = document.getElementById('dep-material-swatch');
+      const lbl = document.getElementById('dep-material-swatch-label');
+      if(sw) sw.style.background = v ? depositoColor(v) : 'transparent';
+      if(lbl) lbl.textContent = v && !DEPOSITO_COLOR[v] ? '(color nuevo por ahora, se le puede sumar uno fijo después)' : '';
+    }
+    function refreshDepositoPanel(){
+      refreshPointsCount();
+      renderDepositoEditor();
+    }
+
+    const depositoPanel = document.createElement('div');
+    depositoPanel.style.cssText = 'position:fixed;top:10px;left:10px;z-index:9999;background:#0f1410;border:1px solid #2c3a2a;color:#e7ecdf;font-family:monospace;font-size:12px;padding:10px;border-radius:6px;max-width:260px;';
+    depositoPanel.innerHTML = `
+      <b>Editor de depósitos</b>
+      <div style="margin-top:6px">Depósitos existentes:</div>
+      <select id="dep-list" style="width:100%;margin-top:2px;box-sizing:border-box"></select>
+      <div style="margin-top:6px;display:flex;gap:6px;">
+        <button type="button" id="dep-load" style="flex:1">Cargar</button>
+        <button type="button" id="dep-delete" style="flex:1">Eliminar</button>
+      </div>
+      <div style="margin-top:8px">Material:</div>
+      <input id="dep-material" list="dep-material-list" style="width:100%;box-sizing:border-box;margin-top:2px">
+      <datalist id="dep-material-list"></datalist>
+      <div style="margin-top:4px;font-size:11px">
+        <span id="dep-material-swatch" style="display:inline-block;width:11px;height:11px;border-radius:50%;vertical-align:middle;border:1px solid #444"></span>
+        <span id="dep-material-swatch-label" style="color:#9fae95"></span>
+      </div>
+      <div style="margin-top:6px">Reino:</div>
+      <select id="dep-reino" style="width:100%;margin-top:2px;box-sizing:border-box">
+        <option>Syrtis</option><option>Alsius</option><option>Ignis</option>
+      </select>
+      <button type="button" id="dep-save" style="margin-top:8px;width:100%">Guardar depósito</button>
+      <div style="margin-top:8px">Cambios pendientes: <span id="dep-changes-count">0</span></div>
+      <button type="button" id="dep-export" style="margin-top:4px;width:100%">Exportar cambios</button>
+      <button type="button" id="dep-clear-exported" style="margin-top:4px;width:100%">Vaciar lista ya exportada</button>`;
+    document.body.appendChild(depositoPanel);
+
+    document.getElementById('dep-material').addEventListener('input', ()=>{
+      depUpdateSwatch();
+      renderDepositoEditor(); // el contorno de vista previa cambia de color en vivo
+    });
+
+    document.getElementById('dep-load').addEventListener('click', ()=>{
+      const id = document.getElementById('dep-list').value;
+      const d = depGetCurrent(id);
+      if(!d) return;
+      document.getElementById('dep-material').value = d.material;
+      document.getElementById('dep-reino').value = d.reino || 'Syrtis';
+      depUpdateSwatch();
+      depositoCurrent = ((d.poligonos && d.poligonos[0]) || []).map(p=>({...p}));
+      depositoEditingId = id;
+      refreshDepositoPanel();
+    });
+
+    document.getElementById('dep-delete').addEventListener('click', ()=>{
+      const id = document.getElementById('dep-list').value;
+      if(!id) return;
+      const d = depGetCurrent(id);
+      const label = d ? d.material : id;
+      // Mismo criterio que zt-delete: si ya existía en el sitio real
+      // antes de esta sesión, el borrado hay que avisarlo (queda
+      // pendiente de exportar); si se creó en esta misma sesión, alcanza
+      // con sacarlo de los cambios pendientes sin dejar nada que mandar.
+      const existiaEnElSitio = depBaselineIds.has(id);
+      if(existiaEnElSitio){
+        if(!confirm(`¿Marcar el depósito de "${label}" para eliminar? Lo saca ya mismo del mapa que estás viendo (para probar) -- el archivo real recién cambia cuando se exporten los cambios y se apliquen.`)) return;
+        const entry = {eliminarDeposito: id};
+        depositoToolChanges.push(entry);
+        depApplyLive(entry);
+      } else {
+        if(!confirm(`El depósito de "${label}" se creó en esta misma sesión -- ¿descartarlo del todo? No queda nada pendiente por exportar ni mandar.`)) return;
+        depositoToolChanges = depositoToolChanges.filter(e=> e.id !== id && e.eliminarDeposito !== id);
+        depApplyLive({eliminarDeposito: id});
+      }
+      if(depositoEditingId === id){ depositoCurrent = []; depositoEditingId = null; }
+      saveDepositoToolChanges();
+      depRefreshChangesCount();
+      buildRegnumDepositos();
+      depRefreshList();
+      refreshDepositoPanel();
+    });
+
+    document.getElementById('dep-save').addEventListener('click', ()=>{
+      const material = document.getElementById('dep-material').value.trim();
+      const reino = document.getElementById('dep-reino').value;
+      if(!material){ alert('Falta el nombre del material.'); return; }
+      if(depositoCurrent.length < 3){ alert('Hacen falta al menos 3 puntos -- dibujalos en el mapa con "Modo polígono" prendido y "Dibujando: Depósito" elegido arriba.'); return; }
+      const id = depositoEditingId || ('dep_' + Date.now().toString(36) + Math.random().toString(36).slice(2,7));
+      const entry = { id, material, reino, poligonos: [depositoCurrent.map(p=>({...p}))] };
+      depositoToolChanges.push(entry);
+      depApplyLive(entry);
+      saveDepositoToolChanges();
+      depRefreshChangesCount();
+      if(!document.getElementById('map-toggle-depositos').checked) document.getElementById('map-toggle-depositos').checked = true;
+      buildRegnumDepositos();
+      depRefreshList();
+      depPopulateMaterialList();
+      const eraNuevo = !depositoEditingId;
+      depositoCurrent = [];
+      depositoEditingId = null;
+      document.getElementById('dep-material').value = '';
+      depUpdateSwatch();
+      refreshDepositoPanel();
+      alert(`Depósito de "${material}" ${eraNuevo ? 'guardado' : 'actualizado'} (y sumado a los cambios pendientes, ${depositoToolChanges.length} en total, para cuando quieras exportarlos).`);
+    });
+
+    document.getElementById('dep-export').addEventListener('click', function(){
+      const json = JSON.stringify({generado: new Date().toISOString(), tipo: 'depositos', cambios: depositoToolChanges.length, detalle: depositoToolChanges}, null, 1);
+      const box = document.createElement('textarea');
+      box.value = json;
+      box.readOnly = true;
+      box.style.cssText = 'position:fixed;inset:8vh 10vw;z-index:9999;background:var(--bg-1,#1a1f18);color:var(--ink,#e7ecdf);border:1px solid var(--line,#2c3a2a);border-radius:6px;padding:14px;font-family:monospace;font-size:12px;';
+      document.body.appendChild(box);
+      box.focus();
+      box.select();
+      navigator.clipboard?.writeText(json).catch(()=>{});
+      const closeHint = document.createElement('div');
+      closeHint.textContent = 'Copiado al portapapeles. Click afuera del cuadro para cerrar.';
+      closeHint.style.cssText = 'position:fixed;left:10vw;top:calc(8vh - 26px);z-index:9999;color:var(--bronze,#c9a876);font-size:12px;';
+      document.body.appendChild(closeHint);
+      const close = (e)=>{
+        if(box.contains(e.target)) return;
+        box.remove(); closeHint.remove();
+        document.removeEventListener('click', close);
+      };
+      setTimeout(()=> document.addEventListener('click', close), 0);
+    });
+    document.getElementById('dep-clear-exported').addEventListener('click', ()=>{
+      if(!confirm('¿Vaciar la lista de cambios pendientes? Hacé esto solo después de confirmar que el último export ya se aplicó -- si todavía no, se pierde ese registro.')) return;
+      depositoToolChanges = [];
+      saveDepositoToolChanges();
+      depRefreshChangesCount();
+    });
+    depRefreshChangesCount();
+    depositoToolSetupFn = () => {
+      depBaselineIds = new Set((regnumMapData.depositos||[]).map(d=> d.id));
+      depRefreshList();
+      depPopulateMaterialList();
+    };
   }
 
   fetch('data/map-data.json')
@@ -1109,9 +1444,11 @@ function initRegnumMapIfNeeded(){
       regnumMapData = data;
       buildRegnumMarkers();
       buildRegnumZones();
+      buildRegnumDepositos();
       populateRegnumFilters();
       wireRegnumSearchAndFilters();
       zoneToolSetupFn?.();
+      depositoToolSetupFn?.();
     })
     .catch(err => console.error('No se pudo cargar el mapa de datos', err));
 }
@@ -1509,6 +1846,30 @@ const ZONE_COLOR_DEFAULT = '#a09a8c'; // por si a alguna zona le faltara el rein
 const GUARDIAN_COLOR = '#8035e0';
 const MATERIAL_COLOR = '#8a6d00';
 
+// Color propio por TIPO de material (no por zona ni por depósito
+// individual) -- todo depósito de "Roca con Cobre" en cualquier parte
+// del mapa se pinta igual, así se distinguen de un vistazo (ver
+// buildRegnumDepositos). "Tronco de Pino" y "Troncos de Pino" comparten
+// color a propósito: son el mismo material con dos nombres (singular/
+// plural) que quedaron así cargados en los datos -- separarlos acá
+// solo generaría dos colores para lo mismo, sin arreglar el nombre de
+// origen (eso se corrige en los datos, no acá). Un material nuevo que
+// todavía no esté en esta lista cae a DEPOSITO_COLOR_DEFAULT (violeta
+// neutro) hasta que se le sume su propio color.
+const DEPOSITO_COLOR = {
+  'Huesos': '#9e9e9e',
+  'Roca con Cobre y Casiterita': '#c0392b',
+  'Roca con Cobre': '#c38c7f',
+  'Roca con Plata': '#7c8a9a',
+  'Tronco de Pino': '#e3821f',
+  'Troncos de Pino': '#e3821f',
+  'Capullo de Seda': '#e6d74a',
+  'Tocón con Savia': '#e3b393',
+  'Mata de pelo de tigre bestial': '#8a6a4a',
+};
+const DEPOSITO_COLOR_DEFAULT = '#b06fd1';
+function depositoColor(material){ return DEPOSITO_COLOR[material] || DEPOSITO_COLOR_DEFAULT; }
+
 // Si la zona tiene z.piezas (mobs/materiales/jefes distintos por
 // polígono, ver buildRegnumZones), lo que cuenta para los checkboxes de
 // filtro es la suma de TODAS las piezas, no la lista a nivel zona (que
@@ -1677,6 +2038,44 @@ function applyZoneFilters(){
       if(passesZoneFilters(z)) layer.addTo(regnumZonesLayer);
     });
   });
+}
+
+// Depósitos: mismo mecanismo visual que las zonas (polígono con relleno
+// transparente + tooltip sticky), pero bien aparte -- ver el comentario
+// grande junto a regnumDepositosLayer más arriba. A diferencia de una
+// zona (que puede tener varias piezas con contenido propio, ver
+// z.piezas), un depósito es siempre UN solo polígono con UN material;
+// si el mismo material aparece en varios lugares del mapa, son varios
+// depósitos separados en regnumMapData.depositos, no una pieza más de
+// uno solo -- más simple de crear/borrar uno por uno con la
+// herramienta (ver REFPICK_MODE, modo "deposito").
+function buildRegnumDepositos(){
+  regnumDepositosLayer.clearLayers();
+  regnumAllDepositoObjs = [];
+  (regnumMapData.depositos||[]).forEach(d=>{
+    const anillos = (d.poligonos||[]).filter(anillo=> anillo && anillo.length >= 3);
+    if(anillos.length === 0) return;
+    const color = depositoColor(d.material);
+    const latlngRings = anillos.map(anillo=> anillo.map(p=> tileToLatLng(p.col, p.row)));
+    const polygon = L.polygon(latlngRings, {color, fillColor:color, weight:2, fillOpacity:0.22});
+    polygon.bindTooltip(`<b>${d.material}</b>`, {sticky:true});
+    polygon.on('mousemove tooltipopen', ()=> nudgeZoneTooltip(polygon));
+    d._leaflet = polygon;
+    regnumAllDepositoObjs.push(d);
+  });
+  applyDepositoFilters();
+}
+
+function passesDepositoFilters(d){
+  const reino = document.getElementById('map-filter-reino').value;
+  if(reino && d.reino !== reino) return false;
+  return true;
+}
+
+function applyDepositoFilters(){
+  regnumDepositosLayer.clearLayers();
+  if(!document.getElementById('map-toggle-depositos').checked) return;
+  regnumAllDepositoObjs.forEach(d=>{ if(passesDepositoFilters(d)) d._leaflet.addTo(regnumDepositosLayer); });
 }
 
 function editableFieldsFor(m){
@@ -2101,8 +2500,8 @@ function wireRegnumSearchAndFilters(){
   // Un solo refresh para marcadores Y zonas: 'map-filter-reino' afecta a
   // los dos, y no cuesta nada reconstruir marcadores de más cuando cambia
   // un checkbox que en realidad es solo de zonas (o viceversa).
-  function refreshMapLayers(){ applyRegnumFilters(); applyZoneFilters(); }
-  [...PLACE_TOGGLE_IDS,'map-toggle-npc','map-toggle-mision','map-toggle-epico','map-toggle-legendario','map-toggle-campeon','map-toggle-dragon','map-toggle-cupido','map-toggle-tarea','map-toggle-gema','map-toggle-mobs','map-toggle-guardianes','map-toggle-materiales','map-filter-reino','map-filter-profesion','map-filter-nivel'].forEach(id=>{
+  function refreshMapLayers(){ applyRegnumFilters(); applyZoneFilters(); applyDepositoFilters(); }
+  [...PLACE_TOGGLE_IDS,'map-toggle-npc','map-toggle-mision','map-toggle-epico','map-toggle-legendario','map-toggle-campeon','map-toggle-dragon','map-toggle-cupido','map-toggle-tarea','map-toggle-gema','map-toggle-mobs','map-toggle-guardianes','map-toggle-materiales','map-toggle-depositos','map-filter-reino','map-filter-profesion','map-filter-nivel'].forEach(id=>{
     document.getElementById(id).addEventListener('change', refreshMapLayers);
   });
 
