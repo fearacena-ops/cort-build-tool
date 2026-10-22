@@ -2089,16 +2089,23 @@ function applyZoneFilters(){
 // depósitos separados en regnumMapData.depositos, no una pieza más de
 // uno solo -- más simple de crear/borrar uno por uno con la
 // herramienta (ver REFPICK_MODE, modo "deposito").
-// Zona arriba (si se cargó, ver el campo "Zona" del editor de
-// depósitos) y el material debajo, todo en el color propio de ESE
-// material -- a pedido, para que las letras combinen con el color del
-// polígono que se está mirando. El fondo oscuro con transparencia lo
-// pone .map-tooltip-dark (ver css/map.css), compartida con el tooltip
-// de zona -- acá solo se pisa el color del texto por instancia.
+// Zona arriba en blanco (si se cargó, ver el campo "Zona" del editor
+// de depósitos) y el material debajo en el color propio de ESE
+// material -- a pedido, para que la línea de zona no compita con el
+// color del polígono y quede siempre legible igual. El fondo oscuro
+// con transparencia lo pone .map-tooltip-dark (ver css/map.css),
+// compartida con el tooltip de zona -- acá solo se pisa el color del
+// texto por instancia.
+// Posible mejora a futuro (todavía sin decidir, ver conversación): un
+// ícono propio por material acá en el globo, al lado del nombre --
+// mismo estilo que TIER_MARKER_ICON/GUARDIAN_MARKER_ICON (una imagen
+// por tipo, no por depósito individual). Si se suma, iría como un
+// <img> antes del texto, con la ruta guardada en DEPOSITO_COLOR o un
+// dict hermano tipo DEPOSITO_ICON.
 function buildDepositoPopupHTML(d){
   const color = depositoColor(d.material);
-  const zonaLinea = d.zona ? `<b>${d.zona}</b><br>` : '';
-  return `<span style="color:${color}">${zonaLinea}${d.material}</span>`;
+  const zonaLinea = d.zona ? `<b style="color:#fff">${d.zona}</b><br>` : '';
+  return `${zonaLinea}<span style="color:${color}">${d.material}</span>`;
 }
 function buildRegnumDepositos(){
   regnumDepositosLayer.clearLayers();
