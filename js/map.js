@@ -2620,7 +2620,36 @@ function wireRegnumSearchAndFilters(){
         (fuente.materiales||[]).forEach(mat=>{ const k='mat|'+mat.nombre; if(vistos.has(k)) return; vistos.add(k); entries.push({kind:'material', zona:z, label:mat.nombre}); });
       });
     });
+    // Los materiales "de verdad" viven en regnumAllDepositoObjs (zonas de
+    // depósito independientes, ver buildRegnumDepositos), no en
+    // z.materiales -- ese texto se fue vaciando a medida que cada material
+    // se migró a su propio depósito. Un depósito no es una zona (no tiene
+    // z.nombre ni z._leaflet en array, ver zoneRefNombre/zoneRefLeaflets
+    // más abajo que abstraen esa diferencia) pero se busca y se resalta
+    // igual que cualquier otro match de tipo 'material'.
+    regnumAllDepositoObjs.forEach(d=>{
+      entries.push({kind:'material', zona:d, label:d.material});
+    });
     return entries;
+  }
+  // Un depósito no tiene z.nombre (solo z.material y, a veces, z.zona) --
+  // eso alcanza para distinguirlo de una zona sin necesitar un flag
+  // aparte, que de todos modos se perdería al agrupar matches (ver
+  // groupZoneMatches, que solo guarda e.zona, no e entero).
+  function esRefDeposito(ref){
+    return ref.nombre === undefined;
+  }
+  // Nombre para mostrar / agrupar: una zona usa z.nombre; un depósito no
+  // tiene nombre propio, así que se usa su campo zona (si lo tiene) o si
+  // no el nombre del material como último recurso.
+  function zoneRefNombre(ref){
+    return esRefDeposito(ref) ? (ref.zona || ref.material) : ref.nombre;
+  }
+  // z._leaflet es siempre un array (una pieza puede tener varios
+  // polígonos); d._leaflet es un único polígono -- se normaliza acá para
+  // que el resto del código de búsqueda no tenga que distinguir los casos.
+  function zoneRefLeaflets(ref){
+    return esRefDeposito(ref) ? [ref._leaflet] : ref._leaflet;
   }
   function zoneEntryGlyph(kind){
     return kind === 'zona' ? '▦' : kind === 'mob' ? '☠' : kind === 'jefe' ? '★' : '◆';
@@ -2653,9 +2682,9 @@ function wireRegnumSearchAndFilters(){
       const extra = row.kind === 'jefe'
         ? `${d.etiqueta ? ' ('+d.etiqueta+')' : ''}${d.nivel ? ' · Nv.'+d.nivel : ''}`
         : (d.nivel ? ' · Nv.'+d.nivel : '');
-      return `${tipo} en "${row.zonas[0].nombre}"${extra}`;
+      return `${tipo} en "${zoneRefNombre(row.zonas[0])}"${extra}`;
     }
-    return `${tipo} en ${row.zonas.length} zonas: ${row.zonas.map(z=> z.nombre).join(', ')}`;
+    return `${tipo} en ${row.zonas.length} zonas: ${row.zonas.map(z=> zoneRefNombre(z)).join(', ')}`;
   }
   // Color bien distinto al de los 3 reinos (ver ZONE_COLOR_REINO) para
   // que, entre todas las zonas que ya se ven en el mapa por tener su
@@ -2665,28 +2694,36 @@ function wireRegnumSearchAndFilters(){
   // normal (por reino) — se llama antes de aplicar un resaltado nuevo,
   // así no queda "pegado" el de una búsqueda vieja.
   function clearZoneSearchHighlight(){
-    highlightedZoneKeys.forEach(nombre=>{
-      const z = regnumAllZoneObjs.find(zz=> zz.nombre === nombre);
-      if(z && z._leaflet){
-        const color = zoneColor(z);
-        z._leaflet.forEach(layer=> layer.setStyle({color, fillColor:color, weight:2, fillOpacity:0.22, dashArray:null}));
+    // Guarda la referencia al objeto (zona o depósito) directamente, no su
+    // nombre -- un depósito no tiene nombre propio, y además esto evita
+    // confundir dos zonas distintas que comparten nombre entre reinos.
+    highlightedZoneKeys.forEach(ref=>{
+      const leaflets = zoneRefLeaflets(ref);
+      if(!leaflets) return;
+      if(esRefDeposito(ref)){
+        const color = depositoColor(ref.material);
+        leaflets.forEach(layer=> layer.setStyle({color:'#fff', fillColor:color, weight:2, fillOpacity:0.6, dashArray:null}));
+      } else {
+        const color = zoneColor(ref);
+        leaflets.forEach(layer=> layer.setStyle({color, fillColor:color, weight:2, fillOpacity:0.22, dashArray:null}));
       }
     });
     highlightedZoneKeys = new Set();
   }
-  // Resalta las zonas dadas (una sola si se buscó la zona por su propio
-  // nombre, varias si vino de un mob/jefe/material que se repite) y
-  // encuadra el mapa para que entren todas juntas. No las agrega ni las
-  // saca de regnumZonesLayer — de la visibilidad se encarga el checkbox
-  // real de la categoría encontrada (ver el click de resultados más
-  // abajo), el resaltado es solo un color para ubicarlas entre el resto.
-  function highlightZonesFromSearch(zonas){
+  // Resalta las zonas/depósitos dados (uno solo si se buscó el nombre de
+  // la zona en sí, varios si vino de un mob/jefe/material que se repite
+  // en más de un lugar) y encuadra el mapa para que entren todos juntos.
+  // No los agrega ni los saca de su layer -- de la visibilidad se encarga
+  // el checkbox real de la categoría encontrada (ver el click de
+  // resultados más abajo), el resaltado es solo un color para ubicarlos
+  // entre el resto.
+  function highlightZonesFromSearch(refs){
     clearZoneSearchHighlight();
-    if(zonas.length === 0) return;
+    if(refs.length === 0) return;
     let bounds = null;
-    zonas.forEach(z=>{
-      highlightedZoneKeys.add(z.nombre);
-      z._leaflet.forEach(layer=>{
+    refs.forEach(ref=>{
+      highlightedZoneKeys.add(ref);
+      zoneRefLeaflets(ref).forEach(layer=>{
         layer.setStyle({color:ZONE_SEARCH_HIGHLIGHT_COLOR, fillColor:ZONE_SEARCH_HIGHLIGHT_COLOR, weight:4, fillOpacity:0.35, dashArray:'6 4'});
         bounds = bounds ? bounds.extend(layer.getBounds()) : layer.getBounds();
       });
@@ -2725,7 +2762,7 @@ function wireRegnumSearchAndFilters(){
     const zoneRows = groupZoneMatches(rawZoneMatches);
     const matches = [...markerMatches, ...zoneRows].slice(0, 30);
     if(matches.length === 0){ results.classList.remove('is-open'); results.innerHTML=''; return; }
-    results.innerHTML = matches.map(match=>{
+    results.innerHTML = matches.map((match, idx)=>{
       if(match.kind === 'marker'){
         const m = match.m;
         return `<div class="map-result-item" data-kind="marker" data-idx="${regnumAllMarkerObjs.indexOf(m)}">
@@ -2733,8 +2770,11 @@ function wireRegnumSearchAndFilters(){
           <div class="mri-meta">${m.tipo==='npc' ? (m.profesion||m.clase||'') : m.tipo==='ciudad' ? (m.categoria==='Altar' && m.zona ? m.zona : m.categoria) : m.tipo==='epico' ? ('Épico · Nv.'+m.nivel+' · '+m.zona) : m.tipo==='legendario' ? ('Legendario · Nv.'+m.nivel+' · '+m.zona) : m.tipo==='campeon' ? ('Campeón · Nv.'+m.nivel+' · '+m.zona) : m.tipo==='guardian' ? ('Guardián · Nv.'+m.nivel+' · '+m.zona) : m.tipo==='dragon' ? ('Dragón'+(m.nivel?' · Nv.'+m.nivel:'')+(m.zona?' · '+m.zona:'')) : m.tipo==='cupido' ? ('Cupido'+(m.zona && m.zona!=='PENDIENTE'?' · '+m.zona:'')) : m.tipo==='tarea' ? ('Tarea'+(m.zona?' · '+m.zona:'')) : m.tipo==='gema' ? ('Gema'+(m.zona?' · '+m.zona:'')) : 'Nivel '+m.nivel+' · La da: '+m.la_da} · ${m.reino}</div>
         </div>`;
       }
-      const nombresZonas = JSON.stringify(match.zonas.map(z=> z.nombre)).replace(/"/g,'&quot;');
-      return `<div class="map-result-item" data-kind="zona" data-tipo="${match.kind}" data-zonas="${nombresZonas}" data-label="${match.label.replace(/"/g,'&quot;')}">
+      // data-row-idx apunta al índice dentro de "matches" (se resuelve en
+      // el closure de abajo, no serializando nombres al DOM) -- así un
+      // match agrupado puede señalar depósitos, que no tienen nombre único
+      // para buscarlos de nuevo como sí se podía con zonas.
+      return `<div class="map-result-item" data-kind="zona" data-tipo="${match.kind}" data-row-idx="${idx}">
         <div class="mri-name">${zoneEntryGlyph(match.kind)} ${match.label}</div>
         <div class="mri-meta">${metaForRow(match)}</div>
       </div>`;
@@ -2744,14 +2784,14 @@ function wireRegnumSearchAndFilters(){
       el.addEventListener('click', ()=>{
         results.classList.remove('is-open');
         if(el.dataset.kind === 'zona'){
-          const nombres = JSON.parse(el.dataset.zonas);
-          const zonas = nombres.map(n=> regnumAllZoneObjs.find(zz=> zz.nombre === n)).filter(Boolean);
-          if(zonas.length === 0) return;
-          input.value = el.dataset.label;
+          const match = matches[parseInt(el.dataset.rowIdx)];
+          const refs = match.zonas;
+          if(!refs || refs.length === 0) return;
+          input.value = match.label;
           const toggleId = TOGGLE_ID_POR_TIPO_ZONA[el.dataset.tipo];
           const toggle = toggleId && document.getElementById(toggleId);
           if(toggle && !toggle.checked){ toggle.checked = true; refreshMapLayers(); }
-          highlightZonesFromSearch(zonas);
+          highlightZonesFromSearch(refs);
           return;
         }
         const m = regnumAllMarkerObjs[parseInt(el.dataset.idx)];
