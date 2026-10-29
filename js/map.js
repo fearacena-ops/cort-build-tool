@@ -1893,11 +1893,11 @@ const MATERIAL_COLOR = '#8a6d00';
 // todavía no esté en esta lista cae a DEPOSITO_COLOR_DEFAULT (violeta
 // neutro) hasta que se le sume su propio color.
 const DEPOSITO_COLOR = {
-  'Huesos': '#9e9e9e',
+  'Huesos': '#4a4a4a',
   'Roca con Cobre y Casiterita': '#c0392b',
   'Roca con Cobre': '#c38c7f',
   'Roca con Plata': '#7c8a9a',
-  'Roca con Carbón': '#5f6b7a',
+  'Roca con Carbón': '#1c1c1c',
   'Troncos de Pino': '#e3821f',
   'Troncos de Nogal': '#a6773a',
   'Capullo de Seda': '#e6d74a',
