@@ -2103,9 +2103,7 @@ function applyZoneFilters(){
 // <img> antes del texto, con la ruta guardada en DEPOSITO_COLOR o un
 // dict hermano tipo DEPOSITO_ICON.
 function buildDepositoPopupHTML(d){
-  const color = depositoColor(d.material);
-  const zonaLinea = d.zona ? `<b style="color:#fff">${d.zona}</b><br>` : '';
-  return `${zonaLinea}<span style="color:${color}">${d.material}</span>`;
+  return `<span style="color:#fff">${d.material}</span>`;
 }
 function buildRegnumDepositos(){
   regnumDepositosLayer.clearLayers();
