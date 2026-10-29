@@ -2117,7 +2117,7 @@ function buildRegnumDepositos(){
     if(anillos.length === 0) return;
     const color = depositoColor(d.material);
     const latlngRings = anillos.map(anillo=> anillo.map(p=> tileToLatLng(p.col, p.row)));
-    const polygon = L.polygon(latlngRings, {color, fillColor:color, weight:2, fillOpacity:0.6});
+    const polygon = L.polygon(latlngRings, {color:'#fff', fillColor:color, weight:2, fillOpacity:0.6});
     polygon.bindTooltip(buildDepositoPopupHTML(d), {sticky:true, className:'map-tooltip-dark'});
     polygon.on('mousemove tooltipopen', ()=> nudgeZoneTooltip(polygon));
     d._leaflet = polygon;
