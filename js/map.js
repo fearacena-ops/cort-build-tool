@@ -1903,6 +1903,10 @@ const DEPOSITO_COLOR = {
   'Capullo de Seda': '#e6d74a',
   'Tocón con Savia': '#e3b393',
   'Mata de pelo de tigre bestial': '#8a6a4a',
+  'Liber de Lino': '#5ec77a',
+  'Mineral de Hierro': '#b0a89a',
+  'Cápsulas de Algodón': '#d8d8e6',
+  'Mineral de Titanio': '#8fb0ad',
 };
 const DEPOSITO_COLOR_DEFAULT = '#b06fd1';
 function depositoColor(material){ return DEPOSITO_COLOR[material] || DEPOSITO_COLOR_DEFAULT; }
