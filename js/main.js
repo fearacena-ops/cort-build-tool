@@ -12,6 +12,22 @@
 // se refleja solo en el encabezado de la página.
 const APP_VERSION = '1.0.0';
 
+// fetch() no tiene timeout propio -- en una conexión mobile que se cae a
+// mitad de la descarga (o nunca llega a abrir del todo), la promesa queda
+// colgada para siempre: ni .then ni .catch disparan nunca, y como el fondo
+// de la página es oscuro por CSS desde antes de que corra cualquier JS, lo
+// que ve la persona es la pantalla trabada en negro sin ningún error. Es
+// el mismo problema que ya tuvimos con el CDN externo de Leaflet (ver
+// comentario en index.html) -- ahí se resolvió sirviéndolo nosotros mismos,
+// acá la causa es la red del visitante, no algo que podamos autohospedar,
+// así que la solución es ponerle un límite de tiempo real con
+// AbortController para que SIEMPRE termine en .then o .catch.
+function fetchConTimeout(url, opts, timeoutMs = 15000){
+  const controller = new AbortController();
+  const timer = setTimeout(()=> controller.abort(), timeoutMs);
+  return fetch(url, {...(opts||{}), signal: controller.signal}).finally(()=> clearTimeout(timer));
+}
+
 function wireChoiceGroup(id){
   const el = document.getElementById(id);
   el.querySelectorAll('.choice-btn').forEach(btn=>{

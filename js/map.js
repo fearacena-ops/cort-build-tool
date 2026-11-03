@@ -1474,7 +1474,7 @@ function initRegnumMapIfNeeded(){
     };
   }
 
-  fetch('data/map-data.json')
+  fetchConTimeout('data/map-data.json')
     .then(r => r.json())
     .then(data => {
       regnumMapData = data;
@@ -1486,7 +1486,16 @@ function initRegnumMapIfNeeded(){
       zoneToolSetupFn?.();
       depositoToolSetupFn?.();
     })
-    .catch(err => console.error('No se pudo cargar el mapa de datos', err));
+    .catch(err => {
+      console.error('No se pudo cargar el mapa de datos', err);
+      // Antes esto quedaba mudo para quien lo mira -- en una conexión
+      // lenta/cortada el mapa se queda vacío (solo la base de Leaflet, sin
+      // marcadores ni zonas) para siempre y sin ninguna pista de por qué.
+      if(typeof showToast === 'function'){
+        const motivo = err.name === 'AbortError' ? 'la conexión tardó demasiado' : err.message;
+        showToast(`No se pudo cargar la información del mapa (${motivo}). Revisa tu conexión y recarga la página.`);
+      }
+    });
 }
 
 // Las coordenadas de NPCs/misiones vienen en el sistema propio del juego,
