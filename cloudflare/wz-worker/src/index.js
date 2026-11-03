@@ -31,6 +31,16 @@ const MAX_EVENTS = 100;
 // en el mismo minuto -- mejor no escribir nada y reintentar el próximo
 // minuto que ensuciar el historial con eventos falsos.
 const MAX_EVENTS_PER_RUN = 12;
+// Workers KV (plan gratis) permite 1000 escrituras (put) por día -- el
+// cron corre 1440 veces por día (cada minuto), así que escribir SIEMPRE
+// se pasa del límite solo con eso, aunque nunca pase nada. La vuelta: se
+// sigue scrapeando y comparando cada minuto igual (eso no cuesta ninguna
+// escritura), pero solo se escribe en KV cuando de verdad cambió algo, o
+// si ya pasó demasiado tiempo desde la última escritura (para que
+// "generated" no quede desactualizado en una guerra tranquila). Con esto,
+// un día sin ningún cambio real escribe como mucho 288 veces (1440/5),
+// bien lejos del límite incluso sumando capturas reales.
+const HEARTBEAT_SECONDS = 300;
 
 const REALMS = ['Alsius', 'Ignis', 'Syrtis'];
 
@@ -155,9 +165,16 @@ async function runCheck(env) {
     throw new Error(`Demasiados cambios a la vez (${newEvents.length}), probable HTML roto -- no se guarda nada esta corrida`);
   }
 
-  const events_log = [...newEvents, ...((prev && prev.events_log) || [])].slice(0, MAX_EVENTS);
   const serverStatus = await parseServerStatus();
 
+  // Nada cambió (ni fuertes/gemas ni el estado del servidor) y todavía no
+  // se venció el "heartbeat" -- no hace falta gastar una escritura de KV,
+  // lo guardado sigue siendo válido tal cual.
+  const huboCambios = newEvents.length > 0 || !prev || serverStatus !== prev.serverStatus;
+  const heartbeatVencido = !prev || (timestamp - prev.generated) >= HEARTBEAT_SECONDS;
+  if (!huboCambios && !heartbeatVencido) return prev;
+
+  const events_log = [...newEvents, ...((prev && prev.events_log) || [])].slice(0, MAX_EVENTS);
   const status = { forts, gems, events_log, serverStatus, generated: timestamp };
   await env.WZ_KV.put(KV_KEY, JSON.stringify(status));
   return status;
