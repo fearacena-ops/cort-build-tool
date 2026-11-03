@@ -1553,6 +1553,16 @@ const PLACE_TOGGLE_ID = {Ciudad:'map-toggle-ciudad', Pueblo:'map-toggle-pueblo',
 // mobs, etc). Lo que no está acá (offset 0, el default de Leaflet) sigue
 // apilándose como siempre según posición en el mapa.
 const MARKER_Z_OFFSET = {tarea: 2000, npc: 1000};
+// Excepción a lo de arriba, también a pedido: Aldea/Pueblo/Ciudad (no así
+// Fuerte/Castillo/Muralla/Altar, que comparten tipo:'ciudad' pero siguen
+// como estaban) no deberían quedar tapadas por un NPC parado encima --
+// quedan por encima del NPC (1000) pero por debajo de una Tarea del
+// Reino (2000).
+const SETTLEMENT_CATEGORIAS = {Ciudad:true, Pueblo:true, Puerto:true, Aldea:true, Villa:true};
+function markerZOffset(m){
+  if(m.tipo === 'ciudad' && SETTLEMENT_CATEGORIAS[m.categoria]) return 1500;
+  return MARKER_Z_OFFSET[m.tipo] || 0;
+}
 // El carácter de texto "⌂" sale hueco (solo el contorno) en la mayoría de
 // las fuentes — no hay forma de "rellenarlo" solo con color de texto. Un
 // SVG con fill:currentColor sí queda relleno del color que le pongamos.
@@ -1823,7 +1833,7 @@ function buildRegnumMarkers(){
     // marcador a un NPC o una Tarea del Reino que cayera encima suyo. A
     // pedido: NPCs siempre por encima de lugares/el resto, y Tareas del
     // Reino por encima de todo, NPCs incluidos (ver MARKER_Z_OFFSET).
-    const marker = L.marker(latlng, {icon: iconFor(m), draggable: EDIT_MODE, zIndexOffset: MARKER_Z_OFFSET[m.tipo] || 0});
+    const marker = L.marker(latlng, {icon: iconFor(m), draggable: EDIT_MODE, zIndexOffset: markerZOffset(m)});
     // autoPan:false — por defecto Leaflet mueve todo el mapa para hacerle
     // lugar al popup, pero al zoom mínimo (el mapa completo ya cubre el
     // recuadro) no hay a dónde correrlo: lo intenta, maxBounds lo frena de
