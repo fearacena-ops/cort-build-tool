@@ -1,0 +1,16 @@
+name = "cort-wz-worker"
+main = "src/index.js"
+compatibility_date = "2026-11-01"
+
+# Cada minuto -- mismo ritmo que usa CoRT para consultarse a sí mismo, y el
+# único motivo real de este Worker: Vercel (Hobby) no permite cron más
+# seguido que una vez al día, Cloudflare sí.
+[triggers]
+crons = ["* * * * *"]
+
+# Namespace creado a mano con `wrangler kv namespace create WZ_KV` --
+# completar el "id" de abajo con lo que devuelva ese comando antes del
+# primer `wrangler deploy`.
+[[kv_namespaces]]
+binding = "WZ_KV"
+id = "22a88536d6b74fa6a0ed78dd99cf57c9"

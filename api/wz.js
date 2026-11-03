@@ -9,45 +9,30 @@
 // CoRT's internal, private use only"). No es un bug nuestro ni algo que
 // se arregle con headers -- es una política explícita de ellos.
 //
-// En vez de depender de cort.ovh, esta función ahora scrapea DIRECTO la
-// página oficial del juego (championsofregnum.com) -- la misma fuente que
-// usa el script de CoRT (api/bin/warstatus/warstatus.php en su repo) antes
-// de armar su propio JSON. Esa página no tiene ningún bloqueo anti-bot
-// (probado: responde 200 normal incluso con un User-Agent no-navegador).
+// Fuente principal ahora: un Worker propio en Cloudflare (ver
+// cloudflare/wz-worker/) que scrapea championsofregnum.com con un cron
+// cada minuto y guarda forts/gems + el historial de eventos en Workers
+// KV -- corre solo, sin depender de que alguien tenga este sitio abierto
+// (a diferencia de este archivo, que Vercel solo ejecuta cuando alguien
+// pide /api/wz). Ese Worker es el único lado que arma events_log.
 //
-// Alcance reducido a propósito respecto del wstatus.json completo de CoRT:
-// - forts + gems: sí, se arman acá (es lo único que usa esta web, ver
-//   js/wz.js -- pinta los marcadores del mapa y los puntitos de gema).
-// - relics: no se arma (esta web no los muestra en ningún lado).
-// - events_log ("últimos eventos"): no se arma -- esa lista la arma CoRT
-//   comparando cada scrapeo contra el anterior (requiere guardar estado
-//   entre corridas, algo que una función serverless sin storage propio no
-//   puede hacer sola). Si en el futuro hace falta, se puede sumar con un
-//   storage chico aparte.
-//
-// runtime:'edge': se mantiene igual que el proxy anterior, sin problema
-// conocido pegándole a championsofregnum.com desde acá (a diferencia de
-// cort.ovh, que sí bloqueaba hasta el runtime Node de Vercel).
+// Si el Worker no responde (todavía no desplegado, caído, o WZ_WORKER_URL
+// sin configurar), esta función cae a scrapear championsofregnum.com
+// directo, igual que antes de sumar el Worker -- sin events_log, pero sin
+// dejar el mapa/gemas en vivo sin datos por un problema del lado del
+// historial.
 export const config = { runtime: 'edge' };
 
 const SOURCE_URL = 'https://www.championsofregnum.com/index.php?l=1&sec=3';
 
 // Mismo orden que usa el propio HTML del juego para location (fuertes) y
-// para a qué realm pertenece cada bloque de 6 gemas -- ver REALMS_GEMS en
-// warstatus.php, que SÍ importa acá aunque no mandemos relics: ese orden
-// decide qué bloque de 6 <img> leídos corresponde a qué reino tenedor.
+// para a qué realm pertenece cada bloque de 6 gemas.
 const REALMS = ['Alsius', 'Ignis', 'Syrtis'];
-
-function filenameFromSrc(src) {
-  const parts = (src || '').split('/');
-  return parts[parts.length - 1];
-}
 
 // Un solo bloque ".war-status-realm" trae: el nombre del reino (texto
 // "Realm of X") y, en el div "float: right" de al lado, las 6 <img> de
 // gema de ese reino (gem_0.png = nadie la tiene ahí, cualquier otro
-// nombre = sí). Se repite 3 veces en el HTML, una por reino, en orden
-// Alsius/Ignis/Syrtis -- igual que REALMS de arriba.
+// nombre = sí). Se repite 3 veces en el HTML, una por reino.
 function parseGems(html) {
   const realmBlockRe = /<div class="war-status-realm">\s*<div style="float: left;">Realm of (\w+)<\/div>\s*<div style="float: right;">([\s\S]*?)<\/div>\s*<\/div>/g;
   const porRealm = {};
@@ -89,41 +74,59 @@ function parseForts(html) {
   });
 }
 
-export default async function handler() {
-  try {
-    const upstream = await fetch(SOURCE_URL, {
-      headers: {
-        'User-Agent': 'cort-build-tool/1.0 (+https://cort-build-tool.vercel.app; lee el estado de guerra directo de la pagina oficial del juego)',
-      },
-    });
-    if (!upstream.ok) throw new Error(`${SOURCE_URL} respondió ${upstream.status}`);
-    const html = await upstream.text();
+async function fetchFromWorker() {
+  const workerUrl = process.env.WZ_WORKER_URL;
+  if (!workerUrl) throw new Error('WZ_WORKER_URL no configurado');
+  const upstream = await fetch(workerUrl);
+  if (!upstream.ok) throw new Error(`Worker respondió ${upstream.status}`);
+  const data = await upstream.json();
+  if (data.error) throw new Error(data.error);
+  if (!Array.isArray(data.forts) || !Array.isArray(data.gems)) throw new Error('Respuesta del Worker sin forts/gems');
+  return data;
+}
 
-    const forts = parseForts(html);
-    const gems = parseGems(html);
-    if (gems.length !== 18) {
-      throw new Error(`Conteo inesperado de gemas: ${gems.length} (se esperaban 18)`);
-    }
+async function fetchDirecto() {
+  const upstream = await fetch(SOURCE_URL, {
+    headers: {
+      'User-Agent': 'cort-build-tool/1.0 (+https://cort-build-tool.vercel.app; lee el estado de guerra directo de la pagina oficial del juego)',
+    },
+  });
+  if (!upstream.ok) throw new Error(`${SOURCE_URL} respondió ${upstream.status}`);
+  const html = await upstream.text();
 
-    const data = {
-      forts,
-      gems,
-      generated: Math.floor(Date.now() / 1000),
-    };
-
-    return new Response(JSON.stringify(data), {
-      status: 200,
-      headers: {
-        'content-type': 'application/json',
-        'Cache-Control': 's-maxage=60, stale-while-revalidate=30',
-      },
-    });
-  } catch (err) {
-    return new Response(JSON.stringify({
-      error: String((err && err.message) || err),
-    }), {
-      status: 502,
-      headers: { 'content-type': 'application/json' },
-    });
+  const forts = parseForts(html);
+  const gems = parseGems(html);
+  if (gems.length !== 18) {
+    throw new Error(`Conteo inesperado de gemas: ${gems.length} (se esperaban 18)`);
   }
+
+  return { forts, gems, generated: Math.floor(Date.now() / 1000) };
+}
+
+export default async function handler() {
+  let data;
+  let lastErr = null;
+  try {
+    data = await fetchFromWorker();
+  } catch (err) {
+    lastErr = err;
+    try {
+      data = await fetchDirecto();
+    } catch (err2) {
+      return new Response(JSON.stringify({
+        error: `Worker: ${String(lastErr.message || lastErr)} | Directo: ${String(err2.message || err2)}`,
+      }), {
+        status: 502,
+        headers: { 'content-type': 'application/json' },
+      });
+    }
+  }
+
+  return new Response(JSON.stringify(data), {
+    status: 200,
+    headers: {
+      'content-type': 'application/json',
+      'Cache-Control': 's-maxage=60, stale-while-revalidate=30',
+    },
+  });
 }
