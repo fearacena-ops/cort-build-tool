@@ -222,6 +222,21 @@ function wzRenderLog(events) {
     </li>`).join('');
 }
 
+// status: 'online' | 'offline' | null/undefined (no se pudo leer, o
+// todavía estamos en el camino de respaldo que no lo trae -- ver
+// api/wz.js). Se oculta el bloque entero en ese caso, en vez de mostrar
+// un punto en un estado "ni sí ni no".
+function wzRenderServerStatus(status) {
+  const box = document.getElementById('wz-server-status');
+  const dot = document.getElementById('wz-server-dot');
+  if (!box || !dot) return;
+  if (status !== 'online' && status !== 'offline') { box.hidden = true; return; }
+  box.hidden = false;
+  dot.classList.toggle('online', status === 'online');
+  dot.classList.toggle('offline', status === 'offline');
+  dot.title = status === 'online' ? 'En línea' : 'Fuera de línea';
+}
+
 async function wzTick() {
   const errBox = document.getElementById('wz-error');
   try {
@@ -237,6 +252,7 @@ async function wzTick() {
     if (errBox) { errBox.hidden = true; errBox.textContent = ''; }
     wzRenderGems(data.gems);
     wzRenderLog(data.events_log);
+    wzRenderServerStatus(data.serverStatus);
     // Pinta los marcadores de Fuerte/Castillo/Muralla en el mapa real
     // con el dueño actual — función expuesta por map.js; si ese script
     // todavía no corrió (o el usuario nunca abrió el mapa), no existe

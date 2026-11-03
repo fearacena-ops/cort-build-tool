@@ -18,6 +18,11 @@
 // deja afuera de esta primera versión).
 
 const SOURCE_URL = 'https://www.championsofregnum.com/index.php?l=1&sec=3';
+// El cuadro "Server Status" (RA online/offline) no vive en la misma
+// página que el estado de guerra -- esta es otra sección del mismo sitio
+// que sí lo trae (probablemente solo una variante de idioma de la home,
+// no tiene nada que ver con "sec=3" en sí, pero es estable).
+const SERVER_STATUS_URL = 'https://www.championsofregnum.com/index.php?l=1&sec=4';
 const KV_KEY = 'wz_status';
 const MAX_EVENTS = 100;
 // Mismo resguardo que trae el script original de CoRT: si de repente
@@ -103,6 +108,25 @@ function gemEvents(gems, oldGems, timestamp) {
   return events;
 }
 
+// 'online' | 'offline' | null (null si no se pudo leer -- no hace fallar
+// toda la corrida por esto, forts/gems son lo importante).
+async function parseServerStatus() {
+  try {
+    const upstream = await fetch(SERVER_STATUS_URL, {
+      headers: {
+        'User-Agent': 'cort-build-tool/1.0 (+https://cort-build-tool.vercel.app; lee el estado del servidor directo de la pagina oficial del juego)',
+      },
+    });
+    if (!upstream.ok) return null;
+    const html = await upstream.text();
+    const m = html.match(/<div class="server-status-indicator">\s*<img src="[^"]*(circle-on|circle-off)\.png"[^>]*>\s*<\/div>\s*<div class="server-status-caption">RA\b/);
+    if (!m) return null;
+    return m[1] === 'circle-on' ? 'online' : 'offline';
+  } catch (err) {
+    return null;
+  }
+}
+
 async function runCheck(env) {
   const upstream = await fetch(SOURCE_URL, {
     headers: {
@@ -132,8 +156,9 @@ async function runCheck(env) {
   }
 
   const events_log = [...newEvents, ...((prev && prev.events_log) || [])].slice(0, MAX_EVENTS);
+  const serverStatus = await parseServerStatus();
 
-  const status = { forts, gems, events_log, generated: timestamp };
+  const status = { forts, gems, events_log, serverStatus, generated: timestamp };
   await env.WZ_KV.put(KV_KEY, JSON.stringify(status));
   return status;
 }
